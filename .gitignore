@@ -5,10 +5,11 @@
 *.raw
 *.tar.gz
 *.box
-*.kdev4*
+.kdev4/
 xbps-cache
 xbps-cachedir*
 stamps*
-*pro
+includedir/lite
+includedir/pro
 !dracut/*/*.sh
 !packer/scripts/*.sh
