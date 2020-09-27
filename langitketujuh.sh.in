@@ -1,0 +1,74 @@
+#!/usr/bin/env bash
+
+NAME=$(basename "$0")
+VERSION="1.1"
+LICENSE="GNU GPLv3+"
+
+usage()
+{
+cat <<- EOF
+
+license     : $LICENSE
+usage       : sudo sh $NAME [options]
+options     : lite      # build lite version
+              pro       # build pro version
+
+EOF
+}
+
+BASE="base-system grub-i386-efi grub-x86_64-efi dialog cryptsetup lvm2 mdadm dhcpcd wpa_supplicant git nodejs yarn ytop tlp linux-firmware-network dkms bash-completion vim"
+DRIVER="xorg xf86-input-evdev xf86-input-joystick xf86-input-libinput xf86-input-mtrack xf86-input-synaptics xf86-input-vmmouse xf86-input-wacom xorg-minimal xorg-input-drivers xorg-video-drivers mesa-ati-dri mesa-intel-dri mesa-nouveau-dri"
+UTILS="setxkbmap xauth xrandr libvdpau-va-gl vdpauinfo font-misc-misc terminus-font dejavu-fonts-ttf xorg-fonts alsa-plugins-pulseaudio pulsemixer pipewire gstreamer1-pipewire alsa-utils paprefs inetutils usbutils wget curl ntp NetworkManager"
+CODEC="gst-plugins-base1 gst-plugins-good1 gst-plugins-ugly1 gst-plugins-bad1 gst-libav ffmpeg faac faad2 flac jasper lame libdca libmpeg2 libmad libtheora libvorbis libXv wavpack x264 xvidcore gstreamer-vaapi sox pamixer youtube-dl"
+DOCS="void-docs"
+ARCHIVER="atool p7zip zip unzip lzop lzip dtrx file-roller liblz4 lz4"
+MOUNT="tuxc topgrade exfat-utils fuse-exfat gvfs-afc gvfs-mtp gvfs-smb udisks2 ntfs-3g elogind dbus-elogind dbus-elogind-x11 gnome-keyring xdg-utils xdg-desktop-portal xdg-desktop-portal-gtk xdg-desktop-portal-kde xdg-user-dirs xdg-user-dirs-gtk libappindicator AppStream"
+COMPILER="automake binutils bison fakeroot flex gcc libtool m4 make patch pkg-config guile qemu-user-static"
+PRINTER="cups cups-filters gutenprint system-config-printer hplip epson-inkjet-printer-escpr"
+KDE5="sddm kde5 kdesu kde5-baseapps kaccounts-integration kaccounts-providers konsole5 kgpg upower dolphin dolphin-plugins kimageformats plasma-browser-integration plasma-nm plasma-pa colord-kde kio-extras kio-gdrive kcm-wacomtablet kdegraphics-thumbnailers ffmpegthumbnailer ffmpegthumbs octoxbps kwrite falkon kdeconnect print-manager"
+KDE5_APPS="spectacle ark k3b kwalletmanager filelight kcalc kget ktorrent qgit okular ssr kcolorchooser kmediaplayer kaffeine elisa kolourpaint kmail kontact akregator gwenview"
+DESIGN="inkscape gimp gmic-gimp krita kdenlive fontforge synfigstudio blender godot scribus obs"
+FONTS="google-fonts-ttf font-awesome5"
+OFFICE="libreoffice-i18n-en-US libreoffice-fonts libreoffice-base libreoffice-impress libreoffice-draw libreoffice-math libreoffice-writer libreoffice-calc libreoffice-postgresql libreoffice-xtensions libreoffice-gnome libreoffice-kde"
+
+for arg in "$@"; do
+    case $arg in
+        lite)
+            xbps-install -S
+            xbps-remove -v -Oo
+            sh mklive.sh \
+            -a x86_64-musl \
+            -c /var/cache/xbps/ \
+            -I includedir/lite/ \
+            -p "$BASE $DRIVER $UTILS $CODEC $DOCS $ARCHIVER $MOUNT $COMPILER $KDE5 $KDE5_APPS"
+            echo "\033[1;33mFinish\033[0m"
+            ;;
+        pro)
+            xbps-install -S
+            xbps-remove -v -Oo
+            sh mklive.sh \
+            -a x86_64-musl \
+            -c /var/cache/xbps/ \
+            -I includedir/pro/ \
+            -p "$BASE $DRIVER $UTILS $CODEC $DOCS $ARCHIVER $MOUNT $COMPILER $KDE5 $KDE5_APPS $DESIGN $FONTS $OFFICE"
+            echo "\033[1;33mFinish\033[0m"
+            ;;
+        all-deps)
+            xbps-install -S
+            xbps-remove -v -Oo
+            xbps-install -D $BASE $DRIVER $UTILS $CODEC $DOCS $ARCHIVER $MOUNT $COMPILER $KDE5 $KDE5_APPS $DESIGN $FONTS $OFFICE
+            echo "\033[1;33mFinish\033[0m"
+            ;;
+        help)
+            usage
+            exit 0
+            ;;
+        version)
+            echo "\033[1;33m $NAME\033[0m version $VERSION"
+            exit 0  
+            ;;
+        *)
+            printf "\noption does not exist: %s\n\n" "$arg"
+            exit 2
+    esac
+done

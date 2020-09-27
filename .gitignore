@@ -1,0 +1,14 @@
+*.sh
+*.img
+*.xz
+*.iso
+*.raw
+*.tar.gz
+*.box
+*.kdev4*
+xbps-cache
+xbps-cachedir*
+stamps*
+*pro
+!dracut/*/*.sh
+!packer/scripts/*.sh

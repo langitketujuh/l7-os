@@ -1,0 +1,3 @@
+[submodule "lite"]
+	path = lite
+	url = git@gitlab.com:langitketujuh/lite.git
