@@ -9,7 +9,5 @@
 xbps-cache
 xbps-cachedir*
 stamps*
-includedir/lite
-includedir/pro
 !dracut/*/*.sh
 !packer/scripts/*.sh
