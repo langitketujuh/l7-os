@@ -18,7 +18,7 @@
     
 #### Sub module lite version
 
-    $ git submodule add git@gitlab.com:langitketujuh/lite.git lite/
+    $ git submodule add git@gitlab.com:langitketujuh/lite.git include/lite/
     
 #### Usage
 
