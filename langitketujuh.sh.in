@@ -56,7 +56,7 @@ for arg in "$@"; do
         all-deps)
             xbps-install -S
             xbps-remove -v -Oo
-            xbps-install -D $BASE $DRIVER $UTILS $CODEC $DOCS $ARCHIVER $MOUNT $COMPILER $KDE5 $KDE5_APPS $DESIGN $FONTS $OFFICE
+            xbps-install -D -y $BASE $DRIVER $UTILS $CODEC $DOCS $ARCHIVER $MOUNT $COMPILER $KDE5 $KDE5_APPS $DESIGN $FONTS $OFFICE
             echo "\033[1;33mFinish\033[0m"
             ;;
         help)
