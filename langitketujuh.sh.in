@@ -17,6 +17,7 @@ options     : lite      # build lite version
 EOF
 }
 
+PWD=$(pwd)
 BASE="base-system grub-i386-efi grub-x86_64-efi dialog cryptsetup lvm2 mdadm dhcpcd wpa_supplicant tlp linux-firmware-network dkms bash-completion vim testdisk git nodejs yarn ytop "
 DRIVER="xorg xf86-input-evdev xf86-input-joystick xf86-input-libinput xf86-input-mtrack xf86-input-synaptics xf86-input-vmmouse xf86-input-wacom xorg-minimal xorg-input-drivers xorg-video-drivers mesa-ati-dri mesa-intel-dri mesa-nouveau-dri"
 UTILS="setxkbmap xauth xrandr libvdpau-va-gl vdpauinfo font-misc-misc terminus-font dejavu-fonts-ttf xorg-fonts alsa-plugins-pulseaudio pulsemixer pipewire gstreamer1-pipewire alsa-utils paprefs inetutils usbutils wget curl ntp NetworkManager"
@@ -34,30 +35,44 @@ OFFICE="libreoffice-i18n-en-US libreoffice-fonts libreoffice-base libreoffice-im
 
 for arg in "$@"; do
     case $arg in
-        lite)
-            xbps-install -S
-            xbps-remove -v -Oo
+        lite-musl)
+            xbps-install -S -c $PWD/xbps-cachedir-x86_64-musl
+            xbps-remove -v -Oo -c $PWD/xbps-cachedir-x86_64-musl
             sh mklive.sh \
             -a x86_64-musl \
-            -c /var/cache/xbps/ \
-            -I includedir/lite/ \
+            -c $PWD/xbps-cachedir-x86_64-musl \
+            -I $PWD/includedir/lite/musl \
             -p "$BASE $DRIVER $UTILS $CODEC $DOCS $ARCHIVER $MOUNT $COMPILER $KDE5 $KDE5_APPS"
             echo "\033[1;33mFinish\033[0m"
             ;;
-        pro)
-            xbps-install -S
-            xbps-remove -v -Oo
+        lite-glibc)
+            xbps-install -S -c $PWD/xbps-cachedir-x86_64
+            xbps-remove -v -Oo -c $PWD/xbps-cachedir-x86_64
+            sh mklive.sh \
+            -a x86_64 \
+            -c $PWD/xbps-cachedir-x86_64 \
+            -I $PWD/includedir/lite/glibc \
+            -p "$BASE $DRIVER $UTILS $CODEC $DOCS $ARCHIVER $MOUNT $COMPILER $KDE5 $KDE5_APPS"
+            echo "\033[1;33mFinish\033[0m"
+            ;;
+        pro-musl)
+            xbps-install -S -c $PWD/xbps-cachedir-x86_64-musl
+            xbps-remove -v -Oo -c $PWD/xbps-cachedir-x86_64-musl
             sh mklive.sh \
             -a x86_64-musl \
-            -c /var/cache/xbps/ \
-            -I includedir/pro/ \
+            -c $PWD/xbps-cachedir-x86_64-musl \
+            -I $PWD/includedir/pro/musl \
             -p "$BASE $DRIVER $UTILS $CODEC $DOCS $ARCHIVER $MOUNT $COMPILER $KDE5 $KDE5_APPS $DESIGN $FONTS $OFFICE"
             echo "\033[1;33mFinish\033[0m"
             ;;
-        all-deps)
-            xbps-install -S
-            xbps-remove -v -Oo
-            xbps-install -D -y $BASE $DRIVER $UTILS $CODEC $DOCS $ARCHIVER $MOUNT $COMPILER $KDE5 $KDE5_APPS $DESIGN $FONTS $OFFICE
+        pro-glibc)
+            xbps-install -S -c $PWD/xbps-cachedir-x86_64
+            xbps-remove -v -Oo -c $PWD/xbps-cachedir-x86_64
+            sh mklive.sh \
+            -a x86_64 \
+            -c $PWD/xbps-cachedir-x86_64 \
+            -I $PWD/includedir/pro/glibc \
+            -p "$BASE $DRIVER $UTILS $CODEC $DOCS $ARCHIVER $MOUNT $COMPILER $KDE5 $KDE5_APPS $DESIGN $FONTS $OFFICE"
             echo "\033[1;33mFinish\033[0m"
             ;;
         help)
