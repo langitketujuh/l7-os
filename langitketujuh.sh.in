@@ -31,7 +31,7 @@ COMPILER="automake binutils bison fakeroot flex gcc libtool m4 make patch pkg-co
 PRINTER="cups cups-filters gutenprint system-config-printer hplip epson-inkjet-printer-escpr"
 KDE5="sddm kde5 kdesu kde5-baseapps kaccounts-integration kaccounts-providers konsole5 kgpg upower dolphin dolphin-plugins kimageformats plasma-browser-integration plasma-nm plasma-pa colord-kde kio-extras kio-gdrive kcm-wacomtablet kdegraphics-thumbnailers ffmpegthumbnailer ffmpegthumbs octoxbps falkon kdeconnect print-manager"
 KDE5_APPS="spectacle ark k3b kwalletmanager filelight kcalc kget okular ssr kcolorchooser kmediaplayer kaffeine elisa kolourpaint kmail kontact akregator gwenview"
-DESIGN="inkscape gimp gmic-gimp krita kdenlive fontforge synfigstudio blender godot scribus darktable obs"
+DESIGN="inkscape gimp gmic-gimp krita kdenlive fontforge synfigstudio blender godot scribus obs"
 FONTS="google-fonts-ttf font-awesome5"
 OFFICE="libreoffice-i18n-en-US libreoffice-fonts libreoffice-base libreoffice-impress libreoffice-draw libreoffice-math libreoffice-writer libreoffice-calc libreoffice-postgresql libreoffice-xtensions libreoffice-gnome libreoffice-kde"
 
