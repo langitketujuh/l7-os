@@ -3,13 +3,9 @@
 #### Build Dependencies
 
  * make
-
-#### Dependencies
-
- * Compression type for the initramfs image
-   * liblz4 (for lz4, xz) (default)
- * xbps>=0.45
- * qemu-user-static binaries (for mkrootfs)
+ * liblz4
+ * xbps
+ * qemu-user-static
 
 
 #### Clone repository
@@ -35,8 +31,6 @@ and then see the usage output:
 
 Build a native live image lite edition':
 
-    # sudo sh langitketujuh.sh lite
+    # sudo sh langitketujuh.sh lite-musl
     
-Build a native live image pro edition':
-
-    # sudo sh langitketujuh.sh pro
+    # sudo sh langitketujuh.sh lite-glibc
