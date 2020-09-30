@@ -6,6 +6,7 @@
 *.tar.gz
 *.box
 *.kdev4
+*tmp.*
 xbps-cache
 xbps-cachedir*
 stamps*
