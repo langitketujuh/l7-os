@@ -25,11 +25,7 @@ and then see the usage output:
 Build a native live image musl edition:
 
     $ sudo sh langitketujuh.sh lite-musl
-
-    $ sudo sh langitketujuh.sh pro-musl
     
 Build a native live image glibc edition (not recommended):
 
     $ sudo sh langitketujuh.sh lite-glibc
-
-    $ sudo sh langitketujuh.sh pro-glibc
