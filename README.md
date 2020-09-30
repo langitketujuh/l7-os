@@ -16,19 +16,19 @@
 
     $ make
 
-    and then see the usage output:
+and then see the usage output:
 
     $ sudo sh langitketujuh.sh help
 
 #### Examples Build
 
-    Build a native live image musl edition:
+Build a native live image musl edition:
 
     $ sudo sh langitketujuh.sh lite-musl
 
     $ sudo sh langitketujuh.sh pro-musl
     
-    Build a native live image glibc edition (not recommended):
+Build a native live image glibc edition (not recommended):
 
     $ sudo sh langitketujuh.sh lite-glibc
 
