@@ -1,36 +1,35 @@
 ## The LangitKetujuh Linux live maker and installer
 
-#### Build Dependencies
-
- * make
- * liblz4
- * xbps
- * qemu-user-static
-
-
 #### Clone repository
 
-    $ git clone git@gitlab.com:langitketujuh/os.git
+    `$ git clone git@gitlab.com:langitketujuh/os.git`
     
 #### Sub module lite version
 
-    $ git submodule add git@gitlab.com:langitketujuh/lite.git includedir/lite/
+    `$ git submodule add git@gitlab.com:langitketujuh/lite.git includedir/lite/`
     
+#### Install Dependencies
+
+    `$ xbps-install -S make liblz4 xbps qemu-user-static`
+
 #### Usage
 
-Type
+    `$ make`
 
-    $ make
+    and then see the usage output:
 
-and then see the usage output:
+    `$ sudo sh langitketujuh.sh help`
 
-    $ sudo sh langitketujuh.sh help
+#### Examples Build
 
+    Build a native live image musl edition:
 
-#### Examples
+    `$ sudo sh langitketujuh.sh lite-musl
 
-Build a native live image lite edition':
-
-    # sudo sh langitketujuh.sh lite-musl
+    `$ sudo sh langitketujuh.sh pro-musl`
     
-    # sudo sh langitketujuh.sh lite-glibc
+    Build a native live image glibc edition (not recommended):
+
+    `$ sudo sh langitketujuh.sh lite-glibc`
+
+    `$ sudo sh langitketujuh.sh pro-glibc`
