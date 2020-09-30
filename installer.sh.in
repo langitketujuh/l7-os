@@ -1321,6 +1321,9 @@ ${BOLD}Do you want to continue?${RESET}" 20 80 || return
             # enable the sudoers entry for members of group wheel
             sed -i $TARGETDIR/etc/sudoers \
                 -e "s;#.*%wheel ALL=(ALL) ALL;%wheel ALL=(ALL) ALL;"
+            # enable no password the sudoers entry for members of group wheel
+            sed -i $TARGETDIR/etc/sudoers \
+                -e "s;#.*%wheel ALL=(ALL) NOPASSWD: ALL;%wheel ALL=(ALL) NOPASSWD: ALL;"
         fi
         unset USERLOGIN
     fi
