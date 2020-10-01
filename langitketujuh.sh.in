@@ -20,7 +20,7 @@ EOF
 }
 
 PWD=$(pwd)
-BASE="base-system grub-i386-efi grub-x86_64-efi dialog cryptsetup lvm2 mdadm dhcpcd wpa_supplicant tlp linux-firmware-network dkms bash-completion vim"
+BASE="base-system grub-i386-efi grub-x86_64-efi dialog cryptsetup lvm2 mdadm dhcpcd wpa_supplicant tlp linux-firmware-network dkms bash-completion vim vsv"
 DRIVER="xorg xf86-input-evdev xf86-input-joystick xf86-input-libinput xf86-input-mtrack xf86-input-synaptics xf86-input-vmmouse xf86-input-wacom xorg-minimal xorg-input-drivers xorg-video-drivers mesa-ati-dri mesa-intel-dri mesa-nouveau-dri"
 UTILS="setxkbmap xauth xrandr libvdpau-va-gl vdpauinfo font-misc-misc terminus-font dejavu-fonts-ttf xorg-fonts alsa-plugins-pulseaudio pulsemixer pipewire gstreamer1-pipewire alsa-utils paprefs inetutils usbutils wget curl ntp testdisk git nodejs yarn ytop inxi xtools NetworkManager"
 CODEC="gst-plugins-base1 gst-plugins-good1 gst-plugins-ugly1 gst-plugins-bad1 gst-libav ffmpeg faac faad2 flac jasper lame libdca libmpeg2 libmad libtheora libvorbis libXv wavpack x264 xvidcore gstreamer-vaapi sox pamixer youtube-dl"
@@ -31,7 +31,8 @@ COMPILER="automake binutils bison fakeroot flex gcc libtool m4 make patch pkg-co
 PRINTER="cups cups-filters gutenprint system-config-printer hplip epson-inkjet-printer-escpr"
 KDE5="sddm kde5 kdesu kde5-baseapps kaccounts-integration kaccounts-providers konsole5 kgpg upower dolphin dolphin-plugins kimageformats plasma-browser-integration plasma-nm plasma-pa colord-kde kio-extras kio-gdrive kcm-wacomtablet kdegraphics-thumbnailers ffmpegthumbnailer ffmpegthumbs octoxbps falkon kdeconnect print-manager"
 KDE5_APPS="spectacle ark k3b kwalletmanager filelight kcalc kget okular ssr kcolorchooser kmediaplayer kaffeine elisa kolourpaint kmail kontact akregator gwenview"
-DESIGN="inkscape gimp gmic-gimp krita kdenlive fontforge synfigstudio blender godot scribus obs"
+DESIGN_LITE="inkscape gimp"
+DESIGN_PRO="inkscape gimp gmic-gimp krita kdenlive fontforge synfigstudio blender godot scribus obs"
 FONTS="google-fonts-ttf font-awesome5"
 OFFICE="libreoffice libreoffice-kde"
 
@@ -44,7 +45,7 @@ for arg in "$@"; do
             -a x86_64-musl \
             -c $PWD/xbps-cachedir-x86_64-musl \
             -I $PWD/includedir/lite/musl \
-            -p "$BASE $DRIVER $UTILS $CODEC $DOCS $ARCHIVER $MOUNT $COMPILER $KDE5 $KDE5_APPS"
+            -p "$BASE $DRIVER $UTILS $CODEC $DOCS $ARCHIVER $MOUNT $COMPILER $KDE5 $KDE5_APPS $DESIGN_LITE $OFFICE"
             echo "\033[1;33mFinish\033[0m"
             ;;
         lite-glibc)
@@ -54,7 +55,7 @@ for arg in "$@"; do
             -a x86_64 \
             -c $PWD/xbps-cachedir-x86_64 \
             -I $PWD/includedir/lite/glibc \
-            -p "$BASE $DRIVER $UTILS $CODEC $DOCS $ARCHIVER $MOUNT $COMPILER $KDE5 $KDE5_APPS"
+            -p "$BASE $DRIVER $UTILS $CODEC $DOCS $ARCHIVER $MOUNT $COMPILER $KDE5 $KDE5_APPS $DESIGN_LITE $OFFICE"
             echo "\033[1;33mFinish\033[0m"
             ;;
         pro-musl)
@@ -64,7 +65,7 @@ for arg in "$@"; do
             -a x86_64-musl \
             -c $PWD/xbps-cachedir-x86_64-musl \
             -I $PWD/includedir/pro/musl \
-            -p "$BASE $DRIVER $UTILS $CODEC $DOCS $ARCHIVER $MOUNT $COMPILER $KDE5 $KDE5_APPS $DESIGN $FONTS $OFFICE"
+            -p "$BASE $DRIVER $UTILS $CODEC $DOCS $ARCHIVER $MOUNT $COMPILER $KDE5 $KDE5_APPS $DESIGN_PRO $FONTS $OFFICE"
             echo "\033[1;33mFinish\033[0m"
             ;;
         pro-glibc)
@@ -74,7 +75,7 @@ for arg in "$@"; do
             -a x86_64 \
             -c $PWD/xbps-cachedir-x86_64 \
             -I $PWD/includedir/pro/glibc \
-            -p "$BASE $DRIVER $UTILS $CODEC $DOCS $ARCHIVER $MOUNT $COMPILER $KDE5 $KDE5_APPS $DESIGN $FONTS $OFFICE"
+            -p "$BASE $DRIVER $UTILS $CODEC $DOCS $ARCHIVER $MOUNT $COMPILER $KDE5 $KDE5_APPS $DESIGN_PRO $FONTS $OFFICE"
             echo "\033[1;33mFinish\033[0m"
             ;;
         help)
