@@ -21,21 +21,25 @@ EOF
 
 update_musl()
 {
+export XBPS_ARCH=x86_64-musl
 xbps-install -S -c $PWD/xbps-cachedir-x86_64-musl
 }
 
 update_glibc()
 {
+export XBPS_ARCH=x86_64
 xbps-install -S -c $PWD/xbps-cachedir-x86_64
 }
 
 remove_musl()
 {
+export XBPS_ARCH=x86_64-musl
 xbps-remove -v -Oo -c $PWD/xbps-cachedir-x86_64-musl
 }
 
 remove_glibc()
 {
+export XBPS_ARCH=x86_64
 xbps-remove -v -Oo -c $PWD/xbps-cachedir-x86_64
 }
 
