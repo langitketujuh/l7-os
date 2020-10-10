@@ -3,6 +3,7 @@
 NAME=$(basename "$0")
 VERSION="1.1"
 LICENSE="GNU GPLv3+"
+TITLE="LangitKetujuh"
 
 usage()
 {
@@ -72,6 +73,7 @@ for arg in "$@"; do
             -a x86_64-musl \
             -c $PWD/xbps-cachedir-x86_64-musl \
             -I $PWD/includedir/lite/musl \
+            -T $TITLE \
             -p "$GRUB $BASE $NETWORK $FIRMWARE $DRIVER $UTILS $CODEC $ARCHIVER $MOUNT $COMPILER $KDE5 $KDE5_APPS $DESIGN $FONTS $OFFICE"
             echo "\033[1;33mFinish\033[0m"
             ;;
@@ -82,6 +84,7 @@ for arg in "$@"; do
             -a x86_64 \
             -c $PWD/xbps-cachedir-x86_64 \
             -I $PWD/includedir/lite/glibc \
+            -T $TITLE \
             -p "$GRUB $BASE $NETWORK $FIRMWARE $DRIVER $UTILS $CODEC $ARCHIVER $MOUNT $COMPILER $KDE5 $KDE5_APPS $DESIGN $FONTS $OFFICE"
             echo "\033[1;33mFinish\033[0m"
             ;;
@@ -92,6 +95,7 @@ for arg in "$@"; do
             -a x86_64-musl \
             -c $PWD/xbps-cachedir-x86_64-musl \
             -I $PWD/includedir/pro/musl \
+            -T $TITLE \
             -p "$GRUB $BASE $NETWORK $FIRMWARE $DRIVER $UTILS $CODEC $ARCHIVER $MOUNT $COMPILER $KDE5 $KDE5_APPS $DESIGN $FONTS $OFFICE $DESIGN_EXTRA $FONTS_EXTRA"
             echo "\033[1;33mFinish\033[0m"
             ;;
@@ -102,6 +106,7 @@ for arg in "$@"; do
             -a x86_64 \
             -c $PWD/xbps-cachedir-x86_64 \
             -I $PWD/includedir/pro/glibc \
+            -T $TITLE \
             -p "$GRUB $BASE $NETWORK $FIRMWARE $DRIVER $UTILS $CODEC $ARCHIVER $MOUNT $COMPILER $KDE5 $KDE5_APPS $DESIGN $FONTS $OFFICE $DESIGN_EXTRA $FONTS_EXTRA"
             echo "\033[1;33mFinish\033[0m"
             ;;
