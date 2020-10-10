@@ -8,7 +8,7 @@ TITLE="LangitKetujuh"
 usage()
 {
 cat <<- EOF
-
+builder     : $TITLE Installer
 license     : $LICENSE
 usage       : sudo sh $NAME [options]
 
@@ -16,6 +16,8 @@ options     : lite-musl     # build musl lite version
               pro-musl      # build musl pro version
               lite-glibc    # build glibc lite version
               pro-glibc     # build glibc pro version
+
+example     : sudo sh $NAME lite-musl
 
 EOF
 }
