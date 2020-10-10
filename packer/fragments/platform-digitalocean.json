@@ -2,7 +2,7 @@
   "post-processors": [
     {
       "image_description": "Packer import {{timestamp}}",
-      "image_name": "void-linux-{{user `release`}}",
+      "image_name": "langitketujuh-linux-{{user `release`}}",
       "image_regions": "{{user `image_regions`}}",
       "image_tags": [
         "custom",

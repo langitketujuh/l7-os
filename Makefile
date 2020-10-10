@@ -22,11 +22,11 @@ CLOUD_IMGS=$(shell echo $(T_CLOUD_IMGS))
 PXE_ARCHS=$(shell echo $(T_PXE_ARCHS))
 MASTERDIRS=$(shell echo $(T_MASTERDIRS))
 
-ALL_ROOTFS=$(foreach arch,$(ARCHS),void-$(arch)-ROOTFS-$(DATECODE).tar.xz)
-ALL_PLATFORMFS=$(foreach platform,$(PLATFORMS),void-$(platform)-PLATFORMFS-$(DATECODE).tar.xz)
-ALL_SBC_IMAGES=$(foreach platform,$(SBC_IMGS),void-$(platform)-$(DATECODE).img.xz)
-ALL_CLOUD_IMAGES=$(foreach cloud,$(CLOUD_IMGS),void-$(cloud)-$(DATECODE).tar.gz)
-ALL_PXE_ARCHS=$(foreach arch,$(PXE_ARCHS),void-$(arch)-NETBOOT-$(DATECODE).tar.gz)
+ALL_ROOTFS=$(foreach arch,$(ARCHS),langitketujuh-$(arch)-ROOTFS-$(DATECODE).tar.xz)
+ALL_PLATFORMFS=$(foreach platform,$(PLATFORMS),langitketujuh-$(platform)-PLATFORMFS-$(DATECODE).tar.xz)
+ALL_SBC_IMAGES=$(foreach platform,$(SBC_IMGS),langitketujuh-$(platform)-$(DATECODE).img.xz)
+ALL_CLOUD_IMAGES=$(foreach cloud,$(CLOUD_IMGS),langitketujuh-$(cloud)-$(DATECODE).tar.gz)
+ALL_PXE_ARCHS=$(foreach arch,$(PXE_ARCHS),langitketujuh-$(arch)-NETBOOT-$(DATECODE).tar.gz)
 ALL_MASTERDIRS=$(foreach arch,$(MASTERDIRS), masterdir-$(arch))
 
 SUDO := sudo
@@ -47,14 +47,14 @@ distdir-$(DATECODE):
 	mkdir -p distdir-$(DATECODE)
 
 dist: distdir-$(DATECODE)
-	mv void*$(DATECODE)* distdir-$(DATECODE)/
+	mv langitketujuh*$(DATECODE)* distdir-$(DATECODE)/
 
 rootfs-all: $(ALL_ROOTFS)
 
 rootfs-all-print:
 	@echo $(ALL_ROOTFS) | sed "s: :\n:g"
 
-void-%-ROOTFS-$(DATECODE).tar.xz: $(SCRIPTS)
+langitketujuh-%-ROOTFS-$(DATECODE).tar.xz: $(SCRIPTS)
 	$(SUDO) ./mkrootfs.sh $(XBPS_REPOSITORY) -x $(COMPRESSOR_THREADS) $*
 
 platformfs-all: $(ALL_PLATFORMFS)
@@ -62,8 +62,8 @@ platformfs-all: $(ALL_PLATFORMFS)
 platformfs-all-print:
 	@echo $(ALL_PLATFORMFS) | sed "s: :\n:g"
 
-void-%-PLATFORMFS-$(DATECODE).tar.xz: $(SCRIPTS)
-	$(SUDO) ./mkplatformfs.sh $(XBPS_REPOSITORY) -x $(COMPRESSOR_THREADS) $* void-$(shell ./lib.sh platform2arch $*)-ROOTFS-$(DATECODE).tar.xz
+langitketujuh-%-PLATFORMFS-$(DATECODE).tar.xz: $(SCRIPTS)
+	$(SUDO) ./mkplatformfs.sh $(XBPS_REPOSITORY) -x $(COMPRESSOR_THREADS) $* langitketujuh-$(shell ./lib.sh platform2arch $*)-ROOTFS-$(DATECODE).tar.xz
 
 images-all: platformfs-all images-all-sbc images-all-cloud
 
@@ -77,21 +77,21 @@ images-all-cloud: $(ALL_CLOUD_IMAGES)
 images-all-print:
 	@echo $(ALL_SBC_IMAGES) $(ALL_CLOUD_IMAGES) | sed "s: :\n:g"
 
-void-%-$(DATECODE).img.xz: void-%-PLATFORMFS-$(DATECODE).tar.xz
-	$(SUDO) ./mkimage.sh -x $(COMPRESSOR_THREADS) void-$*-PLATFORMFS-$(DATECODE).tar.xz
+langitketujuh-%-$(DATECODE).img.xz: langitketujuh-%-PLATFORMFS-$(DATECODE).tar.xz
+	$(SUDO) ./mkimage.sh -x $(COMPRESSOR_THREADS) langitketujuh-$*-PLATFORMFS-$(DATECODE).tar.xz
 
 # Some of the images MUST be compressed with gzip rather than xz, this
 # rule services those images.
-void-%-$(DATECODE).tar.gz: void-%-PLATFORMFS-$(DATECODE).tar.xz
-	$(SUDO) ./mkimage.sh -x $(COMPRESSOR_THREADS) void-$*-PLATFORMFS-$(DATECODE).tar.xz
+langitketujuh-%-$(DATECODE).tar.gz: langitketujuh-%-PLATFORMFS-$(DATECODE).tar.xz
+	$(SUDO) ./mkimage.sh -x $(COMPRESSOR_THREADS) langitketujuh-$*-PLATFORMFS-$(DATECODE).tar.xz
 
 pxe-all: $(ALL_PXE_ARCHS)
 
 pxe-all-print:
 	@echo $(ALL_PXE_ARCHS) | sed "s: :\n:g"
 
-void-%-NETBOOT-$(DATECODE).tar.gz: $(SCRIPTS) void-%-ROOTFS-$(DATECODE).tar.xz
-	$(SUDO) ./mknet.sh void-$*-ROOTFS-$(DATECODE).tar.xz
+langitketujuh-%-NETBOOT-$(DATECODE).tar.gz: $(SCRIPTS) langitketujuh-%-ROOTFS-$(DATECODE).tar.xz
+	$(SUDO) ./mknet.sh langitketujuh-$*-ROOTFS-$(DATECODE).tar.xz
 
 masterdir-all-print:
 	@echo $(ALL_MASTERDIRS) | sed "s: :\n:g"
@@ -99,6 +99,6 @@ masterdir-all-print:
 masterdir-all: $(ALL_MASTERDIRS)
 
 masterdir-%:
-	$(SUDO) docker build --build-arg REPOSITORY=$(XBPS_REPOSITORY) --build-arg ARCH=$* -t voidlinux/masterdir-$*:$(DATECODE) .
+	$(SUDO) docker build --build-arg REPOSITORY=$(XBPS_REPOSITORY) --build-arg ARCH=$* -t langitketujuhlinux/masterdir-$*:$(DATECODE) .
 
 .PHONY: clean dist rootfs-all-print rootfs-all platformfs-all-print platformfs-all pxe-all-print pxe-all masterdir-all-print masterdir-all masterdir-push-all

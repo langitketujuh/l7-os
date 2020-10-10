@@ -5,7 +5,7 @@
         "type": "vagrant"
       },
       {
-        "box_tag": "voidlinux/glibc64",
+        "box_tag": "langitketujuh/glibc64",
         "type": "vagrant-cloud",
         "version": "{{user `version`}}"
       }
