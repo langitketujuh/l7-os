@@ -1354,7 +1354,7 @@ menu_source() {
 
     DIALOG --title " Select installation source " \
         --menu "$MENULABEL" 8 70 0 \
-        "Local" "Packages from ISO image" \
+        "Local" "Packages from ISO image (recommended)" \
         "Network" "Base system only, downloaded from official reposity"
     case "$(cat $ANSWER)" in
         "Local") src="local";;
