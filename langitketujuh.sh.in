@@ -55,7 +55,8 @@ DRIVER="xorg xf86-input-evdev xf86-input-joystick xf86-input-libinput xf86-input
 UTILS="setxkbmap xauth xrandr libvdpau-va-gl vdpauinfo font-misc-misc alsa-plugins-pulseaudio pulsemixer pipewire gstreamer1-pipewire alsa-utils paprefs inetutils usbutils wget curl testdisk gptfdisk git nodejs yarn ytop inxi xtools vsv lftp tlp bash-completion vim bootiso bc"
 CODEC="gst-plugins-base1 gst-plugins-good1 gst-plugins-ugly1 gst-plugins-bad1 gst-libav ffmpeg faac faad2 flac jasper lame libdca libmpeg2 libmad libtheora libvorbis libXv wavpack x264 xvidcore gstreamer-vaapi sox pamixer youtube-dl"
 ARCHIVER="atool p7zip zip unzip lzop lzip dtrx file-roller liblz4 lz4"
-MOUNT="tuxc topgrade exfat-utils fuse-exfat gvfs-afc gvfs-mtp gvfs-smb udisks2 ntfs-3g elogind dbus-elogind dbus-elogind-x11 gnome-keyring xdg-utils xdg-desktop-portal xdg-desktop-portal-gtk xdg-desktop-portal-kde xdg-user-dirs xdg-user-dirs-gtk libappindicator AppStream"
+PKGMGMT="tuxc topgrade flatpak"
+DISK="exfat-utils fuse-exfat gvfs-afc gvfs-mtp gvfs-smb udisks2 ntfs-3g elogind dbus-elogind dbus-elogind-x11 gnome-keyring xdg-utils xdg-desktop-portal xdg-desktop-portal-gtk xdg-desktop-portal-kde xdg-user-dirs xdg-user-dirs-gtk libappindicator AppStream"
 COMPILER="automake binutils bison fakeroot flex gcc libtool m4 make patch pkg-config guile qemu-user-static"
 PRINTER="cups cups-filters gutenprint system-config-printer hplip epson-inkjet-printer-escpr"
 KDE5="sddm kde5 kdesu kde5-baseapps kaccounts-integration kaccounts-providers konsole5 upower dolphin dolphin-plugins kimageformats plasma-browser-integration plasma-nm plasma-pa colord-kde kio-extras kio-gdrive kcm-wacomtablet kdegraphics-thumbnailers ffmpegthumbnailer ffmpegthumbs media-player-info"
@@ -76,7 +77,7 @@ for arg in "$@"; do
             -c $PWD/xbps-cachedir-x86_64-musl \
             -I $PWD/includedir/lite/musl \
             -T $TITLE \
-            -p "$GRUB $BASE $NETWORK $FIRMWARE $DRIVER $UTILS $CODEC $ARCHIVER $MOUNT $COMPILER $KDE5 $KDE5_APPS $DESIGN $FONTS $OFFICE"
+            -p "$GRUB $BASE $NETWORK $FIRMWARE $DRIVER $UTILS $CODEC $ARCHIVER $PKGMGMT $DISK $COMPILER $KDE5 $KDE5_APPS $DESIGN $FONTS $OFFICE"
             echo "\033[1;33mFinish\033[0m"
             ;;
         lite-glibc)
@@ -87,7 +88,7 @@ for arg in "$@"; do
             -c $PWD/xbps-cachedir-x86_64 \
             -I $PWD/includedir/lite/glibc \
             -T $TITLE \
-            -p "$GRUB $BASE $NETWORK $FIRMWARE $DRIVER $UTILS $CODEC $ARCHIVER $MOUNT $COMPILER $KDE5 $KDE5_APPS $DESIGN $FONTS $OFFICE"
+            -p "$GRUB $BASE $NETWORK $FIRMWARE $DRIVER $UTILS $CODEC $ARCHIVER $PKGMGMT $DISK $COMPILER $KDE5 $KDE5_APPS $DESIGN $FONTS $OFFICE"
             echo "\033[1;33mFinish\033[0m"
             ;;
         pro-musl)
@@ -98,7 +99,7 @@ for arg in "$@"; do
             -c $PWD/xbps-cachedir-x86_64-musl \
             -I $PWD/includedir/pro/musl \
             -T $TITLE \
-            -p "$GRUB $BASE $NETWORK $FIRMWARE $DRIVER $UTILS $CODEC $ARCHIVER $MOUNT $COMPILER $KDE5 $KDE5_APPS $DESIGN $FONTS $OFFICE $DESIGN_EXTRA $FONTS_EXTRA"
+            -p "$GRUB $BASE $NETWORK $FIRMWARE $DRIVER $UTILS $CODEC $ARCHIVER $PKGMGMT $DISK $COMPILER $KDE5 $KDE5_APPS $DESIGN $FONTS $OFFICE $DESIGN_EXTRA $FONTS_EXTRA"
             echo "\033[1;33mFinish\033[0m"
             ;;
         pro-glibc)
@@ -109,19 +110,19 @@ for arg in "$@"; do
             -c $PWD/xbps-cachedir-x86_64 \
             -I $PWD/includedir/pro/glibc \
             -T $TITLE \
-            -p "$GRUB $BASE $NETWORK $FIRMWARE $DRIVER $UTILS $CODEC $ARCHIVER $MOUNT $COMPILER $KDE5 $KDE5_APPS $DESIGN $FONTS $OFFICE $DESIGN_EXTRA $FONTS_EXTRA"
+            -p "$GRUB $BASE $NETWORK $FIRMWARE $DRIVER $UTILS $CODEC $ARCHIVER $PKGMGMT $DISK $COMPILER $KDE5 $KDE5_APPS $DESIGN $FONTS $OFFICE $DESIGN_EXTRA $FONTS_EXTRA"
             echo "\033[1;33mFinish\033[0m"
             ;;
         deps-musl)
             update_musl
             remove_musl
-            xbps-install -D -y -c $PWD/xbps-cachedir-x86_64-musl $GRUB $BASE $NETWORK $FIRMWARE $DRIVER $UTILS $CODEC $ARCHIVER $MOUNT $COMPILER $KDE5 $KDE5_APPS $DESIGN $FONTS $OFFICE $DESIGN_EXTRA $FONTS_EXTRA
+            xbps-install -D -y -c $PWD/xbps-cachedir-x86_64-musl $GRUB $BASE $NETWORK $FIRMWARE $DRIVER $UTILS $CODEC $ARCHIVER $PKGMGMT $COMPILER $KDE5 $KDE5_APPS $DESIGN $FONTS $OFFICE $DESIGN_EXTRA $FONTS_EXTRA
             echo "\033[1;33mFinish\033[0m"
             ;;
         deps-glibc)
             update_glibc
             remove_glibc
-            xbps-install -D -y -c $PWD/xbps-cachedir-x86_64 $GRUB $BASE $NETWORK $FIRMWARE $DRIVER $UTILS $CODEC $ARCHIVER $MOUNT $COMPILER $KDE5 $KDE5_APPS $DESIGN $FONTS $FONTS_EXTRA $OFFICE
+            xbps-install -D -y -c $PWD/xbps-cachedir-x86_64 $GRUB $BASE $NETWORK $FIRMWARE $DRIVER $UTILS $CODEC $ARCHIVER $PKGMGMT $COMPILER $KDE5 $KDE5_APPS $DESIGN $FONTS $FONTS_EXTRA $OFFICE
             echo "\033[1;33mFinish\033[0m"
             ;;
         help)
