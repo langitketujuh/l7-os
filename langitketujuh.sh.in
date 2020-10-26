@@ -2,8 +2,9 @@
 
 NAME=$(basename "$0")
 VERSION="1.1"
-LICENSE="GNU GPLv3+"
+LICENSE="MIT"
 TITLE="LangitKetujuh"
+LOCALE="en_US.UTF-8"
 
 usage()
 {
@@ -52,18 +53,20 @@ BASE="base-system dialog cryptsetup lvm2 mdadm"
 NETWORK="dhcpcd wpa_supplicant NetworkManager ntp"
 FIRMWARE="linux-firmware linux-firmware-intel linux-firmware-amd linux-firmware-nvidia linux-firmware-network broadcom-bt-firmware broadcom-bt-firmware dkms"
 DRIVER="xorg xf86-input-evdev xf86-input-joystick xf86-input-libinput xf86-input-mtrack xf86-input-synaptics xf86-input-vmmouse xf86-input-wacom xorg-minimal xorg-input-drivers xorg-video-drivers mesa-ati-dri mesa-intel-dri mesa-nouveau-dri"
-UTILS="setxkbmap xauth xrandr libvdpau-va-gl vdpauinfo font-misc-misc alsa-plugins-pulseaudio pulsemixer pipewire gstreamer1-pipewire alsa-utils paprefs inetutils usbutils wget curl testdisk gptfdisk git nodejs yarn ytop inxi xtools vsv lftp tlp bash-completion vim bootiso bc"
+UTILS="setxkbmap xauth xrandr libvdpau-va-gl vdpauinfo font-misc-misc alsa-plugins-pulseaudio pulsemixer pipewire gstreamer1-pipewire alsa-utils paprefs inetutils usbutils wget curl testdisk gptfdisk xclip git nodejs yarn ytop inxi xtools vsv lftp tlp bash-completion vim bootiso bc mtools tmate"
 CODEC="gst-plugins-base1 gst-plugins-good1 gst-plugins-ugly1 gst-plugins-bad1 gst-libav ffmpeg faac faad2 flac jasper lame libdca libmpeg2 libmad libtheora libvorbis libXv wavpack x264 xvidcore gstreamer-vaapi sox pamixer youtube-dl"
 ARCHIVER="atool p7zip zip unzip lzop lzip dtrx file-roller liblz4 lz4"
 PKGMGMT="tuxc topgrade flatpak"
 DISK="exfat-utils fuse-exfat gvfs-afc gvfs-mtp gvfs-smb udisks2 ntfs-3g elogind dbus-elogind dbus-elogind-x11 gnome-keyring xdg-utils xdg-desktop-portal xdg-desktop-portal-gtk xdg-desktop-portal-kde xdg-user-dirs xdg-user-dirs-gtk libappindicator AppStream"
 COMPILER="automake binutils bison fakeroot flex gcc libtool m4 make patch pkg-config guile qemu-user-static"
-PRINTER="cups cups-filters gutenprint system-config-printer hplip epson-inkjet-printer-escpr"
-KDE5="sddm kde5 kdesu kde5-baseapps kaccounts-integration kaccounts-providers konsole5 upower dolphin dolphin-plugins kimageformats plasma-browser-integration plasma-nm plasma-pa colord-kde kio-extras kio-gdrive kcm-wacomtablet kdegraphics-thumbnailers ffmpegthumbnailer ffmpegthumbs media-player-info"
-KDE5_APPS="falkon kdeconnect print-manager spectacle ark k3b kwalletmanager filelight kcalc kget okular ssr kcolorchooser kmediaplayer kaffeine elisa kolourpaint kmail kontact akregator gwenview krfb krdc partitionmanager konversation octoxbps"
+PRINTER="bluez-cups cups cups-pdf cups-filters gutenprint system-config-printer hplip epson-inkjet-printer-escpr"
+KDE5="sddm kde5 kdesu kde5-baseapps kaccounts-integration kaccounts-providers konsole5 upower dolphin dolphin-plugins kimageformats plasma-browser-integration plasma-disks plasma-nm plasma-pa colord-kde kio-extras kio-gdrive kcm-wacomtablet kdegraphics-thumbnailers ffmpegthumbnailer ffmpegthumbs media-player-info"
+KDE5_APPS="falkon kdeconnect print-manager spectacle ark k3b kid3 kwalletmanager filelight kcalc kget okular ssr kcolorchooser kmediaplayer kaffeine elisa kolourpaint kmail kontact akregator gwenview krfb krdc partitionmanager konversation octoxbps"
 DESIGN="inkscape gimp"
-DESIGN_EXTRA="blender digikam fontforge gmic-gimp godot kdenlive krita scribus obs rawtherapee synfigstudio"
-FONTS="terminus-font dejavu-fonts-ttf xorg-fonts liberation-fonts-ttf"
+DESIGN_EXTRA="digikam fontforge gmic-gimp godot kdenlive krita scribus obs rawtherapee"
+ANIMATION="blender synfigstudio opentoonz"
+AUDIO_EXTRA="jack jack_capture audacity ardour cadence"
+FONTS="terminus-font dejavu-fonts-ttf xorg-fonts noto-fonts-emoji liberation-fonts-ttf"
 FONTS_EXTRA="google-fonts-ttf font-awesome5"
 OFFICE="libreoffice libreoffice-kde"
 
@@ -76,8 +79,9 @@ for arg in "$@"; do
             -a x86_64-musl \
             -c $PWD/xbps-cachedir-x86_64-musl \
             -I $PWD/includedir/lite/musl \
-            -T $TITLE \
-            -p "$GRUB $BASE $NETWORK $FIRMWARE $DRIVER $UTILS $CODEC $ARCHIVER $PKGMGMT $DISK $COMPILER $KDE5 $KDE5_APPS $DESIGN $FONTS $OFFICE"
+            -T "$TITLE" \
+            -l "$LOCALE" \
+            -p "$GRUB $BASE $NETWORK $FIRMWARE $DRIVER $UTILS $CODEC $ARCHIVER $PKGMGMT $DISK $COMPILER $PRINTER $KDE5 $KDE5_APPS $DESIGN $FONTS $OFFICE"
             echo "\033[1;33mFinish\033[0m"
             ;;
         lite-glibc)
@@ -87,8 +91,9 @@ for arg in "$@"; do
             -a x86_64 \
             -c $PWD/xbps-cachedir-x86_64 \
             -I $PWD/includedir/lite/glibc \
-            -T $TITLE \
-            -p "$GRUB $BASE $NETWORK $FIRMWARE $DRIVER $UTILS $CODEC $ARCHIVER $PKGMGMT $DISK $COMPILER $KDE5 $KDE5_APPS $DESIGN $FONTS $OFFICE"
+            -T "$TITLE" \
+            -l "$LOCALE" \
+            -p "$GRUB $BASE $NETWORK $FIRMWARE $DRIVER $UTILS $CODEC $ARCHIVER $PKGMGMT $DISK $COMPILER $PRINTER $KDE5 $KDE5_APPS $DESIGN $FONTS $OFFICE"
             echo "\033[1;33mFinish\033[0m"
             ;;
         pro-musl)
@@ -98,8 +103,9 @@ for arg in "$@"; do
             -a x86_64-musl \
             -c $PWD/xbps-cachedir-x86_64-musl \
             -I $PWD/includedir/pro/musl \
-            -T $TITLE \
-            -p "$GRUB $BASE $NETWORK $FIRMWARE $DRIVER $UTILS $CODEC $ARCHIVER $PKGMGMT $DISK $COMPILER $KDE5 $KDE5_APPS $DESIGN $FONTS $OFFICE $DESIGN_EXTRA $FONTS_EXTRA"
+            -T "$TITLE" \
+            -l "$LOCALE" \
+            -p "$GRUB $BASE $NETWORK $FIRMWARE $DRIVER $UTILS $CODEC $ARCHIVER $PKGMGMT $DISK $COMPILER $PRINTER $KDE5 $KDE5_APPS $DESIGN $FONTS $OFFICE $DESIGN_EXTRA $ANIMATION $AUDIO_EXTRA $FONTS_EXTRA"
             echo "\033[1;33mFinish\033[0m"
             ;;
         pro-glibc)
@@ -109,20 +115,21 @@ for arg in "$@"; do
             -a x86_64 \
             -c $PWD/xbps-cachedir-x86_64 \
             -I $PWD/includedir/pro/glibc \
-            -T $TITLE \
-            -p "$GRUB $BASE $NETWORK $FIRMWARE $DRIVER $UTILS $CODEC $ARCHIVER $PKGMGMT $DISK $COMPILER $KDE5 $KDE5_APPS $DESIGN $FONTS $OFFICE $DESIGN_EXTRA $FONTS_EXTRA"
+            -T "$TITLE" \
+            -l "$LOCALE" \
+            -p "$GRUB $BASE $NETWORK $FIRMWARE $DRIVER $UTILS $CODEC $ARCHIVER $PKGMGMT $DISK $COMPILER $PRINTER $KDE5 $KDE5_APPS $DESIGN $FONTS $OFFICE $DESIGN_EXTRA $ANIMATION $AUDIO_EXTRA $FONTS_EXTRA"
             echo "\033[1;33mFinish\033[0m"
             ;;
         deps-musl)
             update_musl
             remove_musl
-            xbps-install -D -y -c $PWD/xbps-cachedir-x86_64-musl $GRUB $BASE $NETWORK $FIRMWARE $DRIVER $UTILS $CODEC $ARCHIVER $PKGMGMT $COMPILER $KDE5 $KDE5_APPS $DESIGN $FONTS $OFFICE $DESIGN_EXTRA $FONTS_EXTRA
+            xbps-install -D -y -c $PWD/xbps-cachedir-x86_64-musl $GRUB $BASE $NETWORK $FIRMWARE $DRIVER $UTILS $CODEC $ARCHIVER $PKGMGMT $COMPILER $PRINTER $KDE5 $KDE5_APPS $DESIGN $FONTS $OFFICE $DESIGN_EXTRA $AUDIO_EXTRA $FONTS_EXTRA
             echo "\033[1;33mFinish\033[0m"
             ;;
         deps-glibc)
             update_glibc
             remove_glibc
-            xbps-install -D -y -c $PWD/xbps-cachedir-x86_64 $GRUB $BASE $NETWORK $FIRMWARE $DRIVER $UTILS $CODEC $ARCHIVER $PKGMGMT $COMPILER $KDE5 $KDE5_APPS $DESIGN $FONTS $FONTS_EXTRA $OFFICE
+            xbps-install -D -y -c $PWD/xbps-cachedir-x86_64 $GRUB $BASE $NETWORK $FIRMWARE $DRIVER $UTILS $CODEC $ARCHIVER $PKGMGMT $COMPILER $KDE5 $KDE5_APPS $DESIGN $FONTS $OFFICE $DESIGN_EXTRA $AUDIO_EXTRA $FONTS_EXTRA
             echo "\033[1;33mFinish\033[0m"
             ;;
         help)
@@ -131,7 +138,7 @@ for arg in "$@"; do
             ;;
         version)
             echo "\033[1;33m $NAME\033[0m version $VERSION"
-            exit 0  
+            exit 0
             ;;
         *)
             printf "\noption does not exist: %s\n\n" "$arg"
