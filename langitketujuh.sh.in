@@ -67,7 +67,7 @@ DESIGN_EXTRA="digikam fontforge gmic-gimp godot kdenlive krita scribus obs rawth
 ANIMATION="blender synfigstudio opentoonz"
 AUDIO_EXTRA="jack jack_capture audacity ardour cadence"
 FONTS="terminus-font dejavu-fonts-ttf xorg-fonts noto-fonts-emoji liberation-fonts-ttf"
-FONTS_EXTRA="google-fonts-ttf font-awesome5"
+FONTS_EXTRA="google-fonts-ttf font-awesome5 font-material-design-icons-ttf font-ionicons-ttf"
 OFFICE="libreoffice libreoffice-kde"
 
 for arg in "$@"; do
