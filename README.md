@@ -23,7 +23,7 @@ GNU/Linux Musl distribution based on Voidlinux with KDE Desktop Environment. Rol
     
 #### Install Dependencies
 
-    $ xbps-install -S make liblz4 xbps qemu-user-static
+    $ xbps-install -S make liblz4 xbps qemu-user-static pwgen
 
 #### Usage
 
