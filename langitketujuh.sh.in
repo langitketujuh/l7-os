@@ -3,7 +3,6 @@
 NAME=$(basename "$0")
 VERSION="1.1"
 LICENSE="MIT"
-TITLE="LangitKetujuh"
 LOCALE="en_US.UTF-8"
 
 usage()
@@ -53,22 +52,34 @@ BASE="base-system dialog cryptsetup lvm2 mdadm"
 NETWORK="dhcpcd wpa_supplicant NetworkManager ntp"
 FIRMWARE="linux-firmware linux-firmware-intel linux-firmware-amd linux-firmware-nvidia linux-firmware-network broadcom-bt-firmware broadcom-bt-firmware dkms"
 DRIVER="xorg xf86-input-evdev xf86-input-joystick xf86-input-libinput xf86-input-mtrack xf86-input-synaptics xf86-input-vmmouse xf86-input-wacom xorg-minimal xorg-input-drivers xorg-video-drivers mesa-ati-dri mesa-intel-dri mesa-nouveau-dri"
-UTILS="setxkbmap xauth xrandr libvdpau-va-gl vdpauinfo font-misc-misc alsa-plugins-pulseaudio pipewire gstreamer1-pipewire alsa-utils paprefs inetutils usbutils wget curl testdisk gptfdisk xclip xclipboard yank git nodejs yarn ytop inxi xtools vsv lftp tlp bash-completion vim bootiso bc mtools tmate pwgen"
-CODEC="gst-plugins-base1 gst-plugins-good1 gst-plugins-ugly1 gst-plugins-bad1 gst-libav ffmpeg faac faad2 flac jasper lame libdca libmpeg2 libmad libtheora libvorbis libXv wavpack x264 xvidcore gstreamer-vaapi sox youtube-dl"
+UTILS="setxkbmap xauth xrandr libvdpau-va-gl vdpauinfo font-misc-misc alsa-plugins-pulseaudio pipewire gstreamer1-pipewire alsa-utils paprefs inetutils usbutils wget curl testdisk gptfdisk xclip xclipboard yank git ytop inxi xtools vsv tlp bash-completion vim bootiso bc mtools tmate pwgen fish-shell youtube-dl"
+CODEC="gst-plugins-base1 gst-plugins-good1 gst-plugins-ugly1 gst-plugins-bad1 gst-libav ffmpeg faac faad2 flac jasper lame libdca libmpeg2 libmad libtheora libvorbis libXv wavpack x264 xvidcore gstreamer-vaapi"
 ARCHIVER="atool p7zip zip unzip lzop lzip dtrx file-roller liblz4 lz4"
 PKGMGMT="tuxc topgrade flatpak"
 DISK="exfat-utils fuse-exfat gvfs-afc gvfs-mtp gvfs-smb udisks2 ntfs-3g elogind dbus-elogind dbus-elogind-x11 gnome-keyring xdg-utils xdg-desktop-portal xdg-desktop-portal-gtk xdg-desktop-portal-kde xdg-user-dirs xdg-user-dirs-gtk libappindicator AppStream"
 COMPILER="automake binutils bison fakeroot flex gcc libtool m4 make patch pkg-config guile qemu-user-static"
 PRINTER="bluez-cups cups cups-pdf cups-filters gutenprint system-config-printer hplip epson-inkjet-printer-escpr"
 KDE5="sddm kde5 kdesu kde5-baseapps kaccounts-integration kaccounts-providers konsole5 upower dolphin dolphin-plugins kimageformats plasma-browser-integration plasma-disks plasma-nm plasma-pa colord-kde kio-extras kio-gdrive kcm-wacomtablet kdegraphics-thumbnailers ffmpegthumbnailer ffmpegthumbs media-player-info"
-KDE5_APPS="falkon kdeconnect print-manager spectacle ark k3b kid3 kwalletmanager filelight kcalc kget okular ssr kcolorchooser kmediaplayer kaffeine elisa kolourpaint kmail kontact akregator gwenview krfb krdc partitionmanager konversation octoxbps"
-DESIGN="inkscape gimp"
-DESIGN_EXTRA="digikam fontforge gmic-gimp kdenlive krita scribus obs rawtherapee"
-ANIMATION="blender synfigstudio opentoonz"
-AUDIO_EXTRA="jack jack_capture audacity ardour cadence"
+KDE5_APPS="kdeconnect print-manager spectacle ark k3b kid3 kwalletmanager filelight kcalc kget okular ssr kcolorchooser kmediaplayer kaffeine elisa kolourpaint kmail kontact akregator gwenview krfb krdc partitionmanager konversation octoxbps skanlite soundkonverter"
+BROWSER="firefox"
+VECTOR="inkscape"
+RASTER="gimp gmic-gimp"
 FONTS="terminus-font dejavu-fonts-ttf xorg-fonts noto-fonts-emoji liberation-fonts-ttf"
-FONTS_EXTRA="google-fonts-ttf font-awesome5 font-material-design-icons-ttf font-ionicons-ttf"
 OFFICE="libreoffice libreoffice-kde"
+
+# PRO Edition
+PHOTOGRAPHY="digikam rawtherapee"
+VIDEO_EDITOR="kdenlive"
+FONT_MAKER="fontforge"
+PAINTING="krita"
+RECORD="obs"
+PUBLISH="scribus"
+ANIMATION="blender synfigstudio opentoonz"
+AUDIO_PRO="jack jack_capture sox audacity ardour cadence"
+FONTS_EXTRA="google-fonts-ttf font-awesome5 font-material-design-icons-ttf font-ionicons-ttf"
+GAME_DEV_LINUX="godot scons yasm pkgconf libXcursor libXinerama libXi libXrandr alsa-lib libpulseaudio libgudev gcc-objc++ xorgproto libfreeglut pulseaudio llvm clang fuse icu zlib bzip2"
+#GAME_DEV_WIN="cross-x86_64-w64-mingw32 cross-i686-w64-mingw32 python3-pip"
+#GAME_DEV_APK="gradle android-tools openjdk"
 
 for arg in "$@"; do
     case $arg in
@@ -79,9 +90,8 @@ for arg in "$@"; do
             -a x86_64-musl \
             -c $PWD/xbps-cachedir-x86_64-musl \
             -I $PWD/includedir/lite/musl \
-            -T "$TITLE" \
             -l "$LOCALE" \
-            -p "$GRUB $BASE $NETWORK $FIRMWARE $DRIVER $UTILS $CODEC $ARCHIVER $PKGMGMT $DISK $COMPILER $PRINTER $KDE5 $KDE5_APPS $DESIGN $FONTS $OFFICE"
+            -p "$GRUB $BASE $NETWORK $FIRMWARE $DRIVER $UTILS $CODEC $ARCHIVER $PKGMGMT $DISK $COMPILER $PRINTER $KDE5 $KDE5_APPS $BROWSER $VECTOR $RASTER $FONTS $OFFICE"
             echo "\033[1;33mFinish\033[0m"
             ;;
         lite-glibc)
@@ -91,9 +101,8 @@ for arg in "$@"; do
             -a x86_64 \
             -c $PWD/xbps-cachedir-x86_64 \
             -I $PWD/includedir/lite/glibc \
-            -T "$TITLE" \
             -l "$LOCALE" \
-            -p "$GRUB $BASE $NETWORK $FIRMWARE $DRIVER $UTILS $CODEC $ARCHIVER $PKGMGMT $DISK $COMPILER $PRINTER $KDE5 $KDE5_APPS $DESIGN $FONTS $OFFICE"
+            -p "$GRUB $BASE $NETWORK $FIRMWARE $DRIVER $UTILS $CODEC $ARCHIVER $PKGMGMT $DISK $COMPILER $PRINTER $KDE5 $KDE5_APPS $BROWSER $VECTOR $RASTER $FONTS $OFFICE"
             echo "\033[1;33mFinish\033[0m"
             ;;
         pro-musl)
@@ -103,9 +112,8 @@ for arg in "$@"; do
             -a x86_64-musl \
             -c $PWD/xbps-cachedir-x86_64-musl \
             -I $PWD/includedir/pro/musl \
-            -T "$TITLE" \
             -l "$LOCALE" \
-            -p "$GRUB $BASE $NETWORK $FIRMWARE $DRIVER $UTILS $CODEC $ARCHIVER $PKGMGMT $DISK $COMPILER $PRINTER $KDE5 $KDE5_APPS $DESIGN $FONTS $OFFICE $DESIGN_EXTRA $ANIMATION $AUDIO_EXTRA $FONTS_EXTRA"
+            -p "$GRUB $BASE $NETWORK $FIRMWARE $DRIVER $UTILS $CODEC $ARCHIVER $PKGMGMT $DISK $COMPILER $PRINTER $KDE5 $KDE5_APPS $BROWSER $VECTOR $RASTER $FONTS $OFFICE $PHOTOGRAPHY $VIDEO_EDITOR $FONT_MAKER $PAINTING $RECORD $PUBLISH $ANIMATION $AUDIO_PRO $FONTS_EXTRA $GAME_DEV_LINUX $GAME_DEV_WIN $GAME_DEV_APK"
             echo "\033[1;33mFinish\033[0m"
             ;;
         pro-glibc)
@@ -115,21 +123,20 @@ for arg in "$@"; do
             -a x86_64 \
             -c $PWD/xbps-cachedir-x86_64 \
             -I $PWD/includedir/pro/glibc \
-            -T "$TITLE" \
             -l "$LOCALE" \
-            -p "$GRUB $BASE $NETWORK $FIRMWARE $DRIVER $UTILS $CODEC $ARCHIVER $PKGMGMT $DISK $COMPILER $PRINTER $KDE5 $KDE5_APPS $DESIGN $FONTS $OFFICE $DESIGN_EXTRA $ANIMATION $AUDIO_EXTRA $FONTS_EXTRA"
+            -p "$GRUB $BASE $NETWORK $FIRMWARE $DRIVER $UTILS $CODEC $ARCHIVER $PKGMGMT $DISK $COMPILER $PRINTER $KDE5 $KDE5_APPS $BROWSER $VECTOR $RASTER $FONTS $OFFICE $PHOTOGRAPHY $VIDEO_EDITOR $FONT_MAKER $PAINTING $RECORD $PUBLISH $ANIMATION $AUDIO_PRO $FONTS_EXTRA $GAME_DEV_LINUX $GAME_DEV_WIN $GAME_DEV_APK"
             echo "\033[1;33mFinish\033[0m"
             ;;
         deps-musl)
             update_musl
             remove_musl
-            xbps-install -D -y -c $PWD/xbps-cachedir-x86_64-musl $GRUB $BASE $NETWORK $FIRMWARE $DRIVER $UTILS $CODEC $ARCHIVER $PKGMGMT $COMPILER $PRINTER $KDE5 $KDE5_APPS $DESIGN $FONTS $OFFICE $DESIGN_EXTRA $AUDIO_EXTRA $FONTS_EXTRA
+            xbps-install -D -y -c $PWD/xbps-cachedir-x86_64-musl $GRUB $BASE $NETWORK $FIRMWARE $DRIVER $UTILS $CODEC $ARCHIVER $PKGMGMT $DISK $COMPILER $PRINTER $KDE5 $KDE5_APPS $BROWSER $VECTOR $RASTER $FONTS $OFFICE $PHOTOGRAPHY $VIDEO_EDITOR $FONT_MAKER $PAINTING $RECORD $PUBLISH $ANIMATION $AUDIO_PRO $FONTS_EXTRA $GAME_DEV_LINUX $GAME_DEV_WIN $GAME_DEV_APK
             echo "\033[1;33mFinish\033[0m"
             ;;
         deps-glibc)
             update_glibc
             remove_glibc
-            xbps-install -D -y -c $PWD/xbps-cachedir-x86_64 $GRUB $BASE $NETWORK $FIRMWARE $DRIVER $UTILS $CODEC $ARCHIVER $PKGMGMT $COMPILER $KDE5 $KDE5_APPS $DESIGN $FONTS $OFFICE $DESIGN_EXTRA $AUDIO_EXTRA $FONTS_EXTRA
+            xbps-install -D -y -c $PWD/xbps-cachedir-x86_64 $GRUB $BASE $NETWORK $FIRMWARE $DRIVER $UTILS $CODEC $ARCHIVER $PKGMGMT $DISK $COMPILER $PRINTER $KDE5 $KDE5_APPS $BROWSER $VECTOR $RASTER $FONTS $OFFICE $PHOTOGRAPHY $VIDEO_EDITOR $FONT_MAKER $PAINTING $RECORD $PUBLISH $ANIMATION $AUDIO_PRO $FONTS_EXTRA $GAME_DEV_LINUX $GAME_DEV_WIN $GAME_DEV_APK
             echo "\033[1;33mFinish\033[0m"
             ;;
         help)
