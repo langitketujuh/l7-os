@@ -9,9 +9,10 @@ echo langitketujuh > ${NEWROOT}/etc/hostname
 AUTOLOGIN=$(getarg live.autologin)
 USERNAME=$(getarg live.user)
 USERSHELL=$(getarg live.shell)
+USERCOMMENT="LangitKetujuh OS"
 
 [ -z "$USERNAME" ] && USERNAME=anon
-[ -x $NEWROOT/bin/bash -a -z "$USERSHELL" ] && USERSHELL=/bin/bash
+[ -x $NEWROOT/bin/fish -a -z "$USERSHELL" ] && USERSHELL=/bin/fish
 [ -z "$USERSHELL" ] && USERSHELL=/bin/sh
 
 # Create /etc/default/live.conf to store USER.
@@ -23,7 +24,7 @@ if ! grep -q ${USERSHELL} ${NEWROOT}/etc/shells ; then
 fi
 
 # Create new user and remove password. We'll use autologin by default.
-chroot ${NEWROOT} useradd -m -s /bin/fish -c $USERNAME -G audio,video,wheel -s $USERSHELL $USERNAME
+chroot ${NEWROOT} useradd -m -s /bin/fish -c $USERCOMMENT -G audio,video,wheel -s $USERSHELL $USERNAME
 chroot ${NEWROOT} passwd -d $USERNAME >/dev/null 2>&1
 
 # Setup default root/user password (langitketujuh).
