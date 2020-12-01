@@ -1,9 +1,9 @@
-----------------------------------------------------------------------------
+======================================================================================
 
-Welcome to the LangitKetujuh Live system. Two users are available to log in:
+Welcome to the LangitKetujuh GNU/Linux Live system. Two users are available to log in:
 
-    - root:langitketujuh
-    - anon:langitketujuh
+    # root:langitketujuh
+    # anon:langitketujuh
 
 To start the installation please type:
 
@@ -12,11 +12,13 @@ To start the installation please type:
 and follow the on-screen instructions. To install additional software make
 sure to configure your network interface and then use:
 
-    - xbps-install(1) to install/update packages
-    - xbps-query(1) to query for package info
+    # update, to update packages
+    # install, to install packages
+    # remove, to remove packages
+    # search, to query for package info
 
 Thanks for using LangitKetujuh.
 
-    https://langitketujuh.id/os
+    https://langitketujuh.id/
 
-----------------------------------------------------------------------------
+======================================================================================
