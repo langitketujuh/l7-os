@@ -52,22 +52,24 @@ BASE="base-system dialog cryptsetup lvm2 mdadm"
 NETWORK="dhcpcd wpa_supplicant NetworkManager ntp"
 FIRMWARE="linux-firmware linux-firmware-intel linux-firmware-amd linux-firmware-nvidia linux-firmware-network broadcom-bt-firmware broadcom-bt-firmware dkms"
 DRIVER="xorg xf86-input-evdev xf86-input-joystick xf86-input-libinput xf86-input-mtrack xf86-input-synaptics xf86-input-vmmouse xf86-input-wacom xorg-minimal xorg-input-drivers xorg-video-drivers mesa-ati-dri mesa-intel-dri mesa-nouveau-dri"
-UTILS="setxkbmap xauth xrandr libvdpau-va-gl vdpauinfo font-misc-misc alsa-plugins-pulseaudio pipewire gstreamer1-pipewire alsa-utils paprefs inetutils usbutils wget curl testdisk gptfdisk xclip xclipboard yank git ytop inxi xtools vsv tlp bash-completion vim bootiso bc mtools tmate pwgen fish-shell youtube-dl"
+UTILS="setxkbmap xauth xrandr libvdpau-va-gl vdpauinfo font-misc-misc alsa-plugins-pulseaudio pipewire gstreamer1-pipewire alsa-utils paprefs inetutils usbutils wget curl testdisk gptfdisk xclip xclipboard wl-clipboard yank git ytop inxi xtools vsv tlp bash-completion vim bootiso bc mtools tmate pwgen fish-shell youtube-dl"
 CODEC="gst-plugins-base1 gst-plugins-good1 gst-plugins-ugly1 gst-plugins-bad1 gst-libav ffmpeg faac faad2 flac jasper lame libdca libmpeg2 libmad libtheora libvorbis libXv wavpack x264 xvidcore gstreamer-vaapi"
 ARCHIVER="atool p7zip zip unzip lzop lzip dtrx file-roller liblz4 lz4"
 PKGMGMT="tuxc topgrade flatpak"
 DISK="exfat-utils fuse-exfat gvfs-afc gvfs-mtp gvfs-smb udisks2 ntfs-3g elogind dbus-elogind dbus-elogind-x11 gnome-keyring xdg-utils xdg-desktop-portal xdg-desktop-portal-gtk xdg-desktop-portal-kde xdg-user-dirs xdg-user-dirs-gtk libappindicator AppStream"
 COMPILER="automake binutils bison fakeroot flex gcc libtool m4 make patch pkg-config guile qemu-user-static"
-PRINTER="bluez-cups cups cups-pdf cups-filters gutenprint system-config-printer hplip epson-inkjet-printer-escpr"
-KDE5="sddm kde5 kdesu kde5-baseapps kaccounts-integration kaccounts-providers konsole5 upower dolphin dolphin-plugins kimageformats plasma-browser-integration plasma-disks plasma-nm plasma-pa colord-kde kio-extras kio-gdrive kcm-wacomtablet kdegraphics-thumbnailers ffmpegthumbnailer ffmpegthumbs media-player-info"
+PRINTER="bluez-cups cups cups-pdf cups-filters gutenprint system-config-printer system-config-printer-udev
+hplip epson-inkjet-printer-escpr foomatic-db brother-brlaser"
+KDE5="sddm kde5 kdesu kde5-baseapps kaccounts-integration kaccounts-providers konsole5 upower dolphin dolphin-plugins kimageformats plasma-browser-integration plasma-disks plasma-nm plasma-pa colord-kde kio-extras kio-gdrive kcm-wacomtablet plasma-wayland-protocols kdegraphics-thumbnailers ffmpegthumbnailer ffmpegthumbs media-player-info"
 KDE5_APPS="kdeconnect print-manager spectacle ark k3b kid3 kwalletmanager filelight kcalc kget okular vokoscreen kcolorchooser kmediaplayer kaffeine elisa kolourpaint kmail kontact akregator gwenview krfb krdc partitionmanager konversation octoxbps skanlite soundkonverter korganizer"
 FONTS="terminus-font dejavu-fonts-ttf xorg-fonts noto-fonts-emoji liberation-fonts-ttf unicode-character-database unicode-emoji"
 BROWSER="firefox"
 VECTOR="inkscape"
-RASTER="gimp gmic-gimp"
+RASTER="gimp"
 OFFICE="libreoffice libreoffice-kde"
 
 # PRO Edition
+PLUGINS="gmic gmic-gimp gimp-lqr-plugin xsane-gimp resynthesizer"
 PHOTOGRAPHY="digikam rawtherapee"
 VIDEO_EDITOR="kdenlive"
 FONT_MAKER="fontforge"
@@ -113,7 +115,7 @@ for arg in "$@"; do
             -c $PWD/xbps-cachedir-x86_64-musl \
             -I $PWD/includedir/pro/musl \
             -l "$LOCALE" \
-            -p "$GRUB $BASE $NETWORK $FIRMWARE $DRIVER $UTILS $CODEC $ARCHIVER $PKGMGMT $DISK $COMPILER $PRINTER $KDE5 $KDE5_APPS $BROWSER $VECTOR $RASTER $FONTS $OFFICE $PHOTOGRAPHY $VIDEO_EDITOR $FONT_MAKER $PAINTING $RECORD $PUBLISH $ANIMATION $AUDIO_PRO $FONTS_EXTRA $GAME_DEV_LINUX $GAME_DEV_WIN $GAME_DEV_APK"
+            -p "$GRUB $BASE $NETWORK $FIRMWARE $DRIVER $UTILS $CODEC $ARCHIVER $PKGMGMT $DISK $COMPILER $PRINTER $KDE5 $KDE5_APPS $BROWSER $VECTOR $RASTER $FONTS $OFFICE $PLUGINS $PHOTOGRAPHY $VIDEO_EDITOR $FONT_MAKER $PAINTING $RECORD $PUBLISH $ANIMATION $AUDIO_PRO $FONTS_EXTRA $GAME_DEV_LINUX $GAME_DEV_WIN $GAME_DEV_APK"
             echo "\033[1;33mFinish\033[0m"
             ;;
         pro-glibc)
@@ -124,13 +126,13 @@ for arg in "$@"; do
             -c $PWD/xbps-cachedir-x86_64 \
             -I $PWD/includedir/pro/glibc \
             -l "$LOCALE" \
-            -p "$GRUB $BASE $NETWORK $FIRMWARE $DRIVER $UTILS $CODEC $ARCHIVER $PKGMGMT $DISK $COMPILER $PRINTER $KDE5 $KDE5_APPS $BROWSER $VECTOR $RASTER $FONTS $OFFICE $PHOTOGRAPHY $VIDEO_EDITOR $FONT_MAKER $PAINTING $RECORD $PUBLISH $ANIMATION $AUDIO_PRO $FONTS_EXTRA $GAME_DEV_LINUX $GAME_DEV_WIN $GAME_DEV_APK"
+            -p "$GRUB $BASE $NETWORK $FIRMWARE $DRIVER $UTILS $CODEC $ARCHIVER $PKGMGMT $DISK $COMPILER $PRINTER $KDE5 $KDE5_APPS $BROWSER $VECTOR $RASTER $FONTS $OFFICE $PLUGINS $PHOTOGRAPHY $VIDEO_EDITOR $FONT_MAKER $PAINTING $RECORD $PUBLISH $ANIMATION $AUDIO_PRO $FONTS_EXTRA $GAME_DEV_LINUX $GAME_DEV_WIN $GAME_DEV_APK"
             echo "\033[1;33mFinish\033[0m"
             ;;
         deps-musl)
             update_musl
             remove_musl
-            xbps-install -D -y -c $PWD/xbps-cachedir-x86_64-musl $GRUB $BASE $NETWORK $FIRMWARE $DRIVER $UTILS $CODEC $ARCHIVER $PKGMGMT $DISK $COMPILER $PRINTER $KDE5 $KDE5_APPS $BROWSER $VECTOR $RASTER $FONTS $OFFICE $PHOTOGRAPHY $VIDEO_EDITOR $FONT_MAKER $PAINTING $RECORD $PUBLISH $ANIMATION $AUDIO_PRO $FONTS_EXTRA $GAME_DEV_LINUX $GAME_DEV_WIN $GAME_DEV_APK
+            xbps-install -D -y -c $PWD/xbps-cachedir-x86_64-musl $GRUB $BASE $NETWORK $FIRMWARE $DRIVER $UTILS $CODEC $ARCHIVER $PKGMGMT $DISK $COMPILER $PRINTER $KDE5 $KDE5_APPS $BROWSER $VECTOR $RASTER $FONTS $OFFICE $PLUGINS $PHOTOGRAPHY $VIDEO_EDITOR $FONT_MAKER $PAINTING $RECORD $PUBLISH $ANIMATION $AUDIO_PRO $FONTS_EXTRA $GAME_DEV_LINUX $GAME_DEV_WIN $GAME_DEV_APK
             echo "\033[1;33mFinish\033[0m"
             ;;
         deps-glibc)
