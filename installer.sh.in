@@ -94,7 +94,7 @@ WIDGET_SIZE="10 70"
 DIALOG() {
     rm -f $ANSWER
     dialog --colors --keep-tite --no-shadow --no-mouse \
-        --backtitle "${BOLD}${WHITE}LangitKetujuh installation -- https://langitketujuh.id/os (@@MKLIVE_VERSION@@)${RESET}" \
+        --backtitle "${BOLD}${WHITE}LangitKetujuh installation -- https://langitketujuh.id/ (@@MKLIVE_VERSION@@)${RESET}" \
         --cancel-label "Back" --aspect 20 "$@" 2>$ANSWER
     return $?
 }
@@ -102,7 +102,7 @@ DIALOG() {
 INFOBOX() {
     # Note: dialog --infobox and --keep-tite don't work together
     dialog --colors --no-shadow --no-mouse \
-        --backtitle "${BOLD}${WHITE}LangitKetujuh installation -- https://langitketujuh.id/os (@@MKLIVE_VERSION@@)${RESET}" \
+        --backtitle "${BOLD}${WHITE}LangitKetujuh installation -- https://langitketujuh.id/ (@@MKLIVE_VERSION@@)${RESET}" \
         --title "${TITLE}" --aspect 20 --infobox "$@"
 }
 
@@ -1457,7 +1457,7 @@ Linux distribution based on voidlinux made from scratch \
 and built from the source package tree available for XBPS, \
 a new alternative binary package system.\n\n
 The installation should be pretty straightforward.\n\n
-${BOLD}https://langitketujuh.id/os${RESET}\n\n" 16 80
+${BOLD}https://langitketujuh.id/${RESET}\n\n" 16 80
 
 while true; do
     menu
