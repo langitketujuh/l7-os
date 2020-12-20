@@ -536,14 +536,20 @@ menu_keymap() {
         fi
     done
 }
+no_bitmap_fonts() {
+    ln -sf /usr/share/fontconfig/conf.avail/70-no-bitmaps.conf $TARGETDIR/etc/fonts/conf.d/
+    xbps-reconfigure -r $TARGETDIR -f fontconfig
+}
 
 set_keymap() {
     local KEYMAP=$(get_option KEYMAP)
 
     if [ -f /etc/vconsole.conf ]; then
         sed -i -e "s|KEYMAP=.*|KEYMAP=$KEYMAP|g" $TARGETDIR/etc/vconsole.conf
+        no_bitmap_fonts
     else
         sed -i -e "s|#\?KEYMAP=.*|KEYMAP=$KEYMAP|g" $TARGETDIR/etc/rc.conf
+        no_bitmap_fonts
     fi
 }
 
@@ -1451,7 +1457,7 @@ fi
 #
 # main()
 #
-DIALOG --title "${BOLD}${RED} Enter the langitketujuh ... ${RESET}" --msgbox "\n
+DIALOG --title "${BOLD}${RED} Enter the LangitKetujuh ... ${RESET}" --msgbox "\n
 Welcome to the LangitKetujuh installation. A simple and minimal \
 Linux distribution based on voidlinux made from scratch \
 and built from the source package tree available for XBPS, \
