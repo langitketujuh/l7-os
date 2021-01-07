@@ -536,7 +536,11 @@ menu_keymap() {
         fi
     done
 }
-no_bitmap_fonts() {
+fix_fonts() {
+    ln -sf /usr/share/fontconfig/conf.avail/10-hinting-slight.conf $TARGETDIR/etc/fonts/conf.d/
+    ln -sf /usr/share/fontconfig/conf.avail/10-sub-pixel-rgb.conf $TARGETDIR/etc/fonts/conf.d/
+    ln -sf /usr/share/fontconfig/conf.avail/11-lcdfilter-default.conf $TARGETDIR/etc/fonts/conf.d/
+    ln -sf /usr/share/fontconfig/conf.avail/50-user.conf $TARGETDIR/etc/fonts/conf.d/
     ln -sf /usr/share/fontconfig/conf.avail/70-no-bitmaps.conf $TARGETDIR/etc/fonts/conf.d/
     xbps-reconfigure -r $TARGETDIR -f fontconfig
 }
@@ -546,10 +550,10 @@ set_keymap() {
 
     if [ -f /etc/vconsole.conf ]; then
         sed -i -e "s|KEYMAP=.*|KEYMAP=$KEYMAP|g" $TARGETDIR/etc/vconsole.conf
-        no_bitmap_fonts
+        fix_fonts
     else
         sed -i -e "s|#\?KEYMAP=.*|KEYMAP=$KEYMAP|g" $TARGETDIR/etc/rc.conf
-        no_bitmap_fonts
+        fix_fonts
     fi
 }
 
