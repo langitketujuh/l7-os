@@ -19,7 +19,8 @@ GNU/Linux Musl distribution based on Voidlinux with KDE Desktop Environment. Rol
     
 #### Sub module lite version
 
-    $ git submodule add git@gitlab.com:langitketujuh/lite.git includedir/lite/
+    $ git submodule add git@gitlab.com:langitketujuh/lite.git includedir/
+    $ git submodule add git@gitlab.com:langitketujuh/pro.git includedir/
     
 #### Install Dependencies
 
@@ -31,14 +32,14 @@ GNU/Linux Musl distribution based on Voidlinux with KDE Desktop Environment. Rol
 
 and then see the usage output:
 
-    $ sudo sh langitketujuh.sh help
+    $ sudo sh langitketujuh.sh --help
 
 #### Examples Build
 
 Build a native live image musl edition:
 
-    $ sudo sh langitketujuh.sh lite-musl
+    $ sudo sh langitketujuh.sh --lite-musl
     
 Build a native live image glibc edition (not recommended):
 
-    $ sudo sh langitketujuh.sh lite-glibc
+    $ sudo sh langitketujuh.sh --lite-glibc
