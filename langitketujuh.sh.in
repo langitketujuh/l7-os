@@ -1,23 +1,59 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
+#-
+# Copyright (c) 2020-2021 Hervy Qurrotul Ainu Rozi <hervyqa@pm.me>.
+#
+# All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions
+# are met:
+# 1. Redistributions of source code must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+# 2. Redistributions in binary form must reproduce the above copyright
+#    notice, this list of conditions and the following disclaimer in the
+#    documentation and/or other materials provided with the distribution.
+#
+# THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
+# IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+# OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+# IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT,
+# INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+# NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+# (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+# THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+#-
 
-NAME=$(basename "$0")
-VERSION="1.1"
-LICENSE="MIT"
-LOCALE="en_US.UTF-8"
+# Make sure we don't inherit these from env.
+
+name=$(basename "$0")
+title="LangitKetujuh OS"
+version="1.1"
+license="BSD 2-Clause"
+locale="en_uS.UTF-8"
+pwd=$(pwd)
 
 usage()
 {
 cat <<- EOF
-builder     : $TITLE Installer
-license     : $LICENSE
-usage       : sudo sh $NAME [options]
 
-options     : lite-musl     # build musl lite version
-              pro-musl      # build musl pro version
-              lite-glibc    # build glibc lite version
-              pro-glibc     # build glibc pro version
+builder     : $title installer
+license     : $license
+usage       : sudo sh $name [options]
 
-example     : sudo sh $NAME lite-musl
+options     : --lite-musl   -lm   # build lite musl edition
+              --lite-glibc  -lg   # build lite glibc edition
+              --pro-musl    -pm   # build pro musl edition
+              --pro-glibc   -pg   # build pro glibc edition
+
+              --deps-musl   -dm   # download only musl packages
+              --deps-glibc  -dg   # download only glibc packages
+
+              --help        -h    # print this help
+              --version     -v    # print $name version
+
+example     : sudo sh $name lite-musl
 
 EOF
 }
@@ -25,128 +61,126 @@ EOF
 update_musl()
 {
 export XBPS_ARCH=x86_64-musl
-xbps-install -S -c $PWD/xbps-cachedir-x86_64-musl
+xbps-install -S -c $pwd/xbps-cachedir-x86_64-musl
 }
 
 update_glibc()
 {
 export XBPS_ARCH=x86_64
-xbps-install -S -c $PWD/xbps-cachedir-x86_64
+xbps-install -S -c $pwd/xbps-cachedir-x86_64
 }
 
 remove_musl()
 {
 export XBPS_ARCH=x86_64-musl
-xbps-remove -v -Oo -c $PWD/xbps-cachedir-x86_64-musl
+xbps-remove -v -Oo -c $pwd/xbps-cachedir-x86_64-musl
 }
 
 remove_glibc()
 {
 export XBPS_ARCH=x86_64
-xbps-remove -v -Oo -c $PWD/xbps-cachedir-x86_64
+xbps-remove -v -Oo -c $pwd/xbps-cachedir-x86_64
 }
 
-PWD=$(pwd)
-GRUB="grub-i386-efi grub-x86_64-efi"
-BASE="base-system dialog cryptsetup lvm2 mdadm"
-NETWORK="dhcpcd wpa_supplicant NetworkManager ntp"
-FIRMWARE="linux-firmware linux-firmware-intel linux-firmware-amd linux-firmware-nvidia linux-firmware-network broadcom-bt-firmware broadcom-bt-firmware dkms"
-DRIVER="xorg xf86-input-evdev xf86-input-joystick xf86-input-libinput xf86-input-mtrack xf86-input-synaptics xf86-input-vmmouse xf86-input-wacom xorg-minimal xorg-input-drivers xorg-video-drivers mesa-ati-dri mesa-intel-dri mesa-nouveau-dri"
-UTILS="setxkbmap xauth xrandr libvdpau-va-gl vdpauinfo font-misc-misc alsa-plugins-pulseaudio pipewire gstreamer1-pipewire alsa-utils paprefs inetutils usbutils wget curl testdisk gptfdisk xclip xclipboard wl-clipboard yank git ytop inxi xtools vsv tlp bash-completion vim bootiso bc mtools tmate pwgen fish-shell acpilight android-udev-rules android-tools gnome-color-manager ddgtk"
-CODEC="gst-plugins-base1 gst-plugins-good1 gst-plugins-ugly1 gst-plugins-bad1 gst-libav ffmpeg faac faad2 flac jasper lame libdca libmpeg2 libmad libtheora libvorbis libXv wavpack x264 xvidcore gstreamer-vaapi"
-ARCHIVER="atool p7zip zip unzip lzop lzip dtrx file-roller liblz4 lz4"
-PKGMGMT="tuxc topgrade flatpak"
-DISK="exfat-utils fuse-exfat gvfs-afc gvfs-mtp gvfs-smb udisks2 ntfs-3g elogind dbus-elogind dbus-elogind-x11 gnome-keyring xdg-utils xdg-desktop-portal xdg-desktop-portal-gtk xdg-desktop-portal-kde xdg-user-dirs xdg-user-dirs-gtk libappindicator AppStream"
-COMPILER="automake binutils bison fakeroot flex gcc libtool m4 make patch pkg-config guile qemu-user-static"
-PRINTER="bluez-cups cups cups-pdf cups-filters gutenprint system-config-printer system-config-printer-udev
-hplip epson-inkjet-printer-escpr foomatic-db brother-brlaser"
-KDE5="sddm kde5 kdesu kde5-baseapps kaccounts-integration kaccounts-providers konsole5 upower dolphin dolphin-plugins kimageformats plasma-browser-integration plasma-disks plasma-nm plasma-pa colord-kde kio-extras kio-gdrive kcm-wacomtablet plasma-wayland-protocols kdegraphics-thumbnailers ffmpegthumbnailer ffmpegthumbs media-player-info"
-KDE5_APPS="kdeconnect print-manager spectacle ark k3b kid3 kwalletmanager filelight kcalc kget okular vokoscreen kcolorchooser kmediaplayer kaffeine elisa kolourpaint kmail kontact akregator gwenview krfb krdc partitionmanager konversation octoxbps skanlite soundkonverter korganizer"
-FONTS="terminus-font dejavu-fonts-ttf xorg-fonts noto-fonts-emoji liberation-fonts-ttf unicode-character-database unicode-emoji"
-BROWSER="firefox"
-VECTOR="inkscape"
-RASTER="gimp"
-OFFICE="libreoffice libreoffice-kde firebird3"
+grub="grub-i386-efi grub-x86_64-efi"
+base="base-system dialog cryptsetup lvm2 mdadm"
+network="dhcpcd wpa_supplicant NetworkManager ntp"
+firmware="linux-firmware linux-firmware-intel linux-firmware-amd linux-firmware-nvidia linux-firmware-network broadcom-bt-firmware broadcom-bt-firmware dkms"
+driver="xorg xf86-input-evdev xf86-input-joystick xf86-input-libinput xf86-input-mtrack xf86-input-synaptics xf86-input-vmmouse xf86-input-wacom xorg-minimal xorg-input-drivers xorg-video-drivers mesa-ati-dri mesa-intel-dri mesa-nouveau-dri"
+utils="setxkbmap xauth xrandr libvdpau-va-gl vdpauinfo font-misc-misc alsa-plugins-pulseaudio pipewire gstreamer1-pipewire alsa-utils paprefs inetutils usbutils wget curl testdisk gptfdisk xclip xclipboard wl-clipboard yank git ytop inxi xtools vsv tlp bash-completion vim bootiso bc mtools tmate pwgen fish-shell acpilight android-udev-rules android-tools gnome-color-manager ddgtk nano zenity"
+codec="gst-plugins-base1 gst-plugins-good1 gst-plugins-ugly1 gst-plugins-bad1 gst-libav ffmpeg faac faad2 flac jasper lame libdca libmpeg2 libmad libtheora libvorbis libXv wavpack x264 xvidcore gstreamer-vaapi"
+archiver="atool p7zip zip unzip lzop lzip dtrx file-roller liblz4 lz4"
+pkgmgmt="tuxc topgrade flatpak gcompat"
+disk="exfat-utils fuse-exfat gvfs-afc gvfs-mtp gvfs-smb udisks2 ntfs-3g elogind dbus-elogind dbus-elogind-x11 gnome-keyring xdg-utils xdg-desktop-portal xdg-desktop-portal-gtk xdg-desktop-portal-kde xdg-user-dirs xdg-user-dirs-gtk libappindicator AppStream"
+compiler="automake binutils bison fakeroot flex gcc libtool m4 make patch pkg-config guile qemu-user-static"
+printer="bluez-cups cups cups-pdf cups-filters gutenprint system-config-printer system-config-printer-udev hplip epson-inkjet-printer-escpr foomatic-db brother-brlaser"
+kde5="sddm kde5 kdesu kde5-baseapps kaccounts-integration kaccounts-providers konsole5 upower dolphin dolphin-plugins kimageformats plasma-browser-integration plasma-disks plasma-nm plasma-pa colord-kde kio-extras kio-gdrive kcm-wacomtablet plasma-wayland-protocols kdegraphics-thumbnailers ffmpegthumbnailer ffmpegthumbs media-player-info"
+kde5_apps="kdeconnect print-manager spectacle ark k3b kid3 kwalletmanager filelight kcalc kget okular vokoscreen kcolorchooser kmediaplayer kaffeine elisa kolourpaint kmail kontact akregator gwenview krfb krdc partitionmanager konversation octoxbps skanlite soundkonverter korganizer"
+fonts="terminus-font dejavu-fonts-ttf xorg-fonts noto-fonts-emoji liberation-fonts-ttf unicode-character-database unicode-emoji"
+browser="firefox"
+vector="inkscape"
+raster="gimp"
+office="libreoffice libreoffice-kde firebird3"
 
 # PRO Edition
-PLUGINS="gmic gmic-gimp gimp-lqr-plugin xsane-gimp resynthesizer"
-PHOTOGRAPHY="digikam rawtherapee hugin"
-VIDEO_EDITOR="kdenlive"
-FONT_MAKER="fontforge"
-PAINTING="krita"
-RECORD="obs"
-PUBLISH="scribus"
-ANIMATION="blender synfigstudio opentoonz"
-AUDIO_PRO="jack jack_capture sox audacity ardour cadence"
-FONTS_EXTRA="google-fonts-ttf font-awesome5 font-material-design-icons-ttf font-ionicons-ttf"
-GAME_DEV_LINUX="godot scons yasm pkgconf libXcursor libXinerama libXi libXrandr alsa-lib libpulseaudio libgudev gcc-objc++ xorgproto libfreeglut pulseaudio llvm clang fuse icu zlib bzip2"
-#GAME_DEV_WIN="cross-x86_64-w64-mingw32 cross-i686-w64-mingw32 python3-pip"
-#GAME_DEV_APK="gradle android-tools openjdk"
+plugins="gmic gmic-gimp gimp-lqr-plugin xsane-gimp resynthesizer"
+photography="digikam rawtherapee hugin"
+video_editor="kdenlive"
+font_maker="fontforge"
+painting="krita"
+record="obs"
+publish="scribus"
+animation="blender synfigstudio opentoonz"
+audio_pro="jack jack_capture sox audacity ardour cadence"
+fonts_extra="google-fonts-ttf font-awesome5 font-material-design-icons-ttf font-ionicons-ttf"
+game_dev_linux="godot scons yasm pkgconf libXcursor libXinerama libXi libXrandr alsa-lib libpulseaudio libgudev gcc-objc++ xorgproto libfreeglut pulseaudio llvm clang fuse icu zlib bzip2"
+#game_dev_win="cross-x86_64-w64-mingw32 cross-i686-w64-mingw32 python3-pip"
+#game_dev_apk="gradle android-tools openjdk"
 
 for arg in "$@"; do
     case $arg in
-        lite-musl)
+        --lite-musl|-lm)
             update_musl
             remove_musl
             sh mklive.sh \
             -a x86_64-musl \
-            -c $PWD/xbps-cachedir-x86_64-musl \
-            -I $PWD/includedir/lite/musl \
-            -l "$LOCALE" \
-            -p "$GRUB $BASE $NETWORK $FIRMWARE $DRIVER $UTILS $CODEC $ARCHIVER $PKGMGMT $DISK $COMPILER $PRINTER $KDE5 $KDE5_APPS $BROWSER $VECTOR $RASTER $FONTS $OFFICE"
+            -c $pwd/xbps-cachedir-x86_64-musl \
+            -i $pwd/includedir/lite/musl \
+            -l "$locale" \
+            -p "$grub $base $network $firmware $driver $utils $codec $archiver $pkgmgmt $disk $compiler $printer $kde5 $kde5_apps $browser $vector $raster $fonts $office"
             echo "\033[1;33mFinish\033[0m"
             ;;
-        lite-glibc)
+        --lite-glibc|-lg)
             update_glibc
             remove_glibc
             sh mklive.sh \
             -a x86_64 \
-            -c $PWD/xbps-cachedir-x86_64 \
-            -I $PWD/includedir/lite/glibc \
-            -l "$LOCALE" \
-            -p "$GRUB $BASE $NETWORK $FIRMWARE $DRIVER $UTILS $CODEC $ARCHIVER $PKGMGMT $DISK $COMPILER $PRINTER $KDE5 $KDE5_APPS $BROWSER $VECTOR $RASTER $FONTS $OFFICE"
+            -c $pwd/xbps-cachedir-x86_64 \
+            -i $pwd/includedir/lite/glibc \
+            -l "$locale" \
+            -p "$grub $base $network $firmware $driver $utils $codec $archiver $pkgmgmt $disk $compiler $printer $kde5 $kde5_apps $browser $vector $raster $fonts $office"
             echo "\033[1;33mFinish\033[0m"
             ;;
-        pro-musl)
+        --pro-musl|-pm)
             update_musl
             remove_musl
             sh mklive.sh \
             -a x86_64-musl \
-            -c $PWD/xbps-cachedir-x86_64-musl \
-            -I $PWD/includedir/pro/musl \
-            -l "$LOCALE" \
-            -p "$GRUB $BASE $NETWORK $FIRMWARE $DRIVER $UTILS $CODEC $ARCHIVER $PKGMGMT $DISK $COMPILER $PRINTER $KDE5 $KDE5_APPS $BROWSER $VECTOR $RASTER $FONTS $OFFICE $PLUGINS $PHOTOGRAPHY $VIDEO_EDITOR $FONT_MAKER $PAINTING $RECORD $PUBLISH $ANIMATION $AUDIO_PRO $FONTS_EXTRA $GAME_DEV_LINUX $GAME_DEV_WIN $GAME_DEV_APK"
+            -c $pwd/xbps-cachedir-x86_64-musl \
+            -i $pwd/includedir/pro/musl \
+            -l "$locale" \
+            -p "$grub $base $network $firmware $driver $utils $codec $archiver $pkgmgmt $disk $compiler $printer $kde5 $kde5_apps $browser $vector $raster $fonts $office $plugins $photography $video_editor $font_maker $painting $record $publish $animation $audio_pro $fonts_extra $game_dev_linux $game_dev_win $game_dev_apk"
             echo "\033[1;33mFinish\033[0m"
             ;;
-        pro-glibc)
+        --pro-glibc|-pg)
             update_glibc
             remove_glibc
             sh mklive.sh \
             -a x86_64 \
-            -c $PWD/xbps-cachedir-x86_64 \
-            -I $PWD/includedir/pro/glibc \
-            -l "$LOCALE" \
-            -p "$GRUB $BASE $NETWORK $FIRMWARE $DRIVER $UTILS $CODEC $ARCHIVER $PKGMGMT $DISK $COMPILER $PRINTER $KDE5 $KDE5_APPS $BROWSER $VECTOR $RASTER $FONTS $OFFICE $PLUGINS $PHOTOGRAPHY $VIDEO_EDITOR $FONT_MAKER $PAINTING $RECORD $PUBLISH $ANIMATION $AUDIO_PRO $FONTS_EXTRA $GAME_DEV_LINUX $GAME_DEV_WIN $GAME_DEV_APK"
+            -c $pwd/xbps-cachedir-x86_64 \
+            -i $pwd/includedir/pro/glibc \
+            -l "$locale" \
+            -p "$grub $base $network $firmware $driver $utils $codec $archiver $pkgmgmt $disk $compiler $printer $kde5 $kde5_apps $browser $vector $raster $fonts $office $plugins $photography $video_editor $font_maker $painting $record $publish $animation $audio_pro $fonts_extra $game_dev_linux $game_dev_win $game_dev_apk"
             echo "\033[1;33mFinish\033[0m"
             ;;
-        deps-musl)
+        --deps-musl|-dm)
             update_musl
             remove_musl
-            xbps-install -D -y -c $PWD/xbps-cachedir-x86_64-musl $GRUB $BASE $NETWORK $FIRMWARE $DRIVER $UTILS $CODEC $ARCHIVER $PKGMGMT $DISK $COMPILER $PRINTER $KDE5 $KDE5_APPS $BROWSER $VECTOR $RASTER $FONTS $OFFICE $PLUGINS $PHOTOGRAPHY $VIDEO_EDITOR $FONT_MAKER $PAINTING $RECORD $PUBLISH $ANIMATION $AUDIO_PRO $FONTS_EXTRA $GAME_DEV_LINUX $GAME_DEV_WIN $GAME_DEV_APK
+            xbps-install -D -y -c $pwd/xbps-cachedir-x86_64-musl $grub $base $network $firmware $driver $utils $codec $archiver $pkgmgmt $disk $compiler $printer $kde5 $kde5_apps $browser $vector $raster $fonts $office $plugins $photography $video_editor $font_maker $painting $record $publish $animation $audio_pro $fonts_extra $game_dev_linux $game_dev_win $game_dev_apk
             echo "\033[1;33mFinish\033[0m"
             ;;
-        deps-glibc)
+        --deps-glibc|-dg)
             update_glibc
             remove_glibc
-            xbps-install -D -y -c $PWD/xbps-cachedir-x86_64 $GRUB $BASE $NETWORK $FIRMWARE $DRIVER $UTILS $CODEC $ARCHIVER $PKGMGMT $DISK $COMPILER $PRINTER $KDE5 $KDE5_APPS $BROWSER $VECTOR $RASTER $FONTS $OFFICE $PHOTOGRAPHY $VIDEO_EDITOR $FONT_MAKER $PAINTING $RECORD $PUBLISH $ANIMATION $AUDIO_PRO $FONTS_EXTRA $GAME_DEV_LINUX $GAME_DEV_WIN $GAME_DEV_APK
+            xbps-install -D -y -c $pwd/xbps-cachedir-x86_64 $grub $base $network $firmware $driver $utils $codec $archiver $pkgmgmt $disk $compiler $printer $kde5 $kde5_apps $browser $vector $raster $fonts $office $photography $video_editor $font_maker $painting $record $publish $animation $audio_pro $fonts_extra $game_dev_linux $game_dev_win $game_dev_apk
             echo "\033[1;33mFinish\033[0m"
             ;;
-        help)
+        --help|-h)
             usage
             exit 0
             ;;
-        version)
-            echo "\033[1;33m $NAME\033[0m version $VERSION"
+        --version|-v)
+            echo "\033[1;33m $name\033[0m version $version"
             exit 0
             ;;
         *)
