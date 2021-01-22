@@ -132,6 +132,9 @@ install_packages() {
     xbps-reconfigure -r "$ROOTFS" -f base-files >/dev/null 2>&1
     chroot "$ROOTFS" env -i xbps-reconfigure -f base-files
 
+    # Grub distributor
+    sudo sed -i "$ROOTFS"/etc/default/grub -res'#^(GRUB_DISTRIBUTOR).*#GRUB_DISTRIBUTOR="LangitKetujuh"#'
+
     # Enable choosen UTF-8 locale and generate it into the target rootfs.
     if [ -f "$ROOTFS"/etc/default/libc-locales ]; then
         sed -e "s/\#\(${LOCALE}.*\)/\1/g" -i "$ROOTFS"/etc/default/libc-locales
@@ -253,7 +256,7 @@ generate_squashfs() {
     umount_pseudofs
 
     # Find out required size for the rootfs and create an ext3fs image off it.
-    ROOTFS_SIZE=$(du -sm "$ROOTFS"|awk '{print $1}')
+    ROOTFS_SIZE=$(du --apparent-size -sm "$ROOTFS"|awk '{print $1}')
     mkdir -p "$BUILDDIR/tmp/LiveOS"
     truncate -s "$((ROOTFS_SIZE+ROOTFS_SIZE/6))M" \
 	    "$BUILDDIR"/tmp/LiveOS/ext3fs.img >/dev/null 2>&1

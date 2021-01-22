@@ -637,15 +637,15 @@ set_hostname() {
 }
 
 menu_rootpassword() {
-    local _firstpass _secondpass _desc
+    local _firstpass _secondpass _again _desc
 
     while true; do
         if [ -z "${_firstpass}" ]; then
             _desc="Enter the root password"
         else
-            _desc="$_desc again"
+            _again=" again"
         fi
-        DIALOG --insecure --passwordbox "${_desc}" ${INPUTSIZE}
+        DIALOG --insecure --passwordbox "${_desc}${_again}" ${INPUTSIZE}
         if [ $? -eq 0 ]; then
             if [ -z "${_firstpass}" ]; then
                 _firstpass="$(cat $ANSWER)"
@@ -655,7 +655,7 @@ menu_rootpassword() {
             if [ -n "${_firstpass}" -a -n "${_secondpass}" ]; then
                 if [ "${_firstpass}" != "${_secondpass}" ]; then
                     INFOBOX "Passwords do not match! Please enter again." 6 60
-                    unset _firstpass _secondpass
+                    unset _firstpass _secondpass _again
                     sleep 2 && clear && continue
                 fi
                 set_option ROOTPASSWORD "${_firstpass}"
@@ -673,7 +673,7 @@ set_rootpassword() {
 }
 
 menu_useraccount() {
-    local _firstpass _secondpass _desc
+    local _firstpass _secondpass _desc _again
     local _groups _status _group _checklist
     local _preset
 
@@ -708,9 +708,9 @@ menu_useraccount() {
         if [ -z "${_firstpass}" ]; then
             _desc="Enter the password for login '$(get_option USERLOGIN)'"
         else
-            _desc="$_desc again"
+            _again=" again"
         fi
-        DIALOG --insecure --passwordbox "${_desc}" ${INPUTSIZE}
+        DIALOG --insecure --passwordbox "${_desc}${_again}" ${INPUTSIZE}
         if [ $? -eq 0 ]; then
             if [ -z "${_firstpass}" ]; then
                 _firstpass="$(cat $ANSWER)"
@@ -720,7 +720,7 @@ menu_useraccount() {
             if [ -n "${_firstpass}" -a -n "${_secondpass}" ]; then
                 if [ "${_firstpass}" != "${_secondpass}" ]; then
                     INFOBOX "Passwords do not match! Please enter again." 6 60
-                    unset _firstpass _secondpass
+                    unset _firstpass _secondpass _again
                     sleep 2 && clear && continue
                 fi
                 set_option USERPASSWORD "${_firstpass}"
@@ -805,7 +805,7 @@ set_bootloader() {
 
     # Check if it's an EFI system via efivars module.
     if [ -n "$EFI_SYSTEM" ]; then
-        grub_args="--target=$EFI_TARGET --efi-directory=/boot/efi --bootloader-id=langitketujuh_grub --recheck"
+        grub_args="--target=$EFI_TARGET --efi-directory=/boot/efi --bootloader-id=LangitKetujuh --recheck"
     fi
     echo "Running grub-install $grub_args $dev..." >$LOG
     chroot $TARGETDIR grub-install $grub_args $dev >$LOG 2>&1
@@ -1365,7 +1365,7 @@ menu_source() {
     DIALOG --title " Select installation source " \
         --menu "$MENULABEL" 8 70 0 \
         "Local" "Packages from ISO image (recommended)" \
-        "Network" "Base system only, downloaded from official reposity"
+        "Network" "Base system only, downloaded from official repository"
     case "$(cat $ANSWER)" in
         "Local") src="local";;
         "Network") src="net";
@@ -1379,11 +1379,13 @@ menu_source() {
 }
 
 menu() {
+    local AFTER_HOSTNAME
     if [ -z "$DEFITEM" ]; then
         DEFITEM="Keyboard"
     fi
 
     if xbps-uhelper arch | grep -qe '-musl$'; then
+        AFTER_HOSTNAME="Timezone"
         DIALOG --default-item $DEFITEM \
             --extra-button --extra-label "Settings" \
             --title " LangitKetujuh installation menu " \
@@ -1401,6 +1403,7 @@ menu() {
             "Install" "Start installation with saved settings" \
             "Exit" "Exit installation"
     else
+        AFTER_HOSTNAME="Locale"
         DIALOG --default-item $DEFITEM \
             --extra-button --extra-label "Settings" \
             --title " LangitKetujuh installation menu " \
@@ -1433,7 +1436,7 @@ menu() {
         "Keyboard") menu_keymap && [ -n "$KEYBOARD_DONE" ] && DEFITEM="Network";;
         "Network") menu_network && [ -n "$NETWORK_DONE" ] && DEFITEM="Source";;
         "Source") menu_source && [ -n "$SOURCE_DONE" ] && DEFITEM="Hostname";;
-        "Hostname") menu_hostname && [ -n "$HOSTNAME_DONE" ] && DEFITEM="Locale";;
+        "Hostname") menu_hostname && [ -n "$HOSTNAME_DONE" ] && DEFITEM="$AFTER_HOSTNAME";;
         "Locale") menu_locale && [ -n "$LOCALE_DONE" ] && DEFITEM="Timezone";;
         "Timezone") menu_timezone && [ -n "$TIMEZONE_DONE" ] && DEFITEM="RootPassword";;
         "RootPassword") menu_rootpassword && [ -n "$ROOTPASSWORD_DONE" ] && DEFITEM="UserAccount";;

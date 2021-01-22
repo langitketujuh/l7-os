@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 #-
-# Copyright (c) 2020-2021 Hervy Qurrotul Ainu Rozi <hervyqa@pm.me>.
+# Copyright (c) 2020-2021 Hervy Qurrotul Ainur Rozi <hervyqa@pm.me>.
 #
 # All rights reserved.
 #
@@ -58,39 +58,16 @@ example     : sudo sh $name lite-musl
 EOF
 }
 
-update_musl()
-{
-export XBPS_ARCH=x86_64-musl
-xbps-install -S -c $pwd/xbps-cachedir-x86_64-musl
-}
-
-update_glibc()
-{
-export XBPS_ARCH=x86_64
-xbps-install -S -c $pwd/xbps-cachedir-x86_64
-}
-
-remove_musl()
-{
-export XBPS_ARCH=x86_64-musl
-xbps-remove -v -Oo -c $pwd/xbps-cachedir-x86_64-musl
-}
-
-remove_glibc()
-{
-export XBPS_ARCH=x86_64
-xbps-remove -v -Oo -c $pwd/xbps-cachedir-x86_64
-}
-
 grub="grub-i386-efi grub-x86_64-efi"
 base="base-system dialog cryptsetup lvm2 mdadm"
+initrd="dracut dracut-uefi dracut-network"
 network="dhcpcd wpa_supplicant NetworkManager ntp"
 firmware="linux-firmware linux-firmware-intel linux-firmware-amd linux-firmware-nvidia linux-firmware-network broadcom-bt-firmware broadcom-bt-firmware dkms"
 driver="xorg xf86-input-evdev xf86-input-joystick xf86-input-libinput xf86-input-mtrack xf86-input-synaptics xf86-input-vmmouse xf86-input-wacom xorg-minimal xorg-input-drivers xorg-video-drivers mesa-ati-dri mesa-intel-dri mesa-nouveau-dri"
 utils="setxkbmap xauth xrandr libvdpau-va-gl vdpauinfo font-misc-misc alsa-plugins-pulseaudio pipewire gstreamer1-pipewire alsa-utils paprefs inetutils usbutils wget curl testdisk gptfdisk xclip xclipboard wl-clipboard yank git ytop inxi xtools vsv tlp bash-completion vim bootiso bc mtools tmate pwgen fish-shell acpilight android-udev-rules android-tools gnome-color-manager ddgtk nano zenity librsvg-utils ImageMagick"
 codec="gst-plugins-base1 gst-plugins-good1 gst-plugins-ugly1 gst-plugins-bad1 gst-libav ffmpeg faac faad2 flac jasper lame libdca libmpeg2 libmad libtheora libvorbis libXv wavpack x264 xvidcore gstreamer-vaapi"
 archiver="atool p7zip zip unzip lzop lzip dtrx file-roller liblz4 lz4"
-pkgmgmt="tuxc topgrade flatpak gcompat"
+pkgmgmt="tuxc topgrade flatpak"
 disk="exfat-utils fuse-exfat gvfs-afc gvfs-mtp gvfs-smb udisks2 ntfs-3g elogind dbus-elogind dbus-elogind-x11 gnome-keyring xdg-utils xdg-desktop-portal xdg-desktop-portal-gtk xdg-desktop-portal-kde xdg-user-dirs xdg-user-dirs-gtk libappindicator AppStream"
 compiler="automake binutils bison fakeroot flex gcc libtool m4 make patch pkg-config guile qemu-user-static"
 printer="bluez-cups cups cups-pdf cups-filters gutenprint system-config-printer system-config-printer-udev hplip epson-inkjet-printer-escpr foomatic-db brother-brlaser"
@@ -100,7 +77,10 @@ fonts="terminus-font dejavu-fonts-ttf xorg-fonts noto-fonts-emoji liberation-fon
 browser="firefox"
 vector="inkscape"
 raster="gimp"
-office="libreoffice libreoffice-kde firebird3"
+color="python-dbus dispcalGUI"
+office="libreoffice libreoffice-kde"
+musl="gcompat"
+glibc="glibc-locales"
 
 # PRO Edition
 plugins="gmic gmic-gimp gimp-lqr-plugin xsane-gimp resynthesizer"
@@ -120,59 +100,39 @@ game_dev_linux="godot scons yasm pkgconf libXcursor libXinerama libXi libXrandr 
 for arg in "$@"; do
     case $arg in
         --lite-musl|-lm)
-            update_musl
-            remove_musl
             sh mklive.sh \
             -a x86_64-musl \
             -c $pwd/xbps-cachedir-x86_64-musl \
-            -i $pwd/includedir/lite/musl \
+            -I $pwd/includedir/lite/musl \
             -l "$locale" \
-            -p "$grub $base $network $firmware $driver $utils $codec $archiver $pkgmgmt $disk $compiler $printer $kde5 $kde5_apps $browser $vector $raster $fonts $office"
+            -p "$grub $base $initrd $network $firmware $driver $utils $codec $archiver $pkgmgmt $disk $compiler $printer $kde5 $kde5_apps $browser $vector $raster $color $fonts $office $musl"
             echo "\033[1;33mFinish\033[0m"
             ;;
         --lite-glibc|-lg)
-            update_glibc
-            remove_glibc
             sh mklive.sh \
             -a x86_64 \
             -c $pwd/xbps-cachedir-x86_64 \
-            -i $pwd/includedir/lite/glibc \
+            -I $pwd/includedir/lite/glibc \
             -l "$locale" \
-            -p "$grub $base $network $firmware $driver $utils $codec $archiver $pkgmgmt $disk $compiler $printer $kde5 $kde5_apps $browser $vector $raster $fonts $office"
+            -p "$grub $base $initrd $network $firmware $driver $utils $codec $archiver $pkgmgmt $disk $compiler $printer $kde5 $kde5_apps $browser $vector $raster $color $fonts $office $glibc"
             echo "\033[1;33mFinish\033[0m"
             ;;
         --pro-musl|-pm)
-            update_musl
-            remove_musl
             sh mklive.sh \
             -a x86_64-musl \
             -c $pwd/xbps-cachedir-x86_64-musl \
-            -i $pwd/includedir/pro/musl \
+            -I $pwd/includedir/pro/musl \
             -l "$locale" \
-            -p "$grub $base $network $firmware $driver $utils $codec $archiver $pkgmgmt $disk $compiler $printer $kde5 $kde5_apps $browser $vector $raster $fonts $office $plugins $photography $video_editor $font_maker $painting $record $publish $animation $audio_pro $fonts_extra $game_dev_linux $game_dev_win $game_dev_apk"
+            -p "$grub $base $initrd $network $firmware $driver $utils $codec $archiver $pkgmgmt $disk $compiler $printer $kde5 $kde5_apps $browser $vector $raster $color $fonts $office $musl $plugins $photography $video_editor $font_maker $painting $record $publish $animation $audio_pro $fonts_extra $game_dev_linux $game_dev_win $game_dev_apk"
             echo "\033[1;33mFinish\033[0m"
             ;;
         --pro-glibc|-pg)
-            update_glibc
-            remove_glibc
             sh mklive.sh \
             -a x86_64 \
             -c $pwd/xbps-cachedir-x86_64 \
-            -i $pwd/includedir/pro/glibc \
+            -I $pwd/includedir/pro/glibc \
             -l "$locale" \
-            -p "$grub $base $network $firmware $driver $utils $codec $archiver $pkgmgmt $disk $compiler $printer $kde5 $kde5_apps $browser $vector $raster $fonts $office $plugins $photography $video_editor $font_maker $painting $record $publish $animation $audio_pro $fonts_extra $game_dev_linux $game_dev_win $game_dev_apk"
-            echo "\033[1;33mFinish\033[0m"
-            ;;
-        --deps-musl|-dm)
-            update_musl
-            remove_musl
-            xbps-install -D -y -c $pwd/xbps-cachedir-x86_64-musl $grub $base $network $firmware $driver $utils $codec $archiver $pkgmgmt $disk $compiler $printer $kde5 $kde5_apps $browser $vector $raster $fonts $office $plugins $photography $video_editor $font_maker $painting $record $publish $animation $audio_pro $fonts_extra $game_dev_linux $game_dev_win $game_dev_apk
-            echo "\033[1;33mFinish\033[0m"
-            ;;
-        --deps-glibc|-dg)
-            update_glibc
-            remove_glibc
-            xbps-install -D -y -c $pwd/xbps-cachedir-x86_64 $grub $base $network $firmware $driver $utils $codec $archiver $pkgmgmt $disk $compiler $printer $kde5 $kde5_apps $browser $vector $raster $fonts $office $photography $video_editor $font_maker $painting $record $publish $animation $audio_pro $fonts_extra $game_dev_linux $game_dev_win $game_dev_apk
+            -p "$grub $base $initrd $network $firmware $driver $utils $codec $archiver $pkgmgmt $disk $compiler $printer $kde5 $kde5_apps $browser $vector $raster $color $fonts $office $glibc $plugins $photography $video_editor $font_maker $painting $record $publish $animation $audio_pro $fonts_extra $game_dev_linux $game_dev_win $game_dev_apk"
             echo "\033[1;33mFinish\033[0m"
             ;;
         --help|-h)
