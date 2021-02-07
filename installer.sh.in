@@ -795,7 +795,7 @@ set_bootloader() {
 
     # Check if it's an EFI system via efivars module.
     if [ -n "$EFI_SYSTEM" ]; then
-        grub_args="--target=$EFI_TARGET --efi-directory=/boot/efi --bootloader-id=LangitKetujuh --recheck"
+        grub_args="--target=$EFI_TARGET --efi-directory=/boot/efi --bootloader-id=langitketujuh_grub --recheck"
     fi
     echo "Running grub-install $grub_args $dev..." >$LOG
     chroot $TARGETDIR grub-install $grub_args $dev >$LOG 2>&1
@@ -1194,6 +1194,8 @@ install_packages() {
     fi
     xbps-reconfigure -r $TARGETDIR -f base-files >/dev/null 2>&1
     chroot $TARGETDIR xbps-reconfigure -a
+    # run any clean up routine defined in base-files
+    chroot $TARGETDIR xbps-reconfigure -f base-files
 }
 
 enable_dhcpd() {
