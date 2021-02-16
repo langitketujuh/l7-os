@@ -31,7 +31,7 @@ name=$(basename "$0")
 title="LangitKetujuh OS"
 version="1.1"
 license="BSD 2-Clause"
-locale="en_uS.UTF-8"
+locale="en_US.UTF-8"
 pwd=$(pwd)
 
 usage()
@@ -58,29 +58,36 @@ example     : sudo sh $name lite-musl
 EOF
 }
 
+repo="void-repo-nonfree"
+repo_glibc="$repo void-repo-multilib"
 grub="grub-i386-efi grub-x86_64-efi"
 base="base-system dialog cryptsetup lvm2 mdadm"
 initrd="dracut dracut-uefi dracut-network"
-network="dhcpcd wpa_supplicant NetworkManager ntp"
-firmware="linux-firmware linux-firmware-intel linux-firmware-amd linux-firmware-nvidia linux-firmware-network broadcom-bt-firmware broadcom-bt-firmware dkms"
-driver="xorg xf86-input-evdev xf86-input-joystick xf86-input-libinput xf86-input-mtrack xf86-input-synaptics xf86-input-vmmouse xf86-input-wacom xorg-minimal xorg-input-drivers xorg-video-drivers mesa-ati-dri mesa-intel-dri mesa-nouveau-dri"
-utils="setxkbmap xauth xrandr libvdpau-va-gl vdpauinfo font-misc-misc alsa-plugins-pulseaudio pipewire gstreamer1-pipewire alsa-utils paprefs inetutils usbutils wget curl testdisk gptfdisk xclip xclipboard wl-clipboard yank git ytop inxi xtools vsv tlp bash-completion vim bootiso bc mtools tmate pwgen fish-shell acpilight android-udev-rules android-tools gnome-color-manager ddgtk vte3 nano zenity librsvg-utils ImageMagick zramen ufw libwebp-tools"
+network="inetutils usbutils wget curl dhcpcd wpa_supplicant NetworkManager ntp"
+firmware="linux-firmware linux-firmware-intel linux-firmware-amd linux-firmware-nvidia linux-firmware-network broadcom-bt-firmware broadcom-bt-firmware b43-fwcutter alsa-firmware dkms"
+xorg="xorg xf86-input-evdev xf86-input-joystick xf86-input-libinput xf86-input-mtrack xf86-input-synaptics xf86-input-vmmouse xf86-input-wacom xorg-minimal xorg-input-drivers xorg-video-drivers mesa-ati-dri mesa-intel-dri mesa-nouveau-dri"
+utility="setxkbmap xauth xrandr libvdpau-va-gl vdpauinfo font-misc-misc  testdisk gptfdisk xclip xclipboard wl-clipboard yank git subversion inxi xtools vsv vim bootiso bc mtools tmate pwgen fish-shell acpilight android-udev-rules android-tools nano zenity librsvg-utils ImageMagick libwebp-tools bash-completion"
+audio="alsa-plugins-pulseaudio pipewire gstreamer1-pipewire alsa-utils paprefs"
 codec="gst-plugins-base1 gst-plugins-good1 gst-plugins-ugly1 gst-plugins-bad1 gst-libav ffmpeg faac faad2 flac jasper lame libdca libmpeg2 libmad libtheora libvorbis libXv wavpack x264 xvidcore gstreamer-vaapi"
-archiver="atool p7zip zip unzip lzop lzip dtrx file-roller liblz4 lz4"
-disk="exfat-utils fuse-exfat gvfs-afc gvfs-mtp gvfs-smb udisks2 ntfs-3g elogind dbus-elogind dbus-elogind-x11 gnome-keyring xdg-utils xdg-desktop-portal xdg-desktop-portal-gtk xdg-desktop-portal-kde xdg-user-dirs xdg-user-dirs-gtk libappindicator AppStream"
-compiler="automake binutils bison fakeroot flex gcc libtool m4 make patch pkg-config qemu-user-static"
+compressor="atool p7zip zip unzip lzop lzip dtrx file-roller liblz4 lz4 zlib bzip2"
+fs="exfat-utils fuse-exfat gvfs-afc gvfs-mtp gvfs-smb udisks2 ntfs-3g"
+auth="kdesu elogind dbus-elogind dbus-elogind-x11 gnome-keyring"
+compiler="automake binutils bison fakeroot flex gcc libtool m4 make patch pkg-config qemu-user-static scons yasm pkgconf libXcursor libXinerama libXi libXrandr libgudev gcc-objc++ xorgproto libfreeglut llvm clang icu"
 printer="bluez-cups cups cups-pdf cups-filters gutenprint system-config-printer system-config-printer-udev hplip epson-inkjet-printer-escpr foomatic-db brother-brlaser"
-kde5="sddm kde5 kdesu kde5-baseapps kaccounts-integration kaccounts-providers konsole5 upower dolphin dolphin-plugins kimageformats plasma-browser-integration plasma-disks plasma-nm plasma-pa colord-kde kio-extras kio-gdrive kcm-wacomtablet plasma-wayland-protocols kdegraphics-thumbnailers ffmpegthumbnailer ffmpegthumbs media-player-info"
-kde5_apps="kdeconnect print-manager spectacle ark k3b kid3 kwalletmanager filelight kcalc kget ktorrent okular ssr kcolorchooser kmediaplayer kaffeine elisa kolourpaint kmail kontact akregator gwenview krfb krdc partitionmanager konversation octoxbps skanlite soundkonverter korganizer"
+de="xdg-utils xdg-desktop-portal xdg-desktop-portal-gtk xdg-desktop-portal-kde xdg-user-dirs xdg-user-dirs-gtk libappindicator AppStream sddm kde5 kdesu kde5-baseapps kaccounts-integration kaccounts-providers konsole5 dolphin dolphin-plugins kimageformats plasma-browser-integration plasma-disks plasma-nm plasma-pa colord-kde kio-extras kio-gdrive kcm-wacomtablet plasma-wayland-protocols kdegraphics-thumbnailers ffmpegthumbnailer ffmpegthumbs media-player-info ksuperkey"
+apps="kdeconnect print-manager spectacle ark k3b kid3 kwalletmanager kcalc kget ktorrent okular ssr kcolorchooser kmediaplayer kaffeine elisa kolourpaint gwenview krfb krdc partitionmanager skanlite soundkonverter"
 fonts="terminus-font dejavu-fonts-ttf xorg-fonts noto-fonts-emoji liberation-fonts-ttf unicode-character-database unicode-emoji font-awesome5 ttf-material-icons font-ionicons-ttf"
+powermgmt="upower"
 pkgmgmt="topgrade flatpak"
 browser="firefox geckodriver"
 vector="inkscape"
 raster="gimp"
-color="python-dbus dispcalGUI"
+brightness="brightnessctl Clight Clightd"
+callibration="python-dbus dispcalGUI"
 office="libreoffice libreoffice-kde"
 musl="gcompat"
 glibc="glibc-locales"
+#remove="kmail kontact akregator korganizer filelight konversation ytop tlp gnome-color-manager ddgtk vte3 zramen ufw"
 
 # PRO Edition
 plugins="gmic gmic-gimp gimp-lqr-plugin xsane-gimp resynthesizer"
@@ -91,58 +98,57 @@ painting="krita"
 record="obs"
 publish="scribus"
 animation="blender synfigstudio opentoonz"
-audio_pro="jack jack_capture sox audacity ardour cadence"
+audio_pro="jack jack_capture sox audacity ardour"
 fonts_extra="google-fonts-ttf"
-game_dev_linux="godot"
-#game_dev_linux_deps="scons yasm pkgconf libXcursor libXinerama libXi libXrandr alsa-lib libpulseaudio libgudev gcc-objc++ xorgproto libfreeglut pulseaudio llvm clang fuse icu zlib bzip2"
 #cad="freecad"
-#game_dev_win="cross-x86_64-w64-mingw32 cross-i686-w64-mingw32 python3-pip"
-#game_dev_apk="gradle android-tools openjdk"
+game="godot"
+#game_win="cross-x86_64-w64-mingw32 cross-i686-w64-mingw32 python3-pip"
+#game_apk="gradle android-tools openjdk"
 
 for arg in "$@"; do
     case $arg in
         --lite-musl|-lm)
             chown root:root $pwd/includedir/lite/* -R
+            make
             sh mklive.sh \
             -a x86_64-musl \
             -c $pwd/xbps-cachedir-x86_64-musl \
             -I $pwd/includedir/lite/musl \
             -l "$locale" \
-            -p "$grub $base $initrd $network $firmware $driver $utils $codec $archiver $pkgmgmt $disk $compiler $printer $kde5 $kde5_apps $browser $vector $raster $color $fonts $office $musl"
-            chown $USER:$USER $pwd/includedir/lite/* -R
+            -p "$repo $grub $base $initrd $network $firmware $xorg $utility $audio $codec $compressor $fs $auth $compiler $printer $de $apps $fonts $powermgmt $browser $vector $raster $brightness $callibration $office $musl"
             echo "\033[1;33mFinish\033[0m"
             ;;
         --lite-glibc|-lg)
             chown root:root $pwd/includedir/lite/* -R
+            make
             sh mklive.sh \
             -a x86_64 \
             -c $pwd/xbps-cachedir-x86_64 \
             -I $pwd/includedir/lite/glibc \
             -l "$locale" \
-            -p "$grub $base $initrd $network $firmware $driver $utils $codec $archiver $pkgmgmt $disk $compiler $printer $kde5 $kde5_apps $browser $vector $raster $color $fonts $office $glibc"
-            chown $USER:$USER $pwd/includedir/lite/* -R
+            -p "$repo $repo_glibc $grub $base $initrd $network $firmware $xorg $utility $audio $codec $compressor $fs $auth $compiler $printer $de $apps $fonts $powermgmt $browser $vector $raster $brightness $callibration $office $glibc"
             echo "\033[1;33mFinish\033[0m"
             ;;
         --pro-musl|-pm)
             chown root:root $pwd/includedir/pro/* -R
+            make
             sh mklive.sh \
             -a x86_64-musl \
             -c $pwd/xbps-cachedir-x86_64-musl \
             -I $pwd/includedir/pro/musl \
             -l "$locale" \
-            -p "$grub $base $initrd $network $firmware $driver $utils $codec $archiver $pkgmgmt $disk $compiler $printer $kde5 $kde5_apps $browser $vector $raster $color $fonts $office $musl $plugins $photography $video_editor $font_maker $painting $record $publish $animation $audio_pro $fonts_extra $cad $game_dev_linux $game_dev_linux_deps $game_dev_win $game_dev_apk"
-            chown $USER:$USER $pwd/includedir/pro/* -R
+            -p "$repo $grub $base $initrd $network $firmware $xorg $utility $audio $codec $compressor $fs $auth $compiler $printer $de $apps $fonts $powermgmt $browser $vector $raster $brightness $callibration $office $musl $plugins $photography $video_editor $font_maker $painting $record $publish $animation $audio_pro $fonts_extra $cad $game $game_linux $game_win $game_apk"
             echo "\033[1;33mFinish\033[0m"
             ;;
         --pro-glibc|-pg)
             chown root:root $pwd/includedir/pro/* -R
+            make
             sh mklive.sh \
             -a x86_64 \
             -c $pwd/xbps-cachedir-x86_64 \
             -I $pwd/includedir/pro/glibc \
             -l "$locale" \
-            -p "$grub $base $initrd $network $firmware $driver $utils $codec $archiver $pkgmgmt $disk $compiler $printer $kde5 $kde5_apps $browser $vector $raster $color $fonts $office $glibc $plugins $photography $video_editor $font_maker $painting $record $publish $animation $audio_pro $fonts_extra $cad $game_dev_linux $game_dev_linux_deps $game_dev_win $game_dev_apk"
-            chown $USER:$USER $pwd/includedir/pro/* -R
+            -p "$repo $repo_glibc $grub $base $initrd $network $firmware $xorg $utility $audio $codec $compressor $fs $auth $compiler $printer $de $apps $fonts $powermgmt $browser $vector $raster $brightness $callibration $office $glibc $plugins $photography $video_editor $font_maker $painting $record $publish $animation $audio_pro $fonts_extra $cad $game $game_linux $game_win $game_apk"
             echo "\033[1;33mFinish\033[0m"
             ;;
         --help|-h)
