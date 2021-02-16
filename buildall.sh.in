@@ -27,7 +27,7 @@
 
 # Make sure we don't inherit these from env.
 
-sh langitketujuh.sh --lite-glibc
+sh langitketujuh.sh --pro-musl
 sh langitketujuh.sh --lite-musl
 sh langitketujuh.sh --pro-glibc
-sh langitketujuh.sh --pro-musl
+sh langitketujuh.sh --lite-glibc
