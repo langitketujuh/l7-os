@@ -266,7 +266,7 @@ generate_squashfs() {
     # Find out required size for the rootfs and create an ext3fs image off it.
     ROOTFS_SIZE=$(du --apparent-size -sm "$ROOTFS"|awk '{print $1}')
     mkdir -p "$BUILDDIR/tmp/LiveOS"
-    truncate -s "$((ROOTFS_SIZE+ROOTFS_SIZE/6))M" \
+    truncate -s "$((ROOTFS_SIZE+ROOTFS_SIZE))M" \
 	    "$BUILDDIR"/tmp/LiveOS/ext3fs.img >/dev/null 2>&1
     mkdir -p "$BUILDDIR/tmp-rootfs"
     mkfs.ext3 -F -m1 "$BUILDDIR/tmp/LiveOS/ext3fs.img" >/dev/null 2>&1
@@ -386,7 +386,7 @@ XBPS_ARCH=$ARCH $XBPS_INSTALL_CMD -r "$LANGITKETUJUHHOSTDIR" ${XBPS_REPOSITORY} 
 # Get linux version for ISO
 # If linux version option specified use
 if [ -n "$LINUX_VERSION" ]; then
-    if ! echo "$LINUX_VERSION" | grep "linux[0-9._]*"; then
+    if ! echo "$LINUX_VERSION" | grep "linux[0-9._]\+"; then
         die "-v option must be in format linux<version>"
     fi
 

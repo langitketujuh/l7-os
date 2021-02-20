@@ -134,11 +134,6 @@ cleanup_chroot() {
 
     # Un-Mount the pseudofs mounts if they were mounted
     umount_pseudofs
-
-    # If a QEMU binary was copied in, remove that as well
-    if [ -x "$ROOTFS/usr/bin/$QEMU_BIN" ] ; then
-        rm "$ROOTFS/usr/bin/$QEMU_BIN"
-    fi
 }
 
 register_binfmt() {
@@ -165,58 +160,71 @@ register_binfmt() {
 
     # In the special case where the build is native we can return
     # without doing anything else
-    if [ "${HOSTARCH%-musl}" = "${XBPS_TARGET_ARCH%-musl}" ] ; then
+    # This is only a basic check for identical archs, with more careful
+    # checks below for cases like ppc64 -> ppc and x86_64 -> i686.
+    _hostarch="${HOSTARCH%-musl}"
+    _targetarch="${XBPS_TARGET_ARCH%-musl}"
+    if [ "$_hostarch" = "$_targetarch" ] ; then
         return
     fi
 
-    case "${XBPS_TARGET_ARCH}" in
+    case "${_targetarch}" in
         armv*)
+            # TODO: detect aarch64 hosts that run 32 bit ARM without qemu (some cannot)
+            if ( [ "${_targetarch}" = "armv6l" ] && [ "${_hostarch}" = "armv7l" ] ) ; then
+                return
+            fi
+            if [ "${_targetarch}" = "armv5tel" -a \
+                \( "${_hostarch}" = "armv6l" -o "${_hostarch}" = "armv7l" \) ] ; then
+                return
+            fi
             _cpu=arm
             _magic="\x7fELF\x01\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x00\x28\x00"
             _mask="\xff\xff\xff\xff\xff\xff\xff\x00\xff\xff\xff\xff\xff\xff\xff\xff\xfe\xff\xff\xff"
-            QEMU_BIN=qemu-arm-static
             ;;
-        aarch64*)
+        aarch64)
             _cpu=aarch64
             _magic="\x7fELF\x02\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x00\xb7"
             _mask="\xff\xff\xff\xff\xff\xff\xff\x00\xff\xff\xff\xff\xff\xff\xff\xff\xfe\xff\xff"
-            QEMU_BIN=qemu-aarch64-static
             ;;
-        ppc64le*)
+        ppc64le)
             _cpu=ppc64le
             _magic="\x7fELF\x02\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x00\x15\x00"
             _mask="\xff\xff\xff\xff\xff\xff\xff\x00\xff\xff\xff\xff\xff\xff\xff\xff\xfe\xff\xff\x00"
-            QEMU_BIN=qemu-ppc64le-static
             ;;
-        ppc64*)
+        ppc64)
             _cpu=ppc64
             _magic="\x7fELF\x02\x02\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x00\x15"
             _mask="\xff\xff\xff\xff\xff\xff\xff\x00\xff\xff\xff\xff\xff\xff\xff\xff\xff\xfe\xff\xff"
-            QEMU_BIN=qemu-ppc64-static
             ;;
-        ppc*)
+        ppc)
+            if [ "$_hostarch" = "ppc64" ] ; then
+                return
+            fi
             _cpu=ppc
             _magic="\x7fELF\x01\x02\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x00\x14"
             _mask="\xff\xff\xff\xff\xff\xff\xff\x00\xff\xff\xff\xff\xff\xff\xff\xff\xff\xfe\xff\xff"
-            QEMU_BIN=qemu-ppc-static
             ;;
-        mipsel*)
+        mipsel)
+            if [ "$_hostarch" = "mips64el" ] ; then
+                return
+            fi
             _cpu=mipsel
             _magic="\x7fELF\x01\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x00\x08\x00"
             _mask="\xff\xff\xff\xff\xff\xff\xff\x00\xff\xff\xff\xff\xff\xff\xff\xff\xfe\xff\xff\xff"
-            QEMU_BIN=qemu-mipsel-static
             ;;
-        x86_64*)
+        x86_64)
             _cpu=x86_64
             _magic="\x7f\x45\x4c\x46\x02\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x00\x3e\x00"
             _mask="\xff\xff\xff\xff\xff\xfe\xfe\xfc\xff\xff\xff\xff\xff\xff\xff\xff\xfe\xff\xff\xff"
-            QEMU_BIN=qemu-x86_64-static
             ;;
-        i686*)
+        i686)
+            if [ "$_hostarch" = "x86_64" ] ; then
+                return
+            fi
             _cpu=i386
             _magic="\x7f\x45\x4c\x46\x01\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x00\x03\x00"
             _mask="\xff\xff\xff\xff\xff\xfe\xfe\xff\xff\xff\xff\xff\xff\xff\xff\xff\xfe\xff\xff\xff"
-            QEMU_BIN=qemu-i386-static
             ;;
         *)
             die "Unknown target architecture!"
@@ -225,6 +233,7 @@ register_binfmt() {
 
     # For builds that do not match the host architecture, the correct
     # qemu binary will be required.
+    QEMU_BIN="qemu-${_cpu}-static"
     if ! $QEMU_BIN -version >/dev/null 2>&1; then
         die "$QEMU_BIN binary is missing in your system, exiting."
     fi
@@ -238,18 +247,7 @@ register_binfmt() {
 
     # Only register if the map is incomplete
     if [ ! -f /proc/sys/fs/binfmt_misc/qemu-$_cpu ] ; then
-        echo ":qemu-$_cpu:M::$_magic:$_mask:/usr/bin/$QEMU_BIN:" > /proc/sys/fs/binfmt_misc/register 2>/dev/null
-    fi
-
-    # If the static binary isn't in the chroot then the chroot will
-    # fail.  The kernel knows about the map but without the static
-    # version there's no interpreter in the chroot, only the
-    # dynamically linked one in the host.  To simplify things we just
-    # use the static one always and make sure it shows up at the same
-    # place in the host and the chroot.
-    if [ ! -x "$ROOTFS/usr/bin/$QEMU_BIN" ] ; then
-        install -m755 -D "$(which "$QEMU_BIN")" "$ROOTFS/usr/bin/$QEMU_BIN" ||
-            die "Could not install $QEMU_BIN to $ROOTFS/usr/bin/"
+        echo ":qemu-$_cpu:M::$_magic:$_mask:/usr/bin/$QEMU_BIN:F" > /proc/sys/fs/binfmt_misc/register 2>/dev/null
     fi
 }
 
