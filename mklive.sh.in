@@ -143,6 +143,9 @@ install_packages() {
     ln -sf /usr/share/fontconfig/conf.avail/70-no-bitmaps.conf "$ROOTFS"/etc/fonts/conf.d/
     xbps-reconfigure -r "$ROOTFS" -f fontconfig >/dev/null 2>&1
 
+    # remove agetty-tty 3-6
+    rm "$ROOTFS"/var/service/agetty-tty{3,4,5,6}
+
     # Enable choosen UTF-8 locale and generate it into the target rootfs.
     if [ -f "$ROOTFS"/etc/default/libc-locales ]; then
         sed -e "s/\#\(${LOCALE}.*\)/\1/g" -i "$ROOTFS"/etc/default/libc-locales
