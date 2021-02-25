@@ -9,7 +9,7 @@ echo langitketujuh > ${NEWROOT}/etc/hostname
 AUTOLOGIN=$(getarg live.autologin)
 USERNAME=$(getarg live.user)
 USERSHELL=$(getarg live.shell)
-USERCOMMENT="LangitKetujuh GNU/Linux"
+USERCOMMENT="LangitKetujuh"
 USERSHELL="/bin/fish"
 
 [ -z "$USERNAME" ] && USERNAME=anon
