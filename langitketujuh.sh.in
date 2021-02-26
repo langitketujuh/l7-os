@@ -41,7 +41,7 @@ cat <<- EOF
 
 builder     : $title installer
 license     : $license
-usage       : sudo sh $name [options]
+usage       : sh $name [options]
 
 options     : --lite-musl   -lm   # build lite musl edition
               --lite-glibc  -lg   # build lite glibc edition
@@ -54,7 +54,7 @@ options     : --lite-musl   -lm   # build lite musl edition
               --help        -h    # print this help
               --version     -v    # print $name version
 
-example     : sudo sh $name lite-musl
+example     : sh $name lite-musl
 
 EOF
 }
@@ -109,47 +109,51 @@ game="godot"
 for arg in "$@"; do
     case $arg in
         --lite-musl|-lm)
-            chown root:root $pwd/includedir/lite/* -R
+            sudo chown root:root $pwd/includedir/lite/* -R
             make
-            sh mklive.sh \
+            sudo sh mklive.sh \
             -a x86_64-musl \
             -c $pwd/xbps-cachedir-x86_64-musl \
             -I $pwd/includedir/lite/musl \
             -l "$locale" \
             -p "$repo $grub $base $initrd $network $firmware $xorg $utility $audio $codec $compressor $fs $auth $compiler $printer $de $apps $fonts $powermgmt $browser $vector $raster $brightness $callibration $office $musl"
+            sudo chown $USER:$USER $pwd/includedir/lite/* -R
             echo "\033[1;33mFinish\033[0m"
             ;;
         --lite-glibc|-lg)
-            chown root:root $pwd/includedir/lite/* -R
+            sudo chown root:root $pwd/includedir/lite/* -R
             make
-            sh mklive.sh \
+            sudo sh mklive.sh \
             -a x86_64 \
             -c $pwd/xbps-cachedir-x86_64 \
             -I $pwd/includedir/lite/glibc \
             -l "$locale" \
             -p "$repo $repo_glibc $grub $base $initrd $network $firmware $xorg $utility $audio $codec $compressor $fs $auth $compiler $printer $de $apps $fonts $powermgmt $browser $vector $raster $brightness $callibration $office $glibc"
+            sudo chown $USER:$USER $pwd/includedir/lite/* -R
             echo "\033[1;33mFinish\033[0m"
             ;;
         --pro-musl|-pm)
-            chown root:root $pwd/includedir/pro/* -R
+            sudo chown root:root $pwd/includedir/pro/* -R
             make
-            sh mklive.sh \
+            sudo sh mklive.sh \
             -a x86_64-musl \
             -c $pwd/xbps-cachedir-x86_64-musl \
             -I $pwd/includedir/pro/musl \
             -l "$locale" \
             -p "$repo $grub $base $initrd $network $firmware $xorg $utility $audio $codec $compressor $fs $auth $compiler $printer $de $apps $fonts $powermgmt $browser $vector $raster $brightness $callibration $office $musl $plugins $photography $video_editor $font_maker $painting $record $publish $animation $audio_pro $fonts_extra $cad $game $game_linux $game_win $game_apk"
+            sudo chown $USER:$USER $pwd/includedir/lite/* -R
             echo "\033[1;33mFinish\033[0m"
             ;;
         --pro-glibc|-pg)
-            chown root:root $pwd/includedir/pro/* -R
+            sudo chown root:root $pwd/includedir/pro/* -R
             make
-            sh mklive.sh \
+            sudo sh mklive.sh \
             -a x86_64 \
             -c $pwd/xbps-cachedir-x86_64 \
             -I $pwd/includedir/pro/glibc \
             -l "$locale" \
             -p "$repo $repo_glibc $grub $base $initrd $network $firmware $xorg $utility $audio $codec $compressor $fs $auth $compiler $printer $de $apps $fonts $powermgmt $browser $vector $raster $brightness $callibration $office $glibc $plugins $photography $video_editor $font_maker $painting $record $publish $animation $audio_pro $fonts_extra $cad $game $game_linux $game_win $game_apk"
+            sudo chown $USER:$USER $pwd/includedir/lite/* -R
             echo "\033[1;33mFinish\033[0m"
             ;;
         --help|-h)
