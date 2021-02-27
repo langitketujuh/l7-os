@@ -143,9 +143,6 @@ install_packages() {
     ln -sf /usr/share/fontconfig/conf.avail/70-no-bitmaps.conf "$ROOTFS"/etc/fonts/conf.d/
     xbps-reconfigure -r "$ROOTFS" -f fontconfig >/dev/null 2>&1
 
-    # remove agetty-tty 3-6
-    rm "$ROOTFS"/var/service/agetty-tty{3,4,5,6}
-
     # Enable choosen UTF-8 locale and generate it into the target rootfs.
     if [ -f "$ROOTFS"/etc/default/libc-locales ]; then
         sed -e "s/\#\(${LOCALE}.*\)/\1/g" -i "$ROOTFS"/etc/default/libc-locales
@@ -300,6 +297,13 @@ generate_iso_image() {
         -output "$OUTPUT_FILE" "$IMAGEDIR" || die "Failed to generate ISO image"
 }
 
+generate_checksum_iso_image() {
+    md5sum "$OUTPUT_FILE" > "$OUTPUT_FILE".md5
+    sha1sum "$OUTPUT_FILE" > "$OUTPUT_FILE".sha1
+    sha256sum "$OUTPUT_FILE" > "$OUTPUT_FILE".sha256
+    sha512sum "$OUTPUT_FILE" > "$OUTPUT_FILE".sha512
+}
+
 #
 # main()
 #
@@ -406,7 +410,7 @@ if [ "$?" -ne "0" ]; then
     die "Failed to find kernel package version"
 fi
 
-: ${OUTPUT_FILE="langitketujuh-live-${BASE_ARCH}-${KERNELVERSION}-$(pwgen -sA 7 1).iso"}
+: ${OUTPUT_FILE="langitketujuh-${BASE_ARCH}-${KERNELVERSION}-$(pwgen -sA 7 1)-$(date +%Y%m%d).iso"}
 
 print_step "Installing software to generate the image: ${REQUIRED_PKGS} ..."
 install_prereqs
@@ -444,4 +448,5 @@ generate_iso_image
 hsize=$(du -sh "$OUTPUT_FILE"|awk '{print $1}')
 info_msg "Created $(readlink -f "$OUTPUT_FILE") ($hsize) successfully."
 
-
+print_step "Generating Checksum image..."
+generate_checksum_iso_image
