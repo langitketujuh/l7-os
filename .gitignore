@@ -6,6 +6,7 @@
 *.tar.gz
 *.box
 *.kdev4
+*.sha256
 *tmp.*
 includedir
 xbps-cache
