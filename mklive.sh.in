@@ -71,6 +71,7 @@ Options:
  -r <repo-url>      Use this XBPS repository (may be specified multiple times).
  -c <cachedir>      Use this XBPS cache directory (a subdirectory of current 
 directory if unset).
+ -e <edition>       Edition lite or pro (default lite)
  -k <keymap>        Default keymap to use (us if unset)
  -l <locale>        Default locale to use (en_US.UTF-8 if unset).
  -i <lz4|gzip|bzip2|xz> Compression type for the initramfs image (xz if unset).
@@ -130,10 +131,15 @@ install_packages() {
     [ $? -ne 0 ] && die "Failed to install $PACKAGE_LIST"
 
     xbps-reconfigure -r "$ROOTFS" -f base-files >/dev/null 2>&1
-    chroot "$ROOTFS" env -i xbps-reconfigure -f base-files
+
+    # Remove agetty-tty 3-6
+    rm -v "$ROOTFS"/var/service/agetty-tty3
+    rm -v "$ROOTFS"/var/service/agetty-tty4
+    rm -v "$ROOTFS"/var/service/agetty-tty5
+    rm -v "$ROOTFS"/var/service/agetty-tty6
 
     # Grub distributor
-    sudo sed -i "$ROOTFS"/etc/default/grub -res'#^(GRUB_DISTRIBUTOR).*#GRUB_DISTRIBUTOR="LangitKetujuh"#'
+    sed -i "$ROOTFS"/etc/default/grub -res'#^(GRUB_DISTRIBUTOR).*#GRUB_DISTRIBUTOR="LangitKetujuh"#'
 
     # Fix fonts
     ln -sf /usr/share/fontconfig/conf.avail/10-hinting-slight.conf "$ROOTFS"/etc/fonts/conf.d/
@@ -142,6 +148,8 @@ install_packages() {
     ln -sf /usr/share/fontconfig/conf.avail/50-user.conf "$ROOTFS"/etc/fonts/conf.d/
     ln -sf /usr/share/fontconfig/conf.avail/70-no-bitmaps.conf "$ROOTFS"/etc/fonts/conf.d/
     xbps-reconfigure -r "$ROOTFS" -f fontconfig >/dev/null 2>&1
+
+    chroot "$ROOTFS" env -i xbps-reconfigure -f base-files
 
     # Enable choosen UTF-8 locale and generate it into the target rootfs.
     if [ -f "$ROOTFS"/etc/default/libc-locales ]; then
@@ -298,21 +306,19 @@ generate_iso_image() {
 }
 
 generate_checksum_iso_image() {
-    md5sum "$OUTPUT_FILE" > "$OUTPUT_FILE".md5
-    sha1sum "$OUTPUT_FILE" > "$OUTPUT_FILE".sha1
     sha256sum "$OUTPUT_FILE" > "$OUTPUT_FILE".sha256
-    sha512sum "$OUTPUT_FILE" > "$OUTPUT_FILE".sha512
 }
 
 #
 # main()
 #
-while getopts "a:b:r:c:C:T:Kk:l:i:I:s:S:o:p:v:h" opt; do
+while getopts "a:b:r:c:e:C:T:Kk:l:i:I:s:S:o:p:v:h" opt; do
     case $opt in
         a) BASE_ARCH="$OPTARG";;
         b) BASE_SYSTEM_PKG="$OPTARG";;
         r) XBPS_REPOSITORY="--repository=$OPTARG $XBPS_REPOSITORY";;
         c) XBPS_CACHEDIR="$OPTARG";;
+        e) EDITION="$OPTARG";;
         K) readonly KEEP_BUILDDIR=1;;
         k) KEYMAP="$OPTARG";;
         l) LOCALE="$OPTARG";;
@@ -346,6 +352,7 @@ ARCH=$(xbps-uhelper arch)
 : ${SQUASHFS_COMPRESSION:=xz}
 : ${BASE_SYSTEM_PKG:=base-system}
 : ${BOOT_TITLE:="LangitKetujuh"}
+: ${EDITION:="lite"}
 
 # Required packages in the image for a working system.
 PACKAGE_LIST="$BASE_SYSTEM_PKG $PACKAGE_LIST"
@@ -410,7 +417,7 @@ if [ "$?" -ne "0" ]; then
     die "Failed to find kernel package version"
 fi
 
-: ${OUTPUT_FILE="langitketujuh-${BASE_ARCH}-${KERNELVERSION}-$(pwgen -sA 7 1)-$(date +%Y%m%d).iso"}
+: ${OUTPUT_FILE="langitketujuh-${EDITION}-${BASE_ARCH}-${KERNELVERSION}-$(date +%Y%m%d)-$(pwgen -sA 7 1).iso"}
 
 print_step "Installing software to generate the image: ${REQUIRED_PKGS} ..."
 install_prereqs
@@ -445,8 +452,8 @@ generate_squashfs
 print_step "Generating ISO image..."
 generate_iso_image
 
-hsize=$(du -sh "$OUTPUT_FILE"|awk '{print $1}')
-info_msg "Created $(readlink -f "$OUTPUT_FILE") ($hsize) successfully."
-
 print_step "Generating Checksum image..."
 generate_checksum_iso_image
+
+hsize=$(du -sh "$OUTPUT_FILE"|awk '{print $1}')
+info_msg "Created $(readlink -f "$OUTPUT_FILE") ($hsize) successfully."
