@@ -29,9 +29,6 @@
 
 TMP="/var/tmp"
 
-sudo chown root:root includedir/lite/* -R
-sudo chown root:root includedir/pro/* -R
-
 echo "\033[1;33m[START]\033[0m Build Pro Musl"
 sh langitketujuh.sh --pro-musl > ${TMP}/log-pro-musl-$(date +%Y%m%d-%H%M%S).txt
 echo "\033[1;36m[FINISH]\033[0m Job done"
