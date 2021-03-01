@@ -1,6 +1,4 @@
-======================================================================================
-
-Welcome to the LangitKetujuh GNU/Linux Live system. Two users are available to log in:
+>> Welcome to the LangitKetujuh GNU/Linux Live system. Two users are available to log in:
 
     # root:langitketujuh
     # anon:langitketujuh
@@ -12,13 +10,9 @@ To start the installation please type:
 and follow the on-screen instructions. To install additional software make
 sure to configure your network interface and then use:
 
-    # update, to update packages
-    # install, to install packages
-    # remove, to remove packages
-    # search, to query for package info
+    # update    (to update packages)
+    # install   (to install packages)
+    # remove    (to remove packages)
+    # search    (to query for package info)
 
-Thanks for using LangitKetujuh.
-
-    https://langitketujuh.id/
-
-======================================================================================
+Thanks for using LangitKetujuh. https://langitketujuh.id/
