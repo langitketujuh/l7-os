@@ -132,14 +132,9 @@ install_packages() {
 
     xbps-reconfigure -r "$ROOTFS" -f base-files >/dev/null 2>&1
 
-    # Remove agetty-tty 3-6
-    rm -v "$ROOTFS"/var/service/agetty-tty3
-    rm -v "$ROOTFS"/var/service/agetty-tty4
-    rm -v "$ROOTFS"/var/service/agetty-tty5
-    rm -v "$ROOTFS"/var/service/agetty-tty6
-
-    # Grub distributor
+    # Grub distributor and init
     sed -i "$ROOTFS"/etc/default/grub -res'#^(GRUB_DISTRIBUTOR).*#GRUB_DISTRIBUTOR="LangitKetujuh"#'
+    sed -i 's/Void/LangitKetujuh/g' "$ROOTFS"/etc/runit/1
 
     # Fix fonts
     ln -sf /usr/share/fontconfig/conf.avail/10-hinting-slight.conf "$ROOTFS"/etc/fonts/conf.d/
