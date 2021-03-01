@@ -106,58 +106,67 @@ game="godot"
 #game_win="cross-x86_64-w64-mingw32 cross-i686-w64-mingw32 python3-pip"
 #game_apk="gradle android-tools openjdk"
 
+info_msg() {
+    printf "\033[1m$@\n\033[m"
+}
+
+die() {
+    info_msg "ERROR: $@"
+}
+
+# Check for root permissions.
+if [ "$(id -u)" -ne 0 ]; then
+    die "Must be run as root, exiting..."
+fi
+
 for arg in "$@"; do
     case $arg in
         --lite-musl|-lm)
-            sudo chown root:root $pwd/includedir/lite/* -R
-            sudo sh mklive.sh \
+            chown root:root $pwd/includedir/lite/* -R
+            sh mklive.sh \
             -a x86_64-musl \
             -c $pwd/xbps-cachedir-x86_64-musl \
             -I $pwd/includedir/lite/musl \
             -l "$locale" \
             -e "lite" \
             -p "$repo $grub $base $initrd $network $firmware $xorg $utility $audio $codec $compressor $fs $auth $compiler $printer $de $apps $fonts $powermgmt $browser $vector $raster $brightness $callibration $office $musl"
-            sudo chown $USER:$USER $pwd/includedir/lite/* -R
             echo "\033[1;33mFinish\033[0m"
             ;;
         --lite-glibc|-lg)
-            sudo chown root:root $pwd/includedir/lite/* -R
-            sudo sh mklive.sh \
+            chown root:root $pwd/includedir/lite/* -R
+            sh mklive.sh \
             -a x86_64 \
             -c $pwd/xbps-cachedir-x86_64 \
             -I $pwd/includedir/lite/glibc \
             -l "$locale" \
             -e "lite" \
             -p "$repo $repo_glibc $grub $base $initrd $network $firmware $xorg $utility $audio $codec $compressor $fs $auth $compiler $printer $de $apps $fonts $powermgmt $browser $vector $raster $brightness $callibration $office $glibc"
-            sudo chown $USER:$USER $pwd/includedir/lite/* -R
             echo "\033[1;33mFinish\033[0m"
             ;;
         --pro-musl|-pm)
-            sudo chown root:root $pwd/includedir/pro/* -R
-            sudo sh mklive.sh \
+            chown root:root $pwd/includedir/pro/* -R
+            sh mklive.sh \
             -a x86_64-musl \
             -c $pwd/xbps-cachedir-x86_64-musl \
             -I $pwd/includedir/pro/musl \
             -l "$locale" \
             -e "pro" \
             -p "$repo $grub $base $initrd $network $firmware $xorg $utility $audio $codec $compressor $fs $auth $compiler $printer $de $apps $fonts $powermgmt $browser $vector $raster $brightness $callibration $office $musl $plugins $photography $video_editor $font_maker $painting $record $publish $animation $audio_pro $fonts_extra $cad $game $game_linux $game_win $game_apk"
-            sudo chown $USER:$USER $pwd/includedir/pro/* -R
             echo "\033[1;33mFinish\033[0m"
             ;;
         --pro-glibc|-pg)
-            sudo chown root:root $pwd/includedir/pro/* -R
-            sudo sh mklive.sh \
+            chown root:root $pwd/includedir/pro/* -R
+            sh mklive.sh \
             -a x86_64 \
             -c $pwd/xbps-cachedir-x86_64 \
             -I $pwd/includedir/pro/glibc \
             -l "$locale" \
             -e "pro" \
             -p "$repo $repo_glibc $grub $base $initrd $network $firmware $xorg $utility $audio $codec $compressor $fs $auth $compiler $printer $de $apps $fonts $powermgmt $browser $vector $raster $brightness $callibration $office $glibc $plugins $photography $video_editor $font_maker $painting $record $publish $animation $audio_pro $fonts_extra $cad $game $game_linux $game_win $game_apk"
-            sudo chown $USER:$USER $pwd/includedir/pro/* -R
             echo "\033[1;33mFinish\033[0m"
             ;;
         --clean-musl|-cm)
-            sudo sh mklive.sh \
+            sh mklive.sh \
             -a x86_64-musl \
             -c $pwd/xbps-cachedir-x86_64-musl \
             -l "$locale" \
