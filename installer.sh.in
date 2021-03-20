@@ -1193,7 +1193,6 @@ install_packages() {
         DIE 1
     fi
 
-    rm -v $TARGETDIR/var/service/agetty-tty{3,4,5,6}
     xbps-reconfigure -r $TARGETDIR -f base-files >/dev/null 2>&1
     chroot $TARGETDIR xbps-reconfigure -a
 }

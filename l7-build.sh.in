@@ -1,0 +1,138 @@
+#!/usr/bin/env sh
+#-
+# Copyright (c) 2020-2021 Hervy Qurrotul Ainur Rozi <hervyqa@pm.me>.
+#
+# All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions
+# are met:
+# 1. Redistributions of source code must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+# 2. Redistributions in binary form must reproduce the above copyright
+#    notice, this list of conditions and the following disclaimer in the
+#    documentation and/or other materials provided with the distribution.
+#
+# THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
+# IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+# OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+# IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT,
+# INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+# NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+# (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+# THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+#-
+
+# Make sure we don't inherit these from env.
+# last update upstream=be02f166cf01096985334cf51163813848a3ac15
+
+ARCH=
+IMAGE=
+
+while getopts "a:b:hr:" opt; do
+case $opt in
+	a) ARCH="$OPTARG";;
+	b) IMAGE="$OPTARG";;
+	e) EDITION="$OPTARG";;
+	h) echo "${0#/*}: [-a x86_64|x86_64-musl] [-b base|lite|pro] [-r repo]" >&2; exit 1;;
+	r) REPO="-r $OPTARG $REPO";;
+esac
+done
+shift $((OPTIND - 1))
+
+: ${ARCH:=$(uname -m)}
+
+readonly DATE=$(date +%Y%m%d)
+readonly GEN=$(pwgen -sA 7 1)
+readonly BASE_IMG=langitketujuh-base-${ARCH}-${DATE}-${GEN}.iso
+readonly LITE_IMG=langitketujuh-lite-${ARCH}-${DATE}-${GEN}.iso
+readonly PRO_IMG=langitketujuh-pro-${ARCH}-${DATE}-${GEN}.iso
+
+readonly NONFREE_REPO_PKGS="void-repo-nonfree"
+readonly GRUB_PKGS="grub-i386-efi grub-x86_64-efi"
+readonly BASE_PKGS="base-system dialog cryptsetup lvm2 mdadm"
+readonly INITRD_PKGS_PKGS="dracut dracut-uefi dracut-network"
+readonly NETWORK_PKGS="inetutils usbutils wget curl dhcpcd wpa_supplicant NetworkManager ntp"
+readonly FIRMWARE_PKGS="linux-firmware linux-firmware-intel linux-firmware-amd linux-firmware-nvidia linux-firmware-network linux-firmware-broadcom broadcom-bt-firmware b43-fwcutter alsa-firmware wifi-firmware dkms"
+readonly XORG_PKGS="xorg xf86-input-evdev xf86-input-joystick xf86-input-libinput xf86-input-mtrack xf86-input-synaptics xf86-input-vmmouse xf86-input-wacom xorg-minimal xorg-input-drivers xorg-video-drivers mesa-ati-dri mesa-intel-dri mesa-nouveau-dri"
+readonly UTILITY_PKGS="setxkbmap xauth xrandr libvdpau-va-gl vdpauinfo font-misc-misc  testdisk gptfdisk xclip xclipboard wl-clipboard yank git subversion inxi xtools vsv vim bootiso bc mtools tmate pwgen fish-shell acpilight android-udev-rules android-tools nano zenity librsvg-utils ImageMagick libwebp-tools bash-completion htop appmenu-gtk-module appmenu-gtk3-module vpsm"
+readonly AUDIO_PKGS="alsa-plugins-pulseaudio pipewire gstreamer1-pipewire alsa-utils paprefs"
+readonly CODEC_PKGS="gst-plugins-base1 gst-plugins-good1 gst-plugins-ugly1 gst-plugins-bad1 gst-libav ffmpeg faac faad2 flac jasper lame libdca libmpeg2 libmad libtheora libvorbis libXv wavpack x264 xvidcore gstreamer-vaapi"
+readonly COMPRESSOR_PKGS="atool p7zip zip unzip lzop lzip dtrx file-roller liblz4 lz4 zlib bzip2"
+readonly FS_PKGS="exfat-utils fuse-exfat gvfs-afc gvfs-mtp gvfs-smb udisks2 ntfs-3g"
+readonly AUTH_PKGS="kdesu elogind dbus-elogind dbus-elogind-x11 gnome-keyring subversion-kwallet-auth"
+readonly COMPILER_PKGS="automake binutils bison fakeroot flex gcc libtool m4 make patch pkg-config qemu-user-static scons yasm pkgconf libXcursor libXinerama libXi libXrandr libgudev gcc-objc++ xorgproto libfreeglut llvm clang icu"
+readonly PRINTER_PKGS="bluez-cups cups cups-pdf cups-filters gutenprint system-config-printer system-config-printer-udev hplip epson-inkjet-printer-escpr foomatic-db brother-brlaser"
+readonly KDE_PKGS="xdg-utils xdg-desktop-portal xdg-desktop-portal-gtk xdg-desktop-portal-kde xdg-user-dirs xdg-user-dirs-gtk libappindicator AppStream sddm kde5 kdesu kde5-baseapps kaccounts-integration kaccounts-providers konsole dolphin dolphin-plugins kimageformats plasma-browser-integration plasma-disks plasma-nm plasma-pa colord-gtk colord-kde kio-extras kio-gdrive kcm-wacomtablet plasma-wayland-protocols kdegraphics-thumbnailers ffmpegthumbnailer ffmpegthumbs media-player-info ksuperkey kidentitymanagement"
+readonly APPS_PKGS="kdeconnect print-manager spectacle ark k3b kid3 kwalletmanager kcalc kget ktorrent okular vokoscreen kcolorchooser kmediaplayer kaffeine elisa kolourpaint gwenview krfb krdc partitionmanager skanlite soundkonverter"
+readonly FONTS_PKGS="terminus-font dejavu-fonts-ttf xorg-fonts noto-fonts-emoji liberation-fonts-ttf unicode-character-database unicode-emoji font-awesome5 ttf-material-icons font-ionicons-ttf"
+readonly POWERMGMT_PKGS="upower tlp tlp-rdw acpi acpi_call-dkms cpufrequtils"
+readonly PKGMGMT_PKGS="topgrade flatpak"
+readonly BROWSER_PKGS="firefox geckodriver"
+readonly VECTOR_PKGS="inkscape"
+readonly RASTER_PKGS="gimp"
+readonly BRIGHTNESS_PKGS="brightnessctl Clight Clightd"
+readonly CALLIBRATION_PKGS="lcms lcms2 python-dbus dispcalGUI"
+readonly OFFICE_PKGS="libreoffice libreoffice-kde"
+readonly MUSL_PKGS="gcompat"
+readonly GLIBC_PKGS="glibc-locales"
+
+# PRO Edition
+readonly PLUGINS_PKGS="gmic gmic-gimp gimp-lqr-plugin xsane-gimp resynthesizer"
+readonly PHOTOGRAPHY_PKGS="digikam rawtherapee hugin"
+readonly VIDEO_EDITOR_PKGS="kdenlive"
+readonly FONT_MAKER_PKGS="fontforge"
+readonly PAINTING_PKGS_PKGS="krita"
+readonly RECORD_PKGS="obs"
+readonly PUBLISH_PKGS="scribus"
+readonly ANIMATION_PKGS="blender synfigstudio opentoonz"
+readonly AUDIO_PRO_PKGS="jack jack_capture sox audacity ardour"
+readonly FONTS_EXTRA_PKGS_PKGS="google-fonts-ttf"
+readonly GAME_PKGS="godot"
+#readonly CAD_PKGS_PKGS="freecad"
+#readonly GAME_WIN_PKGS="cross-x86_64-w64-mingw32 cross-i686-w64-mingw32 python3-pip"
+#readonly GAME_APK_PKGS="gradle android-tools openjdk"
+#remove="kmail kontact akregator korganizer filelight konversation ytop gnome-color-manager ddgtk vte3 zramen ufw"
+
+readonly LITE_PKGS="$NONFREE_REPO_PKGS $GRUB_PKGS $BASE_PKGS $INITRD_PKGS $NETWORK_PKGS $FIRMWARE_PKGS $XORG_PKGS $UTILITY_PKGS $AUDIO_PKGS $CODEC_PKGS $COMPRESSOR_PKGS $FS_PKGS $AUTH_PKGS $COMPILER_PKGS $PRINTER_PKGS $KDE_PKGS $APPS_PKGS $FONTS_PKGS $POWERMGMT_PKGS $BROWSER_PKGS $VECTOR_PKGS $RASTER_PKGS $BRIGHTNESS_PKGS $CALLIBRATION_PKGS $OFFICE_PKGS $GLIBC_PKGS $MUSL_PKGS"
+readonly PRO_PKGS="$NONFREE_REPO_PKGS $GRUB_PKGS $BASE_PKGS $INITRD_PKGS $NETWORK_PKGS $FIRMWARE_PKGS $XORG_PKGS $UTILITY_PKGS $AUDIO_PKGS $CODEC_PKGS $COMPRESSOR_PKGS $FS_PKGS $AUTH_PKGS $COMPILER_PKGS $PRINTER_PKGS $KDE_PKGS $APPS_PKGS $FONTS_PKGS $POWERMGMT_PKGS $BROWSER_PKGS $VECTOR_PKGS $RASTER_PKGS $BRIGHTNESS_PKGS $CALLIBRATION_PKGS $OFFICE_PKGS $GLIBC_PKGS $MUSL_PKGS $PLUGINS_PKGS $PHOTOGRAPHY_PKGS $VIDEO_EDITOR_PKGS $FONT_MAKER_PKGS $PAINTING_PKGS $RECORD_PKGS $PUBLISH_PKGS $ANIMATION_PKGS $AUDIO_PRO_PKGS $FONTS_EXTRA_PKGS $CAD_PKGS $GAME_PKGS $GAME_LINUX_PKGS $GAME_WIN_PKGS $GAME_APK_PKGS"
+
+[ ! -x mklive.sh ] && exit 0
+
+if [ -z "$IMAGE" -o "$IMAGE" = base ]; then
+  if [ ! -e $BASE_IMG ]; then
+    sh mklive.sh \
+    -a $ARCH \
+    -o $BASE_IMG \
+    -p "$BASE_PKGS" \
+    ${REPO} $@
+  fi
+fi
+if [ -z "$IMAGE" -o "$IMAGE" = lite ]; then
+  if [ ! -e $LITE_IMG ]; then
+    chown root:root $PWD/includedir/${EDITION}/* -R
+    sh mklive.sh \
+    -c $PWD/xbps-cachedir-$ARCH \
+    -I $PWD/includedir/lite/$ARCH \
+    -e ${EDITION} \
+    -o $LITE_IMG \
+    -p "$LITE_PKGS" \
+    ${REPO} $@
+    echo "\033[1;33mFinish\033[0m"
+  fi
+fi
+if [ -z "$IMAGE" -o "$IMAGE" = pro ]; then
+  if [ ! -e $PRO_IMG ]; then
+    chown root:root $PWD/includedir/${EDITION}/* -R
+    sh mklive.sh \
+    -c $PWD/xbps-cachedir-$ARCH \
+    -I $PWD/includedir/pro/$ARCH \
+    -e ${EDITION} \
+    -o $PRO_IMG \
+    -p "$PRO_PKGS" \
+    ${REPO} $@
+    echo "\033[1;33mFinish\033[0m"
+  fi
+fi

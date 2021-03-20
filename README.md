@@ -23,7 +23,7 @@ GNU/Linux Musl distribution based on Voidlinux with KDE Desktop Environment. Rol
     $ git submodule add git@gitlab.com:langitketujuh/lite.git includedir/
     $ git submodule add git@gitlab.com:langitketujuh/pro.git includedir/
     
-#### Install Dependencies
+#### Install dependencies
 
     $ xbps-install -S make liblz4 xbps qemu-user-static pwgen
 
@@ -33,14 +33,14 @@ GNU/Linux Musl distribution based on Voidlinux with KDE Desktop Environment. Rol
 
 and then see the usage output:
 
-    $ sh langitketujuh.sh --help
+    $ bash l7-build.sh -h
 
-#### Examples Build
+#### Build current architecture
 
-Build a native live image musl edition:
+    $ bash l7-build.sh -b lite
+    $ bash l7-build.sh -b pro
 
-    $ sh langitketujuh.sh --lite-musl
-    
-Build a native live image glibc edition (not recommended):
+#### Build different architecture. E.g musl
 
-    $ sh langitketujuh.sh --lite-glibc
+    $ bash l7-build.sh -b lite -a x86_64-musl
+    $ bash l7-build.sh -b pro -a x86_64-musl
