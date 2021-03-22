@@ -53,7 +53,7 @@ readonly PRO_IMG=langitketujuh-pro-${ARCH}-${DATE}-${GEN}.iso
 readonly NONFREE_REPO_PKGS="void-repo-nonfree"
 readonly GRUB_PKGS="grub-i386-efi grub-x86_64-efi"
 readonly BASE_PKGS="base-system dialog cryptsetup lvm2 mdadm"
-readonly INITRD_PKGS_PKGS="dracut dracut-uefi dracut-network"
+readonly INITRD_PKGS="dracut dracut-uefi dracut-network"
 readonly NETWORK_PKGS="inetutils usbutils wget curl dhcpcd wpa_supplicant NetworkManager ntp"
 readonly FIRMWARE_PKGS="linux-firmware linux-firmware-intel linux-firmware-amd linux-firmware-nvidia linux-firmware-network linux-firmware-broadcom broadcom-bt-firmware b43-fwcutter alsa-firmware wifi-firmware dkms"
 readonly XORG_PKGS="xorg xf86-input-evdev xf86-input-joystick xf86-input-libinput xf86-input-mtrack xf86-input-synaptics xf86-input-vmmouse xf86-input-wacom xorg-minimal xorg-input-drivers xorg-video-drivers mesa-ati-dri mesa-intel-dri mesa-nouveau-dri"
@@ -84,12 +84,12 @@ readonly PLUGINS_PKGS="gmic gmic-gimp gimp-lqr-plugin xsane-gimp resynthesizer"
 readonly PHOTOGRAPHY_PKGS="digikam rawtherapee hugin"
 readonly VIDEO_EDITOR_PKGS="kdenlive"
 readonly FONT_MAKER_PKGS="fontforge"
-readonly PAINTING_PKGS_PKGS="krita"
+readonly PAINTING_PKGS="krita"
 readonly RECORD_PKGS="obs"
 readonly PUBLISH_PKGS="scribus"
 readonly ANIMATION_PKGS="blender synfigstudio opentoonz"
 readonly AUDIO_PRO_PKGS="jack jack_capture sox audacity ardour"
-readonly FONTS_EXTRA_PKGS_PKGS="google-fonts-ttf"
+readonly FONTS_EXTRA_PKGS="google-fonts-ttf"
 readonly GAME_PKGS="godot"
 #readonly CAD_PKGS_PKGS="freecad"
 #readonly GAME_WIN_PKGS="cross-x86_64-w64-mingw32 cross-i686-w64-mingw32 python3-pip"
@@ -110,6 +110,7 @@ if [ -z "$IMAGE" -o "$IMAGE" = base ]; then
     ${REPO} $@
   fi
 fi
+
 if [ -z "$IMAGE" -o "$IMAGE" = lite ]; then
   if [ -z "$ARCH" -o "$ARCH" = x86_64 ]; then
     if [ ! -e $LITE_IMG ]; then
