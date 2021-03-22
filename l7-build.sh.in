@@ -96,8 +96,8 @@ readonly GAME_PKGS="godot"
 #readonly GAME_APK_PKGS="gradle android-tools openjdk"
 #remove="kmail kontact akregator korganizer filelight konversation ytop gnome-color-manager ddgtk vte3 zramen ufw"
 
-readonly LITE_PKGS="$NONFREE_REPO_PKGS $GRUB_PKGS $BASE_PKGS $INITRD_PKGS $NETWORK_PKGS $FIRMWARE_PKGS $XORG_PKGS $UTILITY_PKGS $AUDIO_PKGS $CODEC_PKGS $COMPRESSOR_PKGS $FS_PKGS $AUTH_PKGS $COMPILER_PKGS $PRINTER_PKGS $KDE_PKGS $APPS_PKGS $FONTS_PKGS $POWERMGMT_PKGS $BROWSER_PKGS $VECTOR_PKGS $RASTER_PKGS $BRIGHTNESS_PKGS $CALLIBRATION_PKGS $OFFICE_PKGS $GLIBC_PKGS $MUSL_PKGS"
-readonly PRO_PKGS="$NONFREE_REPO_PKGS $GRUB_PKGS $BASE_PKGS $INITRD_PKGS $NETWORK_PKGS $FIRMWARE_PKGS $XORG_PKGS $UTILITY_PKGS $AUDIO_PKGS $CODEC_PKGS $COMPRESSOR_PKGS $FS_PKGS $AUTH_PKGS $COMPILER_PKGS $PRINTER_PKGS $KDE_PKGS $APPS_PKGS $FONTS_PKGS $POWERMGMT_PKGS $BROWSER_PKGS $VECTOR_PKGS $RASTER_PKGS $BRIGHTNESS_PKGS $CALLIBRATION_PKGS $OFFICE_PKGS $GLIBC_PKGS $MUSL_PKGS $PLUGINS_PKGS $PHOTOGRAPHY_PKGS $VIDEO_EDITOR_PKGS $FONT_MAKER_PKGS $PAINTING_PKGS $RECORD_PKGS $PUBLISH_PKGS $ANIMATION_PKGS $AUDIO_PRO_PKGS $FONTS_EXTRA_PKGS $CAD_PKGS $GAME_PKGS $GAME_LINUX_PKGS $GAME_WIN_PKGS $GAME_APK_PKGS"
+readonly LITE_PKGS="$NONFREE_REPO_PKGS $GRUB_PKGS $BASE_PKGS $INITRD_PKGS $NETWORK_PKGS $FIRMWARE_PKGS $XORG_PKGS $UTILITY_PKGS $AUDIO_PKGS $CODEC_PKGS $COMPRESSOR_PKGS $FS_PKGS $AUTH_PKGS $COMPILER_PKGS $PRINTER_PKGS $KDE_PKGS $APPS_PKGS $FONTS_PKGS $POWERMGMT_PKGS $BROWSER_PKGS $VECTOR_PKGS $RASTER_PKGS $BRIGHTNESS_PKGS $CALLIBRATION_PKGS $OFFICE_PKGS"
+readonly PRO_PKGS="$NONFREE_REPO_PKGS $GRUB_PKGS $BASE_PKGS $INITRD_PKGS $NETWORK_PKGS $FIRMWARE_PKGS $XORG_PKGS $UTILITY_PKGS $AUDIO_PKGS $CODEC_PKGS $COMPRESSOR_PKGS $FS_PKGS $AUTH_PKGS $COMPILER_PKGS $PRINTER_PKGS $KDE_PKGS $APPS_PKGS $FONTS_PKGS $POWERMGMT_PKGS $BROWSER_PKGS $VECTOR_PKGS $RASTER_PKGS $BRIGHTNESS_PKGS $CALLIBRATION_PKGS $OFFICE_PKGS $PLUGINS_PKGS $PHOTOGRAPHY_PKGS $VIDEO_EDITOR_PKGS $FONT_MAKER_PKGS $PAINTING_PKGS $RECORD_PKGS $PUBLISH_PKGS $ANIMATION_PKGS $AUDIO_PRO_PKGS $FONTS_EXTRA_PKGS $CAD_PKGS $GAME_PKGS $GAME_LINUX_PKGS $GAME_WIN_PKGS $GAME_APK_PKGS"
 
 [ ! -x mklive.sh ] && exit 0
 
@@ -111,28 +111,53 @@ if [ -z "$IMAGE" -o "$IMAGE" = base ]; then
   fi
 fi
 if [ -z "$IMAGE" -o "$IMAGE" = lite ]; then
-  if [ ! -e $LITE_IMG ]; then
-    chown root:root $PWD/includedir/${EDITION}/* -R
-    sh mklive.sh \
-    -c $PWD/xbps-cachedir-$ARCH \
-    -I $PWD/includedir/lite/$ARCH \
-    -e ${EDITION} \
-    -o $LITE_IMG \
-    -p "$LITE_PKGS" \
-    ${REPO} $@
-    echo "\033[1;33mFinish\033[0m"
+  if [ -z "$ARCH" -o "$ARCH" = x86_64 ]; then
+    if [ ! -e $LITE_IMG ]; then
+      chown root:root $PWD/includedir/${EDITION}/* -R
+      sh mklive.sh \
+      -c $PWD/xbps-cachedir-$ARCH \
+      -I $PWD/includedir/lite/$ARCH \
+      -o $LITE_IMG \
+      -p "$LITE_PKGS $GLIBC_PKGS" \
+      ${REPO} $@
+      echo "\033[1;33mFinish\033[0m"
+    fi
+  elif [ -z "$ARCH" -o "$ARCH" = x86_64-musl ]; then
+    if [ ! -e $LITE_IMG ]; then
+      chown root:root $PWD/includedir/${EDITION}/* -R
+      sh mklive.sh \
+      -c $PWD/xbps-cachedir-$ARCH \
+      -I $PWD/includedir/lite/$ARCH \
+      -o $LITE_IMG \
+      -p "$LITE_PKGS $MUSL_PKGS" \
+      ${REPO} $@
+      echo "\033[1;33mFinish\033[0m"
+    fi
   fi
 fi
+
 if [ -z "$IMAGE" -o "$IMAGE" = pro ]; then
-  if [ ! -e $PRO_IMG ]; then
-    chown root:root $PWD/includedir/${EDITION}/* -R
-    sh mklive.sh \
-    -c $PWD/xbps-cachedir-$ARCH \
-    -I $PWD/includedir/pro/$ARCH \
-    -e ${EDITION} \
-    -o $PRO_IMG \
-    -p "$PRO_PKGS" \
-    ${REPO} $@
-    echo "\033[1;33mFinish\033[0m"
+  if [ -z "$ARCH" -o "$ARCH" = x86_64 ]; then
+    if [ ! -e $PRO_IMG ]; then
+      chown root:root $PWD/includedir/${EDITION}/* -R
+      sh mklive.sh \
+      -c $PWD/xbps-cachedir-$ARCH \
+      -I $PWD/includedir/pro/$ARCH \
+      -o $PRO_IMG \
+      -p "$PRO_PKGS $GLIBC_PKGS" \
+      ${REPO} $@
+      echo "\033[1;33mFinish\033[0m"
+    fi
+  elif [ -z "$ARCH" -o "$ARCH" = x86_64-musl ]; then
+    if [ ! -e $PRO_IMG ]; then
+      chown root:root $PWD/includedir/${EDITION}/* -R
+      sh mklive.sh \
+      -c $PWD/xbps-cachedir-$ARCH \
+      -I $PWD/includedir/pro/$ARCH \
+      -o $PRO_IMG \
+      -p "$PRO_PKGS $MUSL_PKGS" \
+      ${REPO} $@
+      echo "\033[1;33mFinish\033[0m"
+    fi
   fi
 fi
