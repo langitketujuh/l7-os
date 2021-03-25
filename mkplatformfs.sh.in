@@ -47,12 +47,10 @@ trap 'die "Interrupted! exiting..."' INT TERM HUP
 usage() {
     cat <<_EOF
 Usage: $PROGNAME [options] <platform> <base-tarball>
-
-Supported platforms: i686, x86_64, GCP,
-                     dockstar, bananapi, beaglebone, cubieboard2, cubietruck,
-                     odroid-c2, odroid-u2, rpi, rpi2 (armv7), rpi3 (aarch64),
-                     usbarmory, ci20, pogoplugv4, pinebookpro
-
+Supported platforms: i686, x86_64, GCP, bananapi, beaglebone,
+                     cubieboard2, cubietruck, odroid-c2, odroid-u2,
+                     rpi, rpi2 (armv7), rpi3 (aarch64), ci20,
+                     pinebookpro, pinephone
 Options
     -b <syspkg> Set an alternative base-system package (defaults to base-system)
     -p <pkgs>   Additional packages to install into the rootfs (separated by blanks)
@@ -115,19 +113,17 @@ case "$PLATFORM" in
     bananapi*) PKGS="$BASEPKG ${PLATFORM%-*}-base" ;;
     beaglebone*) PKGS="$BASEPKG ${PLATFORM%-*}-base" ;;
     cubieboard2*|cubietruck*) PKGS="$BASEPKG ${PLATFORM%-*}-base" ;;
-    dockstar*) PKGS="$BASEPKG ${PLATFORM%-*}-base" ;;
     odroid-u2*) PKGS="$BASEPKG ${PLATFORM%-*}-base" ;;
     odroid-c2*) PKGS="$BASEPKG ${PLATFORM%-musl}-base" ;;
     rpi3*) PKGS="$BASEPKG rpi-base" ;;
     rpi2*) PKGS="$BASEPKG rpi-base" ;;
     rpi*) PKGS="$BASEPKG ${PLATFORM%-*}-base" ;;
-    pogo*) PKGS="$BASEPKG ${PLATFORM%-*}-base" ;;
-    usbarmory*) PKGS="$BASEPKG ${PLATFORM%-*}-base" ;;
     ci20*) PKGS="$BASEPKG ${PLATFORM%-*}-base" ;;
     i686*) PKGS="$BASEPKG" ;;
     x86_64*) PKGS="$BASEPKG" ;;
     GCP*) PKGS="$BASEPKG ${PLATFORM%-*}-base" ;;
     pinebookpro*) PKGS="$BASEPKG ${PLATFORM%-*}-base" ;;
+    pinephone*) PKGS="$BASEPKG ${PLATFORM%-*}-base" ;;
     *) die "$PROGNAME: invalid platform!";;
 esac
 
@@ -203,7 +199,7 @@ if [ ! -f "$ROOTFS/boot/uInitrd" ] ||
     run_cmd_chroot "$ROOTFS" "env -i /usr/bin/dracut $dracut_args /boot/initrd $KERNELVERSION"
     [ $? -ne 0 ] && die "Failed to generate the initramfs"
 
-    run_cmd_chroot "$ROOTFS" "env -i /usr/bin/mkimage -A arm -O linux -T ramdisk -C gzip -a 0 -e 0 -n 'LangitKetujuh' -d /boot/initrd /boot/uInitrd"
+    run_cmd_chroot "$ROOTFS" "env -i /usr/bin/mkimage -A arm -O linux -T ramdisk -C gzip -a 0 -e 0 -n 'Void Linux' -d /boot/initrd /boot/uInitrd"
 fi
 
 cleanup_chroot
@@ -225,7 +221,7 @@ fi
 if [ "$COMPRESSION" = "y" ]; then
     # Finally we can compress the tarball, the name will include the
     # platform and the date on which the tarball was built.
-    tarball=${FILENAME:-langitketujuh-${PLATFORM}-PLATFORMFS-$(date '+%Y%m%d').tar.xz}
+    tarball=${FILENAME:-void-${PLATFORM}-PLATFORMFS-$(date '+%Y%m%d').tar.xz}
     run_cmd "tar -cp --posix --xattrs -C $ROOTFS . | xz -T${COMPRESSOR_THREADS:-0} -9 > $tarball "
 
     # Now that we have the tarball we don't need the rootfs anymore, so we

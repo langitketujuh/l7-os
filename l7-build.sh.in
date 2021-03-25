@@ -26,7 +26,7 @@
 #-
 
 # Make sure we don't inherit these from env.
-# last update upstream=be02f166cf01096985334cf51163813848a3ac15
+# last update upstream= 25ddad302de250a64336f83499d48dcb4f9570ba
 
 ARCH=
 IMAGE=
@@ -108,7 +108,7 @@ if [ -z "$IMAGE" -o "$IMAGE" = base ]; then
     -a $ARCH \
     -o $BASE_IMG \
     -p "$BASE_PKGS" \
-    ${REPO} $@
+    ${REPO} "$@"
   fi
 fi
 
@@ -121,7 +121,7 @@ if [ -z "$IMAGE" -o "$IMAGE" = lite ]; then
       -I $PWD/includedir/lite/$ARCH \
       -o $LITE_IMG \
       -p "$LITE_PKGS $GLIBC_PKGS" \
-      ${REPO} $@
+      ${REPO} "$@"
       echo "\033[1;33mFinish\033[0m"
     fi
   elif [ -z "$ARCH" -o "$ARCH" = x86_64-musl ]; then
@@ -132,7 +132,7 @@ if [ -z "$IMAGE" -o "$IMAGE" = lite ]; then
       -I $PWD/includedir/lite/$ARCH \
       -o $LITE_IMG \
       -p "$LITE_PKGS $MUSL_PKGS" \
-      ${REPO} $@
+      ${REPO} "$@"
       echo "\033[1;33mFinish\033[0m"
     fi
   fi
@@ -147,7 +147,7 @@ if [ -z "$IMAGE" -o "$IMAGE" = pro ]; then
       -I $PWD/includedir/pro/$ARCH \
       -o $PRO_IMG \
       -p "$PRO_PKGS $GLIBC_PKGS" \
-      ${REPO} $@
+      ${REPO} "$@"
       echo "\033[1;33mFinish\033[0m"
     fi
   elif [ -z "$ARCH" -o "$ARCH" = x86_64-musl ]; then
@@ -158,7 +158,7 @@ if [ -z "$IMAGE" -o "$IMAGE" = pro ]; then
       -I $PWD/includedir/pro/$ARCH \
       -o $PRO_IMG \
       -p "$PRO_PKGS $MUSL_PKGS" \
-      ${REPO} $@
+      ${REPO} "$@"
       echo "\033[1;33mFinish\033[0m"
     fi
   fi
