@@ -199,7 +199,7 @@ if [ ! -f "$ROOTFS/boot/uInitrd" ] ||
     run_cmd_chroot "$ROOTFS" "env -i /usr/bin/dracut $dracut_args /boot/initrd $KERNELVERSION"
     [ $? -ne 0 ] && die "Failed to generate the initramfs"
 
-    run_cmd_chroot "$ROOTFS" "env -i /usr/bin/mkimage -A arm -O linux -T ramdisk -C gzip -a 0 -e 0 -n 'Void Linux' -d /boot/initrd /boot/uInitrd"
+    run_cmd_chroot "$ROOTFS" "env -i /usr/bin/mkimage -A arm -O linux -T ramdisk -C gzip -a 0 -e 0 -n 'LangitKetujuh' -d /boot/initrd /boot/uInitrd"
 fi
 
 cleanup_chroot
@@ -221,7 +221,7 @@ fi
 if [ "$COMPRESSION" = "y" ]; then
     # Finally we can compress the tarball, the name will include the
     # platform and the date on which the tarball was built.
-    tarball=${FILENAME:-void-${PLATFORM}-PLATFORMFS-$(date '+%Y%m%d').tar.xz}
+    tarball=${FILENAME:-langitketujuh-${PLATFORM}-PLATFORMFS-$(date '+%Y%m%d').tar.xz}
     run_cmd "tar -cp --posix --xattrs -C $ROOTFS . | xz -T${COMPRESSOR_THREADS:-0} -9 > $tarball "
 
     # Now that we have the tarball we don't need the rootfs anymore, so we
