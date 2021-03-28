@@ -57,7 +57,7 @@ readonly INITRD_PKGS="dracut dracut-uefi dracut-network"
 readonly NETWORK_PKGS="inetutils usbutils wget curl dhcpcd wpa_supplicant NetworkManager ntp"
 readonly FIRMWARE_PKGS="linux-firmware linux-firmware-intel linux-firmware-amd linux-firmware-nvidia linux-firmware-network linux-firmware-broadcom broadcom-bt-firmware b43-fwcutter alsa-firmware wifi-firmware dkms"
 readonly XORG_PKGS="xorg xf86-input-evdev xf86-input-joystick xf86-input-libinput xf86-input-mtrack xf86-input-synaptics xf86-input-vmmouse xf86-input-wacom xorg-minimal xorg-input-drivers xorg-video-drivers mesa-ati-dri mesa-intel-dri mesa-nouveau-dri"
-readonly UTILITY_PKGS="setxkbmap xauth xrandr libvdpau-va-gl vdpauinfo font-misc-misc  testdisk gptfdisk xclip xclipboard wl-clipboard yank git subversion inxi xtools vsv vim bootiso bc mtools tmate pwgen fish-shell acpilight android-udev-rules android-tools nano zenity librsvg-utils ImageMagick libwebp-tools bash-completion htop appmenu-gtk-module appmenu-gtk3-module vpsm ufw vim-huge"
+readonly UTILITY_PKGS="setxkbmap xauth xrandr libvdpau-va-gl vdpauinfo font-misc-misc  testdisk gptfdisk xclip xclipboard wl-clipboard yank git subversion inxi xtools vsv vim bootiso bc mtools tmate pwgen fish-shell acpilight android-udev-rules android-tools nano zenity librsvg-utils ImageMagick libwebp-tools bash-completion htop appmenu-gtk-module appmenu-gtk3-module vpsm ufw vim-huge zramen"
 readonly AUDIO_PKGS="alsa-plugins-pulseaudio pipewire gstreamer1-pipewire alsa-utils paprefs"
 readonly CODEC_PKGS="gst-plugins-base1 gst-plugins-good1 gst-plugins-ugly1 gst-plugins-bad1 gst-libav ffmpeg faac faad2 flac jasper lame libdca libmpeg2 libmad libtheora libvorbis libXv wavpack x264 xvidcore gstreamer-vaapi"
 readonly COMPRESSOR_PKGS="atool p7zip zip unzip lzop lzip dtrx file-roller liblz4 lz4 zlib bzip2"
@@ -93,7 +93,7 @@ readonly GAME_PKGS="godot"
 #readonly CAD_PKGS_PKGS="freecad"
 #readonly GAME_WIN_PKGS="cross-x86_64-w64-mingw32 cross-i686-w64-mingw32 python3-pip"
 #readonly GAME_APK_PKGS="gradle android-tools openjdk"
-#remove="kmail kontact akregator korganizer filelight konversation ytop gnome-color-manager ddgtk vte3 zramen ufw"
+#remove="kmail kontact akregator korganizer filelight konversation ytop gnome-color-manager ddgtk vte3"
 
 readonly MUSL_PKGS="gcompat"
 readonly GLIBC_PKGS="glibc-locales"
@@ -118,6 +118,7 @@ if [ -z "$IMAGE" -o "$IMAGE" = lite ]; then
     if [ ! -e $LITE_IMG ]; then
       chown root:root $PWD/includedir/${EDITION}/* -R
       sh mklive.sh \
+      -a $ARCH \
       -c $PWD/xbps-cachedir-$ARCH \
       -I $PWD/includedir/lite/$ARCH \
       -o $LITE_IMG \
@@ -129,6 +130,7 @@ if [ -z "$IMAGE" -o "$IMAGE" = lite ]; then
     if [ ! -e $LITE_IMG ]; then
       chown root:root $PWD/includedir/${EDITION}/* -R
       sh mklive.sh \
+      -a $ARCH \
       -c $PWD/xbps-cachedir-$ARCH \
       -I $PWD/includedir/lite/$ARCH \
       -o $LITE_IMG \
@@ -144,6 +146,7 @@ if [ -z "$IMAGE" -o "$IMAGE" = pro ]; then
     if [ ! -e $PRO_IMG ]; then
       chown root:root $PWD/includedir/${EDITION}/* -R
       sh mklive.sh \
+      -a $ARCH \
       -c $PWD/xbps-cachedir-$ARCH \
       -I $PWD/includedir/pro/$ARCH \
       -o $PRO_IMG \
@@ -155,6 +158,7 @@ if [ -z "$IMAGE" -o "$IMAGE" = pro ]; then
     if [ ! -e $PRO_IMG ]; then
       chown root:root $PWD/includedir/${EDITION}/* -R
       sh mklive.sh \
+      -a $ARCH \
       -c $PWD/xbps-cachedir-$ARCH \
       -I $PWD/includedir/pro/$ARCH \
       -o $PRO_IMG \
