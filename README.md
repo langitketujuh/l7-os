@@ -16,13 +16,13 @@ GNU/Linux Musl distribution based on Voidlinux with KDE Desktop Environment. Rol
 #### Clone repository
 
     $ git clone git@gitlab.com:langitketujuh/os.git
-    
+
 #### Sub module lite version
 
     $ cd os
     $ git submodule add git@gitlab.com:langitketujuh/lite.git includedir/
     $ git submodule add git@gitlab.com:langitketujuh/pro.git includedir/
-    
+
 #### Install dependencies
 
     $ xbps-install -S make liblz4 xbps qemu-user-static pwgen
