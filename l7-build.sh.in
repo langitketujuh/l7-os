@@ -116,7 +116,7 @@ fi
 if [ -z "$IMAGE" -o "$IMAGE" = lite ]; then
   if [ -z "$ARCH" -o "$ARCH" = x86_64 ]; then
     if [ ! -e $LITE_IMG ]; then
-      chown root:root $PWD/includedir/${EDITION}/* -R
+      chown root:root $PWD/includedir/${EDITION}/$ARCH -R
       sh mklive.sh \
       -a $ARCH \
       -c $PWD/xbps-cachedir-$ARCH \
@@ -128,7 +128,7 @@ if [ -z "$IMAGE" -o "$IMAGE" = lite ]; then
     fi
   elif [ -z "$ARCH" -o "$ARCH" = x86_64-musl ]; then
     if [ ! -e $LITE_IMG ]; then
-      chown root:root $PWD/includedir/${EDITION}/* -R
+      chown root:root $PWD/includedir/${EDITION}/$ARCH -R
       sh mklive.sh \
       -a $ARCH \
       -c $PWD/xbps-cachedir-$ARCH \
@@ -144,7 +144,7 @@ fi
 if [ -z "$IMAGE" -o "$IMAGE" = pro ]; then
   if [ -z "$ARCH" -o "$ARCH" = x86_64 ]; then
     if [ ! -e $PRO_IMG ]; then
-      chown root:root $PWD/includedir/${EDITION}/* -R
+      chown root:root $PWD/includedir/${EDITION}/$ARCH -R
       sh mklive.sh \
       -a $ARCH \
       -c $PWD/xbps-cachedir-$ARCH \
@@ -156,7 +156,7 @@ if [ -z "$IMAGE" -o "$IMAGE" = pro ]; then
     fi
   elif [ -z "$ARCH" -o "$ARCH" = x86_64-musl ]; then
     if [ ! -e $PRO_IMG ]; then
-      chown root:root $PWD/includedir/${EDITION}/* -R
+      chown root:root $PWD/includedir/${EDITION}/$ARCH -R
       sh mklive.sh \
       -a $ARCH \
       -c $PWD/xbps-cachedir-$ARCH \
