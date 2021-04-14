@@ -120,7 +120,7 @@ if [ -z "$IMAGE" -o "$IMAGE" = lite ]; then
       sh mklive.sh \
       -a $ARCH \
       -c $PWD/xbps-cachedir-$ARCH \
-      -I $PWD/includedir/lite/$ARCH \
+      -I $PWD/includedir/$IMAGE/$ARCH \
       -o $LITE_IMG \
       -p "$LITE_PKGS $GLIBC_PKGS" \
       ${REPO} "$@"
@@ -132,7 +132,7 @@ if [ -z "$IMAGE" -o "$IMAGE" = lite ]; then
       sh mklive.sh \
       -a $ARCH \
       -c $PWD/xbps-cachedir-$ARCH \
-      -I $PWD/includedir/lite/$ARCH \
+      -I $PWD/includedir/$IMAGE/$ARCH \
       -o $LITE_IMG \
       -p "$LITE_PKGS $MUSL_PKGS" \
       ${REPO} "$@"
@@ -148,7 +148,7 @@ if [ -z "$IMAGE" -o "$IMAGE" = pro ]; then
       sh mklive.sh \
       -a $ARCH \
       -c $PWD/xbps-cachedir-$ARCH \
-      -I $PWD/includedir/pro/$ARCH \
+      -I $PWD/includedir/$IMAGE/$ARCH \
       -o $PRO_IMG \
       -p "$PRO_PKGS $GLIBC_PKGS" \
       ${REPO} "$@"
@@ -160,7 +160,7 @@ if [ -z "$IMAGE" -o "$IMAGE" = pro ]; then
       sh mklive.sh \
       -a $ARCH \
       -c $PWD/xbps-cachedir-$ARCH \
-      -I $PWD/includedir/pro/$ARCH \
+      -I $PWD/includedir/$IMAGE/$ARCH \
       -o $PRO_IMG \
       -p "$PRO_PKGS $MUSL_PKGS" \
       ${REPO} "$@"
