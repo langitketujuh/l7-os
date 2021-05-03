@@ -72,7 +72,7 @@ readonly PKGMGMT_PKGS="topgrade flatpak"
 readonly BROWSER_PKGS="firefox geckodriver"
 readonly VECTOR_PKGS="inkscape"
 readonly RASTER_PKGS="gimp"
-readonly BRIGHTNESS_PKGS="brightnessctl Clight Clightd"
+readonly BRIGHTNESS_PKGS="brightnessctl"
 readonly OFFICE_PKGS="libreoffice libreoffice-kde"
 readonly APPEARANCE_PKGS="papirus-folders papirus-icon-theme"
 
