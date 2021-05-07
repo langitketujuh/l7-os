@@ -15,13 +15,7 @@ GNU/Linux Musl distribution based on Voidlinux with KDE Desktop Environment. Rol
 
 #### Clone repository
 
-    $ git clone git@gitlab.com:langitketujuh/os.git
-
-#### Sub module lite version
-
-    $ cd os
-    $ git submodule add git@gitlab.com:langitketujuh/lite.git includedir/
-    $ git submodule add git@gitlab.com:langitketujuh/pro.git includedir/
+    $ git clone git@gitlab.com:langitketujuh/os.git --recursive
 
 #### Install dependencies
 
@@ -29,18 +23,19 @@ GNU/Linux Musl distribution based on Voidlinux with KDE Desktop Environment. Rol
 
 #### Usage
 
+    $ cd os
     $ make
 
 and then see the usage output:
 
-    $ bash l7-build.sh -h
+    $ bash build.sh -h
 
 #### Build current architecture
 
-    $ bash l7-build.sh -b lite
-    $ bash l7-build.sh -b pro
+    $ bash build.sh -b lite
+    $ bash build.sh -b pro
 
 #### Build different architecture. E.g musl
 
-    $ bash l7-build.sh -b lite -a x86_64-musl
-    $ bash l7-build.sh -b pro -a x86_64-musl
+    $ bash build.sh -b lite -a x86_64-musl
+    $ bash build.sh -b pro -a x86_64-musl
