@@ -11,7 +11,7 @@ and follow the on-screen instructions. To install additional software make
 sure to configure your network interface and then use:
 
     # update    (to update packages)
-    # install   (to install packages)
+    # get       (to install packages)
     # remove    (to remove packages)
     # search    (to query for package info)
 
