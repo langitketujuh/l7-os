@@ -78,6 +78,7 @@ directory if unset).
  -s <gzip|lzo|xz>     Compression type for the squashfs image (xz if unset)
  -o <file>          Output file name for the ISO image (auto if unset).
  -p "pkg pkgN ..."  Install additional packages into the ISO image.
+ -P "pkg pkgN ..."  Install additional LangitKetujuh Patch into the ISO image.
  -I <includedir>    Include directory structure under given path into rootfs
 
  -C "cmdline args"  Add additional kernel command line arguments.
@@ -116,12 +117,19 @@ install_packages() {
     XBPS_ARCH=$BASE_ARCH "${XBPS_INSTALL_CMD}" -r "$ROOTFS" \
         ${XBPS_REPOSITORY} -c "$XBPS_CACHEDIR" -yn $PACKAGE_LIST $INITRAMFS_PKGS
     [ $? -ne 0 ] && die "Missing required binary packages, exiting..."
+    XBPS_ARCH=$BASE_ARCH "${XBPS_INSTALL_CMD}" -r "$ROOTFS" \
+        ${XBPS_REPOSITORY} -c "$XBPS_CACHEDIR" -yn $L7_LIST
+    [ $? -ne 0 ] && die "Missing required binary packages, exiting..."
 
     mount_pseudofs
 
     LANG=C XBPS_ARCH=$BASE_ARCH "${XBPS_INSTALL_CMD}" -U -r "$ROOTFS" \
         ${XBPS_REPOSITORY} -c "$XBPS_CACHEDIR" -y $PACKAGE_LIST $INITRAMFS_PKGS
     [ $? -ne 0 ] && die "Failed to install $PACKAGE_LIST"
+
+    LANG=C XBPS_ARCH=$BASE_ARCH "${XBPS_INSTALL_CMD}" -U -r "$ROOTFS" \
+        ${XBPS_REPOSITORY} -c "$XBPS_CACHEDIR" -y $L7_LIST
+    [ $? -ne 0 ] && die "Failed to install $L7_LIST"
 
     xbps-reconfigure -r "$ROOTFS" -f base-files >/dev/null 2>&1
 
@@ -300,7 +308,7 @@ generate_checksum_iso_image() {
 #
 # main()
 #
-while getopts "a:b:r:c:e:C:T:Kk:l:i:I:s:S:o:p:v:h" opt; do
+while getopts "a:b:r:c:e:C:T:Kk:l:i:I:s:S:o:p:P:v:h" opt; do
     case $opt in
         a) BASE_ARCH="$OPTARG";;
         b) BASE_SYSTEM_PKG="$OPTARG";;
@@ -316,6 +324,7 @@ while getopts "a:b:r:c:e:C:T:Kk:l:i:I:s:S:o:p:v:h" opt; do
         S) ROOTFS_FREESIZE="$OPTARG";;
         o) OUTPUT_FILE="$OPTARG";;
         p) PACKAGE_LIST="$OPTARG";;
+        P) L7_LIST="$OPTARG";;
         C) BOOT_CMDLINE="$OPTARG";;
         T) BOOT_TITLE="$OPTARG";;
         v) LINUX_VERSION="$OPTARG";;
@@ -324,7 +333,7 @@ while getopts "a:b:r:c:e:C:T:Kk:l:i:I:s:S:o:p:v:h" opt; do
     esac
 done
 shift $((OPTIND - 1))
-XBPS_REPOSITORY="$XBPS_REPOSITORY --repository=http://alpha.de.repo.voidlinux.org/current --repository=http://alpha.de.repo.voidlinux.org/current/musl"
+XBPS_REPOSITORY="$XBPS_REPOSITORY --repository=http://alpha.de.repo.voidlinux.org/current --repository=http://alpha.de.repo.voidlinux.org/current/musl --repository=https://al.quds.repo.langitketujuh.id/current --repository=https://al.quds.repo.langitketujuh.id/current/musl --repository=https://al.quds.repo.langitketujuh.id/current/aarch64"
 # Configure dracut to use overlayfs for the writable overlay.
 BOOT_CMDLINE="$BOOT_CMDLINE rd.live.overlay.overlayfs=1 "
 
