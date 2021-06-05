@@ -30,17 +30,17 @@
 TMP="/var/tmp"
 
 echo "\033[1;33m[START]\033[0m Build Pro Musl"
-bash l7-build.sh -b pro -a x86_64-musl #> ${TMP}/log-pro-musl-$(date +%Y%m%d-%H%M%S).txt
+bash build.sh -b pro -a x86_64-musl #> ${TMP}/log-pro-musl-$(date +%Y%m%d-%H%M%S).txt
 echo "\033[1;36m[FINISH]\033[0m Job done"
 
 echo "\033[1;33m[START]\033[0m Build Pro Glibc"
-bash l7-build.sh -b pro -a x86_64 #> ${TMP}/log-pro-glibc-$(date +%Y%m%d-%H%M%S).txt
+bash build.sh -b pro -a x86_64 #> ${TMP}/log-pro-glibc-$(date +%Y%m%d-%H%M%S).txt
 echo "\033[1;36m[FINISH]\033[0m Job done"
 
 echo "\033[1;33m[START]\033[0m Build Lite Musl"
-bash l7-build.sh -b lite -a x86_64-musl #> ${TMP}/log-lite-musl-$(date +%Y%m%d-%H%M%S).txt
+bash build.sh -b lite -a x86_64-musl #> ${TMP}/log-lite-musl-$(date +%Y%m%d-%H%M%S).txt
 echo "\033[1;36m[FINISH]\033[0m Job done"
 
 echo "\033[1;33m[START]\033[0m Build Lite Glibc"
-bash l7-build.sh -b lite -a x86_64 #> ${TMP}/log-lite-glibc-$(date +%Y%m%d-%H%M%S).txt
+bash build.sh -b lite -a x86_64 #> ${TMP}/log-lite-glibc-$(date +%Y%m%d-%H%M%S).txt
 echo "\033[1;36m[FINISH]\033[0m Job done"
