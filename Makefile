@@ -31,7 +31,7 @@ ALL_MASTERDIRS=$(foreach arch,$(MASTERDIRS), masterdir-$(arch))
 
 SUDO := sudo
 
-XBPS_REPOSITORY := -r https://alpha.de.repo.voidlinux.org/current -r https://alpha.de.repo.voidlinux.org/current/musl -r https://alpha.de.repo.voidlinux.org/current/aarch64 -r https://al.quds.repo.langitketujuh.id/current -r https://al.quds.repo.langitketujuh.id/current/musl -r https://al.quds.repo.langitketujuh.id/current/aarch64
+XBPS_REPOSITORY := -r https://alpha.de.repo.voidlinux.org/current -r https://alpha.de.repo.voidlinux.org/current/musl -r https://alpha.de.repo.voidlinux.org/current/aarch64 -r https://al.quds.repo.langitketujuh.id/current -r https://al.quds.repo.langitketujuh.id/current/musl
 COMPRESSOR_THREADS=2
 
 %.sh: %.sh.in
