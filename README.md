@@ -28,14 +28,15 @@ GNU/Linux Musl distribution based on Voidlinux with KDE Desktop Environment. Rol
 
 and then see the usage output:
 
-    $ bash build.sh -h
+    $ ./build.sh -h
 
 #### Build current architecture
 
-    $ bash build.sh -b lite
-    $ bash build.sh -b pro
+    $ ./build.sh -b lite
+    $ ./build.sh -b pro
 
-#### Build different architecture. E.g musl
+#### Build different architecture.
 
-    $ bash build.sh -b lite -a x86_64-musl
-    $ bash build.sh -b pro -a x86_64-musl
+    $ ./build.sh -b lite -a x86_64
+    $ ./build.sh -b lite -a i686
+    $ ./build.sh -b pro -a x86_64-musl
