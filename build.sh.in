@@ -45,9 +45,9 @@ shift $((OPTIND - 1))
 
 readonly DATE=$(date +%Y%m%d)
 readonly GEN=$(pwgen -sA 7 1)
-readonly BASE_IMG=langitketujuh-base-${ARCH}-${DATE}-${GEN}.iso
-readonly LITE_IMG=langitketujuh-lite-${ARCH}-${DATE}-${GEN}.iso
-readonly PRO_IMG=langitketujuh-pro-${ARCH}-${DATE}-${GEN}.iso
+readonly BASE_IMG=langitketujuh-base-${ARCH}-${DATE}.iso
+readonly LITE_IMG=langitketujuh-lite-${ARCH}-${DATE}.iso
+readonly PRO_IMG=langitketujuh-pro-${ARCH}-${DATE}.iso
 
 readonly GRUB_PKGS="grub-i386-efi grub-x86_64-efi"
 readonly BASE_PKGS="base-system dialog cryptsetup lvm2 mdadm"
@@ -106,7 +106,8 @@ readonly L7_PKGS="l7-ark l7-baloo5 l7-breeze l7-breeze-gtk l7-breeze-icons l7-de
 readonly L7PRO_PKGS="$L7_PKGS l7-ardour l7-audacity l7-godot l7-krita l7-obs l7-scribus"
 
 readonly LITE_PKGS="$REPO_NONFREE_PKGS $GRUB_PKGS $BASE_PKGS $INITRD_PKGS $NETWORK_PKGS $FIRMWARE_PKGS $XORG_PKGS $UTILITY_PKGS $AUDIO_PKGS $CODEC_PKGS $COMPRESSOR_PKGS $FS_PKGS $AUTH_PKGS $PRINTER_PKGS $KDE_PKGS $KDE_APPS_PKGS $FONTS_PKGS $POWERMGMT_PKGS $PKGMGMT_PKGS $BROWSER_PKGS $BRIGHTNESS_PKGS $OFFICE_PKGS $APPEARANCE_PKGS $VECTOR_PKGS $RASTER_PKGS"
-readonly PRO_PKGS="$LITE_PKGS $CALLIBRATION_PKGS $PLUGINS_PKGS $PHOTOGRAPHY_PKGS $VIDEO_EDITOR_PKGS $FONT_MAKER_PKGS $PAINTING_PKGS $RECORD_PKGS $PUBLISH_PKGS $TREE_D_ANIMATION_PKGS $TWO_D_ANIMATION_PKGS $AUDIO_PRO_PKGS $FONTS_EXTRA_PKGS $GAME_PKGS $CAD_PKGS"
+readonly I686_PRO_PKGS="$LITE_PKGS $CALLIBRATION_PKGS $PLUGINS_PKGS $PHOTOGRAPHY_PKGS $VIDEO_EDITOR_PKGS $FONT_MAKER_PKGS $PAINTING_PKGS $RECORD_PKGS $PUBLISH_PKGS $TWO_D_ANIMATION_PKGS $AUDIO_PRO_PKGS $FONTS_EXTRA_PKGS $GAME_PKGS $CAD_PKGS"
+readonly FULL_PRO_PKGS="$I686_PRO_PKGS $TREE_D_ANIMATION_PKGS"
 
 [ ! -x mklive.sh ] && exit 0
 
@@ -116,34 +117,14 @@ if [ -z "$IMAGE" -o "$IMAGE" = base ]; then
     -a $ARCH \
     -o $BASE_IMG \
     -p "$BASE_PKGS" \
+    -P vim \
+    -c /var/cache/xbps/
     ${REPO} "$@"
   fi
 fi
 
 if [ -z "$IMAGE" -o "$IMAGE" = lite ]; then
-  if [ -z "$ARCH" -o "$ARCH" = x86_64 ]; then
-    if [ ! -e $LITE_IMG ]; then
-      sh mklive.sh \
-      -a $ARCH \
-      -o $LITE_IMG \
-      -p "$LITE_PKGS $GLIBC_PKGS" \
-      -P "$L7_PKGS" \
-      -c /var/cache/xbps/
-      ${REPO} "$@"
-      echo "\033[1;33mFinish\033[0m"
-    fi
-  elif [ -z "$ARCH" -o "$ARCH" = i686 ]; then
-    if [ ! -e $LITE_IMG ]; then
-      sh mklive.sh \
-      -a $ARCH \
-      -o $LITE_IMG \
-      -p "$LITE_PKGS $GLIBC_I686_PKGS" \
-      -P "$L7_PKGS" \
-      -c /var/cache/xbps/
-      ${REPO} "$@"
-      echo "\033[1;33mFinish\033[0m"
-    fi
-  elif [ -z "$ARCH" -o "$ARCH" = x86_64-musl ]; then
+  if [ -z "$ARCH" -o "$ARCH" = x86_64-musl ]; then
     if [ ! -e $LITE_IMG ]; then
       sh mklive.sh \
       -a $ARCH \
@@ -154,18 +135,51 @@ if [ -z "$IMAGE" -o "$IMAGE" = lite ]; then
       ${REPO} "$@"
       echo "\033[1;33mFinish\033[0m"
     fi
+  elif [ -z "$ARCH" -o "$ARCH" = x86_64 ]; then
+    if [ ! -e $LITE_IMG ]; then
+      sh mklive.sh \
+      -a $ARCH \
+      -o $LITE_IMG \
+      -p "$LITE_PKGS $GLIBC_PKGS" \
+      -P "$L7_PKGS" \
+      -c /var/cache/xbps/$ARCH
+      ${REPO} "$@"
+      echo "\033[1;33mFinish\033[0m"
+    fi
+  elif [ -z "$ARCH" -o "$ARCH" = i686 ]; then
+    if [ ! -e $LITE_IMG ]; then
+      sh mklive.sh \
+      -a $ARCH \
+      -o $LITE_IMG \
+      -p "$LITE_PKGS $GLIBC_I686_PKGS" \
+      -P "$L7_PKGS" \
+      -c /var/cache/xbps/$ARCH
+      ${REPO} "$@"
+      echo "\033[1;33mFinish\033[0m"
+    fi
   fi
 fi
 
 if [ -z "$IMAGE" -o "$IMAGE" = pro ]; then
-  if [ -z "$ARCH" -o "$ARCH" = x86_64 ]; then
+  if [ -z "$ARCH" -o "$ARCH" = x86_64-musl ]; then
     if [ ! -e $PRO_IMG ]; then
       sh mklive.sh \
       -a $ARCH \
       -o $PRO_IMG \
-      -p "$PRO_PKGS $GLIBC_PKGS" \
+      -p "$FULL_PRO_PKGS $MUSL_PKGS" \
       -P "$L7PRO_PKGS" \
       -c /var/cache/xbps/
+      ${REPO} "$@"
+      echo "\033[1;33mFinish\033[0m"
+    fi
+  elif [ -z "$ARCH" -o "$ARCH" = x86_64 ]; then
+    if [ ! -e $PRO_IMG ]; then
+      sh mklive.sh \
+      -a $ARCH \
+      -o $PRO_IMG \
+      -p "$FULL_PRO_PKGS $GLIBC_PKGS" \
+      -P "$L7PRO_PKGS" \
+      -c /var/cache/xbps/$ARCH
       ${REPO} "$@"
       echo "\033[1;33mFinish\033[0m"
     fi
@@ -174,20 +188,9 @@ if [ -z "$IMAGE" -o "$IMAGE" = pro ]; then
       sh mklive.sh \
       -a $ARCH \
       -o $PRO_IMG \
-      -p "$LITE_PKGS $CALLIBRATION_PKGS $PLUGINS_PKGS $PHOTOGRAPHY_PKGS $VIDEO_EDITOR_PKGS $FONT_MAKER_PKGS $PAINTING_PKGS $RECORD_PKGS $PUBLISH_PKGS $TWO_D_ANIMATION_PKGS $AUDIO_PRO_PKGS $FONTS_EXTRA_PKGS $GAME_PKGS $CAD_PKGS $GLIBC_I686_PKGS" \
+      -p "$I686_PRO_PKGS $GLIBC_I686_PKGS" \
       -P "$L7PRO_PKGS" \
-      -c /var/cache/xbps/
-      ${REPO} "$@"
-      echo "\033[1;33mFinish\033[0m"
-    fi
-  elif [ -z "$ARCH" -o "$ARCH" = x86_64-musl ]; then
-    if [ ! -e $PRO_IMG ]; then
-      sh mklive.sh \
-      -a $ARCH \
-      -o $PRO_IMG \
-      -p "$PRO_PKGS $MUSL_PKGS" \
-      -P "$L7PRO_PKGS" \
-      -c /var/cache/xbps/
+      -c /var/cache/xbps/$ARCH
       ${REPO} "$@"
       echo "\033[1;33mFinish\033[0m"
     fi
