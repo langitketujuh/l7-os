@@ -65,7 +65,7 @@ readonly PRINTER_PKGS="bluez-cups cups cups-pdf cups-filters gutenprint system-c
 readonly KDE_PKGS="xdg-utils xdg-desktop-portal xdg-desktop-portal-gtk xdg-desktop-portal-kde xdg-user-dirs xdg-user-dirs-gtk libappindicator AppStream sddm kde5 kdesu kde5-baseapps kaccounts-integration kaccounts-providers konsole dolphin dolphin-plugins kimageformats plasma-browser-integration plasma-disks plasma-nm plasma-pa colord-gtk colord-kde kio-extras kio-gdrive kcm-wacomtablet plasma-wayland-protocols kdegraphics-thumbnailers ksuperkey kidentitymanagement plasma-firewall subversion-kwallet-auth accountsservice bup kup"
 readonly KDE_APPS_PKGS="kdeconnect print-manager spectacle ark k3b kwalletmanager kcalc kget ktorrent okular ssr kcolorchooser kmediaplayer elisa kolourpaint gwenview krfb krdc partitionmanager skanlite krename vlc"
 readonly FONTS_PKGS="terminus-font dejavu-fonts-ttf xorg-fonts noto-fonts-emoji liberation-fonts-ttf unicode-character-database unicode-emoji font-awesome5 ttf-material-icons font-ionicons-ttf"
-readonly POWERMGMT_PKGS="upower acpi acpi_call-dkms cpufrequtils pm-utils"
+readonly POWERMGMT_PKGS="upower acpi acpi_call-dkms cpufrequtils"
 readonly PKGMGMT_PKGS="topgrade flatpak"
 readonly BROWSER_PKGS="firefox geckodriver"
 readonly BRIGHTNESS_PKGS="brightnessctl"
@@ -94,7 +94,7 @@ readonly CAD_PKGS="freecad LibreCAD"
 readonly REPO_NONFREE_PKGS="void-repo-nonfree"
 #readonly REPO_MULTILIB_PKGS="void-repo-multilib"
 
-readonly MUSL_PKGS="intel-media-driver gcompat"
+readonly MUSL_PKGS="intel-media-driver gcompat pm-utils"
 readonly GLIBC_PKGS="intel-media-driver glibc-locales"
 readonly GLIBC_I686_PKGS="glibc-locales"
 
