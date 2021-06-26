@@ -1,7 +1,0 @@
-[submodule "lite"]
-	path = includedir/lite
-	url = git@gitlab.com:langitketujuh/lite.git
-
-[submodule "pro"]
-	path = includedir/pro
-	url = git@gitlab.com:langitketujuh/pro.git
