@@ -17,7 +17,7 @@ GNU/Linux Musl distribution based on Voidlinux with KDE Desktop Environment. Rol
 
     $ git clone git@gitlab.com:langitketujuh/os.git --recursive
 
-#### Install dependencies
+#### Install dependencies (root)
 
     $ xbps-install -S make liblz4 xbps qemu-user-static pwgen
 
@@ -30,13 +30,16 @@ and then see the usage output:
 
     $ ./build.sh -h
 
-#### Build current architecture
+#### How to build iso (root)
 
-    $ ./build.sh -b lite
-    $ ./build.sh -b pro
+##### Lite
 
-#### Build different architecture.
-
+    $ ./build.sh -b lite -a x86_64-musl
     $ ./build.sh -b lite -a x86_64
     $ ./build.sh -b lite -a i686
+
+##### Pro
+
     $ ./build.sh -b pro -a x86_64-musl
+    $ ./build.sh -b pro -a x86_64
+    $ ./build.sh -b pro -a i686
