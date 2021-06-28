@@ -26,7 +26,7 @@
 #-
 
 # Make sure we don't inherit these from env.
-# last update upstream= 25ddad302de250a64336f83499d48dcb4f9570ba
+# last update=c1a4194
 
 ARCH=
 IMAGE=
@@ -55,15 +55,15 @@ readonly INITRD_PKGS="dracut dracut-uefi dracut-network"
 readonly NETWORK_PKGS="inetutils usbutils wget curl dhcpcd wpa_supplicant NetworkManager openntpd"
 readonly FIRMWARE_PKGS="linux-firmware linux-firmware-intel linux-firmware-amd linux-firmware-nvidia linux-firmware-network linux-firmware-broadcom broadcom-bt-firmware b43-fwcutter alsa-firmware wifi-firmware dkms"
 readonly XORG_PKGS="xorg xf86-input-evdev xf86-input-joystick xf86-input-libinput xf86-input-mtrack xf86-input-synaptics xf86-input-vmmouse xf86-input-wacom xorg-minimal xorg-input-drivers xorg-video-drivers mesa-ati-dri mesa-intel-dri mesa-nouveau-dri intel-video-accel"
-readonly UTILITY_PKGS="setxkbmap xauth xrandr libvdpau-va-gl vdpauinfo font-misc-misc testdisk gptfdisk xclip xclipboard wl-clipboard yank git subversion inxi xtools vsv vim bootiso bc mtools tmate pwgen fish-shell acpilight android-udev-rules android-tools nano zenity librsvg-utils ImageMagick libwebp libwebp-tools bash-completion htop vpsm ufw vim-huge zramen ffmpegthumbnailer ffmpegthumbs media-player-info fprintd earlyoom ranger lsscsi"
+readonly UTILITY_PKGS="setxkbmap xauth xrandr libvdpau-va-gl vdpauinfo font-misc-misc testdisk gptfdisk xclip xclipboard wl-clipboard yank git subversion inxi xtools vsv vim bootiso bc mtools tmate pwgen fish-shell acpilight android-udev-rules android-tools nano zenity librsvg-utils ImageMagick libwebp libwebp-tools bash-completion htop vpsm ufw vim-huge zramen ffmpegthumbnailer ffmpegthumbs media-player-info fprintd earlyoom ranger lsscsi slop"
 readonly AUDIO_PKGS="alsa-plugins-pulseaudio pipewire gstreamer1-pipewire alsa-utils paprefs bluez-alsa"
 readonly CODEC_PKGS="gst-plugins-base1 gst-plugins-good1 gst-plugins-ugly1 gst-plugins-bad1 gst-libav ffmpeg faac faad2 flac jasper lame libdca libmpeg2 libmad libtheora libvorbis libXv wavpack x264 xvidcore gstreamer-vaapi alsa-plugins-ffmpeg phonon-qt5-backend-vlc"
 readonly COMPRESSOR_PKGS="atool p7zip zip unzip lzop lzip dtrx file-roller liblz4 lz4 zlib bzip2 xz"
 readonly FS_PKGS="exfat-utils exfat-dkms gvfs-afc gvfs-mtp gvfs-smb udisks2 ntfs-3g"
 readonly AUTH_PKGS="elogind dbus-elogind dbus-elogind-x11 gnome-keyring"
 readonly PRINTER_PKGS="bluez-cups cups cups-pdf cups-filters gutenprint system-config-printer system-config-printer-udev hplip epson-inkjet-printer-escpr foomatic-db brother-brlaser"
-readonly KDE_PKGS="xdg-utils xdg-desktop-portal xdg-desktop-portal-gtk xdg-desktop-portal-kde xdg-user-dirs xdg-user-dirs-gtk libappindicator AppStream sddm kde5 kdesu kde5-baseapps kaccounts-integration kaccounts-providers konsole dolphin dolphin-plugins kimageformats plasma-browser-integration plasma-disks plasma-nm plasma-pa colord-gtk colord-kde kio-extras kio-gdrive kcm-wacomtablet plasma-wayland-protocols kdegraphics-thumbnailers ksuperkey kidentitymanagement plasma-firewall subversion-kwallet-auth accountsservice bup kup"
-readonly KDE_APPS_PKGS="kdeconnect print-manager spectacle ark k3b kwalletmanager kcalc kget ktorrent okular ssr kcolorchooser kmediaplayer elisa kolourpaint gwenview krfb krdc partitionmanager skanlite krename vlc"
+readonly KDE_PKGS="xdg-utils xdg-desktop-portal xdg-desktop-portal-gtk xdg-desktop-portal-kde xdg-user-dirs xdg-user-dirs-gtk libappindicator AppStream sddm kde5 kdesu kde5-baseapps kaccounts-integration kaccounts-providers kimageformats plasma-browser-integration plasma-disks plasma-nm plasma-pa colord-gtk colord-kde kio-extras kio-gdrive kcm-wacomtablet plasma-wayland-protocols kdegraphics-thumbnailers ksuperkey kidentitymanagement plasma-firewall subversion-kwallet-auth accountsservice"
+readonly KDE_APPS_PKGS="konsole dolphin dolphin-plugins kdeconnect print-manager spectacle ark k3b kwalletmanager kcalc kget ktorrent okular ssr kcolorchooser kmediaplayer elisa kolourpaint gwenview krfb krdc partitionmanager skanlite krename vlc bup kup"
 readonly FONTS_PKGS="terminus-font dejavu-fonts-ttf xorg-fonts noto-fonts-emoji liberation-fonts-ttf unicode-character-database unicode-emoji font-awesome5 ttf-material-icons font-ionicons-ttf"
 readonly POWERMGMT_PKGS="upower acpi acpi_call-dkms cpufrequtils"
 readonly PKGMGMT_PKGS="topgrade flatpak"
@@ -81,7 +81,7 @@ readonly PHOTOGRAPHY_PKGS="digikam rawtherapee hugin Converseen"
 readonly VIDEO_EDITOR_PKGS="kdenlive"
 readonly FONT_MAKER_PKGS="fontforge"
 readonly PAINTING_PKGS="krita"
-readonly RECORD_PKGS="obs key-mon"
+readonly RECORD_PKGS="obs screenkey"
 readonly PUBLISH_PKGS="scribus"
 readonly TREE_D_ANIMATION_PKGS="blender"
 readonly TWO_D_ANIMATION_PKGS="synfigstudio opentoonz"
@@ -118,7 +118,6 @@ if [ -z "$IMAGE" -o "$IMAGE" = base ]; then
     -o $BASE_IMG \
     -p "$BASE_PKGS" \
     -P vim \
-    -c /var/cache/xbps/
     ${REPO} "$@"
   fi
 fi
@@ -131,7 +130,6 @@ if [ -z "$IMAGE" -o "$IMAGE" = lite ]; then
       -o $LITE_IMG \
       -p "$LITE_PKGS $MUSL_PKGS" \
       -P "$L7_PKGS" \
-      -c /var/cache/xbps/
       ${REPO} "$@"
       echo "\033[1;33mFinish\033[0m"
     fi
@@ -142,7 +140,6 @@ if [ -z "$IMAGE" -o "$IMAGE" = lite ]; then
       -o $LITE_IMG \
       -p "$LITE_PKGS $GLIBC_PKGS" \
       -P "$L7_PKGS" \
-      -c /var/cache/xbps/$ARCH
       ${REPO} "$@"
       echo "\033[1;33mFinish\033[0m"
     fi
@@ -153,7 +150,6 @@ if [ -z "$IMAGE" -o "$IMAGE" = lite ]; then
       -o $LITE_IMG \
       -p "$LITE_PKGS $GLIBC_I686_PKGS" \
       -P "$L7_PKGS" \
-      -c /var/cache/xbps/$ARCH
       ${REPO} "$@"
       echo "\033[1;33mFinish\033[0m"
     fi
@@ -168,7 +164,6 @@ if [ -z "$IMAGE" -o "$IMAGE" = pro ]; then
       -o $PRO_IMG \
       -p "$FULL_PRO_PKGS $MUSL_PKGS" \
       -P "$L7PRO_PKGS" \
-      -c /var/cache/xbps/
       ${REPO} "$@"
       echo "\033[1;33mFinish\033[0m"
     fi
@@ -179,7 +174,6 @@ if [ -z "$IMAGE" -o "$IMAGE" = pro ]; then
       -o $PRO_IMG \
       -p "$FULL_PRO_PKGS $GLIBC_PKGS" \
       -P "$L7PRO_PKGS" \
-      -c /var/cache/xbps/$ARCH
       ${REPO} "$@"
       echo "\033[1;33mFinish\033[0m"
     fi
@@ -190,7 +184,6 @@ if [ -z "$IMAGE" -o "$IMAGE" = pro ]; then
       -o $PRO_IMG \
       -p "$I686_PRO_PKGS $GLIBC_I686_PKGS" \
       -P "$L7PRO_PKGS" \
-      -c /var/cache/xbps/$ARCH
       ${REPO} "$@"
       echo "\033[1;33mFinish\033[0m"
     fi
