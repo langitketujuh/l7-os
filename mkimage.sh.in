@@ -110,6 +110,25 @@ elif [ ! -r "$ROOTFS_TARBALL" ]; then
     die "Cannot read rootfs tarball: $ROOTFS_TARBALL"
 fi
 
+# Setup the platform variable.  Here we want just the name and
+# optionally -musl if this is the musl variant.
+PLATFORM="${ROOTFS_TARBALL#void-}"
+PLATFORM="${PLATFORM%-PLATFORMFS*}"
+
+# Be absolutely certain the platform is supported before continuing
+case "$PLATFORM" in
+    bananapi|beaglebone|cubieboard2|cubietruck|odroid-c2|odroid-u2|rpi|rpi2|rpi3|rpi4|GCP|pinebookpro|pinephone|*-musl);;
+    *) die "The $PLATFORM is not supported, exiting..."
+esac
+
+# Default for bigger boot partion on pinebookpro since it needs to fit
+# at least 2 Kernels + initramfs
+case "$PLATFORM" in
+    pinebookpro*)
+        : "${BOOT_FSSIZE:=256MiB}"
+        ;;
+esac
+
 # By default we build all platform images with a 64MiB boot partition
 # formated FAT16, and an approximately 1.9GiB root partition formated
 # ext4.  More exotic combinations are of course possible, but this
@@ -123,11 +142,6 @@ fi
 readonly REQTOOLS="sfdisk partx losetup mount truncate mkfs.${BOOT_FSTYPE} mkfs.${ROOT_FSTYPE}"
 check_tools
 
-# Setup the platform variable.  Here we want just the name and
-# optionally -musl if this is the musl variant.
-PLATFORM="${ROOTFS_TARBALL#langitketujuh-}"
-PLATFORM="${PLATFORM%-PLATFORMFS*}"
-
 # This is an awful hack since the script isn't using privesc
 # mechanisms selectively.  This is a TODO item.
 if [ "$(id -u)" -ne 0 ]; then
@@ -140,12 +154,6 @@ fi
 if [ -z "$FILENAME" ]; then
     FILENAME="langitketujuh-${PLATFORM}-$(date +%Y%m%d).img"
 fi
-
-# Be absolutely certain the platform is supported before continuing
-case "$PLATFORM" in
-    bananapi|beaglebone|cubieboard2|cubietruck|odroid-c2|odroid-u2|rpi|rpi2|rpi3|GCP|pinebookpro|pinephone|*-musl);;
-    *) die "The $PLATFORM is not supported, exiting..."
-esac
 
 # Create the base image.  This was previously accomplished with dd,
 # but truncate is markedly faster.
