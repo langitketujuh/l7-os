@@ -56,27 +56,27 @@ readonly NETWORK_PKGS="inetutils usbutils wget curl dhcpcd wpa_supplicant Networ
 readonly FIRMWARE_PKGS="linux-firmware linux-firmware-intel linux-firmware-amd linux-firmware-nvidia linux-firmware-network linux-firmware-broadcom broadcom-bt-firmware b43-fwcutter alsa-firmware wifi-firmware dkms"
 readonly XORG_PKGS="xorg xf86-input-evdev xf86-input-joystick xf86-input-libinput xf86-input-mtrack xf86-input-synaptics xf86-input-vmmouse xf86-input-wacom xorg-minimal xorg-input-drivers xorg-video-drivers mesa-ati-dri mesa-intel-dri mesa-nouveau-dri intel-video-accel"
 readonly AUDIO_PKGS="alsa-plugins-pulseaudio alsa-utils paprefs bluez-alsa libspa-bluetooth"
-readonly CODEC_PKGS="gst-plugins-base1 gst-plugins-good1 gst-plugins-ugly1 gst-plugins-bad1 gst-libav ffmpeg faac faad2 flac jasper lame libdca libmpeg2 libmad libtheora libvorbis libXv wavpack x264 xvidcore gstreamer-vaapi alsa-plugins-ffmpeg phonon-qt5-backend-vlc"
+readonly CODEC_PKGS="gst-plugins-base1 gst-plugins-good1 gst-plugins-ugly1 gst-plugins-bad1 gst-libav ffmpeg faac faad2 flac jasper lame libdca libmpeg2 libmad libtheora libvorbis libXv wavpack x264 xvidcore gstreamer-vaapi alsa-plugins-ffmpeg phonon-qt5-backend-vlc v4l2loopback"
 readonly COMPRESSOR_PKGS="atool p7zip zip unzip lzop lzip dtrx file-roller liblz4 lz4 zlib bzip2 xz"
 readonly FS_PKGS="exfat-utils exfat-dkms gvfs-afc gvfs-mtp gvfs-smb udisks2 ntfs-3g"
 readonly AUTH_PKGS="elogind dbus-elogind dbus-elogind-x11 gnome-keyring"
 readonly PRINTER_PKGS="bluez-cups cups cups-pdf cups-filters gutenprint system-config-printer system-config-printer-udev epson-inkjet-printer-escpr"
-readonly UTILITY_PKGS="setxkbmap xauth xrandr font-misc-misc testdisk gptfdisk xclipboard yank git inxi xtools vsv vim tmate pwgen fish-shell acpilight android-udev-rules android-tools nano zenity ImageMagick libwebp libwebp-tools vpsm ufw zramen media-player-info fprintd earlyoom ranger slop"
-readonly KDE_PKGS="xdg-utils xdg-desktop-portal xdg-desktop-portal-gtk xdg-desktop-portal-kde xdg-user-dirs xdg-user-dirs-gtk libappindicator AppStream sddm kde5 kdesu kde5-baseapps kaccounts-integration kaccounts-providers kimageformats plasma-browser-integration plasma-disks plasma-nm plasma-pa colord-gtk colord-kde kio-extras kio-gdrive kcm-wacomtablet plasma-wayland-protocols kdegraphics-thumbnailers ffmpegthumbnailer ffmpegthumbs ksuperkey kidentitymanagement plasma-firewall accountsservice"
-readonly KDE_APPS_PKGS="konsole dolphin kdeconnect print-manager spectacle ark k3b kwalletmanager kcalc kget okular ssr kmediaplayer elisa gwenview partitionmanager vlc bup kup kamoso skanlite krfb krdc ktorrent isoimagewriter"
-readonly FONTS_PKGS="xorg-fonts noto-fonts-emoji liberation-fonts-ttf unicode-emoji font-awesome5 font-ionicons-ttf"
+readonly UTILITY_PKGS="setxkbmap xauth xrandr font-misc-misc gptfdisk git inxi xtools vsv vim tmate pwgen fish-shell acpilight android-udev-rules android-tools nano zenity ImageMagick libwebp libwebp-tools vpsm ufw zramen media-player-info fprintd earlyoom ranger slop"
+readonly KDE_PKGS="xdg-utils xdg-desktop-portal xdg-desktop-portal-gtk xdg-desktop-portal-kde xdg-user-dirs xdg-user-dirs-gtk libappindicator AppStream sddm kde5 kdesu kde5-baseapps kaccounts-integration kaccounts-providers kimageformats plasma-browser-integration plasma-disks plasma-nm plasma-pa colord-kde kio-extras kio-gdrive kcm-wacomtablet plasma-wayland-protocols kdegraphics-thumbnailers ffmpegthumbnailer ffmpegthumbs ksuperkey kidentitymanagement plasma-firewall accountsservice"
+readonly KDE_APPS_PKGS="konsole dolphin kdeconnect print-manager spectacle ark k3b kwalletmanager kcalc kget okular ssr kmediaplayer elisa gwenview partitionmanager vlc bup kup kamoso skanlite krfb krdc isoimagewriter"
+readonly FONTS_PKGS="xorg-fonts noto-fonts-emoji unicode-emoji font-awesome5 font-ionicons-ttf"
 readonly POWERMGMT_PKGS="upower acpi cpufrequtils"
 readonly PKGMGMT_PKGS="topgrade flatpak"
 readonly BROWSER_PKGS="firefox geckodriver"
 readonly BRIGHTNESS_PKGS="brightnessctl"
 readonly OFFICE_PKGS="libreoffice libreoffice-kde"
-readonly APPEARANCE_PKGS="papirus-folders papirus-icon-theme"
+readonly APPEARANCE_PKGS="papirus-icon-theme"
 readonly VECTOR_PKGS="inkscape"
 readonly RASTER_PKGS="gimp"
 
 # PRO Edition
 readonly CALLIBRATION_PKGS="lcms lcms2 python-dbus dispcalGUI"
-readonly PLUGINS_PKGS="gmic gmic-gimp gimp-lqr-plugin xsane-gimp resynthesizer"
+readonly PLUGINS_PKGS="gmic gmic-gimp"
 readonly PHOTOGRAPHY_PKGS="digikam rawtherapee hugin Converseen"
 readonly VIDEO_EDITOR_PKGS="kdenlive"
 readonly FONT_MAKER_PKGS="fontforge"
@@ -85,7 +85,7 @@ readonly RECORD_PKGS="obs screenkey"
 readonly PUBLISH_PKGS="scribus"
 readonly TREE_D_ANIMATION_PKGS="blender"
 readonly TWO_D_ANIMATION_PKGS="synfigstudio opentoonz"
-readonly AUDIO_PRO_PKGS="jack jack_capture audacity ardour kid3 soundkonverter"
+readonly AUDIO_PRO_PKGS="audacity ardour kid3 soundkonverter"
 readonly FONTS_EXTRA_PKGS="google-fonts-ttf"
 readonly GAME_PKGS="godot"
 readonly CAD_PKGS="freecad LibreCAD"
@@ -109,7 +109,8 @@ readonly FULL_PRO_PKGS="$I686_PRO_PKGS $TREE_D_ANIMATION_PKGS"
 # alsa-pipewire libjack-pipewire pipewire gstreamer1-pipewire hplip foomatic-db
 # brother-brlaser subversion vdpauinfo libvdpau-va-gl vdpauinfo xclip wl-clipboard
 # subversion vim-huge bootiso mtools librsvg-utils bash-completion htop lsscsi
-# acpi_call-dkms
+# acpi_call-dkms testdisk liberation-fonts-ttf jack jack_capture colord-gtk
+# ktorrent gimp-lqr-plugin xsane-gimp resynthesizer
 
 #readonly WINE_PKGS="libwine wine wine-common wine-gecko wine-tools wine-mono winetricks zenity glu protontricks"
 #readonly WINE_GLIBC_PKGS="$REPO_MULTILIB_PKGS $WINE_PKGS libwine-32bit wine-32bit glu-32bit"
