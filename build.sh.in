@@ -75,17 +75,17 @@ readonly VECTOR_PKGS="inkscape"
 readonly RASTER_PKGS="gimp"
 
 # PRO Edition
-readonly CALLIBRATION_PKGS="lcms lcms2 python-dbus dispcalGUI"
+readonly CALLIBRATION_PKGS="lcms2 python-dbus dispcalGUI"
 readonly PLUGINS_PKGS="gmic gmic-gimp"
-readonly PHOTOGRAPHY_PKGS="digikam rawtherapee hugin Converseen"
-readonly VIDEO_EDITOR_PKGS="kdenlive"
+readonly PHOTOGRAPHY_PKGS="digikam rawtherapee Converseen"
+readonly VIDEO_EDITOR_PKGS="kdenlive handbrake"
 readonly FONT_MAKER_PKGS="fontforge"
 readonly PAINTING_PKGS="krita"
 readonly RECORD_PKGS="obs screenkey"
 readonly PUBLISH_PKGS="scribus"
 readonly TREE_D_ANIMATION_PKGS="blender"
 readonly TWO_D_ANIMATION_PKGS="synfigstudio opentoonz"
-readonly AUDIO_PRO_PKGS="audacity ardour kid3 soundkonverter"
+readonly AUDIO_PRO_PKGS="audacity ardour kid3 soundkonverter pulseeffects-legacy"
 readonly FONTS_EXTRA_PKGS="google-fonts-ttf"
 readonly GAME_PKGS="godot"
 readonly CAD_PKGS="freecad LibreCAD"
@@ -110,7 +110,7 @@ readonly FULL_PRO_PKGS="$I686_PRO_PKGS $TREE_D_ANIMATION_PKGS"
 # brother-brlaser subversion vdpauinfo libvdpau-va-gl vdpauinfo xclip wl-clipboard
 # subversion vim-huge bootiso mtools librsvg-utils bash-completion htop lsscsi
 # acpi_call-dkms testdisk liberation-fonts-ttf jack jack_capture colord-gtk
-# ktorrent gimp-lqr-plugin xsane-gimp resynthesizer
+# ktorrent gimp-lqr-plugin xsane-gimp resynthesizer hugin
 
 #readonly WINE_PKGS="libwine wine wine-common wine-gecko wine-tools wine-mono winetricks zenity glu protontricks"
 #readonly WINE_GLIBC_PKGS="$REPO_MULTILIB_PKGS $WINE_PKGS libwine-32bit wine-32bit glu-32bit"
