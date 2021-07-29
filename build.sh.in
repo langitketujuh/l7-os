@@ -60,7 +60,7 @@ readonly CODEC_PKGS="gst-plugins-base1 gst-plugins-good1 gst-plugins-ugly1 gst-p
 readonly COMPRESSOR_PKGS="atool p7zip zip unzip lzop lzip dtrx file-roller liblz4 lz4 zlib bzip2 xz"
 readonly FS_PKGS="exfat-utils exfat-dkms gvfs-afc gvfs-mtp gvfs-smb udisks2 ntfs-3g"
 readonly AUTH_PKGS="elogind dbus-elogind dbus-elogind-x11 gnome-keyring"
-readonly PRINTER_PKGS="bluez-cups cups cups-pdf cups-filters gutenprint system-config-printer system-config-printer-udev epson-inkjet-printer-escpr"
+readonly PRINTER_PKGS="bluez-cups cups cups-pdf cups-filters gutenprint system-config-printer system-config-printer-udev epson-inkjet-printer-escpr hplip brother-brlaser"
 readonly UTILITY_PKGS="setxkbmap xauth xrandr font-misc-misc gptfdisk git inxi xtools vsv vim tmate pwgen fish-shell acpilight android-udev-rules android-tools nano zenity ImageMagick libwebp libwebp-tools vpsm ufw zramen media-player-info fprintd earlyoom ranger slop"
 readonly KDE_PKGS="xdg-utils xdg-desktop-portal xdg-desktop-portal-gtk xdg-desktop-portal-kde xdg-user-dirs xdg-user-dirs-gtk libappindicator AppStream sddm kde5 kdesu kde5-baseapps kaccounts-integration kaccounts-providers kimageformats plasma-browser-integration plasma-disks plasma-nm plasma-pa colord-kde kio-extras kio-gdrive kcm-wacomtablet plasma-wayland-protocols kdegraphics-thumbnailers ffmpegthumbnailer ffmpegthumbs ksuperkey kidentitymanagement plasma-firewall accountsservice"
 readonly KDE_APPS_PKGS="konsole dolphin kdeconnect print-manager spectacle ark k3b kwalletmanager kcalc kget okular ssr kmediaplayer elisa gwenview partitionmanager vlc bup kup kamoso skanlite krfb krdc isoimagewriter"
@@ -106,11 +106,10 @@ readonly FULL_PRO_PKGS="$I686_PRO_PKGS $TREE_D_ANIMATION_PKGS"
 
 # removed:
 # kolourpaint krename unicode-character-database dolphin-plugins terminus-font
-# alsa-pipewire libjack-pipewire pipewire gstreamer1-pipewire hplip foomatic-db
-# brother-brlaser subversion vdpauinfo libvdpau-va-gl vdpauinfo xclip wl-clipboard
-# subversion vim-huge bootiso mtools librsvg-utils bash-completion htop lsscsi
-# acpi_call-dkms testdisk liberation-fonts-ttf jack jack_capture colord-gtk
-# ktorrent
+# alsa-pipewire libjack-pipewire pipewire gstreamer1-pipewire subversion vdpauinfo
+# libvdpau-va-gl vdpauinfo xclip wl-clipboard vim-huge bootiso mtools librsvg-utils
+# bash-completion htop lsscsi acpi_call-dkms testdisk liberation-fonts-ttf
+# jack jack_capture colord-gtk ktorrent
 
 #readonly WINE_PKGS="libwine wine wine-common wine-gecko wine-tools wine-mono winetricks zenity glu protontricks"
 #readonly WINE_GLIBC_PKGS="$REPO_MULTILIB_PKGS $WINE_PKGS libwine-32bit wine-32bit glu-32bit"
