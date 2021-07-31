@@ -4,13 +4,11 @@
 * Update KDE plasma `5.22.3`
 * Update `l7-tools` mendeteksi update paket terbaru tanpa merubah patch langitketujuh.
 * Update fix `l7-export` mendeteksi otomatis id objek dengan lebih presisi dan mengoptimalkan svg sebelum di export.
-* Ganti `vim-huge` menjadi `vim`.
 * Menambahkan `handbrake` sebagai media trankoder.
 * Menambahkan `pulseeffects-legacy` untuk equalizer audio.
 * Menambahkan `v4l2loopback` kernel modul kamera untuk virtual cam `obs` studio.
 * Menghapus duplikat font `liberation-fonts-ttf`, sudah tersedia bersama `libreoffice`.
 * Menghapus dukungan printer hp `hplip foomatic-db` dan brother laser `brother-brlaser`.
-* Menghapus aplikasi opsional yang jarang dipakai `ktorrent kolourpaint krename`.
 * Menghapus depedensi `pipewire` dan opsional `alsa-pipewire libjack-pipewire pipewire gstreamer1-pipewire`.
 * Menghapus depedensi yang tidak diperlukan `lcms unicode-character-database dolphin-plugins terminus-font subversion vdpauinfo libvdpau-va-gl vdpauinfo xclip wl-clipboard subversion vim-huge bootiso mtools librsvg-utils bash-completion htop lsscsi acpi_call-dkms testdisk jack jack_capture colord-gtk`.
 
