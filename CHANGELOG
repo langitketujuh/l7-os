@@ -12,7 +12,7 @@
 * Menambahkan `v4l2loopback` kernel modul kamera untuk virtual cam `obs` studio.
 * Mengganti `ksysguard` menjadi `plasma-systemmonitor` sebagai monitoring proses sistem.
 * Menghapus duplikat font `liberation-fonts-ttf`, sudah tersedia bersama `libreoffice`.
-* Menghapus dependensi `pipewire` dan opsional `alsa-pipewire libjack-pipewire pipewire gstreamer1-pipewire`.
+* Menghapus `pipewire` dan opsional depedensi `alsa-pipewire libjack-pipewire pipewire gstreamer1-pipewire`.
 * Menghapus dependensi yang tidak diperlukan `lcms unicode-character-database dolphin-plugins terminus-font subversion vdpauinfo libvdpau-va-gl vdpauinfo xclip wl-clipboard subversion bootiso mtools librsvg-utils bash-completion htop lsscsi acpi_call-dkms testdisk jack jack_capture colord-gtk`.
 
 #### Version 20210616
