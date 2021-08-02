@@ -4,6 +4,7 @@
 * Update KDE plasma `5.22.3`
 * Update `l7-tools` mendeteksi update paket terbaru tanpa merubah patch langitketujuh.
 * Update fix `l7-export` mendeteksi otomatis id objek dengan lebih presisi dan mengoptimalkan svg sebelum di export.
+* Fix menambahkan 8px margin `konsole`.
 * kompresi INITRAMFS dan SQUASHFS menjadi gzip (sebelumnya xz). gzip membuat ukuran iso lebih besar, tetapi lebih aman dan cepat untuk dekompresi iso files.
 * Menambahkan `handbrake` sebagai media trankoder.
 * Menambahkan `pulseeffects-legacy` untuk equalizer audio.
