@@ -11,6 +11,7 @@
 * Menambahkan `screenkey` sebagai screencast keyboard monitor.
 * Menambahkan `kamoso` sebagai perekam audio dan video dengan webcam.
 * Menambahkan `v4l2loopback` kernel modul kamera untuk virtual cam `obs` studio.
+* Menambahkan `noto-fonts-cjk` font jepang.
 * Mengganti `ksysguard` menjadi `plasma-systemmonitor` sebagai monitoring proses sistem.
 * Menghapus duplikat font `liberation-fonts-ttf`, sudah tersedia bersama `libreoffice`.
 * Menghapus `pipewire` dan opsional depedensi `alsa-pipewire libjack-pipewire pipewire gstreamer1-pipewire`.
