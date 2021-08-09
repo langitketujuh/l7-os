@@ -107,6 +107,11 @@ copy_autoinstaller_files() {
     cp dracut/autoinstaller/* "$1"/usr/lib/dracut/modules.d/01autoinstaller/
 }
 
+clean_cache_packages() {
+    XBPS_ARCH=$ARCH "$XBPS_CLEAN_CACHE_CMD" -r "$LANGITKETUJUHHOSTDIR" -c "$PWD/$XBPS_HOST_CACHEDIR" -y
+    [ $? -ne 0 ] && die "Failed to clean cache packages, exiting..."
+}
+
 install_prereqs() {
     XBPS_ARCH=$ARCH "$XBPS_INSTALL_CMD" -r "$LANGITKETUJUHHOSTDIR" ${XBPS_REPOSITORY} \
          -c "$XBPS_HOST_CACHEDIR" -y $REQUIRED_PKGS
@@ -373,7 +378,7 @@ ISOLINUX_DIR="$BOOT_DIR/isolinux"
 GRUB_DIR="$BOOT_DIR/grub"
 ISOLINUX_CFG="$ISOLINUX_DIR/isolinux.cfg"
 CURRENT_STEP=0
-STEP_COUNT=10
+STEP_COUNT=11
 [ -n "${INCLUDE_DIRECTORY}" ] && STEP_COUNT=$((STEP_COUNT+1))
 
 : ${SYSLINUX_DATADIR:="$LANGITKETUJUHHOSTDIR"/usr/lib/syslinux}
@@ -381,6 +386,7 @@ STEP_COUNT=10
 : ${SPLASH_IMAGE:=data/splash.png}
 : ${XBPS_INSTALL_CMD:=xbps-install}
 : ${XBPS_REMOVE_CMD:=xbps-remove}
+: ${XBPS_CLEAN_CACHE_CMD:=xbps-remove -Oo}
 : ${XBPS_QUERY_CMD:=xbps-query}
 : ${XBPS_RINDEX_CMD:=xbps-rindex}
 : ${XBPS_UHELPER_CMD:=xbps-uhelper}
@@ -415,6 +421,9 @@ if [ "$?" -ne "0" ]; then
 fi
 
 : ${OUTPUT_FILE="langitketujuh-${EDITION}-${BASE_ARCH}-${KERNELVERSION}-$(date +%Y%m%d)-$(pwgen -sA 7 1).iso"}
+
+print_step "Clean old cache XBPS packages ..."
+clean_cache_packages
 
 print_step "Installing software to generate the image: ${REQUIRED_PKGS} ..."
 install_prereqs
