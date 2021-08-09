@@ -29,5 +29,5 @@
 # last update=c1a4194
 
 for f in x86_64-musl x86_64 i686; do
-  XBPS_TARGET_ARCH=${f} xbps-remove -O -o -c $PWD/xbps-cachedir-${f}/
+  XBPS_ARCH=${f} xbps-remove -O -o -c $PWD/xbps-cachedir-${f}/
 done
