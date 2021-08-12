@@ -1,11 +1,14 @@
 **CHANGELOG**
 
 #### Version [WIP]
-* Update KDE plasma `5.22.3`
-* Update `l7-tools` mendeteksi update paket terbaru tanpa merubah patch langitketujuh.
-* Update fix `l7-export` mendeteksi otomatis id objek dengan lebih presisi dan mengoptimalkan svg sebelum di export.
-* Fix menambahkan 8px margin `konsole`.
-* kompresi INITRAMFS dan SQUASHFS menjadi gzip (sebelumnya xz). gzip membuat ukuran iso lebih besar, tetapi lebih aman dan cepat untuk dekompresi iso files.
+* Menggunakan kernel linux5.13
+* Menggunakan KDE Plasma `5.22.4`
+* Menu launcher diganti 9 titik `start-here` dari ikon Papirus.
+* Memperbarui `l7-tools` mendeteksi update paket terbaru tanpa merubah patch langitketujuh.
+* Memperbarui `l7-tools` memperbolehkan eksekusi os-prober jika boot lebih dari satu.
+* Memperbarui `l7-export` mendeteksi otomatis id objek dengan lebih presisi dan mengoptimalkan svg sebelum di export.
+* Kompresi INITRAMFS dan SQUASHFS menjadi gzip (sebelumnya xz). gzip membuat ukuran iso lebih besar, tetapi lebih aman dan cepat untuk dekompresi iso files.
+* Menambahkan margin 8px di profil bawaan `konsole`.
 * Menambahkan `handbrake` sebagai media trankoder.
 * Menambahkan `pulseeffects-legacy` untuk equalizer audio.
 * Menambahkan `screenkey` sebagai screencast keyboard monitor.
