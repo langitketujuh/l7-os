@@ -53,7 +53,7 @@ readonly GRUB_PKGS="grub-i386-efi grub-x86_64-efi"
 readonly BASE_PKGS="base-system dialog cryptsetup lvm2 mdadm"
 readonly INITRD_PKGS="dracut dracut-uefi dracut-network"
 readonly NETWORK_PKGS="inetutils usbutils wget curl dhcpcd wpa_supplicant NetworkManager ntp"
-readonly FIRMWARE_PKGS="linux-firmware linux-firmware-intel linux-firmware-amd linux-firmware-nvidia linux-firmware-network linux-firmware-broadcom broadcom-bt-firmware b43-fwcutter alsa-firmware wifi-firmware dkms"
+readonly FIRMWARE_PKGS="linux-firmware-intel linux-firmware-amd linux-firmware-nvidia linux-firmware-network linux-firmware-broadcom broadcom-bt-firmware b43-fwcutter alsa-firmware wifi-firmware dkms"
 readonly XORG_PKGS="xorg xf86-input-evdev xf86-input-joystick xf86-input-libinput xf86-input-mtrack xf86-input-synaptics xf86-input-vmmouse xf86-input-wacom xorg-minimal xorg-input-drivers xorg-video-drivers mesa-ati-dri mesa-intel-dri mesa-nouveau-dri intel-video-accel"
 readonly AUDIO_PKGS="alsa-plugins-pulseaudio alsa-utils paprefs bluez-alsa libspa-bluetooth"
 readonly CODEC_PKGS="gst-plugins-base1 gst-plugins-good1 gst-plugins-ugly1 gst-plugins-bad1 gst-libav ffmpeg faac faad2 flac jasper lame libdca libmpeg2 libmad libtheora libvorbis libXv wavpack x264 xvidcore gstreamer-vaapi alsa-plugins-ffmpeg phonon-qt5-backend-vlc v4l2loopback v4l-utils"
@@ -62,8 +62,8 @@ readonly FS_PKGS="exfat-utils exfat-dkms gvfs-afc gvfs-mtp gvfs-smb udisks2 ntfs
 readonly AUTH_PKGS="elogind dbus-elogind dbus-elogind-x11 gnome-keyring"
 readonly PRINTER_PKGS="bluez-cups cups cups-pdf cups-filters gutenprint system-config-printer system-config-printer-udev epson-inkjet-printer-escpr hplip brother-brlaser"
 readonly UTILITY_PKGS="setxkbmap xauth xrandr font-misc-misc gptfdisk git inxi xtools vsv vim-huge tmate pwgen fish-shell acpilight android-udev-rules android-tools nano zenity ImageMagick libwebp libwebp-tools vpsm ufw zramen media-player-info fprintd earlyoom ranger slop"
-readonly KDE_PKGS="xdg-utils xdg-desktop-portal xdg-desktop-portal-gtk xdg-desktop-portal-kde xdg-user-dirs xdg-user-dirs-gtk libappindicator AppStream sddm kde5 kdesu kde5-baseapps kaccounts-integration kaccounts-providers kimageformats plasma-browser-integration plasma-disks plasma-nm plasma-pa colord-kde kio-extras kio-gdrive kcm-wacomtablet plasma-wayland-protocols kdegraphics-thumbnailers ffmpegthumbnailer ffmpegthumbs ksuperkey kidentitymanagement plasma-firewall accountsservice"
-readonly KDE_APPS_PKGS="konsole dolphin kdeconnect print-manager spectacle ark k3b kwalletmanager kcalc kget okular ssr kmediaplayer elisa gwenview partitionmanager vlc bup kup kamoso skanlite krfb krdc isoimagewriter kolourpaint krename ktorrent"
+readonly KDE_PKGS="xdg-utils xdg-desktop-portal xdg-desktop-portal-gtk xdg-desktop-portal-kde xdg-user-dirs xdg-user-dirs-gtk libappindicator sddm kde5 kdesu kde5-baseapps kaccounts-integration kaccounts-providers kimageformats plasma-browser-integration plasma-disks plasma-nm plasma-pa colord-kde kio-extras kio-gdrive kcm-wacomtablet plasma-wayland-protocols kdegraphics-thumbnailers ffmpegthumbnailer ffmpegthumbs ksuperkey kidentitymanagement plasma-firewall accountsservice"
+readonly KDE_APPS_PKGS="konsole dolphin kdeconnect print-manager spectacle ark k3b kwalletmanager kcalc kget okular ssr kmediaplayer elisa gwenview partitionmanager vlc bup kup kamoso skanlite krfb krdc isoimagewriter kolourpaint ktorrent"
 readonly FONTS_PKGS="xorg-fonts noto-fonts-emoji unicode-emoji font-awesome5 font-ionicons-ttf noto-fonts-cjk"
 readonly POWERMGMT_PKGS="upower acpi cpufrequtils"
 readonly PKGMGMT_PKGS="topgrade flatpak"
@@ -90,9 +90,6 @@ readonly FONTS_EXTRA_PKGS="google-fonts-ttf"
 readonly GAME_PKGS="godot"
 readonly CAD_PKGS="freecad LibreCAD"
 
-readonly REPO_NONFREE_PKGS="void-repo-nonfree"
-#readonly REPO_MULTILIB_PKGS="void-repo-multilib"
-
 readonly MUSL_PKGS="intel-media-driver gcompat pm-utils"
 readonly GLIBC_PKGS="intel-media-driver glibc-locales"
 readonly GLIBC_I686_PKGS="glibc-locales"
@@ -100,20 +97,16 @@ readonly GLIBC_I686_PKGS="glibc-locales"
 readonly L7_PKGS="l7-ark l7-baloo5 l7-breeze l7-breeze-gtk l7-breeze-icons l7-desktop-file-utils l7-export l7-fish-shell l7-gimp l7-gwenview l7-kate5 l7-kcmutils l7-konsole l7-kscreenlocker l7-libreoffice l7-plasma-desktop l7-removed-packages l7-repo l7-runit-void l7-sddm l7-shadow l7-systemsettings l7-tools"
 readonly L7PRO_PKGS="$L7_PKGS l7-ardour l7-audacity l7-godot l7-krita l7-obs l7-scribus"
 
-readonly LITE_PKGS="$REPO_NONFREE_PKGS $GRUB_PKGS $BASE_PKGS $INITRD_PKGS $NETWORK_PKGS $FIRMWARE_PKGS $XORG_PKGS $UTILITY_PKGS $AUDIO_PKGS $CODEC_PKGS $COMPRESSOR_PKGS $FS_PKGS $AUTH_PKGS $PRINTER_PKGS $KDE_PKGS $KDE_APPS_PKGS $FONTS_PKGS $POWERMGMT_PKGS $PKGMGMT_PKGS $BROWSER_PKGS $BRIGHTNESS_PKGS $OFFICE_PKGS $APPEARANCE_PKGS $VECTOR_PKGS $RASTER_PKGS"
-readonly I686_PRO_PKGS="$LITE_PKGS $CALLIBRATION_PKGS $PLUGINS_PKGS $PHOTOGRAPHY_PKGS $VIDEO_EDITOR_PKGS $FONT_MAKER_PKGS $PAINTING_PKGS $RECORD_PKGS $PUBLISH_PKGS $TWO_D_ANIMATION_PKGS $AUDIO_PRO_PKGS $FONTS_EXTRA_PKGS $GAME_PKGS $CAD_PKGS"
-readonly FULL_PRO_PKGS="$I686_PRO_PKGS $TREE_D_ANIMATION_PKGS"
-
-# removed:
-# unicode-character-database dolphin-plugins terminus-font
-# alsa-pipewire libjack-pipewire pipewire gstreamer1-pipewire subversion vdpauinfo
-# libvdpau-va-gl vdpauinfo xclip wl-clipboard bootiso mtools librsvg-utils
-# bash-completion htop lsscsi acpi_call-dkms testdisk liberation-fonts-ttf
-# jack jack_capture colord-gtk
+readonly REPO_NONFREE_PKGS="void-repo-nonfree"
+#readonly REPO_MULTILIB_PKGS="void-repo-multilib"
 
 #readonly WINE_PKGS="libwine wine wine-common wine-gecko wine-tools wine-mono winetricks zenity glu protontricks"
 #readonly WINE_GLIBC_PKGS="$REPO_MULTILIB_PKGS $WINE_PKGS libwine-32bit wine-32bit glu-32bit"
 #readonly COMPILER_PKGS="automake binutils bison fakeroot flex gcc libtool m4 make patch pkg-config qemu-user-static scons yasm pkgconf libXcursor libXinerama libXi libXrandr libgudev gcc-objc++ xorgproto libfreeglut llvm clang icu cmake python3-pip"
+
+readonly LITE_PKGS="$REPO_NONFREE_PKGS $GRUB_PKGS $BASE_PKGS $INITRD_PKGS $NETWORK_PKGS $FIRMWARE_PKGS $XORG_PKGS $UTILITY_PKGS $AUDIO_PKGS $CODEC_PKGS $COMPRESSOR_PKGS $FS_PKGS $AUTH_PKGS $PRINTER_PKGS $KDE_PKGS $KDE_APPS_PKGS $FONTS_PKGS $POWERMGMT_PKGS $PKGMGMT_PKGS $BROWSER_PKGS $BRIGHTNESS_PKGS $OFFICE_PKGS $APPEARANCE_PKGS $VECTOR_PKGS $RASTER_PKGS"
+readonly I686_PRO_PKGS="$LITE_PKGS $CALLIBRATION_PKGS $PLUGINS_PKGS $PHOTOGRAPHY_PKGS $VIDEO_EDITOR_PKGS $FONT_MAKER_PKGS $PAINTING_PKGS $RECORD_PKGS $PUBLISH_PKGS $TWO_D_ANIMATION_PKGS $AUDIO_PRO_PKGS $FONTS_EXTRA_PKGS $GAME_PKGS $CAD_PKGS"
+readonly FULL_PRO_PKGS="$I686_PRO_PKGS $TREE_D_ANIMATION_PKGS"
 
 readonly INITRAMFS="gzip"
 readonly SQUASHFS="gzip"
