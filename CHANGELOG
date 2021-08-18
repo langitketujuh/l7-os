@@ -6,7 +6,7 @@
 * Memperbarui `l7-tools` mendeteksi update paket terbaru tanpa merubah patch langitketujuh.
 * Memperbarui `l7-tools` memperbolehkan eksekusi os-prober jika boot lebih dari satu.
 * Memperbarui `l7-export` mendeteksi otomatis id objek dengan lebih presisi dan mengoptimalkan svg sebelum di export.
-* Memperbarui `l7-export` mengganti generator dari inkscape ke librsvg; menambahkan daftar marketplace.
+* Memperbarui `l7-export` menambahkan daftar marketplace.
 * Kompresi initramfs dan squashfs menjadi gzip (sebelumnya xz). gzip membuat ukuran iso lebih besar, tetapi lebih aman dan cepat untuk dekompresi.
 * Menambahkan margin 8px di profil bawaan `konsole`.
 * Menambahkan `handbrake` sebagai media trankoder.
@@ -17,6 +17,7 @@
 * Menambahkan `kcharselect` pemilih karakter font.
 * Menambahkan `ifuse` mount iphone/ipad disk.
 * Menambahkan `noto-fonts-cjk` font jepang.
+* Menambahkan `ttf-opensans` font telegram.
 * Mengganti `ksysguard` menjadi `plasma-systemmonitor` sebagai monitoring proses sistem.
 * Mengganti `openntpd` menjadi `ntpd` sebagai servis penanggalan.
 * Mengganti ikon launcher 9 titik `start-here` dari ikon Papirus.
