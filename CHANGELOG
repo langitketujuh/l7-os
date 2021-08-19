@@ -9,6 +9,7 @@
 * Memperbarui `l7-export` menambahkan daftar marketplace.
 * Kompresi initramfs dan squashfs menjadi gzip (sebelumnya xz). gzip membuat ukuran iso lebih besar, tetapi lebih aman dan cepat untuk dekompresi.
 * Menambahkan margin 8px di profil bawaan `konsole`.
+* Menambahkan `pipewire` sebagai audio server utama pengganti pulseaudio. dan opsional depedensi `alsa-pipewire libjack-pipewire pipewire gstreamer1-pipewire`.
 * Menambahkan `handbrake` sebagai media trankoder.
 * Menambahkan `pulseeffects-legacy` untuk equalizer audio.
 * Menambahkan `screenkey` sebagai screencast keyboard monitor.
@@ -22,7 +23,6 @@
 * Mengganti `openntpd` menjadi `ntpd` sebagai servis penanggalan.
 * Mengganti ikon launcher 9 titik `start-here` dari ikon Papirus.
 * Menghapus duplikat font `liberation-fonts-ttf`, sudah tersedia bersama `libreoffice`.
-* Menghapus `pipewire` dan opsional depedensi `alsa-pipewire libjack-pipewire pipewire gstreamer1-pipewire`.
 * Menghapus dependensi yang tidak diperlukan `linux-firmware lcms unicode-character-database dolphin-plugins terminus-font subversion subversion-kwallet-auth vdpauinfo libvdpau-va-gl vdpauinfo xclip wl-clipboard subversion bootiso mtools librsvg-utils bash-completion htop lsscsi acpi_call-dkms testdisk jack jack_capture colord-gtk krename AppStream`.
 
 #### Version 20210616
