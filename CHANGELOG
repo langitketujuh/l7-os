@@ -10,10 +10,10 @@
 * Kompresi initramfs dan squashfs menjadi gzip (sebelumnya xz). gzip membuat ukuran iso lebih besar, tetapi lebih aman dan cepat untuk dekompresi.
 * Menambahkan margin 8px di profil bawaan `konsole`.
 * Menambahkan `pipewire` sebagai audio server utama pengganti pulseaudio. dan opsional depedensi `alsa-pipewire libjack-pipewire pipewire gstreamer1-pipewire`.
-* Menambahkan `kamoso` sebagai perekam audio dan video dengan webcam.
 * Menambahkan `v4l2loopback` kernel modul kamera untuk virtual cam `obs` studio.
+* Menambahkan `kamoso` sebagai perekam audio dan video dengan webcam.
+* Menambahkan `noto-fonts-cjk` font china jepang korea.
 * Menambahkan `ifuse` mount iphone/ipad disk.
-* Menambahkan `noto-fonts-cjk` font jepang.
 * Menambahkan `ttf-opensans` font telegram.
 * Menambahkan `pro:handbrake` sebagai media trankoder.
 * Menambahkan `pro:pulseeffects` untuk equalizer audio.
