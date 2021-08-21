@@ -12,10 +12,10 @@
 * Menambahkan `pipewire` sebagai audio server utama pengganti pulseaudio. dan opsional depedensi `alsa-pipewire libjack-pipewire pipewire gstreamer1-pipewire`.
 * Menambahkan `v4l2loopback` kernel modul kamera untuk virtual cam `obs` studio.
 * Menambahkan `kamoso` sebagai perekam audio dan video dengan webcam.
+* Menambahkan `ttf-opensans` font sans serif dari google.
 * Menambahkan `amiri-font font-sil-alkalami font-sil-awami-nastaliq font-sil-harmattan font-sil-lateef` font arab.
 * Menambahkan `noto-fonts-cjk` font china jepang korea.
 * Menambahkan `ifuse` mount iphone/ipad disk.
-* Menambahkan `ttf-opensans` font telegram.
 * Menambahkan `pro:handbrake` sebagai media trankoder.
 * Menambahkan `pro:pulseeffects` untuk equalizer audio.
 * Menambahkan `pro:screenkey` sebagai screencast keyboard monitor.
