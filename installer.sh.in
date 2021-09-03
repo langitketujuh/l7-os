@@ -722,7 +722,7 @@ menu_useraccount() {
         fi
     done
 
-    _groups="wheel,audio,video,floppy,cdrom,optical,kvm,xbuilder,_pipewire"
+    _groups="audio,bluetooth,cdrom,colord,dbus,floppy,kvm,ntpd,optical,pulse,pulse-access,video,wheel,xbuilder,_flatpak,_pipewire"
     while true; do
         _desc="Select group membership for login '$(get_option USERLOGIN)':"
         for _group in $(cat /etc/group); do
