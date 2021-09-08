@@ -19,7 +19,6 @@
 * Menambahkan `noto-fonts-cjk` font china jepang korea.
 * Menambahkan `ifuse` mount iphone/ipad disk.
 * Menambahkan `pro:handbrake` sebagai media trankoder.
-* Menambahkan `pro:easyeffects` sebagai equalizer audio dan opsional plugins.
 * Menambahkan `pro:screenkey` sebagai screencast keyboard monitor.
 * Menambahkan `pro:kcharselect` pemilih karakter font.
 * Menambahkan grup `audio,bluetooth,cdrom,colord,dbus,floppy,kvm,ntpd,optical,pulse,pulse-access,video,wheel,xbuilder,_flatpak,_pipewire` kepada pengguna.
@@ -27,7 +26,7 @@
 * Mengganti `openntpd` menjadi `ntpd` sebagai servis penanggalan.
 * Mengganti ikon launcher 9 titik `start-here` dari ikon Papirus.
 * Menghapus duplikat font `liberation-fonts-ttf`, sudah tersedia bersama `libreoffice`.
-* Menghapus dependensi yang tidak diperlukan `linux-firmware alsa-plugins-pulseaudio lcms unicode-character-database dolphin-plugins terminus-font subversion subversion-kwallet-auth vdpauinfo libvdpau-va-gl vdpauinfo xclip wl-clipboard subversion bootiso mtools librsvg-utils bash-completion htop lsscsi acpi_call-dkms testdisk jack jack_capture colord-gtk krename AppStream`.
+* Menghapus dependensi yang tidak diperlukan `linux-firmware alsa-plugins-pulseaudio lcms unicode-character-database dolphin-plugins terminus-font subversion subversion-kwallet-auth vdpauinfo libvdpau-va-gl vdpauinfo xclip wl-clipboard subversion bootiso mtools librsvg-utils bash-completion htop lsscsi acpi_call-dkms testdisk jack_capture colord-gtk krename AppStream`.
 
 #### Version 20210616
 * Tidak tercatat
