@@ -16,6 +16,7 @@
 * Menambahkan `kamoso` sebagai perekam audio dan video dengan webcam.
 * Menambahkan `ttf-opensans` font sans serif dari google.
 * Menambahkan `amiri-font font-sil-alkalami font-sil-awami-nastaliq font-sil-harmattan font-sil-lateef` font arab.
+* Menambahkan `noto-fonts-cjk` font jepang.
 * Menambahkan `ifuse` mount iphone/ipad disk.
 * Menambahkan `pro:handbrake` sebagai media trankoder.
 * Menambahkan `pro:screenkey` sebagai screencast keyboard monitor.
