@@ -1,8 +1,10 @@
 **CHANGELOG**
 
-#### Version [WIP]
+#### Version 20210920
 * Menggunakan kernel linux5.13
 * Menggunakan KDE Plasma `5.22.4`
+* Mengganti Wallpaper, Global tema, SDDM, Lockscreen, Animasi splash boot.
+* Menghapus tema terang LangitKetujuh dan mengganti nama LangitKetujuh Dark ke LangitKetujuh.
 * Memperbarui `l7-tools` mendeteksi update paket terbaru tanpa merubah patch langitketujuh.
 * Memperbarui `l7-tools` memperbolehkan eksekusi os-prober jika boot lebih dari satu.
 * Memperbarui `l7-export` mendeteksi otomatis id objek dengan lebih presisi dan mengoptimalkan svg sebelum di export.
@@ -18,14 +20,18 @@
 * Menambahkan `amiri-font font-sil-alkalami font-sil-awami-nastaliq font-sil-harmattan font-sil-lateef` font arab.
 * Menambahkan `noto-fonts-cjk` font jepang.
 * Menambahkan `ifuse` mount iphone/ipad disk.
+* Menambahkan `l7-docs` dokumentasi offline.
+* Menambahkan `l7-kservice` sub menu kategori.
+* Menambahkan `l7-papirus-icon-theme` ikon langitketujuh svg untuk papirus ikon.
 * Menambahkan `pro:handbrake` sebagai media trankoder.
 * Menambahkan `pro:screenkey` sebagai screencast keyboard monitor.
 * Menambahkan `pro:kcharselect` pemilih karakter font.
-* Menambahkan grup `audio,bluetooth,cdrom,colord,dbus,floppy,kvm,ntpd,optical,pulse,pulse-access,video,wheel,xbuilder,_flatpak,_pipewire` kepada pengguna.
 * Mengganti `ksysguard` menjadi `plasma-systemmonitor` sebagai monitoring proses sistem.
-* Mengganti `openntpd` menjadi `ntpd` sebagai servis penanggalan.
+* Mengganti `openntpd` menjadi `ntpd` sebagai servis penanggalan, fiksasi sinkron otomatis waktu.
 * Mengganti ikon launcher 9 titik `start-here` dari ikon Papirus.
 * Menghapus duplikat font `liberation-fonts-ttf`, sudah tersedia bersama `libreoffice`.
+* Menghapus `bluez-alsa` untuk fiksasi audio bluetooth hardware.
+* Menghapus `font-ionicons-ttf` font ikon.
 * Menghapus dependensi yang tidak diperlukan `linux-firmware alsa-plugins-pulseaudio lcms unicode-character-database dolphin-plugins terminus-font subversion subversion-kwallet-auth vdpauinfo libvdpau-va-gl vdpauinfo xclip wl-clipboard subversion bootiso mtools librsvg-utils bash-completion htop lsscsi acpi_call-dkms testdisk jack_capture colord-gtk krename AppStream`.
 
 #### Version 20210616
