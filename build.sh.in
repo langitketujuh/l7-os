@@ -26,7 +26,7 @@
 #-
 
 # Make sure we don't inherit these from env.
-# last update=c1a4194
+# last update=7cd19aff060bfd1bd3962de8885a087650f077d1
 
 ARCH=
 IMAGE=
