@@ -27,26 +27,12 @@
 
 # Make sure we don't inherit these from env.
 
-echo "\033[1;33m[START]\033[0m Build Pro Glibc"
-bash build.sh -b pro -a x86_64
-echo "\033[1;36m[FINISH]\033[0m Job done"
+for p in x86_64 x86_64-musl i686; do
+  mkdir log
+  bash build.sh -b pro -a ${p} > log/$(date +%Y%m%d-%H%M%S)-pro-${p}.txt
+done
 
-echo "\033[1;33m[START]\033[0m Build Pro Musl"
-bash build.sh -b pro -a x86_64-musl
-echo "\033[1;36m[FINISH]\033[0m Job done"
-
-echo "\033[1;33m[START]\033[0m Build Pro Glibc 32bit"
-bash build.sh -b pro -a i686
-echo "\033[1;36m[FINISH]\033[0m Job done"
-
-echo "\033[1;33m[START]\033[0m Build Lite Glibc"
-bash build.sh -b lite -a x86_64
-echo "\033[1;36m[FINISH]\033[0m Job done"
-
-echo "\033[1;33m[START]\033[0m Build Lite Musl"
-bash build.sh -b lite -a x86_64-musl
-echo "\033[1;36m[FINISH]\033[0m Job done"
-
-echo "\033[1;33m[START]\033[0m Build Lite Glibc 32bit"
-bash build.sh -b lite -a i686
-echo "\033[1;36m[FINISH]\033[0m Job done"
+for l in x86_64 x86_64-musl i686; do
+  mkdir log
+  bash build.sh -b lite -a ${l} > log/$(date +%Y%m%d-%H%M%S)-lite-${l}.txt
+done
