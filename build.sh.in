@@ -134,7 +134,7 @@ if [ -z "$IMAGE" -o "$IMAGE" = lite ]; then
       -P "$L7_PKGS" \
       -i $INITRAMFS \
       -s $SQUASHFS \
-      ${REPO} "$@"
+      ${REPO} "$@" > $LITE_IMG.log
       echo "\033[1;33mFinish\033[0m"
     fi
   elif [ -z "$ARCH" -o "$ARCH" = x86_64 ]; then
@@ -146,7 +146,7 @@ if [ -z "$IMAGE" -o "$IMAGE" = lite ]; then
       -P "$L7_PKGS" \
       -i $INITRAMFS \
       -s $SQUASHFS \
-      ${REPO} "$@"
+      ${REPO} "$@" > $LITE_IMG.log
       echo "\033[1;33mFinish\033[0m"
     fi
   elif [ -z "$ARCH" -o "$ARCH" = i686 ]; then
@@ -158,7 +158,7 @@ if [ -z "$IMAGE" -o "$IMAGE" = lite ]; then
       -P "$L7_PKGS" \
       -i $INITRAMFS \
       -s $SQUASHFS \
-      ${REPO} "$@"
+      ${REPO} "$@" > $LITE_IMG.log
       echo "\033[1;33mFinish\033[0m"
     fi
   fi
@@ -174,7 +174,7 @@ if [ -z "$IMAGE" -o "$IMAGE" = pro ]; then
       -P "$L7PRO_PKGS" \
       -i $INITRAMFS \
       -s $SQUASHFS \
-      ${REPO} "$@"
+      ${REPO} "$@" > $PRO_IMG.log
       echo "\033[1;33mFinish\033[0m"
     fi
   elif [ -z "$ARCH" -o "$ARCH" = x86_64 ]; then
@@ -186,7 +186,7 @@ if [ -z "$IMAGE" -o "$IMAGE" = pro ]; then
       -P "$L7PRO_PKGS" \
       -i $INITRAMFS \
       -s $SQUASHFS \
-      ${REPO} "$@"
+      ${REPO} "$@" > $PRO_IMG.log
       echo "\033[1;33mFinish\033[0m"
     fi
   elif [ -z "$ARCH" -o "$ARCH" = i686 ]; then
@@ -198,7 +198,7 @@ if [ -z "$IMAGE" -o "$IMAGE" = pro ]; then
       -P "$L7PRO_PKGS" \
       -i $INITRAMFS \
       -s $SQUASHFS \
-      ${REPO} "$@"
+      ${REPO} "$@" > $PRO_IMG.log
       echo "\033[1;33mFinish\033[0m"
     fi
   fi
