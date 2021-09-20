@@ -29,10 +29,10 @@
 
 for p in x86_64 x86_64-musl i686; do
   mkdir log
-  bash build.sh -b pro -a ${p} > log/$(date +%Y%m%d-%H%M%S)-pro-${p}.txt
+  bash build.sh -b pro -a ${p} > log/$(date +%Y%m%d-%H%M%S)-pro-${p}.log
 done
 
 for l in x86_64 x86_64-musl i686; do
   mkdir log
-  bash build.sh -b lite -a ${l} > log/$(date +%Y%m%d-%H%M%S)-lite-${l}.txt
+  bash build.sh -b lite -a ${l} > log/$(date +%Y%m%d-%H%M%S)-lite-${l}.log
 done
