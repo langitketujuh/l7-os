@@ -96,7 +96,7 @@ readonly GAME_PKGS="godot"
 readonly CAD_PKGS="freecad LibreCAD"
 #readonly WINE_X86_64_MUSL_PKGS="libwine wine wine-common wine-gecko wine-tools wine-mono winetricks zenity glu protontricks"
 #readonly WINE_X86_64_PKGS="$REPO_MULTILIB_PKGS $WINE_X86_64_MUSL_PKGS libwine-32bit wine-32bit glu-32bit"
-#readonly WINE_i686_PKGS="$REPO_MULTILIB_PKGS $WINE_X86_64_PKGS"
+#readonly WINE_i686_PKGS="$WINE_X86_64_PKGS"
 #readonly COMPILER_PKGS="automake binutils bison fakeroot flex gcc libtool m4 make patch pkg-config qemu-user-static scons yasm pkgconf libXcursor libXinerama libXi libXrandr libgudev gcc-objc++ xorgproto libfreeglut llvm clang icu cmake python3-pip"
 
 # ARCH Packages
