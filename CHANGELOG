@@ -1,7 +1,12 @@
 **CHANGELOG**
 
 #### Version WIP
-* Menambahkan `bluez-alsa`
+* Menambahkan depedensi bluetooth untuk pipewire `bluez-alsa`.
+* Menambahkan vulkan `Vulkan-Headers Vulkan-Tools Vulkan-ValidationLayers libspa-vulkan mesa-vulkan-overlay-layer vkBasalt vkd3d amdvlk nv-codec-headers`.
+* Menambahkan wine penggerak aplikasi windows `pro-all:wine wine-gecko wine-mono wine-tools winetricks protontricks`.
+* Menambahkan managemen gaming `pro-all:lutris`.
+* Menambahkan compiler `automake bison fakeroot flex libtool m4 patch pkg-config qemu-user-static scons yasm pkgconf gcc-objc++ xorgproto llvm clang icu cmake python3-pip`
+
 #### Version 20210920
 * Menggunakan kernel linux5.13
 * Menggunakan KDE Plasma `5.22.4`

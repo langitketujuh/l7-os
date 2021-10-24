@@ -60,9 +60,10 @@ readonly INITRD_PKGS="dracut dracut-uefi dracut-network"
 readonly NETWORK_PKGS="inetutils usbutils wget curl dhcpcd wpa_supplicant NetworkManager ntp"
 readonly FIRMWARE_PKGS="linux-firmware-intel linux-firmware-amd linux-firmware-nvidia linux-firmware-network linux-firmware-broadcom broadcom-bt-firmware b43-fwcutter alsa-firmware wifi-firmware dkms"
 readonly XORG_PKGS="xorg xf86-input-evdev xf86-input-joystick xf86-input-libinput xf86-input-mtrack xf86-input-synaptics xf86-input-vmmouse xf86-input-wacom xorg-minimal xorg-input-drivers xorg-video-drivers mesa-ati-dri mesa-intel-dri mesa-nouveau-dri intel-video-accel"
+readonly VULKAN_PKGS="Vulkan-Headers Vulkan-Tools Vulkan-ValidationLayers libspa-vulkan mesa-vulkan-overlay-layer vkBasalt vkd3d amdvlk nv-codec-headers"
 readonly AUDIO_PKGS="alsa-utils bluez-alsa paprefs pipewire alsa-pipewire libjack-pipewire libspa-bluetooth libspa-jack libspa-v4l2 gstreamer1-pipewire pulseaudio-utils"
 readonly CODEC_PKGS="gst-plugins-base1 gst-plugins-good1 gst-plugins-ugly1 gst-plugins-bad1 gst-libav ffmpeg faac faad2 flac jasper lame libdca libmpeg2 libmad libtheora libvorbis libXv wavpack x264 xvidcore gstreamer-vaapi alsa-plugins-ffmpeg phonon-qt5-backend-vlc v4l2loopback v4l-utils"
-readonly COMPRESSOR_PKGS="atool p7zip zip unzip lzop lzip dtrx file-roller liblz4 lz4 zlib bzip2 xz"
+readonly COMPRESSION_PKGS="atool p7zip zip unzip lzop lzip dtrx file-roller liblz4 lz4 zlib bzip2 xz"
 readonly FS_PKGS="exfat-utils exfat-dkms gvfs-afc gvfs-mtp gvfs-smb udisks2 ntfs-3g"
 readonly AUTH_PKGS="elogind dbus-elogind dbus-elogind-x11 dbus-elogind-libs gnome-keyring"
 readonly PRINTER_PKGS="bluez-cups cups cups-pdf cups-filters gutenprint system-config-printer system-config-printer-udev epson-inkjet-printer-escpr hplip brother-brlaser"
@@ -94,10 +95,11 @@ readonly AUDIO_PRO_PKGS="audacity ardour kid3 soundkonverter"
 readonly FONTS_EXTRA_PKGS="google-fonts-ttf"
 readonly GAME_PKGS="godot"
 readonly CAD_PKGS="freecad LibreCAD"
-#readonly WINE_X86_64_MUSL_PKGS="libwine wine wine-common wine-gecko wine-tools wine-mono winetricks zenity glu protontricks"
-#readonly WINE_X86_64_PKGS="$REPO_MULTILIB_PKGS $WINE_X86_64_MUSL_PKGS libwine-32bit wine-32bit glu-32bit"
-#readonly WINE_i686_PKGS="$WINE_X86_64_PKGS"
-#readonly COMPILER_PKGS="automake binutils bison fakeroot flex gcc libtool m4 make patch pkg-config qemu-user-static scons yasm pkgconf libXcursor libXinerama libXi libXrandr libgudev gcc-objc++ xorgproto libfreeglut llvm clang icu cmake python3-pip"
+readonly WINE_X86_64_MUSL_PKGS="wine wine-gecko wine-mono wine-tools winetricks protontricks"
+readonly WINE_X86_64_PKGS="$REPO_MULTILIB_PKGS $WINE_X86_64_MUSL_PKGS wine-32bit"
+readonly WINE_i686_PKGS="$REPO_MULTILIB_PKGS $WINE_X86_64_MUSL_PKGS"
+readonly GAMINGTOOLS_PKGS="libgcc-32bit libstdc++-32bit libdrm-32bit libglvnd-32bit mesa-dri-32bit lutris"
+readonly COMPILER_PKGS="automake bison fakeroot flex libtool m4 patch pkg-config qemu-user-static scons yasm pkgconf gcc-objc++ xorgproto llvm clang icu cmake python3-pip"
 
 # ARCH Packages
 readonly X86_64_MUSL_PKGS="intel-media-driver gcompat pm-utils"
@@ -109,7 +111,7 @@ readonly L7_PKGS="l7-ark l7-baloo5 l7-breeze l7-breeze-gtk l7-breeze-icons l7-de
 readonly L7PRO_PKGS="$L7_PKGS l7-ardour l7-audacity l7-godot l7-krita l7-obs l7-scribus"
 
 # LITE Basic:
-readonly LITE_PKGS="$REPO_NONFREE_PKGS $GRUB_PKGS $BASE_PKGS $INITRD_PKGS $NETWORK_PKGS $FIRMWARE_PKGS $XORG_PKGS $UTILITY_PKGS $AUDIO_PKGS $CODEC_PKGS $COMPRESSOR_PKGS $FS_PKGS $AUTH_PKGS $PRINTER_PKGS $KDE_PKGS $KDE_APPS_PKGS $FONTS_PKGS $POWERMGMT_PKGS $PKGMGMT_PKGS $BROWSER_PKGS $BRIGHTNESS_PKGS $OFFICE_PKGS $APPEARANCE_PKGS $VECTOR_PKGS $RASTER_PKGS"
+readonly LITE_PKGS="$REPO_NONFREE_PKGS $GRUB_PKGS $BASE_PKGS $INITRD_PKGS $NETWORK_PKGS $FIRMWARE_PKGS $XORG_PKGS $VULKAN_PKGS $UTILITY_PKGS $COMPILER_PKGS $AUDIO_PKGS $CODEC_PKGS $COMPRESSION_PKGS $FS_PKGS $AUTH_PKGS $PRINTER_PKGS $KDE_PKGS $KDE_APPS_PKGS $FONTS_PKGS $POWERMGMT_PKGS $PKGMGMT_PKGS $BROWSER_PKGS $BRIGHTNESS_PKGS $OFFICE_PKGS $APPEARANCE_PKGS $VECTOR_PKGS $RASTER_PKGS"
 
 # LITE ISO Edition:
 readonly X86_64_MUSL_LITE_PKGS="$LITE_PKGS $X86_64_MUSL_PKGS"
@@ -117,7 +119,7 @@ readonly X86_64_LITE_PKGS="$LITE_PKGS $X86_64_PKGS"
 readonly I686_LITE_PKGS="$LITE_PKGS $I686_PKGS"
 
 # PRO Basic:
-readonly PRO_PKGS="$LITE_PKGS $CALLIBRATION_PKGS $PLUGINS_PKGS $PHOTOGRAPHY_PKGS $VIDEO_EDITOR_PKGS $FONT_MAKER_PKGS $PAINTING_PKGS $RECORD_PKGS $PUBLISH_PKGS $TWO_D_ANIMATION_PKGS $AUDIO_PRO_PKGS $FONTS_EXTRA_PKGS $GAME_PKGS $CAD_PKGS"
+readonly PRO_PKGS="$LITE_PKGS $CALLIBRATION_PKGS $PLUGINS_PKGS $PHOTOGRAPHY_PKGS $VIDEO_EDITOR_PKGS $FONT_MAKER_PKGS $PAINTING_PKGS $RECORD_PKGS $PUBLISH_PKGS $TWO_D_ANIMATION_PKGS $AUDIO_PRO_PKGS $FONTS_EXTRA_PKGS $GAME_PKGS $CAD_PKGS $GAMINGTOOLS_PKGS $COMPILER_PKGS"
 
 # PRO ISO Edition:
 readonly X86_64_MUSL_PRO_PKGS="$PRO_PKGS $TREE_D_ANIMATION_PKGS $X86_64_MUSL_PKGS $WINE_X86_64_MUSL_PKGS"
