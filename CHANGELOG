@@ -1,5 +1,7 @@
 **CHANGELOG**
 
+#### Version WIP
+* Menambahkan `bluez-alsa`
 #### Version 20210920
 * Menggunakan kernel linux5.13
 * Menggunakan KDE Plasma `5.22.4`
