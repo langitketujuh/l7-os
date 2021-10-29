@@ -98,7 +98,7 @@ readonly CAD_PKGS="freecad LibreCAD"
 readonly WINE_X86_64_MUSL_PKGS="wine wine-gecko wine-mono wine-tools winetricks protontricks"
 readonly WINE_X86_64_PKGS="$REPO_MULTILIB_PKGS $WINE_X86_64_MUSL_PKGS wine-32bit"
 readonly WINE_i686_PKGS="$REPO_MULTILIB_PKGS $WINE_X86_64_MUSL_PKGS"
-readonly GAMINGTOOLS_PKGS="libgcc-32bit libstdc++-32bit libdrm-32bit libglvnd-32bit mesa-dri-32bit lutris"
+readonly GAMINGTOOLS_PKGS="libgcc-32bit libstdc++-32bit libdrm-32bit libglvnd-32bit mesa-dri-32bit"
 readonly COMPILER_PKGS="automake bison fakeroot flex libtool m4 patch pkg-config qemu-user-static scons yasm pkgconf gcc-objc++ xorgproto llvm clang icu cmake python3-pip"
 
 # ARCH Packages
