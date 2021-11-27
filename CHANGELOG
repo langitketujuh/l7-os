@@ -2,8 +2,9 @@
 
 #### Version WIP
 * Menambahkan depedensi bluetooth untuk pipewire `bluez-alsa`.
+* Menambahkan font `liberation-fonts-ttf` dan `font-sil-scheherazade`
 * Menambahkan vulkan `Vulkan-Headers Vulkan-Tools Vulkan-ValidationLayers libspa-vulkan mesa-vulkan-overlay-layer vkBasalt vkd3d amdvlk nv-codec-headers`.
-* Menambahkan compiler `automake bison fakeroot flex gdb libtool m4 patch pkg-config qemu-user-static scons yasm pkgconf gcc-objc++ xorgproto llvm clang icu cmake python3-pip`
+* ~~Menambahkan compiler `automake bison fakeroot flex gdb libtool m4 patch pkg-config qemu-user-static scons yasm pkgconf gcc-objc++ xorgproto llvm clang icu cmake python3-pip`~~
 * Peningkatan enkripsi signature 4096 repodata `al.quds.repo`.
 * Grup pengguna dikeluarkan dari grup `bluetooth` dan `_pipewire`.
 * Menambahkan Audio Production edisi Profesional: `lmms freepats cmt alsa-plugins-jack zita-ajbridge zita-alsa-pcmi zita-at1 zita-njbridge zita-resampler alsa-plugins-samplerate calf fftw rubberband librubberband ladspa-bs2b speex speexdsp mda-lv2 soundfont-fluid`.
