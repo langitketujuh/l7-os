@@ -73,7 +73,6 @@ readonly UTILITY_PKGS="setxkbmap xauth xrandr font-misc-misc gptfdisk git inxi x
 readonly KDE_PKGS="xdg-utils xdg-desktop-portal xdg-desktop-portal-gtk xdg-desktop-portal-kde xdg-user-dirs xdg-user-dirs-gtk libappindicator sddm kde5 kdesu kde5-baseapps kaccounts-integration kaccounts-providers kimageformats plasma-browser-integration plasma-disks plasma-nm plasma-pa colord-kde gnome-color-manager kio-extras kio-gdrive kcm-wacomtablet plasma-wayland-protocols kdegraphics-thumbnailers ffmpegthumbnailer ffmpegthumbs ksuperkey kidentitymanagement plasma-firewall accountsservice qt5-virtualkeyboard"
 readonly KDE_APPS_PKGS="konsole dolphin kdeconnect print-manager spectacle ark k3b kwalletmanager kcalc kget okular ssr kmediaplayer elisa gwenview partitionmanager vlc bup kup kamoso skanlite krfb krdc kolourpaint ktorrent kcharselect filelight"
 readonly FONTS_PKGS="xorg-fonts noto-fonts-emoji unicode-emoji font-awesome5 liberation-fonts-ttf ttf-opensans amiri-font font-sil-alkalami font-sil-awami-nastaliq font-sil-harmattan font-sil-lateef font-sil-scheherazade noto-fonts-cjk"
-readonly DKMS_PKGS="exfat-dkms rtl8812au-dkms"
 readonly POWERMGMT_PKGS="upower acpi cpufrequtils"
 readonly PKGMGMT_PKGS="topgrade flatpak"
 readonly BROWSER_PKGS="firefox geckodriver"
@@ -113,7 +112,7 @@ readonly L7_PKGS="l7-ark l7-baloo5 l7-breeze l7-breeze-gtk l7-breeze-icons l7-de
 readonly L7PRO_PKGS="$L7_PKGS l7-ardour l7-audacity l7-godot l7-krita l7-obs l7-scribus"
 
 # LITE Basic:
-readonly LITE_PKGS="$REPO_NONFREE_PKGS $GRUB_PKGS $BASE_PKGS $INITRD_PKGS $NETWORK_PKGS $FIRMWARE_PKGS $XORG_PKGS $VULKAN_PKGS $UTILITY_PKGS $COMPILER_PKGS $AUDIO_PKGS $CODEC_PKGS $COMPRESSION_PKGS $FS_PKGS $AUTH_PKGS $PRINTER_PKGS $KDE_PKGS $KDE_APPS_PKGS $FONTS_PKGS $DKMS_PKGS $POWERMGMT_PKGS $PKGMGMT_PKGS $BROWSER_PKGS $BRIGHTNESS_PKGS $OFFICE_PKGS $APPEARANCE_PKGS $VECTOR_PKGS $RASTER_PKGS"
+readonly LITE_PKGS="$REPO_NONFREE_PKGS $GRUB_PKGS $BASE_PKGS $INITRD_PKGS $NETWORK_PKGS $FIRMWARE_PKGS $XORG_PKGS $VULKAN_PKGS $UTILITY_PKGS $COMPILER_PKGS $AUDIO_PKGS $CODEC_PKGS $COMPRESSION_PKGS $FS_PKGS $AUTH_PKGS $PRINTER_PKGS $KDE_PKGS $KDE_APPS_PKGS $FONTS_PKGS $POWERMGMT_PKGS $PKGMGMT_PKGS $BROWSER_PKGS $BRIGHTNESS_PKGS $OFFICE_PKGS $APPEARANCE_PKGS $VECTOR_PKGS $RASTER_PKGS"
 
 # LITE ISO Edition:
 readonly X86_64_MUSL_LITE_PKGS="$LITE_PKGS $X86_64_MUSL_PKGS"
