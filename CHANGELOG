@@ -1,10 +1,13 @@
 **CHANGELOG**
 
 #### Version 2021012
+* Menggunakan kernel `linux5.15.6`
+* Menggunakan KDE Plasma `5.23.3`
 * Menambahkan depedensi bluetooth untuk pipewire `bluez-alsa`.
 * Menambahkan font `liberation-fonts-ttf` dan `font-sil-scheherazade`
 * Menambahkan virtual keyboard display manager `qt5-virtualkeyboard`.
 * Menambahkan alter mkv `mkvtoolnix-gui`.
+* Menambahkan wifi usb driver `rtl8812au-dkms rtl8822bu-dkms`.
 * Menambahkan firmware `linux-firmware linux-firmware-qualcomm`.
 * Menambahkan vulkan `Vulkan-Headers Vulkan-Tools Vulkan-ValidationLayers libspa-vulkan mesa-vulkan-overlay-layer vkBasalt vkd3d amdvlk nv-codec-headers`.
 * ~~Menambahkan compiler `automake bison fakeroot flex gdb libtool m4 patch pkg-config qemu-user-static scons yasm pkgconf gcc-objc++ xorgproto llvm clang icu cmake python3-pip`~~
