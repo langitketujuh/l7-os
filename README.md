@@ -10,36 +10,50 @@ GNU/Linux Musl distribution based on Voidlinux with KDE Desktop Environment. Rol
 
 #### Login:
 
-    anon:langitketujuh
-    root:langitketujuh
+| user | password      |
+| :--- | :---          |
+| anon | langitketujuh |
+| root | langitketujuh |
 
 #### Clone repository
 
-    $ git clone git@gitlab.com:langitketujuh/os.git --recursive
+```
+git clone git@gitlab.com:langitketujuh/os.git --recursive
+```
 
 #### Install dependencies (root)
 
-    $ xbps-install -S git make liblz4 xbps qemu-user-static pwgen
+```
+xbps-install -S git make liblz4 xbps qemu-user-static pwgen
+```
 
 #### Usage
 
-    $ cd os
-    $ make
+```
+cd os
+make
+```
 
 and then see the usage output:
 
-    $ ./build.sh -h
+```
+sudo ./build.sh -h
+```
 
 #### How to build iso (root)
 
 ##### Lite
 
-    $ ./build.sh -b lite -a x86_64-musl
-    $ ./build.sh -b lite -a x86_64
-    $ ./build.sh -b lite -a i686
+```
+sudo ./build.sh -b lite -a x86_64
+sudo ./build.sh -b lite -a x86_64-musl
+sudo ./build.sh -b lite -a i686
+```
 
 ##### Pro
 
-    $ ./build.sh -b pro -a x86_64-musl
-    $ ./build.sh -b pro -a x86_64
-    $ ./build.sh -b pro -a i686
+```
+sudo ./build.sh -b pro -a x86_64
+sudo ./build.sh -b pro -a x86_64-musl
+sudo ./build.sh -b pro -a i686
+```
