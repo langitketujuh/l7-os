@@ -57,3 +57,8 @@ sudo ./build.sh -b pro -a x86_64
 sudo ./build.sh -b pro -a x86_64-musl
 sudo ./build.sh -b pro -a i686
 ```
+
+---
+THANKS TO:
+
+- VOID LINUX & CONTRIBUTOR - https://github.com/void-linux/void-mklive
