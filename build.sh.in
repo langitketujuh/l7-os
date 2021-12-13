@@ -87,7 +87,7 @@ readonly L7_PKGS="l7-ark l7-baloo5 l7-breeze l7-breeze-gtk l7-breeze-icons l7-de
 readonly L7PRO_PKGS="$L7_PKGS l7-ardour l7-audacity l7-godot l7-krita l7-obs l7-scribus"
 
 # LITE Basic:
-readonly LITE_PKGS="$REPO_NONFREE_PKGS $GRUB_PKGS $BASE_PKGS $INITRD_PKGS $NETWORK_PKGS $FIRMWARE_PKGS $XORG_PKGS $VULKAN_PKGS $UTILITY_PKGS $COMPILER_PKGS $AUDIO_PKGS $CODEC_PKGS $COMPRESSION_PKGS $FS_PKGS $AUTH_PKGS $PRINTER_PKGS $KDE_PKGS $KDE_APPS_PKGS $FONTS_PKGS $POWERMGMT_PKGS $PKGMGMT_PKGS $BROWSER_PKGS $BRIGHTNESS_PKGS $OFFICE_PKGS $APPEARANCE_PKGS $NOTE_PKGS $VECTOR_PKGS $RASTER_PKGS"
+readonly LITE_PKGS="$REPO_NONFREE_PKGS $GRUB_PKGS $BASE_PKGS $INITRD_PKGS $NETWORK_PKGS $FIRMWARE_PKGS $XORG_PKGS $VULKAN_PKGS $UTILITY_PKGS $AUDIO_PKGS $CODEC_PKGS $COMPRESSION_PKGS $FS_PKGS $AUTH_PKGS $PRINTER_PKGS $KDE_PKGS $KDE_APPS_PKGS $FONTS_PKGS $POWERMGMT_PKGS $PKGMGMT_PKGS $BROWSER_PKGS $BRIGHTNESS_PKGS $OFFICE_PKGS $APPEARANCE_PKGS $NOTE_PKGS $VECTOR_PKGS $RASTER_PKGS"
 
 # LITE ISO Edition:
 readonly X86_64_MUSL_LITE_PKGS="$LITE_PKGS $X86_64_MUSL_PKGS"
@@ -113,8 +113,8 @@ if [ -z "$IMAGE" -o "$IMAGE" = base ]; then
     sh mklive.sh \
     -a $ARCH \
     -o $BASE_IMG \
-    -p "$BASE_PKGS $REPO_NONFREE_PKGS gptfdisk git inxi xtools vsv vim-huge tmate pwgen fish-shell vpsm ufw zramen earlyoom" \
-    -P "l7-export l7-fish-shell l7-removed-packages l7-repo l7-runit-void l7-tools" \
+    -p "$REPO_NONFREE_PKGS $GRUB_PKGS $BASE_PKGS $INITRD_PKGS $NETWORK_PKGS $FIRMWARE_PKGS" \
+    -P "l7-export l7-fish-shell l7-removed-packages l7-repo l7-runit-void l7-shadow l7-tools runit-backlight" \
     ${REPO} "$@"
   fi
 fi
@@ -130,7 +130,6 @@ if [ -z "$IMAGE" -o "$IMAGE" = lite ]; then
       -i $INITRAMFS \
       -s $SQUASHFS \
       ${REPO} "$@"
-      echo "\033[1;33mFinish\033[0m"
     fi
   elif [ -z "$ARCH" -o "$ARCH" = x86_64 ]; then
     if [ ! -e $LITE_IMG ]; then
@@ -142,7 +141,6 @@ if [ -z "$IMAGE" -o "$IMAGE" = lite ]; then
       -i $INITRAMFS \
       -s $SQUASHFS \
       ${REPO} "$@"
-      echo "\033[1;33mFinish\033[0m"
     fi
   elif [ -z "$ARCH" -o "$ARCH" = i686 ]; then
     if [ ! -e $LITE_IMG ]; then
@@ -154,7 +152,6 @@ if [ -z "$IMAGE" -o "$IMAGE" = lite ]; then
       -i $INITRAMFS \
       -s $SQUASHFS \
       ${REPO} "$@"
-      echo "\033[1;33mFinish\033[0m"
     fi
   fi
 fi
@@ -170,7 +167,6 @@ if [ -z "$IMAGE" -o "$IMAGE" = pro ]; then
       -i $INITRAMFS \
       -s $SQUASHFS \
       ${REPO} "$@"
-      echo "\033[1;33mFinish\033[0m"
     fi
   elif [ -z "$ARCH" -o "$ARCH" = x86_64 ]; then
     if [ ! -e $PRO_IMG ]; then
@@ -182,7 +178,6 @@ if [ -z "$IMAGE" -o "$IMAGE" = pro ]; then
       -i $INITRAMFS \
       -s $SQUASHFS \
       ${REPO} "$@"
-      echo "\033[1;33mFinish\033[0m"
     fi
   elif [ -z "$ARCH" -o "$ARCH" = i686 ]; then
     if [ ! -e $PRO_IMG ]; then
@@ -194,7 +189,6 @@ if [ -z "$IMAGE" -o "$IMAGE" = pro ]; then
       -i $INITRAMFS \
       -s $SQUASHFS \
       ${REPO} "$@"
-      echo "\033[1;33mFinish\033[0m"
     fi
   fi
 fi
