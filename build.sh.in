@@ -113,8 +113,10 @@ if [ -z "$IMAGE" -o "$IMAGE" = base ]; then
     sh mklive.sh \
     -a $ARCH \
     -o $BASE_IMG \
-    -p "$REPO_NONFREE_PKGS $GRUB_PKGS $BASE_PKGS $INITRD_PKGS $NETWORK_PKGS $FIRMWARE_PKGS" \
+    -p "$REPO_NONFREE_PKGS $GRUB_PKGS $BASE_PKGS $INITRD_PKGS $NETWORK_PKGS $FIRMWARE_PKGS $UTILITY_PKGS" \
     -P "l7-export l7-fish-shell l7-removed-packages l7-repo l7-runit-void l7-shadow l7-tools runit-backlight" \
+    -i $INITRAMFS \
+    -s $SQUASHFS \
     ${REPO} "$@"
   fi
 fi
