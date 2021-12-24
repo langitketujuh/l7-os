@@ -157,6 +157,9 @@ install_packages() {
     fi
     chroot "$ROOTFS" env -i xbps-reconfigure -a
 
+    # Change default fish-shell for root
+    chroot "$ROOTFS" chsh -s /bin/fish root
+
     if [ -x installer.sh ]; then
         install -Dm755 installer.sh "$ROOTFS"/usr/sbin/langitketujuh-install
     else
