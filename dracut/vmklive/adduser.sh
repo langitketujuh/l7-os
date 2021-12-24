@@ -13,7 +13,7 @@ USERCOMMENT="LangitKetujuh"
 
 [ -z "$USERNAME" ] && USERNAME=anon
 [ -x $NEWROOT/bin/fish -a -z "$USERSHELL" ] && USERSHELL=/bin/fish
-[ -z "$USERSHELL" ] && USERSHELL=/bin/fish
+[ -z "$USERSHELL" ] && USERSHELL=/bin/bash
 
 # Create /etc/default/live.conf to store USER.
 echo "USERNAME=$USERNAME" >> ${NEWROOT}/etc/default/live.conf
@@ -26,7 +26,7 @@ fi
 # Create new user and remove password. We'll use autologin by default.
 chroot ${NEWROOT} useradd -m -s $USERSHELL -c "$USERCOMMENT" -G audio,video,wheel -s $USERSHELL $USERNAME
 chroot ${NEWROOT} passwd -d $USERNAME >/dev/null 2>&1
-chroot ${NEWROOT} chsh -s $USERSHELL $USERNAME
+chroot ${NEWROOT} chsh -s $USERSHELL root
 
 # Setup default root/user password (langitketujuh).
 chroot ${NEWROOT} sh -c 'echo "root:langitketujuh" | chpasswd -c SHA512'
