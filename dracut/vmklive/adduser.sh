@@ -10,11 +10,10 @@ AUTOLOGIN=$(getarg live.autologin)
 USERNAME=$(getarg live.user)
 USERSHELL=$(getarg live.shell)
 USERCOMMENT="LangitKetujuh"
-USERSHELL="/bin/fish"
 
 [ -z "$USERNAME" ] && USERNAME=anon
-[ -x $NEWROOT/bin/bash -a -z "$USERSHELL" ] && USERSHELL=/bin/bash
-[ -z "$USERSHELL" ] && USERSHELL=/bin/sh
+[ -x $NEWROOT/bin/fish -a -z "$USERSHELL" ] && USERSHELL=/bin/fish
+[ -z "$USERSHELL" ] && USERSHELL=/bin/fish
 
 # Create /etc/default/live.conf to store USER.
 echo "USERNAME=$USERNAME" >> ${NEWROOT}/etc/default/live.conf
