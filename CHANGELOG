@@ -4,6 +4,7 @@
 * Menggunakan KDE Plasma `5.23.4`.
 * Menggunakan kernel `linux5.15`.
 * Menambahkan alter mkv `mkvtoolnix-gui`.
+* Menambahkan pengambil warna `kcolorchooser`.
 * Menambahkan konfigurasi tambahan `l7-inkscape`.
 * Peningkatan enkripsi signature 4096 repodata `al.quds.repo`.
 * Menambahkan pen tablet driver `digimend-kernel-drivers`.
