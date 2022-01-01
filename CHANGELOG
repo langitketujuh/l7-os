@@ -3,23 +3,23 @@
 #### Version 2021012
 * Menggunakan KDE Plasma `5.23.4`.
 * Menggunakan kernel `linux5.15`.
-* Menambahkan alter mkv `mkvtoolnix-gui`.
-* Menambahkan pengambil warna `kcolorchooser`.
-* Menambahkan konfigurasi tambahan `l7-inkscape`.
+* Mengganti `sudo` ke `doas` (OpenDoas). [_Panduan_](https://panduan.langitketujuh.id/aplikasi/opendoas.html).
+* Menambahkan alter mkv pro: `mkvtoolnix-gui`.
+* Menambahkan pengambil warna: `kcolorchooser`.
 * Peningkatan enkripsi signature 4096 repodata `al.quds.repo`.
-* Menambahkan pen tablet driver `digimend-kernel-drivers`.
 * Menambahkan depedensi bluetooth untuk pipewire `bluez-alsa`.
 * Grup pengguna dikeluarkan dari grup `bluetooth` dan `_pipewire`.
-* Menambahkan virtual keyboard display manager `qt5-virtualkeyboard`.
-* Menambahkan firmware `linux-firmware linux-firmware-qualcomm`.
-* Menambahkan font `liberation-fonts-ttf` dan `font-sil-scheherazade`.
-* Menambahkan pengamanan data dan enkripsi `gnupg2-scdaemon kgpg keepassxc l7-keepassxc`.
-* Menambahkan paket grup `l7-pkg-codec l7-pkg-compiler l7-pkg-compress l7-pkg-kde l7-pkg-kde-apps l7-pkg-rust l7-pkg-wine l7-pkg-xorg`.
-* Menambahkan vulkan `Vulkan-Headers Vulkan-Tools Vulkan-ValidationLayers libspa-vulkan mesa-vulkan-overlay-layer vkBasalt vkd3d amdvlk nv-codec-headers`.
-* Menambahkan Audio Production edisi Profesional `lmms freepats soundfont-fluid` ~~`cmt alsa-plugins-jack zita-ajbridge zita-alsa-pcmi zita-at1 zita-njbridge zita-resampler alsa-plugins-samplerate calf fftw rubberband ladspa-bs2b speex mda-lv2`~~.
+* Menambahkan pen tablet driver: `digimend-kernel-drivers`. [_Panduan_](https://panduan.langitketujuh.id/driver/pen-tablet.html).
+* Menambahkan konfigurasi tambahan: `l7-inkscape l7-v4l2loopback`.
+* Menambahkan virtual keyboard display manager: `qt5-virtualkeyboard`.
+* Menambahkan Audio Production pro: `lmms freepats soundfont-fluid`.
+* Menambahkan font baru: `liberation-fonts-ttf font-sil-scheherazade`.
+* Menambahkan dukungan firmware qualqomm: `linux-firmware linux-firmware-qualcomm`.
+* Menambahkan pengamanan data dan enkripsi: `gnupg2-scdaemon kgpg keepassxc l7-keepassxc`.
+* Menambahkan perkakas baru: `hddtemp ipmitool bind-utils tree freeipmi wmctrl lm_sensors`.
+* Menambahkan paket grup: `l7-pkg-codec l7-pkg-compiler l7-pkg-compress l7-pkg-kde l7-pkg-kde-apps l7-pkg-rust l7-pkg-wine l7-pkg-xorg`.
+* Menambahkan dukungan akselerasi grafis dengan vulkan: `Vulkan-Headers Vulkan-Tools Vulkan-ValidationLayers libspa-vulkan mesa-vulkan-overlay-layer vkBasalt vkd3d amdvlk nv-codec-headers`.
 * Menambahkan 3-5 Wallpaper baru (proses).
-* ~~Menambahkan wifi usb driver `rtl8812au-dkms rtl8822bu-dkms`.~~ (gagal dalam pemasangan modul DKMS)
-* ~~Menambahkan compiler `automake bison fakeroot flex gdb libtool m4 patch pkg-config qemu-user-static scons yasm pkgconf gcc-objc++ xorgproto llvm clang icu cmake python3-pip`.~~ (ukuran iso semakin membengkak ±6GiB)
 
 #### Version 20210920
 * Menggunakan kernel linux5.13
