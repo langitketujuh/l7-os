@@ -60,7 +60,7 @@ readonly RASTER_PKGS="gimp"
 # PRO Packages
 readonly KDE_DESIGN_PKGS="kcolorchooser"
 readonly CALLIBRATION_PKGS="lcms2 python-dbus dispcalGUI"
-readonly PLUGINS_PKGS="gmic gmic-gimp gimp-lqr-plugin xsane-gimp resynthesizer inkscape-generate-palette inkscape-inx-pathops inkscape-nextgenerator inkscape-outputpro"
+readonly PLUGINS_PKGS="gmic gmic-gimp gimp-lqr-plugin xsane-gimp resynthesizer inkscape-generate-palette inkscape-inx-pathops inkscape-nextgenerator"
 readonly PHOTOGRAPHY_PKGS="digikam rawtherapee Converseen hugin"
 readonly VIDEO_EDITOR_PKGS="kdenlive handbrake mkvtoolnix-gui"
 readonly FONT_MAKER_PKGS="fontforge"
