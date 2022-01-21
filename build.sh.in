@@ -6,12 +6,12 @@ ARCH=
 IMAGE=
 
 while getopts "a:b:hr:" opt; do
-case $opt in
-	a) ARCH="$OPTARG";;
-	b) IMAGE="$OPTARG";;
-	h) echo "${0#/*}: [-a x86_64|x86_64-musl] [-b base|lite|studio] [-r repo]" >&2; exit 1;;
-	r) REPO="-r $OPTARG $REPO";;
-esac
+    case $opt in
+        a) ARCH="$OPTARG";;
+        b) IMAGE="$OPTARG";;
+        h) echo "${0#/*}: [-a x86_64|x86_64-musl] [-b base|lite|studio] [-r repo]" >&2; exit 1;;
+        r) REPO="-r $OPTARG $REPO";;
+    esac
 done
 shift $((OPTIND - 1))
 
@@ -110,88 +110,88 @@ readonly SQUASHFS="gzip"
 [ ! -x mklive.sh ] && exit 0
 
 if [ -z "$IMAGE" -o "$IMAGE" = base ]; then
-  if [ ! -e $BASE_IMG ]; then
-    sh mklive.sh \
-    -a $ARCH \
-    -o $BASE_IMG \
-    -p "$REPO_NONFREE_PKGS $GRUB_PKGS $BASE_PKGS $INITRD_PKGS $NETWORK_PKGS $FIRMWARE_PKGS $UTILITY_PKGS" \
-    -P "l7-export l7-fish-shell l7-opendoas l7-removed-packages l7-repo l7-runit-void l7-shadow l7-tools l7-v4l2loopback runit-backlight" \
-    -i $INITRAMFS \
-    -s $SQUASHFS \
-    ${REPO} "$@"
-  fi
+    if [ ! -e $BASE_IMG ]; then
+        sh mklive.sh \
+        -a $ARCH \
+        -o $BASE_IMG \
+        -p "$REPO_NONFREE_PKGS $GRUB_PKGS $BASE_PKGS $INITRD_PKGS $NETWORK_PKGS $FIRMWARE_PKGS $UTILITY_PKGS" \
+        -P "l7-export l7-fish-shell l7-opendoas l7-removed-packages l7-repo l7-runit-void l7-shadow l7-tools l7-v4l2loopback runit-backlight" \
+        -i $INITRAMFS \
+        -s $SQUASHFS \
+        ${REPO} "$@"
+    fi
 fi
 
 if [ -z "$IMAGE" -o "$IMAGE" = lite ]; then
-  if [ -z "$ARCH" -o "$ARCH" = x86_64-musl ]; then
-    if [ ! -e $LITE_IMG ]; then
-      sh mklive.sh \
-      -a $ARCH \
-      -o $LITE_IMG \
-      -p "$X86_64_MUSL_LITE_PKGS" \
-      -P "$L7_PKGS" \
-      -i $INITRAMFS \
-      -s $SQUASHFS \
-      ${REPO} "$@"
+    if [ -z "$ARCH" -o "$ARCH" = x86_64-musl ]; then
+        if [ ! -e $LITE_IMG ]; then
+            sh mklive.sh \
+            -a $ARCH \
+            -o $LITE_IMG \
+            -p "$X86_64_MUSL_LITE_PKGS" \
+            -P "$L7_PKGS" \
+            -i $INITRAMFS \
+            -s $SQUASHFS \
+            ${REPO} "$@"
+        fi
+        elif [ -z "$ARCH" -o "$ARCH" = x86_64 ]; then
+        if [ ! -e $LITE_IMG ]; then
+            sh mklive.sh \
+            -a $ARCH \
+            -o $LITE_IMG \
+            -p "$X86_64_LITE_PKGS" \
+            -P "$L7_PKGS" \
+            -i $INITRAMFS \
+            -s $SQUASHFS \
+            ${REPO} "$@"
+        fi
+        elif [ -z "$ARCH" -o "$ARCH" = i686 ]; then
+        if [ ! -e $LITE_IMG ]; then
+            sh mklive.sh \
+            -a $ARCH \
+            -o $LITE_IMG \
+            -p "$I686_LITE_PKGS" \
+            -P "$L7_PKGS" \
+            -i $INITRAMFS \
+            -s $SQUASHFS \
+            ${REPO} "$@"
+        fi
     fi
-  elif [ -z "$ARCH" -o "$ARCH" = x86_64 ]; then
-    if [ ! -e $LITE_IMG ]; then
-      sh mklive.sh \
-      -a $ARCH \
-      -o $LITE_IMG \
-      -p "$X86_64_LITE_PKGS" \
-      -P "$L7_PKGS" \
-      -i $INITRAMFS \
-      -s $SQUASHFS \
-      ${REPO} "$@"
-    fi
-  elif [ -z "$ARCH" -o "$ARCH" = i686 ]; then
-    if [ ! -e $LITE_IMG ]; then
-      sh mklive.sh \
-      -a $ARCH \
-      -o $LITE_IMG \
-      -p "$I686_LITE_PKGS" \
-      -P "$L7_PKGS" \
-      -i $INITRAMFS \
-      -s $SQUASHFS \
-      ${REPO} "$@"
-    fi
-  fi
 fi
 
 if [ -z "$IMAGE" -o "$IMAGE" = studio ]; then
-  if [ -z "$ARCH" -o "$ARCH" = x86_64-musl ]; then
-    if [ ! -e $STD_IMG ]; then
-      sh mklive.sh \
-      -a $ARCH \
-      -o $STD_IMG \
-      -p "$X86_64_MUSL_STD_PKGS" \
-      -P "$L7_STD_PKGS" \
-      -i $INITRAMFS \
-      -s $SQUASHFS \
-      ${REPO} "$@"
+    if [ -z "$ARCH" -o "$ARCH" = x86_64-musl ]; then
+        if [ ! -e $STD_IMG ]; then
+            sh mklive.sh \
+            -a $ARCH \
+            -o $STD_IMG \
+            -p "$X86_64_MUSL_STD_PKGS" \
+            -P "$L7_STD_PKGS" \
+            -i $INITRAMFS \
+            -s $SQUASHFS \
+            ${REPO} "$@"
+        fi
+        elif [ -z "$ARCH" -o "$ARCH" = x86_64 ]; then
+        if [ ! -e $STD_IMG ]; then
+            sh mklive.sh \
+            -a $ARCH \
+            -o $STD_IMG \
+            -p "$X86_64_STD_PKGS" \
+            -P "$L7_STD_PKGS" \
+            -i $INITRAMFS \
+            -s $SQUASHFS \
+            ${REPO} "$@"
+        fi
+        elif [ -z "$ARCH" -o "$ARCH" = i686 ]; then
+        if [ ! -e $STD_IMG ]; then
+            sh mklive.sh \
+            -a $ARCH \
+            -o $STD_IMG \
+            -p "$I686_STD_PKGS" \
+            -P "$L7_STD_PKGS" \
+            -i $INITRAMFS \
+            -s $SQUASHFS \
+            ${REPO} "$@"
+        fi
     fi
-  elif [ -z "$ARCH" -o "$ARCH" = x86_64 ]; then
-    if [ ! -e $STD_IMG ]; then
-      sh mklive.sh \
-      -a $ARCH \
-      -o $STD_IMG \
-      -p "$X86_64_STD_PKGS" \
-      -P "$L7_STD_PKGS" \
-      -i $INITRAMFS \
-      -s $SQUASHFS \
-      ${REPO} "$@"
-    fi
-  elif [ -z "$ARCH" -o "$ARCH" = i686 ]; then
-    if [ ! -e $STD_IMG ]; then
-      sh mklive.sh \
-      -a $ARCH \
-      -o $STD_IMG \
-      -p "$I686_STD_PKGS" \
-      -P "$L7_STD_PKGS" \
-      -i $INITRAMFS \
-      -s $SQUASHFS \
-      ${REPO} "$@"
-    fi
-  fi
 fi
