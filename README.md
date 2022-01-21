@@ -50,12 +50,12 @@ sudo ./build.sh -b lite -a x86_64-musl
 sudo ./build.sh -b lite -a i686
 ```
 
-##### Pro
+##### Studio
 
 ```
-sudo ./build.sh -b pro -a x86_64
-sudo ./build.sh -b pro -a x86_64-musl
-sudo ./build.sh -b pro -a i686
+sudo ./build.sh -b studio -a x86_64
+sudo ./build.sh -b studio -a x86_64-musl
+sudo ./build.sh -b studio -a i686
 ```
 
 ---
