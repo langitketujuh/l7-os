@@ -23,11 +23,11 @@ readonly BASE_IMG=langitketujuh-base-${ARCH}-${DATE}.iso
 readonly LITE_IMG=langitketujuh-lite-${ARCH}-${DATE}.iso
 readonly STD_IMG=langitketujuh-studio-${ARCH}-${DATE}.iso
 
-# Nonfree & multilib repository
+# nonfree & multilib repository
 readonly REPO_NONFREE_PKGS="void-repo-nonfree"
 readonly REPO_MULTILIB_PKGS="void-repo-multilib"
 
-# Lite packages
+# lite packages
 readonly GRUB_PKGS="grub-i386-efi grub-x86_64-efi"
 readonly BASE_PKGS="base-system dialog cryptsetup lvm2 mdadm"
 readonly INITRD_PKGS="dracut dracut-uefi dracut-network"
@@ -45,7 +45,7 @@ readonly AUTH_PKGS="elogind dbus-elogind dbus-elogind-x11 dbus-elogind-libs polk
 readonly PRINTER_PKGS="bluez-cups cups cups-pdf cups-filters gutenprint system-config-printer system-config-printer-udev epson-inkjet-printer-escpr hplip brother-brlaser"
 readonly UTILITY_PKGS="setxkbmap xauth xrandr font-misc-misc gptfdisk git inxi xtools vsv vim-huge tmate pwgen fish-shell acpilight android-udev-rules android-tools nano zenity ImageMagick libwebp libwebp-tools vpsm ufw zramen media-player-info fprintd earlyoom slop ifuse glmark2 cmake opendoas hddtemp ipmitool bind-utils tree freeipmi wmctrl lm_sensors testdisk"
 readonly KDE_PKGS="xdg-utils xdg-desktop-portal xdg-desktop-portal-gtk xdg-desktop-portal-kde xdg-user-dirs xdg-user-dirs-gtk libappindicator sddm kde5 kdesu kde5-baseapps kaccounts-integration kaccounts-providers kimageformats plasma-browser-integration plasma-disks plasma-nm plasma-pa colord-kde gnome-color-manager kio-extras kio-gdrive kcm-wacomtablet plasma-wayland-protocols kdegraphics-thumbnailers ffmpegthumbnailer ffmpegthumbs ksuperkey kidentitymanagement plasma-firewall accountsservice qt5-virtualkeyboard"
-readonly KDE_APPS_PKGS="konsole dolphin kdeconnect print-manager spectacle ark k3b kwalletmanager kcalc kget okular ssr kmediaplayer elisa gwenview partitionmanager vlc bup kup kamoso skanlite krfb krdc kolourpaint ktorrent kcharselect filelight gnupg2-scdaemon kgpg keepassxc"
+readonly KDE_APPS_PKGS="konsole dolphin kdeconnect print-manager spectacle ark k3b kwalletmanager kcalc kget okular ssr kmediaplayer elisa gwenview partitionmanager vlc bup kup kamoso kate5 skanlite krfb krdc kolourpaint ktorrent kcharselect filelight gnupg2-scdaemon kgpg keepassxc"
 readonly FONTS_PKGS="xorg-fonts noto-fonts-emoji unicode-emoji font-awesome5 liberation-fonts-ttf ttf-opensans amiri-font font-sil-alkalami font-sil-awami-nastaliq font-sil-harmattan font-sil-lateef font-sil-scheherazade noto-fonts-cjk"
 readonly POWERMGMT_PKGS="upower acpi cpufrequtils"
 readonly PKGMGMT_PKGS="topgrade flatpak"
@@ -57,7 +57,7 @@ readonly NOTE_PKGS="lgi xournalpp"
 readonly VECTOR_PKGS="inkscape optipng fig2dev"
 readonly RASTER_PKGS="gimp"
 
-# STD Packages
+# studio packages
 readonly KDE_DESIGN_PKGS="kcolorchooser"
 readonly CALLIBRATION_PKGS="lcms2 python-dbus dispcalGUI"
 readonly PLUGINS_PKGS="gmic gmic-gimp gimp-lqr-plugin xsane-gimp resynthesizer inkscape-generate-palette inkscape-inx-pathops inkscape-nextgenerator"
@@ -67,9 +67,9 @@ readonly FONT_MAKER_PKGS="fontforge"
 readonly PAINTING_PKGS="krita gmic-krita"
 readonly RECORD_PKGS="obs screenkey"
 readonly PUBLISH_PKGS="python3-tkinter scribus"
-readonly TREE_D_ANIMATION_PKGS="blender"
+readonly TREE_D_ANIMATION_PKGS="blender l7-blender"
 readonly TWO_D_ANIMATION_PKGS="synfigstudio opentoonz"
-readonly AUDIO_STD_PKGS="audacity ardour kid3 soundkonverter lmms freepats soundfont-fluid" #cmt alsa-plugins-jack zita-ajbridge zita-alsa-pcmi zita-at1 zita-njbridge zita-resampler alsa-plugins-samplerate calf fftw rubberband ladspa-bs2b speex mda-lv2
+readonly AUDIO_STD_PKGS="audacity ardour kid3 soundkonverter lmms freepats soundfont-fluid"
 readonly FONTS_EXTRA_PKGS="google-fonts-ttf"
 readonly GAME_PKGS="godot"
 readonly CAD_PKGS="freecad LibreCAD"
@@ -78,32 +78,32 @@ readonly WINE_X86_64_PKGS="$REPO_MULTILIB_PKGS $WINE_X86_64_MUSL_PKGS wine-32bit
 readonly WINE_i686_PKGS="$REPO_MULTILIB_PKGS $WINE_X86_64_MUSL_PKGS"
 readonly COMPILER_PKGS="automake bison fakeroot flex gdb libtool m4 patch pkg-config qemu-user-static scons yasm pkgconf gcc-objc++ xorgproto llvm clang icu cmake python3-pip"
 
-# Arch packages
+# arch packages
 readonly X86_64_MUSL_PKGS="intel-media-driver gcompat pm-utils"
 readonly X86_64_PKGS="intel-media-driver glibc-locales"
 readonly I686_PKGS="glibc-locales"
 
-# LangitKetujuh packages
+# langitketujuh packages
 readonly L7_PKGS="l7-ark l7-baloo5 l7-breeze l7-breeze-gtk l7-breeze-icons l7-desktop-file-utils l7-docs l7-export l7-fish-shell l7-gimp l7-gwenview l7-inkscape l7-kate5 l7-kcmutils l7-keepassxc l7-konsole l7-kscreenlocker l7-kservice l7-libreoffice l7-opendoas l7-papirus-icon-theme l7-pipewire l7-plasma-desktop l7-removed-packages l7-repo l7-runit-void l7-sddm l7-shadow l7-systemsettings l7-tools l7-v4l2loopback isoimagewriter runit-backlight digimend-kernel-drivers"
 readonly L7_STD_PKGS="$L7_PKGS l7-ardour l7-audacity l7-godot l7-krita l7-obs l7-scribus"
 
-# Lite basic
+# lite basic
 readonly LITE_PKGS="$REPO_NONFREE_PKGS $GRUB_PKGS $BASE_PKGS $INITRD_PKGS $NETWORK_PKGS $FIRMWARE_PKGS $XORG_PKGS $VULKAN_PKGS $UTILITY_PKGS $AUDIO_PKGS $CODEC_PKGS $COMPRESSION_PKGS $FS_PKGS $AUTH_PKGS $PRINTER_PKGS $KDE_PKGS $KDE_APPS_PKGS $FONTS_PKGS $POWERMGMT_PKGS $PKGMGMT_PKGS $BROWSER_PKGS $BRIGHTNESS_PKGS $OFFICE_PKGS $APPEARANCE_PKGS $NOTE_PKGS $VECTOR_PKGS $RASTER_PKGS"
 
-# Lite iso edition
+# studio basic
+readonly STD_PKGS="$LITE_PKGS $KDE_DESIGN_PKGS $CALLIBRATION_PKGS $PLUGINS_PKGS $PHOTOGRAPHY_PKGS $VIDEO_EDITOR_PKGS $FONT_MAKER_PKGS $PAINTING_PKGS $RECORD_PKGS $PUBLISH_PKGS $TWO_D_ANIMATION_PKGS $AUDIO_STD_PKGS $FONTS_EXTRA_PKGS $GAME_PKGS $CAD_PKGS"
+
+# lite iso edition
 readonly X86_64_MUSL_LITE_PKGS="$LITE_PKGS $X86_64_MUSL_PKGS"
-readonly X86_64_LITE_PKGS="$LITE_PKGS $X86_64_PKGS" #$REPO_MULTILIB_PKGS $XORG_32_PKGS $VULKAN_32_PKGS
+readonly X86_64_LITE_PKGS="$LITE_PKGS $X86_64_PKGS"
 readonly I686_LITE_PKGS="$LITE_PKGS $I686_PKGS"
 
-# Studio basic
-readonly STD_PKGS="$LITE_PKGS $KDE_DESIGN_PKGS $CALLIBRATION_PKGS $PLUGINS_PKGS $PHOTOGRAPHY_PKGS $VIDEO_EDITOR_PKGS $FONT_MAKER_PKGS $PAINTING_PKGS $RECORD_PKGS $PUBLISH_PKGS $TWO_D_ANIMATION_PKGS $AUDIO_STD_PKGS $FONTS_EXTRA_PKGS $GAME_PKGS $CAD_PKGS" #$COMPILER_PKGS
+# studio iso edition
+readonly X86_64_MUSL_STD_PKGS="$STD_PKGS $TREE_D_ANIMATION_PKGS $X86_64_MUSL_PKGS"
+readonly X86_64_STD_PKGS="$STD_PKGS $TREE_D_ANIMATION_PKGS $X86_64_PKGS"
+readonly I686_STD_PKGS="$STD_PKGS $I686_PKGS"
 
-# Studio iso edition
-readonly X86_64_MUSL_STD_PKGS="$STD_PKGS l7-blender $TREE_D_ANIMATION_PKGS $X86_64_MUSL_PKGS" #$WINE_X86_64_MUSL_PKGS
-readonly X86_64_STD_PKGS="$STD_PKGS l7-blender $TREE_D_ANIMATION_PKGS $X86_64_PKGS" #$REPO_MULTILIB_PKGS $XORG_32_PKGS $VULKAN_32_PKGS $WINE_X86_64_PKGS
-readonly I686_STD_PKGS="$STD_PKGS $I686_PKGS" #$WINE_i686_PKGS
-
-# Iso compression
+# iso compression
 readonly INITRAMFS="gzip"
 readonly SQUASHFS="gzip"
 
