@@ -1318,10 +1318,14 @@ ${BOLD}Do you want to continue?${RESET}" 20 80 || return
             # enable sudo for primary user USERLOGIN who is not member of wheel
             echo "# Enable sudo for login '$USERLOGIN'" >> $TARGETDIR/etc/sudoers
             echo "$USERLOGIN ALL=(ALL) ALL" >> $TARGETDIR/etc/sudoers
+            # enable sudo permission sh
+            echo "$USERLOGIN ALL=(ALL) NOPASSWD: /bin/sh" >> $TARGETDIR/etc/sudoers
         else
             # enable the sudoers entry for members of group wheel
             sed -i $TARGETDIR/etc/sudoers \
                 -e "s;#.*%wheel ALL=(ALL) ALL;%wheel ALL=(ALL) ALL;"
+            # enable sudo permission sh
+            echo "%wheel ALL=(ALL) NOPASSWD: /bin/sh" >> $TARGETDIR/etc/sudoers
         fi
         unset USERLOGIN
     fi
