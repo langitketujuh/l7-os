@@ -56,7 +56,7 @@ libdca libmpeg2 libmad libtheora libvorbis libXv wavpack x264 xvidcore
 gstreamer-vaapi alsa-plugins-ffmpeg phonon-qt5-backend-vlc v4l2loopback
 v4l-utils nv-codec-headers"
 readonly COMPRESSION_PKGS="atool p7zip zip unzip lzop lzip dtrx file-roller
-liblz4 lz4 zlib bzip2 xz"
+liblz4 lz4 lzf zlib bzip2 xz"
 readonly FS_PKGS="exfat-utils gvfs-afc gvfs-mtp gvfs-smb udisks2 ntfs-3g"
 readonly AUTH_PKGS="elogind dbus-elogind dbus-elogind-x11 dbus-elogind-libs
 polkit-elogind gnome-keyring"
