@@ -134,7 +134,7 @@ digimend-kernel-drivers"
 readonly L7_KDE_PKGS="l7-ark l7-baloo5 l7-breeze l7-breeze-gtk l7-breeze-icons
 l7-desktop-file-utils l7-gwenview l7-kate5 l7-kcmutils l7-konsole
 l7-kscreenlocker l7-kservice l7-plasma-desktop l7-sddm l7-systemsettings"
-readonly L7_LITE_PKGS="$L7_BASE_PKGS l7-gimp l7-inkscape l7-libreoffice
+readonly L7_LITE_PKGS="$L7_BASE_PKGS l7-gimp l7-inkscape l7-libreoffice l7-ssr
 isoimagewriter"
 readonly L7_STD_PKGS="$L7_LITE_PKGS l7-ardour l7-audacity l7-godot l7-krita
 l7-obs l7-opentoonz l7-scribus"
