@@ -100,7 +100,7 @@ readonly CALLIBRATION_PKGS="lcms2 python-dbus dispcalGUI"
 readonly PLUGINS_PKGS="gmic gmic-gimp gimp-lqr-plugin xsane-gimp resynthesizer
 inkscape-generate-palette inkscape-inx-pathops inkscape-nextgenerator"
 readonly PHOTOGRAPHY_PKGS="digikam rawtherapee Converseen hugin"
-readonly VIDEO_EDITOR_PKGS="kdenlive handbrake mkvtoolnix-gui"
+readonly VIDEO_EDITOR_PKGS="kdenlive handbrake mkvtoolnix-gui mediainfo"
 readonly FONT_MAKER_PKGS="fontforge"
 readonly PAINTING_PKGS="krita gmic-krita"
 readonly RECORD_PKGS="obs screenkey"
