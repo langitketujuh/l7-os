@@ -28,7 +28,7 @@ readonly REPO_NONFREE_PKGS="void-repo-nonfree"
 readonly REPO_MULTILIB_PKGS="void-repo-multilib"
 
 # lite packages
-readonly GRUB_PKGS="grub-i386-efi grub-x86_64-efi"
+readonly GRUB_PKGS="grub-i386-efi grub-x86_64-efi grub-btrfs-runit btrfs-backup"
 readonly BASE_PKGS="base-system dialog cryptsetup lvm2 mdadm"
 readonly INITRD_PKGS="dracut dracut-uefi dracut-network"
 readonly NETWORK_PKGS="inetutils usbutils wget curl dhcpcd wpa_supplicant
