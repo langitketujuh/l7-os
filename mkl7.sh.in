@@ -9,7 +9,7 @@ while getopts "a:b:hr:" opt; do
     case $opt in
         a) ARCH="$OPTARG";;
         b) IMAGE="$OPTARG";;
-        h) echo "${0#/*}: [-a x86_64|x86_64-musl] [-b base|lite|studio] [-r repo]" >&2; exit 1;;
+        h) echo "${0#/*}: [-a x86_64|x86_64-musl|i686] [-b lite|studio] [-r repo]" >&2; exit 1;;
         r) REPO="-r $OPTARG $REPO";;
     esac
 done
@@ -19,16 +19,15 @@ shift $((OPTIND - 1))
 
 readonly DATE=$(date +%Y%m%d)
 readonly GEN=$(pwgen -sA 7 1)
-readonly BASE_IMG=langitketujuh-base-${ARCH}-${DATE}.iso
 readonly LITE_IMG=langitketujuh-lite-${ARCH}-${DATE}.iso
-readonly STD_IMG=langitketujuh-studio-${ARCH}-${DATE}.iso
+readonly STUDIO_IMG=langitketujuh-studio-${ARCH}-${DATE}.iso
 
 # nonfree & multilib repository
 readonly REPO_NONFREE_PKGS="void-repo-nonfree"
 readonly REPO_MULTILIB_PKGS="void-repo-multilib"
 
 # lite packages
-readonly GRUB_PKGS="grub-i386-efi grub-x86_64-efi grub-btrfs-runit btrfs-backup"
+readonly GRUB_PKGS="grub-i386-efi grub-x86_64-efi"
 readonly BASE_PKGS="base-system dialog cryptsetup lvm2 mdadm"
 readonly INITRD_PKGS="dracut dracut-uefi dracut-network"
 readonly NETWORK_PKGS="inetutils usbutils wget curl dhcpcd wpa_supplicant
@@ -41,11 +40,11 @@ readonly XORG_PKGS="xorg xf86-input-evdev xf86-input-joystick
 xf86-input-libinput xf86-input-mtrack xf86-input-synaptics xf86-input-vmmouse
 xf86-input-wacom xorg-minimal xorg-input-drivers xorg-video-drivers mesa-ati-dri
 mesa-intel-dri mesa-nouveau-dri intel-video-accel"
-readonly XORG_32_PKGS="libgcc-32bit libstdc++-32bit libdrm-32bit libglvnd-32bit
+readonly XORG_I686_PKGS="libgcc-32bit libstdc++-32bit libdrm-32bit libglvnd-32bit
 mesa-dri-32bit"
 readonly VULKAN_PKGS="Vulkan-Headers Vulkan-Tools Vulkan-ValidationLayers
 libspa-vulkan mesa-vulkan-overlay-layer vkBasalt vkd3d amdvlk"
-readonly VULKAN_32_PKGS="vulkan-loader-32bit mesa-vulkan-intel-32bit
+readonly VULKAN_I686_PKGS="vulkan-loader-32bit mesa-vulkan-intel-32bit
 mesa-vulkan-radeon-32bit"
 readonly AUDIO_PKGS="alsa-utils bluez-alsa paprefs pipewire alsa-pipewire
 libjack-pipewire libspa-bluetooth libspa-jack libspa-v4l2 gstreamer1-pipewire
@@ -107,7 +106,7 @@ readonly RECORD_PKGS="obs screenkey"
 readonly PUBLISH_PKGS="python3-tkinter scribus"
 readonly TREE_D_ANIMATION_PKGS="blender l7-blender"
 readonly TWO_D_ANIMATION_PKGS="synfigstudio opentoonz"
-readonly AUDIO_STD_PKGS="audacity ardour kid3 soundkonverter lmms freepats
+readonly AUDIO_STUDIO_PKGS="audacity ardour kid3 soundkonverter lmms freepats
 soundfont-fluid"
 readonly FONTS_EXTRA_PKGS="google-fonts-ttf"
 readonly GAME_PKGS="godot"
@@ -136,7 +135,7 @@ l7-desktop-file-utils l7-gwenview l7-kate5 l7-kcmutils l7-konsole
 l7-kscreenlocker l7-kservice l7-plasma-desktop l7-sddm l7-systemsettings"
 readonly L7_LITE_PKGS="$L7_BASE_PKGS l7-gimp l7-inkscape l7-libreoffice l7-ssr
 isoimagewriter"
-readonly L7_STD_PKGS="$L7_LITE_PKGS l7-ardour l7-audacity l7-godot l7-krita
+readonly L7_STUDIO_PKGS="$L7_LITE_PKGS l7-ardour l7-audacity l7-godot l7-krita
 l7-obs l7-opentoonz l7-scribus"
 
 # lite basic
@@ -148,9 +147,9 @@ $BRIGHTNESS_PKGS $OFFICE_PKGS $APPEARANCE_PKGS $NOTE_PKGS $VECTOR_PKGS
 $RASTER_PKGS"
 
 # studio basic
-readonly STD_PKGS="$LITE_PKGS $KDE_DESIGN_PKGS $CALLIBRATION_PKGS $PLUGINS_PKGS
+readonly STUDIO_PKGS="$LITE_PKGS $KDE_DESIGN_PKGS $CALLIBRATION_PKGS $PLUGINS_PKGS
 $PHOTOGRAPHY_PKGS $VIDEO_EDITOR_PKGS $FONT_MAKER_PKGS $PAINTING_PKGS
-$RECORD_PKGS $PUBLISH_PKGS $TWO_D_ANIMATION_PKGS $AUDIO_STD_PKGS
+$RECORD_PKGS $PUBLISH_PKGS $TWO_D_ANIMATION_PKGS $AUDIO_STUDIO_PKGS
 $FONTS_EXTRA_PKGS $GAME_PKGS $CAD_PKGS"
 
 # lite iso edition
@@ -159,31 +158,16 @@ readonly X86_64_LITE_PKGS="$LITE_PKGS $X86_64_PKGS"
 readonly I686_LITE_PKGS="$LITE_PKGS $I686_PKGS"
 
 # studio iso edition
-readonly X86_64_MUSL_STD_PKGS="$STD_PKGS $TREE_D_ANIMATION_PKGS
+readonly X86_64_MUSL_STUDIO_PKGS="$STUDIO_PKGS $TREE_D_ANIMATION_PKGS
 $X86_64_MUSL_PKGS"
-readonly X86_64_STD_PKGS="$STD_PKGS $TREE_D_ANIMATION_PKGS $X86_64_PKGS"
-readonly I686_STD_PKGS="$STD_PKGS $I686_PKGS"
+readonly X86_64_STUDIO_PKGS="$STUDIO_PKGS $TREE_D_ANIMATION_PKGS $X86_64_PKGS"
+readonly I686_STUDIO_PKGS="$STUDIO_PKGS $I686_PKGS"
 
 # iso compression
 readonly INITRAMFS="gzip"
 readonly SQUASHFS="gzip"
 
 [ ! -x mklive.sh ] && exit 0
-
-if [ -z "$IMAGE" -o "$IMAGE" = base ]; then
-    if [ ! -e $BASE_IMG ]; then
-        sh mklive.sh \
-        -a $ARCH \
-        -o $BASE_IMG \
-        -p "$REPO_NONFREE_PKGS $GRUB_PKGS $BASE_PKGS $INITRD_PKGS $NETWORK_PKGS
-        $FIRMWARE_PKGS $UTILITY_PKGS" \
-        -P "l7-export l7-fish-shell l7-opendoas l7-removed-packages l7-repo
-        l7-runit-void l7-shadow l7-tools runit-backlight" \
-        -i $INITRAMFS \
-        -s $SQUASHFS \
-        ${REPO} "$@"
-    fi
-fi
 
 if [ -z "$IMAGE" -o "$IMAGE" = lite ]; then
     if [ -z "$ARCH" -o "$ARCH" = x86_64-musl ]; then
@@ -224,34 +208,34 @@ fi
 
 if [ -z "$IMAGE" -o "$IMAGE" = studio ]; then
     if [ -z "$ARCH" -o "$ARCH" = x86_64-musl ]; then
-        if [ ! -e $STD_IMG ]; then
+        if [ ! -e $STUDIO_IMG ]; then
             sh mklive.sh \
             -a $ARCH \
-            -o $STD_IMG \
-            -p "$X86_64_MUSL_STD_PKGS" \
-            -P "$L7_KDE_PKGS $L7_STD_PKGS" \
+            -o $STUDIO_IMG \
+            -p "$X86_64_MUSL_STUDIO_PKGS" \
+            -P "$L7_KDE_PKGS $L7_STUDIO_PKGS" \
             -i $INITRAMFS \
             -s $SQUASHFS \
             ${REPO} "$@"
         fi
         elif [ -z "$ARCH" -o "$ARCH" = x86_64 ]; then
-        if [ ! -e $STD_IMG ]; then
+        if [ ! -e $STUDIO_IMG ]; then
             sh mklive.sh \
             -a $ARCH \
-            -o $STD_IMG \
-            -p "$X86_64_STD_PKGS" \
-            -P "$L7_KDE_PKGS $L7_STD_PKGS" \
+            -o $STUDIO_IMG \
+            -p "$X86_64_STUDIO_PKGS" \
+            -P "$L7_KDE_PKGS $L7_STUDIO_PKGS" \
             -i $INITRAMFS \
             -s $SQUASHFS \
             ${REPO} "$@"
         fi
         elif [ -z "$ARCH" -o "$ARCH" = i686 ]; then
-        if [ ! -e $STD_IMG ]; then
+        if [ ! -e $STUDIO_IMG ]; then
             sh mklive.sh \
             -a $ARCH \
-            -o $STD_IMG \
-            -p "$I686_STD_PKGS" \
-            -P "$L7_KDE_PKGS $L7_STD_PKGS" \
+            -o $STUDIO_IMG \
+            -p "$I686_STUDIO_PKGS" \
+            -P "$L7_KDE_PKGS $L7_STUDIO_PKGS" \
             -i $INITRAMFS \
             -s $SQUASHFS \
             ${REPO} "$@"
