@@ -37,7 +37,7 @@ make
 and then see the usage output:
 
 ```
-sudo ./build.sh -h
+sudo ./mkl7.sh -h
 ```
 
 #### How to build iso (root)
@@ -45,17 +45,17 @@ sudo ./build.sh -h
 ##### Lite
 
 ```
-sudo ./build.sh -b lite -a x86_64
-sudo ./build.sh -b lite -a x86_64-musl
-sudo ./build.sh -b lite -a i686
+sudo ./mkl7.sh -b lite -a x86_64
+sudo ./mkl7.sh -b lite -a x86_64-musl
+sudo ./mkl7.sh -b lite -a i686
 ```
 
 ##### Studio
 
 ```
-sudo ./build.sh -b studio -a x86_64
-sudo ./build.sh -b studio -a x86_64-musl
-sudo ./build.sh -b studio -a i686
+sudo ./mkl7.sh -b studio -a x86_64
+sudo ./mkl7.sh -b studio -a x86_64-musl
+sudo ./mkl7.sh -b studio -a i686
 ```
 
 ---
