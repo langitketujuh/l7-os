@@ -50,9 +50,6 @@ fi
 ANSWER=$(mktemp -t vinstall-XXXXXXXX || exit 1)
 TARGET_FSTAB=$(mktemp -t vinstall-fstab-XXXXXXXX || exit 1)
 
-FSOPTS=defaults,noatime
-BTRFS_OPTS="subvol=@,$FSOPTS,space_cache"
-
 trap "DIE" INT TERM QUIT
 
 # disable printk
@@ -1007,7 +1004,7 @@ as FAT32, mountpoint /boot/efi and at least with 100MB of size." ${MSGBOXSIZE}
 }
 
 create_filesystems() {
-    local mnts dev mntpt fstype fspassno mkfs size rv uuid fsopts
+    local mnts dev mntpt fstype fspassno mkfs size rv uuid
 
     mnts=$(grep -E '^MOUNTPOINT.*' $CONF_FILE)
     set -- ${mnts}
@@ -1061,21 +1058,8 @@ failed to create filesystem $fstype on $dev!\ncheck $LOG for errors." ${MSGBOXSI
         # Mount rootfs the first one.
         [ "$mntpt" != "/" ] && continue
         mkdir -p $TARGETDIR
-        if [ "$fstype" = "btrfs" ]; then
-            # Setup subvolume on BTRFS partitions
-            echo "Mounting $dev on $mntpt ($fstype) to create subvolume @..." >$LOG
-            mount -t $fstype $dev $TARGETDIR >$LOG 2>&1
-            btrfs subvolume create $TARGETDIR/@ >$LOG 2>&1
-            umount $TARGETDIR >$LOG 2>&1
-            fsopts=$BTRFS_OPTS
-            echo "Remounting $dev on $mntpt ($fstype) with options [$fsopts]..." >$LOG
-
-        else
-            # Setup filesystem options on other partition types
-            fsopts=$FSOPTS
-            echo "Mounting $dev on $mntpt ($fstype) with options [$fsopts]..." >$LOG
-        fi
-        mount -o $fsopts -t $fstype $dev $TARGETDIR >$LOG 2>&1
+        echo "Mounting $dev on $mntpt ($fstype)..." >$LOG
+        mount -t $fstype $dev $TARGETDIR >$LOG 2>&1 >$LOG 2>&1
         if [ $? -ne 0 ]; then
             DIALOG --msgbox "${BOLD}${RED}ERROR:${RESET} \
 failed to mount $dev on ${mntpt}! check $LOG for errors." ${MSGBOXSIZE}
@@ -1088,7 +1072,7 @@ failed to mount $dev on ${mntpt}! check $LOG for errors." ${MSGBOXSIZE}
         else
             fspassno=1
         fi
-        echo "UUID=$uuid $mntpt $fstype $fsopts 0 $fspassno" >>$TARGET_FSTAB
+        echo "UUID=$uuid $mntpt $fstype defaults 0 $fspassno" >>$TARGET_FSTAB
     done
 
     # mount all filesystems in target rootfs
@@ -1100,7 +1084,7 @@ failed to mount $dev on ${mntpt}! check $LOG for errors." ${MSGBOXSIZE}
         [ "$mntpt" = "/" -o "$fstype" = "swap" ] && continue
         mkdir -p ${TARGETDIR}${mntpt}
         echo "Mounting $dev on $mntpt ($fstype)..." >$LOG
-        mount -o $FSOPTS -t $fstype $dev ${TARGETDIR}${mntpt} >$LOG 2>&1
+        mount -t $fstype $dev ${TARGETDIR}${mntpt} >$LOG 2>&1
         if [ $? -ne 0 ]; then
             DIALOG --msgbox "${BOLD}${RED}ERROR:${RESET} \
 failed to mount $dev on $mntpt! check $LOG for errors." ${MSGBOXSIZE}
@@ -1108,7 +1092,7 @@ failed to mount $dev on $mntpt! check $LOG for errors." ${MSGBOXSIZE}
         fi
         # Add entry to target fstab
         uuid=$(blkid -o value -s UUID "$dev")
-        echo "UUID=$uuid $mntpt $fstype $FSOPTS 0 2" >>$TARGET_FSTAB
+        echo "UUID=$uuid $mntpt $fstype defaults 0 2" >>$TARGET_FSTAB
     done
 }
 
