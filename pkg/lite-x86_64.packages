@@ -188,8 +188,8 @@ fish-shell
 font-misc-misc
 fprintd
 freeipmi
-gcompat
 git
+glibc-locales
 glmark2
 gptfdisk
 hddtemp
