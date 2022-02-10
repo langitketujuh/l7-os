@@ -203,6 +203,7 @@ lm_sensors
 media-player-info
 nano
 opendoas
+pm-utils
 pwgen
 setxkbmap
 slop
