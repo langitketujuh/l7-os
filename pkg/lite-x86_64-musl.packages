@@ -190,7 +190,7 @@ font-misc-misc
 fprintd
 freeipmi
 git
-glibc-locales
+# glibc-locales
 glmark2
 gptfdisk
 hddtemp
