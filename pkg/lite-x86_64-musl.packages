@@ -138,7 +138,6 @@ rpmextract
 sharutils
 tar
 unp
-# unrar
 unzip
 xz
 zip
