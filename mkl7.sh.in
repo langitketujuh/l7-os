@@ -66,8 +66,7 @@ if [ -z "$IMAGE" -o "$IMAGE" = studio ]; then
             sh mklive.sh \
             -a $ARCH \
             -o $STUDIO_IMG \
-            -p "$(grep '^[^#].' pkg/lite-x86_64-musl.packages)" \
-            -p "$(grep '^[^#].' pkg/studio-x86_64-musl.packages)" \
+            -p "$(grep '^[^#].' pkg/*x86_64-musl.packages | cut -d ":" -f 2)" \
             -i $INITRAMFS \
             -s $SQUASHFS \
             ${REPO} "$@"
@@ -77,8 +76,7 @@ if [ -z "$IMAGE" -o "$IMAGE" = studio ]; then
             sh mklive.sh \
             -a $ARCH \
             -o $STUDIO_IMG \
-            -p "$(grep '^[^#].' pkg/lite-x86_64.packages)" \
-            -p "$(grep '^[^#].' pkg/studio-x86_64.packages)" \
+            -p "$(grep '^[^#].' pkg/*x86_64.packages | cut -d ":" -f 2)" \
             -i $INITRAMFS \
             -s $SQUASHFS \
             ${REPO} "$@"
@@ -88,8 +86,7 @@ if [ -z "$IMAGE" -o "$IMAGE" = studio ]; then
             sh mklive.sh \
             -a $ARCH \
             -o $STUDIO_IMG \
-            -p "$(grep '^[^#].' pkg/lite-i686.packages)" \
-            -p "$(grep '^[^#].' pkg/studio-i686.packages)" \
+            -p "$(grep '^[^#].' pkg/*i686.packages | cut -d ":" -f 2)" \
             -i $INITRAMFS \
             -s $SQUASHFS \
             ${REPO} "$@"
