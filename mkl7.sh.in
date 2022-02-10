@@ -171,19 +171,51 @@ readonly SQUASHFS="gzip"
 [ ! -x mklive.sh ] && exit 0
 
 if [ -z "$IMAGE" -o "$IMAGE" = kde ]; then
-    if [ ! -e $KDE_IMG ]; then
-        sh mklive.sh \
-        -a $ARCH \
-        -o $KDE_IMG \
-        -p "$REPO_NONFREE_PKGS $GRUB_PKGS $BASE_PKGS
-            $INITRD_PKGS $NETWORK_PKGS $FIRMWARE_PKGS $XORG_PKGS
-            $VULKAN_PKGS $AUDIO_PKGS $CODEC_PKGS $COMPRESSION_PKGS
-            $FS_PKGS $AUTH_PKGS $KDE_PKGS $BRIGHTNESS_PKGS
-            $APPEARANCE_PKGS" \
-        -P "$L7_KDE_PKGS $X86_64_PKGS" \
-        -i $INITRAMFS \
-        -s $SQUASHFS \
-        ${REPO} "$@"
+    if [ -z "$ARCH" -o "$ARCH" = x86_64-musl ]; then
+        if [ ! -e $KDE_IMG ]; then
+            sh mklive.sh \
+            -a $ARCH \
+            -o $KDE_IMG \
+            -p "$REPO_NONFREE_PKGS $GRUB_PKGS $BASE_PKGS
+                $INITRD_PKGS $NETWORK_PKGS $FIRMWARE_PKGS $XORG_PKGS
+                $VULKAN_PKGS $AUDIO_PKGS $CODEC_PKGS $COMPRESSION_PKGS
+                $FS_PKGS $AUTH_PKGS $KDE_PKGS $BRIGHTNESS_PKGS
+                $APPEARANCE_PKGS" \
+            -P "$L7_KDE_PKGS $X86_64_MUSL_PKGS" \
+            -i $INITRAMFS \
+            -s $SQUASHFS \
+            ${REPO} "$@"
+        fi
+        elif [ -z "$ARCH" -o "$ARCH" = x86_64 ]; then
+        if [ ! -e $KDE_IMG ]; then
+            sh mklive.sh \
+            -a $ARCH \
+            -o $KDE_IMG \
+            -p "$REPO_NONFREE_PKGS $GRUB_PKGS $BASE_PKGS
+                $INITRD_PKGS $NETWORK_PKGS $FIRMWARE_PKGS $XORG_PKGS
+                $VULKAN_PKGS $AUDIO_PKGS $CODEC_PKGS $COMPRESSION_PKGS
+                $FS_PKGS $AUTH_PKGS $KDE_PKGS $BRIGHTNESS_PKGS
+                $APPEARANCE_PKGS" \
+            -P "$L7_KDE_PKGS $X86_64_PKGS" \
+            -i $INITRAMFS \
+            -s $SQUASHFS \
+            ${REPO} "$@"
+        fi
+        elif [ -z "$ARCH" -o "$ARCH" = i686 ]; then
+        if [ ! -e $KDE_IMG ]; then
+            sh mklive.sh \
+            -a $ARCH \
+            -o $KDE_IMG \
+            -p "$REPO_NONFREE_PKGS $GRUB_PKGS $BASE_PKGS
+                $INITRD_PKGS $NETWORK_PKGS $FIRMWARE_PKGS $XORG_PKGS
+                $VULKAN_PKGS $AUDIO_PKGS $CODEC_PKGS $COMPRESSION_PKGS
+                $FS_PKGS $AUTH_PKGS $KDE_PKGS $BRIGHTNESS_PKGS
+                $APPEARANCE_PKGS" \
+            -P "$L7_KDE_PKGS $I686_PKGS" \
+            -i $INITRAMFS \
+            -s $SQUASHFS \
+            ${REPO} "$@"
+        fi
     fi
 fi
 
