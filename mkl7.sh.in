@@ -171,20 +171,18 @@ readonly SQUASHFS="gzip"
 [ ! -x mklive.sh ] && exit 0
 
 if [ -z "$IMAGE" -o "$IMAGE" = test ]; then
-    if [ -z "$ARCH" -o "$ARCH" = x86_64 ]; then
-        if [ ! -e $TEST_IMG ]; then
-            sh mklive.sh \
-            -a $ARCH \
-            -o $TEST_IMG \
-            -p "$REPO_NONFREE_PKGS $GRUB_PKGS $BASE_PKGS
-                $INITRD_PKGS $NETWORK_PKGS $FIRMWARE_PKGS $XORG_PKGS
-                $FS_PKGS $AUTH_PKGS $KDE_PKGS $BRIGHTNESS_PKGS
-                $APPEARANCE_PKGS" \
-            -P "$L7_KDE_PKGS $X86_64_PKGS" \
-            -i $INITRAMFS \
-            -s $SQUASHFS \
-            ${REPO} "$@"
-        fi
+    if [ ! -e $TEST_IMG ]; then
+        sh mklive.sh \
+        -a $ARCH \
+        -o $TEST_IMG \
+        -p "$REPO_NONFREE_PKGS $GRUB_PKGS $BASE_PKGS
+            $INITRD_PKGS $NETWORK_PKGS $FIRMWARE_PKGS $XORG_PKGS
+            $FS_PKGS $AUTH_PKGS $KDE_PKGS $BRIGHTNESS_PKGS
+            $APPEARANCE_PKGS" \
+        -P "$L7_KDE_PKGS $X86_64_PKGS" \
+        -i $INITRAMFS \
+        -s $SQUASHFS \
+        ${REPO} "$@"
     fi
 fi
 
