@@ -178,7 +178,6 @@ if [ -z "$IMAGE" -o "$IMAGE" = kde ]; then
             -o $KDE_IMG \
             -p "$REPO_NONFREE_PKGS $GRUB_PKGS $BASE_PKGS
                 $INITRD_PKGS $NETWORK_PKGS $FIRMWARE_PKGS $XORG_PKGS
-                $VULKAN_PKGS $AUDIO_PKGS $CODEC_PKGS $COMPRESSION_PKGS
                 $FS_PKGS $AUTH_PKGS $KDE_PKGS $BRIGHTNESS_PKGS
                 $APPEARANCE_PKGS" \
             -P "$L7_KDE_PKGS $X86_64_MUSL_PKGS" \
@@ -193,7 +192,6 @@ if [ -z "$IMAGE" -o "$IMAGE" = kde ]; then
             -o $KDE_IMG \
             -p "$REPO_NONFREE_PKGS $GRUB_PKGS $BASE_PKGS
                 $INITRD_PKGS $NETWORK_PKGS $FIRMWARE_PKGS $XORG_PKGS
-                $VULKAN_PKGS $AUDIO_PKGS $CODEC_PKGS $COMPRESSION_PKGS
                 $FS_PKGS $AUTH_PKGS $KDE_PKGS $BRIGHTNESS_PKGS
                 $APPEARANCE_PKGS" \
             -P "$L7_KDE_PKGS $X86_64_PKGS" \
@@ -208,7 +206,6 @@ if [ -z "$IMAGE" -o "$IMAGE" = kde ]; then
             -o $KDE_IMG \
             -p "$REPO_NONFREE_PKGS $GRUB_PKGS $BASE_PKGS
                 $INITRD_PKGS $NETWORK_PKGS $FIRMWARE_PKGS $XORG_PKGS
-                $VULKAN_PKGS $AUDIO_PKGS $CODEC_PKGS $COMPRESSION_PKGS
                 $FS_PKGS $AUTH_PKGS $KDE_PKGS $BRIGHTNESS_PKGS
                 $APPEARANCE_PKGS" \
             -P "$L7_KDE_PKGS $I686_PKGS" \
