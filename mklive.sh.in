@@ -121,19 +121,12 @@ install_packages() {
     XBPS_ARCH=$BASE_ARCH "${XBPS_INSTALL_CMD}" -r "$ROOTFS" \
         ${XBPS_REPOSITORY} -c "$XBPS_CACHEDIR" -yn $PACKAGE_LIST $INITRAMFS_PKGS
     [ $? -ne 0 ] && die "Missing required binary packages, exiting..."
-    XBPS_ARCH=$BASE_ARCH "${XBPS_INSTALL_CMD}" -r "$ROOTFS" \
-        ${XBPS_REPOSITORY} -c "$XBPS_CACHEDIR" -yn $L7_LIST
-    [ $? -ne 0 ] && die "Missing required binary packages, exiting..."
 
     mount_pseudofs
 
     LANG=C XBPS_ARCH=$BASE_ARCH "${XBPS_INSTALL_CMD}" -U -r "$ROOTFS" \
         ${XBPS_REPOSITORY} -c "$XBPS_CACHEDIR" -y $PACKAGE_LIST $INITRAMFS_PKGS
     [ $? -ne 0 ] && die "Failed to install $PACKAGE_LIST"
-
-    LANG=C XBPS_ARCH=$BASE_ARCH "${XBPS_INSTALL_CMD}" -U -r "$ROOTFS" \
-        ${XBPS_REPOSITORY} -c "$XBPS_CACHEDIR" -y $L7_LIST
-    [ $? -ne 0 ] && die "Failed to install $L7_LIST"
 
     xbps-reconfigure -r "$ROOTFS" -f base-files >/dev/null 2>&1
 

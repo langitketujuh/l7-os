@@ -1,0 +1,80 @@
+## STUDIO EDITION
+
+# callibration
+lcms2
+python-dbus
+dispcalGUI
+
+# plugins
+gimp-lqr-plugin
+gmic
+gmic-gimp
+inkscape-generate-palette
+inkscape-inx-pathops
+inkscape-nextgenerator
+resynthesizer
+xsane-gimp
+
+# photography
+Converseen
+digikam
+hugin
+rawtherapee
+
+# audio editor
+ardour
+audacity
+freepats
+kid3
+lmms
+soundfont-fluid
+soundkonverter
+
+# video editor
+handbrake
+kdenlive
+mediainfo
+mkvtoolnix-gui
+
+# fontmaker
+fontforge
+
+# paint
+gmic-krita
+krita
+
+# record
+obs
+screenkey
+
+# publishing
+python3-tkinter
+scribus
+
+# 3d animation
+blender
+
+# 2d animation
+opentoonz
+synfigstudio
+
+# fonts
+google-fonts-ttf
+
+# game engine
+godot
+
+# parametric
+LibreCAD
+freecad
+
+# l7 studio
+l7-ardour
+l7-audacity
+l7-blender
+l7-godot
+l7-krita
+l7-obs
+l7-opentoonz
+l7-scribus
+
