@@ -118,7 +118,7 @@ install_prereqs() {
 }
 
 install_packages() {
-    XBPS_ARCH=$BASE_ARCH "${XBPS_INSTALL_CMD}" -r "$ROOTFS" \
+    XBPS_ARCH=$BASE_ARCH "${XBPS_INSTALL_CMD}" -I -r "$ROOTFS" \
         ${XBPS_REPOSITORY} -c "$XBPS_CACHEDIR" -yn $PACKAGE_LIST $INITRAMFS_PKGS
     [ $? -ne 0 ] && die "Missing required binary packages, exiting..."
 
@@ -308,7 +308,7 @@ generate_checksum_iso_image() {
 #
 # main()
 #
-while getopts "a:b:r:c:e:C:T:Kk:l:i:I:s:o:p:P:v:h" opt; do
+while getopts "a:b:r:c:e:C:T:Kk:l:i:I:s:o:p:v:h" opt; do
     case $opt in
         a) BASE_ARCH="$OPTARG";;
         b) BASE_SYSTEM_PKG="$OPTARG";;
@@ -323,7 +323,6 @@ while getopts "a:b:r:c:e:C:T:Kk:l:i:I:s:o:p:P:v:h" opt; do
         s) SQUASHFS_COMPRESSION="$OPTARG";;
         o) OUTPUT_FILE="$OPTARG";;
         p) PACKAGE_LIST="$OPTARG";;
-        P) L7_LIST="$OPTARG";;
         C) BOOT_CMDLINE="$OPTARG";;
         T) BOOT_TITLE="$OPTARG";;
         v) LINUX_VERSION="$OPTARG";;
