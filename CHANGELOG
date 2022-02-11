@@ -23,7 +23,7 @@
 * Menambahkan konfigurasi tambahan: `l7-inkscape l7-opentoonz l7-ssr l7-v4l2loopback`.
 * Menambahkan paket grup: `l7-pkg-codec l7-pkg-compiler l7-pkg-compress l7-pkg-kde l7-pkg-kde-apps l7-pkg-rust l7-pkg-wine l7-pkg-xorg`.
 * Tersedia paket baru: `typecatcher pdfarranger inkscape-generate-palette inkscape-inx-pathops inkscape-multicalendar inkscape-nextgenerator`.
-* Menambahkan dukungan akselerasi grafis dengan vulkan (AMD): `Vulkan-Headers Vulkan-Tools Vulkan-ValidationLayers libspa-vulkan mesa-vulkan-overlay-layer vkBasalt vkd3d amdvlk`.
+* Menambahkan dukungan akselerasi grafis dengan vulkan (amd): `Vulkan-Headers Vulkan-Tools Vulkan-ValidationLayers libspa-vulkan mesa-vulkan-overlay-layer vkBasalt vkd3d amdvlk`.
 * [Pending] Blender 3.0.1.
 * [Pending] Inkscape 1.2.
 
