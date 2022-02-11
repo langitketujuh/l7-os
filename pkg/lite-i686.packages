@@ -187,7 +187,6 @@ earlyoom
 fish-shell
 font-misc-misc
 fprintd
-freeipmi
 git
 glibc-locales
 glmark2
@@ -195,7 +194,6 @@ gptfdisk
 hddtemp
 ifuse
 inxi
-ipmitool
 libwebp
 libwebp-tools
 lm_sensors
