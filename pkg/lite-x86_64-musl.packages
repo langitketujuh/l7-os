@@ -313,8 +313,7 @@ xorg-fonts
 papirus-icon-theme
 
 # browser
-firefox
-geckodriver
+falkon
 
 # office
 lgi
@@ -335,9 +334,11 @@ digimend-kernel-drivers
 l7-docs
 l7-export
 l7-fish-shell
+l7-kget
 l7-octoxbps
 l7-opendoas
 l7-papirus-icon-theme
+l7-pam
 l7-pipewire
 l7-removed-packages
 l7-runit-void
