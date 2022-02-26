@@ -1,9 +1,5 @@
 ## LITE EDITION
 
-# repository
-l7-repo
-l7-repo-nonfree
-
 # grub
 grub-i386-efi
 grub-x86_64-efi
@@ -327,6 +323,10 @@ fig2dev
 
 # manipulation
 gimp
+
+# repository
+l7-repo
+l7-repo-nonfree
 
 # l7 base
 digimend-kernel-drivers
