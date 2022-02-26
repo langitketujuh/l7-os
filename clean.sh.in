@@ -29,6 +29,6 @@
 # last update=c1a4194
 
 for f in x86_64-musl x86_64 i686; do
-  XBPS_ARCH=${f} xbps-install -S --repository=https://alpha.de.repo.voidlinux.org/current --repository=https://alpha.de.repo.voidlinux.org/current/musl --repository=https://alpha.de.repo.voidlinux.org/current/multilib --repository=https://al.quds.repo.langitketujuh.id/current --repository=https://al.quds.repo.langitketujuh.id/current/musl
+  XBPS_ARCH=${f} xbps-install -S --repository=https://void.webconverger.org/current --repository=https://void.webconverger.org/current/musl --repository=https://void.webconverger.org/current/multilib --repository=https://al.quds.repo.langitketujuh.id/current --repository=https://al.quds.repo.langitketujuh.id/current/musl
   XBPS_ARCH=${f} xbps-remove -O -o -c $PWD/xbps-cachedir-${f}/
 done

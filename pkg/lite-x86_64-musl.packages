@@ -1,8 +1,8 @@
 ## LITE EDITION
 
 # repository
-void-repo-nonfree
 l7-repo
+l7-repo-nonfree
 
 # grub
 grub-i386-efi

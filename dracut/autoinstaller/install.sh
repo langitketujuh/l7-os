@@ -202,10 +202,10 @@ VAI_configure_autoinstall() {
     XBPS_ARCH="$(xbps-uhelper arch)"
     case $XBPS_ARCH in
         *-musl)
-            xbpsrepository="https://alpha.de.repo.voidlinux.org/current/musl"
+            xbpsrepository="https://void.webconverger.org/current/musl"
             ;;
         *)
-            xbpsrepository="https://alpha.de.repo.voidlinux.org/current"
+            xbpsrepository="https://void.webconverger.org/current"
             ;;
     esac
 
