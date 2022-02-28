@@ -130,14 +130,18 @@ install_packages() {
 
     xbps-reconfigure -r "$ROOTFS" -f base-files >/dev/null 2>&1
 
-    # Grub distributor and init
+    # grub distributor and init
     sed -i "$ROOTFS"/etc/default/grub -res'#^(GRUB_DISTRIBUTOR).*#GRUB_DISTRIBUTOR="LangitKetujuh"#'
     sed -i 's/Void/LangitKetujuh/g' "$ROOTFS"/etc/runit/1
 
-    # QTwebengine dark-mode
+    # qtwebengine dark-mode
     echo "QTWEBENGINE_CHROMIUM_FLAGS=--force-dark-mode" >> "$ROOTFS"/etc/environment
 
-    # Fix fonts
+    # adblocker in hosts
+    mkdir -p "$ROOTFS"/etc
+    [ -s data/hosts ] && cp data/hosts "$ROOTFS"/etc
+
+    # fix fonts
     ln -sf /usr/share/fontconfig/conf.avail/10-hinting-slight.conf "$ROOTFS"/etc/fonts/conf.d/
     ln -sf /usr/share/fontconfig/conf.avail/10-sub-pixel-rgb.conf "$ROOTFS"/etc/fonts/conf.d/
     ln -sf /usr/share/fontconfig/conf.avail/11-lcdfilter-default.conf "$ROOTFS"/etc/fonts/conf.d/
@@ -147,13 +151,13 @@ install_packages() {
 
     chroot "$ROOTFS" env -i xbps-reconfigure -f base-files
 
-    # Enable choosen UTF-8 locale and generate it into the target rootfs.
+    # enable choosen utf-8 locale and generate it into the target rootfs.
     if [ -f "$ROOTFS"/etc/default/libc-locales ]; then
         sed -e "s/\#\(${LOCALE}.*\)/\1/g" -i "$ROOTFS"/etc/default/libc-locales
     fi
     chroot "$ROOTFS" env -i xbps-reconfigure -a
 
-    # Change default fish-shell for root
+    # change default fish-shell for root
     chroot "$ROOTFS" chsh -s /bin/fish root
 
     if [ -x installer.sh ]; then
@@ -161,7 +165,7 @@ install_packages() {
     else
         install -Dm755 /usr/sbin/langitketujuh-install "$ROOTFS"/usr/sbin/langitketujuh-install
     fi
-    # Cleanup and remove useless stuff.
+    # cleanup and remove useless stuff.
     rm -rf "$ROOTFS"/var/cache/* "$ROOTFS"/run/* "$ROOTFS"/var/run/*
 }
 
