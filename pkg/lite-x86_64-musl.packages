@@ -331,6 +331,7 @@ l7-repo-nonfree
 
 # l7 base
 digimend-kernel-drivers
+hblock
 l7-docs
 l7-export
 l7-falkon
