@@ -309,7 +309,8 @@ xorg-fonts
 papirus-icon-theme
 
 # browser
-falkon
+firefox
+geckodriver
 
 # office
 lgi
@@ -334,7 +335,7 @@ digimend-kernel-drivers
 hblock
 l7-docs
 l7-export
-l7-falkon
+#l7-falkon
 l7-fish-shell
 l7-kget
 l7-octoxbps
