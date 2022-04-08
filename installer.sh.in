@@ -36,7 +36,6 @@ USERLOGIN_DONE=
 USERPASSWORD_DONE=
 USERNAME_DONE=
 USERGROUPS_DONE=
-USERACCOUNT_DONE=
 BOOTLOADER_DONE=
 PARTITIONS_DONE=
 NETWORK_DONE=
@@ -376,12 +375,6 @@ show_partitions() {
                 [ "$fstype" = "LVM2_member" ] && continue
                 fssize=$(lsblk -nr /dev/$part|awk '{print $4}'|head -1)
                 echo "/dev/$part"
-                # Get fs type from configuration if available. This ensures
-                # that the user is faced with the proper fs type if he
-                # installs the system.
-                # Same for other devices...
-                fsconf=$(grep "MOUNTPOINT /dev/$part" "$CONF_FILE"|awk '{print $3}')
-                [ -n "$fsconf" ] && fstype=$fsconf
                 echo "size:${fssize:-unknown};fstype:${fstype:-none}"
             fi
         done
@@ -396,8 +389,6 @@ show_partitions() {
         fstype=$(lsblk -nfr $p|awk '{print $2}'|head -1)
         fssize=$(lsblk -nr $p|awk '{print $4}'|head -1)
         echo "${p}"
-        fsconf=$(grep "MOUNTPOINT ${p}" "$CONF_FILE"|awk '{print $3}')
-        [ -n "$fsconf" ] && fstype=$fsconf
         echo "size:${fssize:-unknown};fstype:${fstype:-none}"
     done
     # Software raid (md)
@@ -409,8 +400,6 @@ show_partitions() {
             [ "$fstype" = "LVM2_member" ] && continue
             fssize=$(lsblk -nr /dev/$part|awk '{print $4}')
             echo "$p"
-            fsconf=$(grep "MOUNTPOINT ${p}" "$CONF_FILE"|awk '{print $3}')
-            [ -n "$fsconf" ] && fstype=$fsconf
             echo "size:${fssize:-unknown};fstype:${fstype:-none}"
         fi
     done
@@ -421,16 +410,13 @@ show_partitions() {
         [ "$fstype" = "LVM2_member" ] && continue
         fssize=$(lsblk -nr /dev/cciss/$part|awk '{print $4}')
         echo "/dev/cciss/$part"
-        fsconf=$(grep "MOUNTPOINT /dev/cciss/$part" "$CONF_FILE"|awk '{print $3}')
-        [ -n "$fsconf" ] && fstype=$fsconf
         echo "size:${fssize:-unknown};fstype:${fstype:-none}"
     done
     if [ -e /sbin/lvs ]; then
         # LVM
         lvs --noheadings|while read lvname vgname perms size; do
             echo "/dev/mapper/${vgname}-${lvname}"
-            fsconf=$(grep "/dev/mapper/${vgname}-${lvname}" "$CONF_FILE"|awk '{print $3}')
-            echo "size:${size};fstype:${fsconf:-lvm}"
+            echo "size:${size};fstype:lvm"
         done
     fi
 }
@@ -491,7 +477,6 @@ menu_filesystems() {
             echo "MOUNTPOINT $dev $1 $2 $3 $4" >>$CONF_FILE
         fi
     done
-    FILESYSTEMS_DONE=1
 }
 
 menu_partitions() {
@@ -767,7 +752,10 @@ menu_useraccount() {
 }
 
 set_useraccount() {
-    [ -z "$USERACCOUNT_DONE" ] && return
+    [ -z "$USERLOGIN_DONE" ] && return
+    [ -z "$USERPASSWORD_DONE" ] && return
+    [ -z "$USERNAME_DONE" ] && return
+    [ -z "$USERGROUPS_DONE" ] && return
     useradd -R $TARGETDIR -m -G $(get_option USERGROUPS) \
         -c "$(get_option USERNAME)" $(get_option USERLOGIN)
     echo "$(get_option USERLOGIN):$(get_option USERPASSWORD)" | \
@@ -813,30 +801,22 @@ set_bootloader() {
     chroot $TARGETDIR grub-install $grub_args $dev >$LOG 2>&1
     if [ $? -ne 0 ]; then
         DIALOG --msgbox "${BOLD}${RED}ERROR:${RESET} \
-failed to install GRUB to $dev!\nCheck $LOG for errors." ${MSGBOXSIZE}
+        failed to install GRUB to $dev!\nCheck $LOG for errors." ${MSGBOXSIZE}
         DIE 1
     fi
     echo "Running grub-mkconfig on $TARGETDIR..." >$LOG
     chroot $TARGETDIR grub-mkconfig -o /boot/grub/grub.cfg >$LOG 2>&1
     if [ $? -ne 0 ]; then
         DIALOG --msgbox "${BOLD}${RED}ERROR${RESET}: \
-failed to run grub-mkconfig!\nCheck $LOG for errors." ${MSGBOXSIZE}
+        failed to run grub-mkconfig!\nCheck $LOG for errors." ${MSGBOXSIZE}
         DIE 1
     fi
 }
 
 test_network() {
-    # Pick a peace of data to download to ensure that a network connection is
-    # available.
-    local file="http://alpha.de.repo.voidlinux.org/live/xtraeme.asc"
-
-    # Download file with XBPS, remove it directly afterwards
-    xbps-uhelper fetch "$file" >$LOG 2>&1
-    local status=$?
-    rm -f xtraeme.asc
-
-    # If next error `$?` is 0, no error detected. Network is reachable.
-    if [ $status -eq 0 ]; then
+    rm -f xtraeme.asc && \
+        xbps-uhelper fetch http://void.webconverger.org/live/xtraeme.asc >$LOG 2>&1
+    if [ $? -eq 0 ]; then
         DIALOG --msgbox "Network is working properly!" ${MSGBOXSIZE}
         NETWORK_DONE=1
         return 1
@@ -974,18 +954,6 @@ menu_network() {
         else
             configure_net $dev
         fi
-    fi
-}
-
-validate_useraccount() {
-    local USERLOGIN=$(get_option USERLOGIN)
-    local USERPASSWORD=$(get_option USERPASSWORD)
-    local USERNAME=$(get_option USERNAME)
-    local USERGROUPS=$(get_option USERGROUPS)
-
-    if [ -n "$USERLOGIN" ] && [ -n "$USERPASSWORD" ] \
-        && [ -n "$USERNAME" ] && [ -n "$USERGROUPS" ]; then
-        USERACCOUNT_DONE=1
     fi
 }
 
@@ -1257,17 +1225,6 @@ please do so before starting the installation.${RESET}" ${MSGBOXSIZE}
         return 1
     fi
 
-    # Validate useraccount. All parameters must be set (name, password,
-    # login name, groups).
-    validate_useraccount
-
-    if [ -z "$USERACCOUNT_DONE" ]; then
-        DIALOG --yesno "${BOLD}The useraccount is not set up properly.${RESET}\n\n
-${BOLD}${RED}WARNING: no user will be created. You're only able to login \
-with the root user in your new system.${RESET}\n\n
-${BOLD}Do you want to continue?${RESET}" 10 60 || return
-    fi
-
     DIALOG --yesno "${BOLD}The following operations will be executed:${RESET}\n\n
 ${BOLD}${TARGETFS}${RESET}\n
 ${BOLD}${RED}WARNING: data on partitions will be COMPLETELY DESTROYED for new \
@@ -1278,7 +1235,6 @@ ${BOLD}Do you want to continue?${RESET}" 20 80 || return
     # Create and mount filesystems
     create_filesystems
 
-    SOURCE_DONE="$(get_option SOURCE)"
     # If source not set use defaults.
     if [ "$(get_option SOURCE)" = "local" -o -z "$SOURCE_DONE" ]; then
         copy_rootfs
@@ -1328,7 +1284,6 @@ ${BOLD}Do you want to continue?${RESET}" 20 80 || return
     # Copy /etc/skel files for root.
     cp $TARGETDIR/etc/skel/.[bix]* $TARGETDIR/root
 
-    NETWORK_DONE="$(get_option NETWORK)"
     # network settings for target
     if [ -n "$NETWORK_DONE" ]; then
         local net="$(get_option NETWORK)"
