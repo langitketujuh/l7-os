@@ -325,8 +325,8 @@ fig2dev
 gimp
 
 # repository
+void-repo-nonfree
 l7-repo
-l7-repo-nonfree
 
 # l7 base
 digimend-kernel-drivers
