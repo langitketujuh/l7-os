@@ -323,6 +323,10 @@ fig2dev
 # manipulation
 gimp
 
+# utility
+keepassxc
+webapp-manager
+
 # repository
 void-repo-nonfree
 l7-repo
@@ -334,6 +338,7 @@ l7-docs
 l7-export
 #l7-falkon
 l7-fish-shell
+l7-keepassxc
 l7-kget
 l7-octoxbps
 l7-opendoas
