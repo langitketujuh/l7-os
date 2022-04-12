@@ -168,7 +168,6 @@ gutenprint
 hplip
 system-config-printer
 system-config-printer-udev
-nss-mdns
 
 # tools
 ImageMagick
