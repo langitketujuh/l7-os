@@ -1,7 +1,9 @@
 >> Welcome to the LangitKetujuh GNU/Linux Live system. Two users are available to log in:
 
-    # root:langitketujuh
-    # anon:langitketujuh
+    # user (normal) = anon
+    # user (root)   = root
+
+    # password      = langitketujuh
 
 To start the installation please type:
 
@@ -15,4 +17,8 @@ sure to configure your network interface and then use:
     # remove    (to remove packages)
     # search    (to query for package info)
 
-Thanks for using LangitKetujuh. https://langitketujuh.id/
+Thanks for using LangitKetujuh.
+
+Homepage        : https://langitketujuh.id/
+Documentation   : https://panduan.langitketujuh.id/
+Social          : https://link.langitketujuh.id/
