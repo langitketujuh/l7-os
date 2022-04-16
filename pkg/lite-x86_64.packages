@@ -166,9 +166,9 @@ cups-pdf
 epson-inkjet-printer-escpr
 gutenprint
 hplip
+nss-mdns
 system-config-printer
 system-config-printer-udev
-nss-mdns
 
 # tools
 ImageMagick
@@ -177,6 +177,7 @@ acpilight
 android-tools
 android-udev-rules
 bind-utils
+btop
 avahi
 brightnessctl
 cmake
@@ -253,6 +254,7 @@ qt5-virtualkeyboard
 sddm
 
 # kde apps
+akregator
 ark
 bup
 dolphin
@@ -261,17 +263,22 @@ filelight
 gnupg2-scdaemon
 gwenview
 k3b
+kaddressbook
 kamoso
 kate5
 kcalc
 kcharselect
 kcolorchooser
 kdeconnect
+kdepim-addons
 kget
 kgpg
+kmail
 kmediaplayer
 kolourpaint
 konsole
+kontact
+korganizer
 krdc
 krfb
 ktorrent
@@ -284,6 +291,10 @@ skanlite
 spectacle
 ssr
 vlc
+
+# spam filter
+bogofilter
+spamassassin
 
 # package manager
 flatpak
@@ -328,8 +339,6 @@ gimp
 
 # utility
 flameshot
-keepassxc
-webapp-manager
 
 # repository
 void-repo-nonfree
@@ -343,8 +352,9 @@ l7-export
 #l7-falkon
 l7-fish-shell
 l7-flameshot
-l7-keepassxc
 l7-kget
+l7-kmail
+l7-korganizer
 l7-octoxbps
 l7-opendoas
 l7-papirus-icon-theme
