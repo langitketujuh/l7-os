@@ -162,8 +162,10 @@ install_packages() {
 
     if [ -x installer.sh ]; then
         install -Dm755 installer.sh "$ROOTFS"/usr/sbin/langitketujuh-install
+        install -Dm755 installer.desktop "$ROOTFS"/usr/share/applications/langitketujuh.installer.desktop
     else
         install -Dm755 /usr/sbin/langitketujuh-install "$ROOTFS"/usr/sbin/langitketujuh-install
+        install -Dm755 installer.sh "$ROOTFS"/usr/share/applications/langitketujuh.installer.desktop
     fi
     # cleanup and remove useless stuff.
     rm -rf "$ROOTFS"/var/cache/* "$ROOTFS"/run/* "$ROOTFS"/var/run/*
