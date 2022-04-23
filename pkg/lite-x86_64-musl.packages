@@ -177,7 +177,6 @@ android-tools
 android-udev-rules
 avahi
 bind-utils
-btop
 brightnessctl
 cmake
 cpufrequtils

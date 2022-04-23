@@ -177,7 +177,6 @@ acpilight
 android-tools
 android-udev-rules
 bind-utils
-btop
 avahi
 brightnessctl
 cmake
