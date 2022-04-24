@@ -318,8 +318,7 @@ xorg-fonts
 papirus-icon-theme
 
 # browser
-firefox
-geckodriver
+falkon
 
 # office
 lgi
