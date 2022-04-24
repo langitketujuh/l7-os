@@ -293,7 +293,6 @@ vlc
 
 # spam filter
 bogofilter
-spamassassin
 
 # package manager
 flatpak
