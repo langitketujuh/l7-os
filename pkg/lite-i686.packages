@@ -297,7 +297,6 @@ spamassassin
 # package manager
 flatpak
 octoxbps
-topgrade
 
 # fonts
 amiri-font
