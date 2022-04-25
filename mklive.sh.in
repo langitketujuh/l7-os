@@ -133,10 +133,6 @@ install_packages() {
     # qtwebengine dark-mode
     echo "QTWEBENGINE_CHROMIUM_FLAGS=--force-dark-mode" >> "$ROOTFS"/etc/environment
 
-    # adblocker in hosts
-    mkdir -p "$ROOTFS"/etc
-    [ -s data/hosts ] && cp data/hosts "$ROOTFS"/etc
-
     # fix fonts
     ln -sf /usr/share/fontconfig/conf.avail/10-hinting-slight.conf "$ROOTFS"/etc/fonts/conf.d/
     ln -sf /usr/share/fontconfig/conf.avail/10-sub-pixel-rgb.conf "$ROOTFS"/etc/fonts/conf.d/
