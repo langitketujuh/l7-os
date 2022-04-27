@@ -152,6 +152,7 @@ install_packages() {
     # change default fish-shell for root
     chroot "$ROOTFS" chsh -s /bin/fish root
 
+    # add installer applications desktop
     if [ -x installer.sh ]; then
         install -Dm755 installer.sh "$ROOTFS"/usr/sbin/langitketujuh-install
         install -Dm755 installer.desktop "$ROOTFS"/usr/share/applications/langitketujuh.installer.desktop
@@ -159,6 +160,10 @@ install_packages() {
         install -Dm755 /usr/sbin/langitketujuh-install "$ROOTFS"/usr/sbin/langitketujuh-install
         install -Dm755 installer.sh "$ROOTFS"/usr/share/applications/langitketujuh.installer.desktop
     fi
+
+    # add permit installer for doas
+    echo "permit nopass keepenv :wheel cmd langitketujuh-install" >> "$ROOTFS"/etc/doas.conf
+
     # cleanup and remove useless stuff.
     rm -rf "$ROOTFS"/var/cache/* "$ROOTFS"/run/* "$ROOTFS"/var/run/*
 }
