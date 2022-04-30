@@ -127,19 +127,18 @@ install_packages() {
     [ $? -ne 0 ] && die "Failed to install $PACKAGE_LIST"
 
     # ignorepkg
-    echo "ignorepkg=xf86-video-intel" >> /usr/share/xbps.d/xbps.conf
+    echo "ignorepkg=xf86-video-intel" >> "$ROOTFS"/usr/share/xbps.d/xbps.conf
 
     # remove packages
     LANG=C XBPS_ARCH=$BASE_ARCH "${XBPS_INSTALL_CMD}" -S -r "$ROOTFS" \
         ${XBPS_REPOSITORY} -c "$XBPS_CACHEDIR"
-    LANG=C XBPS_ARCH=$BASE_ARCH "${XBPS_REMOVE_CMD}" -R -r "$ROOTFS" \
-        ${XBPS_REPOSITORY} -c "$XBPS_CACHEDIR" -y $REMOVE_LIST
+    LANG=C XBPS_ARCH=$BASE_ARCH "${XBPS_REMOVE_CMD}" -r "$ROOTFS" \
+        -c "$XBPS_CACHEDIR" -y $REMOVE_LIST
     [ $? -ne 0 ] && die "Failed to remove $REMOVE_LIST"
 
     xbps-reconfigure -r "$ROOTFS" -f base-files >/dev/null 2>&1
 
     # grub distributor and init
-    sed -i "$ROOTFS"/etc/default/grub -res'#^(GRUB_DISTRIBUTOR).*#GRUB_DISTRIBUTOR="LangitKetujuh"#'
     sed -i 's/Void/LangitKetujuh/g' "$ROOTFS"/etc/runit/1
 
     # qtwebengine dark-mode
