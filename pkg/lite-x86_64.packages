@@ -33,11 +33,11 @@ broadcom-bt-firmware
 dkms
 linux-firmware
 linux-firmware-amd
-linux-firmware-intel
 linux-firmware-broadcom
+linux-firmware-intel
 linux-firmware-network
 linux-firmware-nvidia
-#linux-firmware-qualcomm
+linux-firmware-qualcomm
 wifi-firmware
 
 # xorg
@@ -45,10 +45,10 @@ intel-video-accel
 mesa-ati-dri
 mesa-intel-dri
 mesa-nouveau-dri
-xf86-input-libinput
 xf86-input-evdev
-#xf86-input-joystick
-#xf86-input-mtrack
+xf86-input-joystick
+xf86-input-libinput
+xf86-input-mtrack
 xf86-input-synaptics
 xf86-input-vmmouse
 xf86-input-wacom
@@ -95,7 +95,7 @@ libspa-jack
 libspa-v4l2
 libtheora
 libvorbis
-#nv-codec-headers
+nv-codec-headers
 paprefs
 phonon-qt5-backend-vlc
 pipewire
@@ -171,50 +171,49 @@ system-config-printer
 system-config-printer-udev
 
 # tools
-#android-udev-rules
-#bind-utils
-#brightnessctl
-#fprintd
-#glmark2
-#hddtemp
-#lm_sensors
-#nano
-#pwgen
-#setxkbmap
-#testdisk
-#tree
-#vim-huge
-#wmctrl
-#zenity
 ImageMagick
 acpi
 acpilight
 android-tools
+android-udev-rules
+bind-utils
 avahi
+brightnessctl
 cmake
 cpufrequtils
 earlyoom
 fish-shell
 font-misc-misc
+fprintd
 git
 glibc-locales
+glmark2
 gptfdisk
+hddtemp
 ifuse
 intel-media-driver
 inxi
 libwebp
 libwebp-tools
+lm_sensors
 media-player-info
+nano
 opendoas
+pwgen
+setxkbmap
 slop
+testdisk
+tree
 ufw
 upower
-vim
+vim-huge
 vpsm
 vsv
+wmctrl
 xauth
 xrandr
 xtools
+zenity
 zramen
 
 # desktop
@@ -230,64 +229,64 @@ accountsservice
 colord-kde
 ffmpegthumbnailer
 ffmpegthumbs
-#gnome-color-manager
+gnome-color-manager
 kaccounts-integration
 kaccounts-providers
 kcm-wacomtablet
 kde5
-#kde5-baseapps
+kde5-baseapps
 kdegraphics-thumbnailers
 kdesu
 kidentitymanagement
 kimageformats
 kio-extras
 kio-gdrive
-#ksuperkey
-#libappindicator
+ksuperkey
+libappindicator
 plasma-browser-integration
 plasma-disks
 plasma-firewall
 plasma-nm
 plasma-pa
 plasma-wayland-protocols
-#qt5-virtualkeyboard
+qt5-virtualkeyboard
 sddm
 
 # kde apps
-#akregator
+akregator
 ark
-#bup
+bup
 dolphin
 elisa
-#filelight
-#gnupg2-scdaemon
+filelight
+gnupg2-scdaemon
 gwenview
-#k3b
-#kaddressbook
+k3b
+kaddressbook
 kamoso
 kate5
 kcalc
-#kcharselect
-#kcolorchooser
+kcharselect
+kcolorchooser
 kdeconnect
 kdepim-addons
-#kget
-#kgpg
-#kmail
-#kmediaplayer
-#kolourpaint
+kget
+kgpg
+kmail
+kmediaplayer
+kolourpaint
 konsole
-#kontact
-#korganizer
-#krdc
-#krfb
-#ktorrent
-#kup
+kontact
+korganizer
+krdc
+krfb
+ktorrent
+kup
 kwalletmanager
 okular
 partitionmanager
 print-manager
-#skanlite
+skanlite
 spectacle
 ssr
 vlc
@@ -296,7 +295,7 @@ vlc
 bogofilter
 
 # package manager
-#flatpak
+flatpak
 octoxbps
 
 # fonts
@@ -308,10 +307,10 @@ font-sil-harmattan
 font-sil-lateef
 font-sil-scheherazade
 liberation-fonts-ttf
-#noto-fonts-cjk
-#noto-fonts-emoji
+noto-fonts-cjk
+noto-fonts-emoji
 ttf-opensans
-#unicode-emoji
+unicode-emoji
 xorg-fonts
 
 # appareance
@@ -335,24 +334,24 @@ fig2dev
 gimp
 
 # utility
-#flameshot
+flameshot
 
 # repository
 void-repo-nonfree
 l7-repo
 
 # l7 base
-#l7-akregator
-#l7-kget
-#l7-kmail
-#l7-korganizer
 digimend-kernel-drivers
 hblock
+l7-akregator
 l7-docs
 l7-export
 l7-falkon
 l7-fish-shell
-#l7-flameshot
+l7-flameshot
+l7-kget
+l7-kmail
+l7-korganizer
 l7-octoxbps
 l7-opendoas
 l7-papirus-icon-theme
@@ -365,11 +364,11 @@ l7-v4l2loopback
 runit-backlight
 
 # l7 lite
-l7-ssr
 isoimagewriter
 l7-gimp
 l7-inkscape
 l7-libreoffice
+l7-ssr
 
 # l7 kde
 l7-ark
