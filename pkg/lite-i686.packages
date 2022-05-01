@@ -41,7 +41,7 @@ linux-firmware-qualcomm
 wifi-firmware
 
 # xorg
-intel-video-accel
+#intel-video-accel
 mesa-ati-dri
 mesa-intel-dri
 mesa-nouveau-dri
@@ -179,7 +179,7 @@ android-udev-rules
 avahi
 bind-utils
 brightnessctl
-cmake
+#cmake
 cpufrequtils
 earlyoom
 fish-shell
@@ -212,7 +212,7 @@ wmctrl
 xauth
 xrandr
 xtools
-zenity
+#zenity
 zramen
 
 # desktop
