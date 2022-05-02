@@ -139,6 +139,7 @@ install_packages() {
     xbps-reconfigure -r "$ROOTFS" -f base-files >/dev/null 2>&1
 
     # grub distributor and init
+    sed -i "$ROOTFS"/etc/default/grub -res'#^(GRUB_DISTRIBUTOR).*#GRUB_DISTRIBUTOR="LangitKetujuh"#'
     sed -i 's/Void/LangitKetujuh/g' "$ROOTFS"/etc/runit/1
 
     # qtwebengine dark-mode
