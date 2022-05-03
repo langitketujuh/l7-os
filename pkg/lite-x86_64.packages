@@ -94,7 +94,6 @@ libtheora
 libvorbis
 nv-codec-headers
 paprefs
-phonon-qt5-backend-vlc
 pipewire
 pulseaudio-utils
 v4l-utils
@@ -173,9 +172,8 @@ acpi
 acpilight
 android-tools
 android-udev-rules
-bind-utils
 avahi
-brightnessctl
+bind-utils
 cpufrequtils
 earlyoom
 fish-shell
@@ -255,6 +253,7 @@ gnupg2-scdaemon
 gwenview
 k3b
 kaddressbook
+kaffeine
 kamoso
 kate5
 kcalc
@@ -281,7 +280,6 @@ print-manager
 skanlite
 spectacle
 ssr
-vlc
 
 # spam filter
 bogofilter

@@ -29,7 +29,6 @@ wpa_supplicant
 # firmware
 linux-base
 linux-firmware
-linux-firmware-network
 
 # xorg
 mesa-ati-dri
@@ -51,10 +50,7 @@ alsa-pipewire
 alsa-plugins-ffmpeg
 alsa-utils
 bluez-alsa
-phonon-qt5-backend-vlc
 pipewire
-
-# archives
 
 # filesystem
 exfat-utils
@@ -76,7 +72,6 @@ polkit-elogind
 cups
 
 # tools
-brightnessctl
 earlyoom
 fish-shell
 glibc-locales
@@ -84,7 +79,6 @@ gptfdisk
 opendoas
 vim
 vsv
-xtools
 zramen
 
 # desktop
