@@ -132,8 +132,6 @@ void-repo-nonfree
 l7-repo
 
 # l7 base
-digimend-kernel-drivers
-hblock
 l7-falkon
 l7-fish-shell
 l7-opendoas
@@ -144,8 +142,6 @@ l7-runit-void
 l7-shadow
 l7-tools
 runit-backlight
-
-# l7 lite
 
 # l7 kde
 l7-ark
