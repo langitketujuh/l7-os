@@ -27,21 +27,11 @@ wget
 wpa_supplicant
 
 # firmware
-alsa-firmware
-b43-fwcutter
-broadcom-bt-firmware
-dkms
+linux-base
 linux-firmware
-linux-firmware-amd
-linux-firmware-broadcom
-linux-firmware-intel
 linux-firmware-network
-linux-firmware-nvidia
-linux-firmware-qualcomm
-wifi-firmware
 
 # xorg
-#intel-video-accel
 mesa-ati-dri
 mesa-intel-dri
 mesa-nouveau-dri
@@ -54,7 +44,6 @@ xf86-input-vmmouse
 xf86-input-wacom
 xorg
 xorg-input-drivers
-xorg-minimal
 xorg-video-drivers
 
 # codec
@@ -84,12 +73,9 @@ gnome-keyring
 polkit-elogind
 
 # printer
-bluez-cups
 cups
 
 # tools
-ImageMagick
-avahi
 brightnessctl
 earlyoom
 fish-shell
@@ -97,7 +83,6 @@ glibc-locales
 gptfdisk
 opendoas
 vim
-vpsm
 vsv
 xtools
 zramen
@@ -113,14 +98,12 @@ xdg-utils
 # kde
 accountsservice
 colord-kde
-ffmpegthumbnailer
 ffmpegthumbs
 gnome-color-manager
 kaccounts-integration
 kaccounts-providers
 kcm-wacomtablet
 kde5
-kde5-baseapps
 kdegraphics-thumbnailers
 kdesu
 kidentitymanagement
@@ -129,9 +112,6 @@ kio-extras
 kio-gdrive
 ksuperkey
 libappindicator
-plasma-browser-integration
-plasma-disks
-plasma-firewall
 plasma-nm
 plasma-pa
 plasma-wayland-protocols
@@ -140,11 +120,8 @@ sddm
 
 # kde apps
 dolphin
-elisa
-gwenview
 kate5
 konsole
-kwalletmanager
 
 # fonts
 xorg-fonts
@@ -183,8 +160,6 @@ l7-breeze
 l7-breeze-gtk
 l7-breeze-icons
 l7-desktop-file-utils
-l7-gwenview
-l7-kate5
 l7-kcmutils
 l7-konsole
 l7-kscreenlocker

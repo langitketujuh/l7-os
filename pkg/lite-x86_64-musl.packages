@@ -31,18 +31,15 @@ alsa-firmware
 b43-fwcutter
 broadcom-bt-firmware
 dkms
+linux-base
 linux-firmware
-linux-firmware-amd
 linux-firmware-broadcom
-linux-firmware-intel
-linux-firmware-network
-linux-firmware-nvidia
 linux-firmware-qualcomm
-wifi-firmware
 
 # xorg
-#intel-video-accel
+intel-video-accel
 mesa-ati-dri
+mesa-demos
 mesa-intel-dri
 mesa-nouveau-dri
 xf86-input-evdev
@@ -178,7 +175,6 @@ android-udev-rules
 avahi
 bind-utils
 brightnessctl
-#cmake
 cpufrequtils
 earlyoom
 fish-shell
@@ -190,7 +186,6 @@ glmark2
 gptfdisk
 hddtemp
 ifuse
-#intel-media-driver
 inxi
 libwebp
 libwebp-tools
@@ -213,7 +208,6 @@ wmctrl
 xauth
 xrandr
 xtools
-#zenity
 zramen
 
 # desktop
@@ -227,14 +221,12 @@ xdg-utils
 # kde
 accountsservice
 colord-kde
-ffmpegthumbnailer
 ffmpegthumbs
 gnome-color-manager
 kaccounts-integration
 kaccounts-providers
 kcm-wacomtablet
 kde5
-kde5-baseapps
 kdegraphics-thumbnailers
 kdesu
 kidentitymanagement
