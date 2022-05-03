@@ -25,7 +25,7 @@
 # THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #-
 
-# Make sure we don't inherit these from env.
+# make sure we don't inherit these from env.
 SOURCE_DONE=
 HOSTNAME_DONE=
 KEYBOARD_DONE=
@@ -58,7 +58,7 @@ if [ -w /proc/sys/kernel/printk ]; then
     echo 0 >/proc/sys/kernel/printk
 fi
 
-# Detect if this is an EFI system.
+# detect if this is an EFI system.
 if [ -e /sys/firmware/efi/systab ]; then
     EFI_SYSTEM=1
     EFI_FW_BITS=$(cat /sys/firmware/efi/fw_platform_size)
@@ -83,7 +83,7 @@ REVERSE="\Zr"
 UNDERLINE="\Zu"
 RESET="\Zn"
 
-# Properties shared per widget.
+# properties shared per widget.
 MENULABEL="${BOLD}Use UP and DOWN keys to navigate \
 menus. Use TAB to switch between buttons and ENTER to select.${RESET}"
 MENUSIZE="14 60 0"
@@ -333,7 +333,7 @@ show_disks() {
     # IDE
     for dev in $(ls /sys/block|grep -E '^hd'); do
         if [ "$(cat /sys/block/$dev/device/media)" = "disk" ]; then
-            # Find out nr sectors and bytes per sector;
+            # find out nr sectors and bytes per sector;
             echo "/dev/$dev"
             size=$(cat /sys/block/$dev/size)
             sectorsize=$(cat /sys/block/$dev/queue/hw_sector_size)
@@ -376,7 +376,7 @@ show_partitions() {
                 [ "$fstype" = "LVM2_member" ] && continue
                 fssize=$(lsblk -nr /dev/$part|awk '{print $4}'|head -1)
                 echo "/dev/$part"
-                # Get fs type from configuration if available. This ensures
+                # get fs type from configuration if available. This ensures
                 # that the user is faced with the proper fs type if he
                 # installs the system.
                 # Same for other devices...
@@ -386,7 +386,7 @@ show_partitions() {
             fi
         done
     done
-    # Device Mapper
+    # device Mapper
     for p in /dev/mapper/*; do
         part=$(basename $p)
         [ "${part}" = "live-rw" ] && continue
@@ -400,7 +400,7 @@ show_partitions() {
         [ -n "$fsconf" ] && fstype=$fsconf
         echo "size:${fssize:-unknown};fstype:${fstype:-none}"
     done
-    # Software raid (md)
+    # software raid (md)
     for p in $(ls -d /dev/md* 2>/dev/null|grep '[0-9]'); do
         part=$(basename $p)
         if cat /proc/mdstat|grep -qw $part; then
@@ -573,7 +573,7 @@ menu_locale() {
         echo "$f|$(iso639_language $ISO639) ($(iso3166_country $ISO3166))|" >> $TMPFILE
     done
     clear
-    # Sort by ISO-639 language names
+    # sort by ISO-639 language names
     LOCALES=$(sort -t '|' -k 2 < $TMPFILE | xargs | sed -e's/| /|/g')
     rm -f $TMPFILE
     while true; do
@@ -592,7 +592,7 @@ set_locale() {
     if [ -f $TARGETDIR/etc/default/libc-locales ]; then
         local LOCALE=$(get_option LOCALE)
         sed -i -e "s|LANG=.*|LANG=$LOCALE|g" $TARGETDIR/etc/locale.conf
-        # Uncomment locale from /etc/default/libc-locales and regenerate it.
+        # uncomment locale from /etc/default/libc-locales and regenerate it.
         sed -e "/${LOCALE}/s/^\#//" -i $TARGETDIR/etc/default/libc-locales
         echo "Running xbps-reconfigure -f glibc-locales ..." >$LOG
         chroot $TARGETDIR xbps-reconfigure -f glibc-locales >$LOG 2>&1
@@ -805,7 +805,7 @@ set_bootloader() {
 
     if [ "$dev" = "none" ]; then return; fi
 
-    # Check if it's an EFI system via efivars module.
+    # check if it's an EFI system via efivars module.
     if [ -n "$EFI_SYSTEM" ]; then
         grub_args="--target=$EFI_TARGET --efi-directory=/boot/efi --bootloader-id=LangitKetujuh --recheck"
     fi
@@ -826,16 +826,16 @@ failed to run grub-mkconfig!\nCheck $LOG for errors." ${MSGBOXSIZE}
 }
 
 test_network() {
-    # Pick a peace of data to download to ensure that a network connection is
+    # pick a peace of data to download to ensure that a network connection is
     # available.
     local file="http://alpha.de.repo.voidlinux.org/live/xtraeme.asc"
 
-    # Download file with XBPS, remove it directly afterwards
+    # download file with XBPS, remove it directly afterwards
     xbps-uhelper fetch "$file" >$LOG 2>&1
     local status=$?
     rm -f xtraeme.asc
 
-    # If next error `$?` is 0, no error detected. Network is reachable.
+    # if next error `$?` is 0, no error detected. Network is reachable.
     if [ $status -eq 0 ]; then
         DIALOG --msgbox "Network is working properly!" ${MSGBOXSIZE}
         NETWORK_DONE=1
@@ -1064,7 +1064,7 @@ failed to create swap on ${dev}!\ncheck $LOG for errors." ${MSGBOXSIZE}
 failed to activate swap on $dev!\ncheck $LOG for errors." ${MSGBOXSIZE}
                 DIE 1
             fi
-            # Add entry for target fstab
+            # add entry for target fstab
             uuid=$(blkid -o value -s UUID "$dev")
             echo "UUID=$uuid none swap sw 0 0" >>$TARGET_FSTAB
             continue
@@ -1090,11 +1090,11 @@ failed to create filesystem $fstype on $dev!\ncheck $LOG for errors." ${MSGBOXSI
                 DIE 1
             fi
         fi
-        # Mount rootfs the first one.
+        # mount rootfs the first one.
         [ "$mntpt" != "/" ] && continue
         mkdir -p $TARGETDIR
         if [ "$fstype" = "btrfs" ]; then
-            # Setup subvolume on BTRFS partitions
+            # setup subvolume on BTRFS partitions
             echo "Mounting $dev on $mntpt ($fstype) to create subvolume @..." >$LOG
             mount -t $fstype $dev $TARGETDIR >$LOG 2>&1
             btrfs subvolume create $TARGETDIR/@ >$LOG 2>&1
@@ -1103,7 +1103,7 @@ failed to create filesystem $fstype on $dev!\ncheck $LOG for errors." ${MSGBOXSI
             echo "Remounting $dev on $mntpt ($fstype) with options [$fsopts]..." >$LOG
 
         else
-            # Setup filesystem options on other partition types
+            # setup filesystem options on other partition types
             fsopts=$FSOPTS
             echo "Mounting $dev on $mntpt ($fstype) with options [$fsopts]..." >$LOG
         fi
@@ -1113,7 +1113,7 @@ failed to create filesystem $fstype on $dev!\ncheck $LOG for errors." ${MSGBOXSI
 failed to mount $dev on ${mntpt}! check $LOG for errors." ${MSGBOXSIZE}
             DIE 1
         fi
-        # Add entry to target fstab
+        # add entry to target fstab
         uuid=$(blkid -o value -s UUID "$dev")
         if [ "$fstype" = "f2fs" ]; then
             fspassno=0
@@ -1263,7 +1263,7 @@ configured, please do so before starting the installation.${RESET}" ${MSGBOXSIZE
         return 1
     fi
 
-    # Validate filesystems after making sure bootloader is done,
+    # validate filesystems after making sure bootloader is done,
     # so that specific checks can be made based on the selection
     validate_filesystems || return 1
 
@@ -1273,7 +1273,7 @@ please do so before starting the installation.${RESET}" ${MSGBOXSIZE}
         return 1
     fi
 
-    # Validate useraccount. All parameters must be set (name, password,
+    # validate useraccount. All parameters must be set (name, password,
     # login name, groups).
     validate_useraccount
 
@@ -1291,11 +1291,11 @@ filesystems.${RESET}\n\n
 ${BOLD}Do you want to continue?${RESET}" 20 80 || return
     unset TARGETFS
 
-    # Create and mount filesystems
+    # create and mount filesystems
     create_filesystems
 
     SOURCE_DONE="$(get_option SOURCE)"
-    # If source not set use defaults.
+    # if source not set use defaults.
     if [ "$(get_option SOURCE)" = "local" -o -z "$SOURCE_DONE" ]; then
         copy_rootfs
         . /etc/default/live.conf
@@ -1303,14 +1303,17 @@ ${BOLD}Do you want to continue?${RESET}" 20 80 || return
         rm -f $TARGETDIR/etc/issue
         rm -f $TARGETDIR/usr/sbin/langitketujuh-install
         rm -f $TARGETDIR/usr/share/applications/langitketujuh.installer.desktop
-        # Remove modified sddm.conf to let sddm use the defaults.
+        # remove modified sddm.conf to let sddm use the defaults.
         rm -f $TARGETDIR/etc/sddm.conf
-        # Remove live user.
+        # remove live user.
         echo "Removing $USERNAME live user from targetdir ..." >$LOG
         chroot $TARGETDIR userdel -r $USERNAME >$LOG 2>&1
         sed -i -e "/$USERNAME ALL=.*/d" $TARGETDIR/etc/sudoers
-        # Remove doas permissions installer.
+        # remove doas permissions installer.
         sed -i -e "/permit nopass keepenv :wheel cmd langitketujuh-install/d" $TARGETDIR/etc/doas.conf
+        # remove installer from favorite menu
+        sed -i 's/langitketujuh.installer.desktop,preferred/preferred/' $TARGETDIR/usr/share/plasma/plasmoids/org.kde.plasma.kickoff/contents/config/main.xml
+        sed -i 's/langitketujuh.installer.desktop,preferred/preferred/' $TARGETDIR/usr/share/plasma/plasmoids/org.kde.plasma.kicker/contents/config/main.xml
         TITLE="Check $LOG for details ..."
         INFOBOX "Rebuilding initramfs for target ..." 4 60
         echo "Rebuilding initramfs for target ..." >$LOG
@@ -1332,7 +1335,7 @@ ${BOLD}Do you want to continue?${RESET}" 20 80 || return
 
     # copy target fstab.
     install -Dm644 $TARGET_FSTAB $TARGETDIR/etc/fstab
-    # Mount /tmp as tmpfs.
+    # mount /tmp as tmpfs.
     echo "tmpfs /tmp tmpfs defaults,nosuid,nodev 0 0" >> $TARGETDIR/etc/fstab
 
 
@@ -1344,7 +1347,7 @@ ${BOLD}Do you want to continue?${RESET}" 20 80 || return
     set_rootpassword
     set_useraccount
 
-    # Copy /etc/skel files for root.
+    # copy /etc/skel files for root.
     cp $TARGETDIR/etc/skel/.[bix]* $TARGETDIR/root
 
     NETWORK_DONE="$(get_option NETWORK)"
@@ -1479,7 +1482,7 @@ menu() {
     fi
 
     if [ $? -eq 3 ]; then
-        # Show settings
+        # show settings
         cp $CONF_FILE /tmp/conf_hidden.$$;
         sed -i "s/^ROOTPASSWORD.*/ROOTPASSWORD <-hidden->/" /tmp/conf_hidden.$$
         DIALOG --title "Saved settings for installation" --textbox /tmp/conf_hidden.$$ 14 60
