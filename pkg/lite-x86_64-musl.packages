@@ -121,6 +121,7 @@ ifuse
 inxi
 libwebp-tools
 nano
+opencv
 opendoas
 slop
 ufw
