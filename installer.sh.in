@@ -851,8 +851,8 @@ configure_wifi() {
         "SSID:" 1 1 "" 1 16 30 0 \
         "Encryption:" 2 1 "" 2 16 4 3 \
         "Password:" 3 1 "" 3 16 63 0 || return 1
-    set -- $(cat $ANSWER)
-    ssid="$1"; enc="$2"; pass="$3";
+    readarray -t values <<<$(cat $ANSWER)
+    ssid="${values[0]}"; enc="${values[1]}"; pass="${values[2]}"
 
     if [ -z "$ssid" ]; then
         DIALOG --msgbox "Invalid SSID." ${MSGBOXSIZE}
@@ -1307,6 +1307,7 @@ ${BOLD}Do you want to continue?${RESET}" 20 80 || return
         rm -f $TARGETDIR/etc/sddm.conf
         # remove live user.
         echo "Removing $USERNAME live user from targetdir ..." >$LOG
+        sed -i "s,GETTY_ARGS=\"--noclear -a $USERNAME\",GETTY_ARGS=\"--noclear\",g" $TARGETDIR/etc/sv/agetty-tty1/conf
         chroot $TARGETDIR userdel -r $USERNAME >$LOG 2>&1
         sed -i -e "/$USERNAME ALL=.*/d" $TARGETDIR/etc/sudoers
         # remove doas permissions installer.
