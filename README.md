@@ -24,7 +24,7 @@ git clone git@gitlab.com:langitketujuh/os.git --recursive
 #### Install dependencies (root)
 
 ```
-xbps-install -S git make liblz4 xbps qemu-user-static pwgen
+xbps-install -S git make liblz4 xbps qemu-user-static
 ```
 
 #### Usage

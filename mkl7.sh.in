@@ -18,7 +18,6 @@ shift $((OPTIND - 1))
 : ${ARCH:=$(uname -m)}
 
 readonly DATE=$(date +%Y%m%d)
-readonly GEN=$(pwgen -sA 7 1)
 readonly LITE_IMG=langitketujuh-lite-${ARCH}-${DATE}.iso
 readonly STUDIO_IMG=langitketujuh-studio-${ARCH}-${DATE}.iso
 readonly TEST_IMG=langitketujuh-test-${ARCH}-${DATE}.iso
