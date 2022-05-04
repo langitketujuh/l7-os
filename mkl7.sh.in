@@ -109,8 +109,6 @@ if [ -z "$IMAGE" -o "$IMAGE" = test ]; then
             -o $TEST_IMG \
             -p "$(grep '^[^#].' pkg/test-x86_64.packages)" \
             -R "$(grep '^[^#].' pkg/remove-list.packages)" \
-            -i $INITRAMFS \
-            -s $SQUASHFS \
             ${REPO} "$@"
         fi
     fi
