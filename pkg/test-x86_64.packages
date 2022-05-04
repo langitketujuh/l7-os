@@ -1,4 +1,4 @@
-## LITE EDITION
+## TEST EDITION
 
 # grub
 grub-i386-efi
@@ -42,8 +42,6 @@ xf86-input-synaptics
 xf86-input-vmmouse
 xf86-input-wacom
 xorg
-xorg-input-drivers
-xorg-video-drivers
 
 # codec
 alsa-pipewire
@@ -87,25 +85,22 @@ xdg-desktop-portal-gtk
 xdg-desktop-portal-kde
 xdg-user-dirs
 xdg-user-dirs-gtk
-xdg-utils
 
 # kde
-accountsservice
 colord-kde
 ffmpegthumbs
 gnome-color-manager
-kaccounts-integration
-kaccounts-providers
 kcm-wacomtablet
 kde5
 kdegraphics-thumbnailers
-kdesu
 kidentitymanagement
 kimageformats
-kio-extras
 kio-gdrive
 ksuperkey
 libappindicator
+plasma-browser-integration
+plasma-disks
+plasma-firewall
 plasma-nm
 plasma-pa
 plasma-wayland-protocols
@@ -113,10 +108,8 @@ qt5-virtualkeyboard
 sddm
 
 # kde apps
-dolphin
+kde5-baseapps
 kaffeine
-kate5
-konsole
 
 # fonts
 xorg-fonts
@@ -137,14 +130,12 @@ l7-fish-shell
 l7-opendoas
 l7-papirus-icon-theme
 l7-pipewire
-l7-removed-packages
 l7-runit-void
 l7-shadow
 l7-tools
 runit-backlight
 
 # l7 kde
-l7-ark
 l7-baloo5
 l7-base-files
 l7-breeze

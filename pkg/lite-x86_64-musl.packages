@@ -27,17 +27,12 @@ wget
 wpa_supplicant
 
 # firmware
-alsa-firmware
-b43-fwcutter
-broadcom-bt-firmware
 dkms
 linux-base
 linux-firmware
-linux-firmware-broadcom
 linux-firmware-qualcomm
 
 # xorg
-intel-video-accel
 mesa-ati-dri
 mesa-demos
 mesa-intel-dri
@@ -50,9 +45,6 @@ xf86-input-synaptics
 xf86-input-vmmouse
 xf86-input-wacom
 xorg
-xorg-input-drivers
-xorg-minimal
-xorg-video-drivers
 
 # vulkan
 Vulkan-Headers
@@ -69,71 +61,24 @@ alsa-pipewire
 alsa-plugins-ffmpeg
 alsa-utils
 bluez-alsa
-faac
-faad2
-ffmpeg
 flac
 gst-libav
-gst-plugins-bad1
-gst-plugins-base1
-gst-plugins-good1
 gst-plugins-ugly1
 gstreamer-vaapi
 gstreamer1-pipewire
-jasper
-lame
-libXv
-libdca
 libjack-pipewire
-libmad
-libmpeg2
 libspa-bluetooth
 libspa-jack
-libspa-v4l2
-libtheora
-libvorbis
-nv-codec-headers
-paprefs
 pipewire
-pulseaudio-utils
-v4l-utils
 v4l2loopback
 wavpack
-x264
-xvidcore
 
 # archives
-atool
 bsdtar
-bzip2
-cabextract
-cksfv
-cpio
-dpkg
-dtrx
-file-roller
-gzip
-lbzip2
-liblz4
-lrzip
-lz4
-lzf
-lzip
-lzop
 p7zip
-par2cmdline
-pax
-pbzip2
-pigz
-plzip
-rpmextract
-sharutils
-tar
-unp
 unzip
 xz
 zip
-zlib
 zstd
 zutils
 
@@ -155,10 +100,8 @@ polkit-elogind
 
 # printer
 bluez-cups
-brother-brlaser
 cups
 cups-filters
-cups-pdf
 epson-inkjet-printer-escpr
 gutenprint
 hplip
@@ -166,45 +109,24 @@ system-config-printer
 system-config-printer-udev
 
 # tools
-ImageMagick
 acpi
-acpilight
 android-tools
 android-udev-rules
-avahi
-bind-utils
-cpufrequtils
 earlyoom
 fish-shell
-font-misc-misc
 fprintd
 git
-gcompat
-glmark2
 gptfdisk
-hddtemp
 ifuse
 inxi
-libwebp
 libwebp-tools
-lm_sensors
-media-player-info
 nano
 opendoas
-pm-utils
-pwgen
-setxkbmap
 slop
-testdisk
-tree
 ufw
-upower
-vim-huge
+vim
 vpsm
 vsv
-wmctrl
-xauth
-xrandr
 xtools
 zramen
 
@@ -214,22 +136,16 @@ xdg-desktop-portal-gtk
 xdg-desktop-portal-kde
 xdg-user-dirs
 xdg-user-dirs-gtk
-xdg-utils
 
 # kde
-accountsservice
 colord-kde
 ffmpegthumbs
 gnome-color-manager
-kaccounts-integration
-kaccounts-providers
 kcm-wacomtablet
 kde5
 kdegraphics-thumbnailers
-kdesu
 kidentitymanagement
 kimageformats
-kio-extras
 kio-gdrive
 ksuperkey
 libappindicator
@@ -245,39 +161,28 @@ sddm
 # kde apps
 akregator
 ark
-bup
-dolphin
 elisa
-filelight
 gnupg2-scdaemon
 gwenview
-k3b
 kaddressbook
 kaffeine
-kamoso
-kate5
 kcalc
-kcharselect
-kcolorchooser
+kde5-baseapps
 kdeconnect
 kdepim-addons
 kget
 kgpg
 kmail
 kmediaplayer
-kolourpaint
-konsole
 kontact
 korganizer
 krdc
 krfb
 ktorrent
-kup
 kwalletmanager
 okular
 partitionmanager
 print-manager
-skanlite
 spectacle
 ssr
 
@@ -301,7 +206,6 @@ noto-fonts-cjk
 noto-fonts-emoji
 ttf-opensans
 unicode-emoji
-xorg-fonts
 
 # appareance
 papirus-icon-theme
@@ -332,7 +236,6 @@ l7-repo
 
 # l7 base
 digimend-kernel-drivers
-hblock
 l7-akregator
 l7-docs
 l7-export
