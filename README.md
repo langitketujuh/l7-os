@@ -59,6 +59,6 @@ sudo ./mkl7.sh -b studio -a i686
 ```
 
 ---
-THANKS TO:
+##### Thanks To:
 
 - VOID LINUX & CONTRIBUTOR - https://github.com/void-linux/void-mklive
