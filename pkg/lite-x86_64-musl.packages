@@ -228,9 +228,6 @@ fig2dev
 # manipulation
 gimp
 
-# utility
-flameshot
-
 # repository
 void-repo-nonfree
 l7-repo
@@ -242,7 +239,6 @@ l7-docs
 l7-export
 l7-falkon
 l7-fish-shell
-l7-flameshot
 l7-kget
 l7-kmail
 l7-korganizer
