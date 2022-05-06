@@ -128,6 +128,7 @@ ufw
 vim
 vpsm
 vsv
+wayland-utils
 xtools
 zramen
 
@@ -185,7 +186,6 @@ okular
 partitionmanager
 print-manager
 spectacle
-ssr
 
 # spam filter
 bogofilter
@@ -258,7 +258,6 @@ isoimagewriter
 l7-gimp
 l7-inkscape
 l7-libreoffice
-l7-ssr
 
 # l7 kde
 l7-ark
