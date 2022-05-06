@@ -18,7 +18,7 @@ xsane-gimp
 # photography
 Converseen
 digikam
-hugin
+#hugin #no wayland
 rawtherapee
 
 # audio editor
