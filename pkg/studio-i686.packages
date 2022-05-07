@@ -45,6 +45,7 @@ krita
 
 # record
 obs
+rnnoise
 
 # publishing
 python3-tkinter
