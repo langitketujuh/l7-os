@@ -108,9 +108,9 @@ qt5-virtualkeyboard
 sddm
 
 # kde apps
-dragon-player
 elisa
 kde5-baseapps
+vlc
 
 # fonts
 xorg-fonts

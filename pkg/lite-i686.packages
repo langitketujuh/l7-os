@@ -164,7 +164,6 @@ sddm
 # kde apps
 akregator
 ark
-dragon-player
 elisa
 gnupg2-scdaemon
 gwenview
@@ -187,6 +186,7 @@ okular
 partitionmanager
 print-manager
 spectacle
+vlc
 
 # spam filter
 bogofilter

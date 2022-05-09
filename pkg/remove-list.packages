@@ -1,9 +1,6 @@
 # bug screen tearing intel gpu
 xf86-video-intel
 
-# unused deps for kdenlive
-vlc
-
 # no support wayland
 #screenkey
 #ssr
