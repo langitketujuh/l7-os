@@ -1,9 +1,0 @@
-# bug screen tearing intel gpu
-#xf86-video-intel #fix, switch to wayland.
-
-# no support wayland
-#screenkey
-#ssr
-#hugin
-#kaffeine
-#kcm-wacomtablet

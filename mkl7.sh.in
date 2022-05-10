@@ -33,7 +33,6 @@ if [ -z "$IMAGE" -o "$IMAGE" = lite ]; then
             -a $ARCH \
             -o $LITE_IMG \
             -p "$(grep '^[^#].' pkg/lite-x86_64-musl.packages)" \
-            -R "$(grep '^[^#].' pkg/remove-list.packages)" \
             -i $INITRAMFS \
             -s $SQUASHFS \
             ${REPO} "$@"
@@ -44,7 +43,6 @@ if [ -z "$IMAGE" -o "$IMAGE" = lite ]; then
             -a $ARCH \
             -o $LITE_IMG \
             -p "$(grep '^[^#].' pkg/lite-x86_64.packages)" \
-            -R "$(grep '^[^#].' pkg/remove-list.packages)" \
             -i $INITRAMFS \
             -s $SQUASHFS \
             ${REPO} "$@"
@@ -55,7 +53,6 @@ if [ -z "$IMAGE" -o "$IMAGE" = lite ]; then
             -a $ARCH \
             -o $LITE_IMG \
             -p "$(grep '^[^#].' pkg/lite-i686.packages)" \
-            -R "$(grep '^[^#].' pkg/remove-list.packages)" \
             -i $INITRAMFS \
             -s $SQUASHFS \
             ${REPO} "$@"
@@ -70,7 +67,6 @@ if [ -z "$IMAGE" -o "$IMAGE" = studio ]; then
             -a $ARCH \
             -o $STUDIO_IMG \
             -p "$(grep '^[^#].' pkg/*-x86_64-musl.packages | cut -d ":" -f 2)" \
-            -R "$(grep '^[^#].' pkg/remove-list.packages)" \
             -i $INITRAMFS \
             -s $SQUASHFS \
             ${REPO} "$@"
@@ -81,7 +77,6 @@ if [ -z "$IMAGE" -o "$IMAGE" = studio ]; then
             -a $ARCH \
             -o $STUDIO_IMG \
             -p "$(grep '^[^#].' pkg/*-x86_64.packages | cut -d ":" -f 2)" \
-            -R "$(grep '^[^#].' pkg/remove-list.packages)" \
             -i $INITRAMFS \
             -s $SQUASHFS \
             ${REPO} "$@"
@@ -92,7 +87,6 @@ if [ -z "$IMAGE" -o "$IMAGE" = studio ]; then
             -a $ARCH \
             -o $STUDIO_IMG \
             -p "$(grep '^[^#].' pkg/*-i686.packages | cut -d ":" -f 2)" \
-            -R "$(grep '^[^#].' pkg/remove-list.packages)" \
             -i $INITRAMFS \
             -s $SQUASHFS \
             ${REPO} "$@"
@@ -107,7 +101,6 @@ if [ -z "$IMAGE" -o "$IMAGE" = test ]; then
             -a $ARCH \
             -o $TEST_IMG \
             -p "$(grep '^[^#].' pkg/test-x86_64.packages)" \
-            -R "$(grep '^[^#].' pkg/remove-list.packages)" \
             ${REPO} "$@"
         fi
     fi
