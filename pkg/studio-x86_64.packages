@@ -13,12 +13,10 @@ inkscape-generate-palette
 inkscape-inx-pathops
 inkscape-nextgenerator
 resynthesizer
-xsane-gimp
 
 # photography
 Converseen
 digikam
-#hugin #no wayland
 rawtherapee
 
 # audio editor
