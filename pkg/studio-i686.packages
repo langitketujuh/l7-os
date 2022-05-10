@@ -20,11 +20,15 @@ digikam
 rawtherapee
 
 # audio editor
+Carla
 ardour
 audacity
+cadence
 freepats
 kid3
 lmms
+python3-rdflib
+qjackctl
 soundfont-fluid
 soundkonverter
 
@@ -68,6 +72,7 @@ freecad
 # l7 studio
 l7-ardour
 l7-audacity
+l7-carla
 l7-godot
 l7-krita
 l7-obs
