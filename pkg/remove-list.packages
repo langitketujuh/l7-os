@@ -1,5 +1,5 @@
 # bug screen tearing intel gpu
-xf86-video-intel
+#xf86-video-intel #fix, switch to wayland.
 
 # no support wayland
 #screenkey

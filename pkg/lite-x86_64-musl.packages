@@ -19,10 +19,8 @@ dracut-uefi
 # network
 NetworkManager
 curl
-dhcpcd
 inetutils
 ntp
-usbutils
 wget
 wpa_supplicant
 
@@ -53,7 +51,6 @@ Vulkan-ValidationLayers
 libspa-vulkan
 mesa-vulkan-overlay-layer
 vkBasalt
-vkd3d
 amdvlk
 
 # codec
@@ -113,9 +110,8 @@ acpi
 android-tools
 android-udev-rules
 earlyoom
+fig2dev
 fish-shell
-fprintd
-git
 gptfdisk
 ifuse
 inxi
@@ -123,6 +119,7 @@ libwebp-tools
 nano
 opencv
 opendoas
+optipng
 rnnoise
 ufw
 vim
@@ -142,7 +139,6 @@ xdg-user-dirs-gtk
 # kde
 colord-kde
 ffmpegthumbs
-gnome-color-manager
 kde5
 kdegraphics-thumbnailers
 kidentitymanagement
@@ -156,28 +152,17 @@ plasma-firewall
 plasma-nm
 plasma-pa
 plasma-wayland-protocols
-qt5-virtualkeyboard
 sddm
 
 # kde apps
-akregator
 ark
 elisa
 gnupg2-scdaemon
 gwenview
-kaddressbook
 kcalc
 kde5-baseapps
 kdeconnect
-kdepim-addons
-kget
-kgpg
-kmail
 kmediaplayer
-kontact
-korganizer
-krdc
-krfb
 ktorrent
 kwalletmanager
 okular
@@ -186,24 +171,13 @@ print-manager
 spectacle
 vlc
 
-# spam filter
-bogofilter
-
 # package manager
-flatpak
 octoxbps
 
 # fonts
 amiri-font
 font-awesome5
-font-sil-alkalami
-font-sil-awami-nastaliq
-font-sil-harmattan
-font-sil-lateef
-font-sil-scheherazade
 liberation-fonts-ttf
-noto-fonts-cjk
-noto-fonts-emoji
 ttf-opensans
 unicode-emoji
 
@@ -222,8 +196,6 @@ xournalpp
 
 # vector
 inkscape
-optipng
-fig2dev
 
 # manipulation
 gimp
@@ -234,14 +206,9 @@ l7-repo
 
 # l7 base
 digimend-kernel-drivers
-l7-akregator
 l7-docs
 l7-export
-#l7-falkon
 l7-fish-shell
-l7-kget
-l7-kmail
-l7-korganizer
 l7-octoxbps
 l7-opendoas
 l7-papirus-icon-theme
