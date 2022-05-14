@@ -28,7 +28,7 @@ if [ -x ${NEWROOT}/usr/bin/sddm ]; then
 User=anon
 
 [General]
-DisplayServer=wayland
+DisplayServer=plasma
 _EOF
 fi
 
