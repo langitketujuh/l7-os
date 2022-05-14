@@ -119,7 +119,6 @@ ifuse
 inxi
 libwebp-tools
 nano
-opencv
 opendoas
 optipng
 rnnoise
