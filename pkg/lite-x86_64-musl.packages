@@ -155,6 +155,7 @@ sddm
 
 # kde apps
 ark
+akregator
 dragon-player
 elisa
 gnupg2-scdaemon
@@ -162,6 +163,7 @@ gwenview
 kcalc
 kde5-baseapps
 kdeconnect
+kmail
 kmediaplayer
 ktorrent
 kwalletmanager
@@ -208,6 +210,7 @@ digimend-kernel-drivers
 l7-docs
 l7-export
 l7-fish-shell
+l7-kmail
 l7-octoxbps
 l7-opendoas
 l7-papirus-icon-theme
@@ -227,6 +230,7 @@ l7-libreoffice
 
 # l7 kde
 l7-ark
+l7-akregator
 l7-baloo5
 l7-base-files
 l7-breeze
