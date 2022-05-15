@@ -155,6 +155,7 @@ sddm
 
 # kde apps
 ark
+dragon-player
 elisa
 gnupg2-scdaemon
 gwenview
@@ -168,7 +169,6 @@ okular
 partitionmanager
 print-manager
 spectacle
-vlc
 
 # package manager
 octoxbps
