@@ -104,7 +104,6 @@ plasma-firewall
 plasma-nm
 plasma-pa
 plasma-wayland-protocols
-qt5-virtualkeyboard
 sddm
 
 # kde apps
