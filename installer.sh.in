@@ -1303,11 +1303,11 @@ ${BOLD}Do you want to continue?${RESET}" 20 80 || return
         rm -f $TARGETDIR/etc/issue
         rm -f $TARGETDIR/usr/sbin/langitketujuh-install
         rm -f $TARGETDIR/usr/share/applications/langitketujuh.installer.desktop
-        # add modified sddm.conf to use plasma/wayland session.
+        # add modified sddm.conf to use plasma.desktop session (default: wayland).
         if [ -x $TARGETDIR/usr/bin/sddm ]; then
         cat > $TARGETDIR/etc/sddm.conf <<_EOF
 [General]
-DisplayServer=plasma
+DisplayServer=plasma.desktop
 _EOF
         fi
         # remove live user.
