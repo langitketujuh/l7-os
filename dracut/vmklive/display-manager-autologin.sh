@@ -21,12 +21,15 @@ if [ -d ${NEWROOT}/etc/gdm ]; then
     fi
 fi
 
-# Configure sddm autologin for the kde iso.
+# Configure sddm autologin for the kde iso. session: plasma or wayland.
 if [ -x ${NEWROOT}/usr/bin/sddm ]; then
     cat > ${NEWROOT}/etc/sddm.conf <<_EOF
 [Autologin]
 User=anon
-Session=plasma.desktop
+Session=plasma
+
+[General]
+DisplayServer=plasma
 _EOF
 fi
 
