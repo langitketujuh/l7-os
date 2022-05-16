@@ -173,6 +173,7 @@ print-manager
 spectacle
 
 # package manager
+flatpak
 octoxbps
 
 # fonts
