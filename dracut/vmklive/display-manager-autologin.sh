@@ -26,9 +26,7 @@ if [ -x ${NEWROOT}/usr/bin/sddm ]; then
     cat > ${NEWROOT}/etc/sddm.conf <<_EOF
 [Autologin]
 User=anon
-
-[General]
-DisplayServer=plasma.desktop
+Session=plasma.desktop
 _EOF
 fi
 
