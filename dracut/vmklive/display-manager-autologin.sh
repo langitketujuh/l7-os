@@ -26,10 +26,10 @@ if [ -x ${NEWROOT}/usr/bin/sddm ]; then
     cat > ${NEWROOT}/etc/sddm.conf <<_EOF
 [Autologin]
 User=anon
-Session=plasma
+Session=wayland
 
 [General]
-DisplayServer=plasma
+DisplayServer=wayland
 _EOF
 fi
 
