@@ -1307,7 +1307,7 @@ ${BOLD}Do you want to continue?${RESET}" 20 80 || return
         if [ -x $TARGETDIR/usr/bin/sddm ]; then
         cat > $TARGETDIR/etc/sddm.conf <<_EOF
 [General]
-DisplayServer=wayland
+DisplayServer=plasmawayland
 _EOF
         fi
         # remove live user.
