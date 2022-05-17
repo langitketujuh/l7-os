@@ -69,6 +69,7 @@ libspa-jack
 pipewire
 v4l2loopback
 wavpack
+wireplumber
 
 # archives
 bsdtar
