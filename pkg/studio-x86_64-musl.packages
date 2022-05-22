@@ -54,6 +54,7 @@ python3-tkinter
 scribus
 
 # 3d animation
+goxel
 blender
 
 # 2d animation
@@ -76,6 +77,7 @@ l7-audacity
 l7-blender
 l7-carla
 l7-godot
+l7-goxel
 l7-krita
 l7-obs
 l7-opentoonz
