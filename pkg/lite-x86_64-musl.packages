@@ -110,6 +110,7 @@ system-config-printer-udev
 acpi
 android-tools
 android-udev-rules
+bottom
 earlyoom
 fig2dev
 fish-shell
@@ -155,23 +156,34 @@ plasma-wayland-protocols
 sddm
 
 # kde apps
-ark
 akregator
+ark
 dragon-player
 elisa
 gnupg2-scdaemon
 gwenview
+kamoso
 kcalc
 kde5-baseapps
 kdeconnect
+kgpg
 kmail
 kmediaplayer
+krdc
+krfb
 ktorrent
 kwalletmanager
 okular
 partitionmanager
 print-manager
+skanpage
 spectacle
+
+# encrypt
+cryfs
+encfs
+gocryptfs
+plasma-vault
 
 # package manager
 flatpak
