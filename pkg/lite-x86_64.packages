@@ -155,6 +155,7 @@ plasma-firewall
 plasma-nm
 plasma-pa
 plasma-wayland-protocols
+qt5-imageformats
 sddm
 
 # kde apps
