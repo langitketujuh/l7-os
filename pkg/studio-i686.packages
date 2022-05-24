@@ -1,10 +1,5 @@
 ## STUDIO EDITION
 
-# callibration
-lcms2
-python-dbus
-dispcalGUI
-
 # plugins
 gimp-lqr-plugin
 gmic
@@ -21,7 +16,6 @@ rawtherapee
 
 # audio editor
 Carla
-abGate
 ardour
 audacity
 cadence
@@ -30,8 +24,14 @@ freepats
 kid3
 lmms
 python3-rdflib
-qjackctl
 soundkonverter
+
+# audio plugin
+abGate
+invada-studio-plugins
+invada-studio-plugins-lv2
+swh-lv2
+x42-plugins
 
 # video editor
 handbrake
