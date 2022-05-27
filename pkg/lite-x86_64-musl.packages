@@ -159,7 +159,6 @@ sddm
 # kde apps
 akregator
 ark
-dragon-player
 elisa
 gnupg2-scdaemon
 gwenview
@@ -180,6 +179,9 @@ partitionmanager
 print-manager
 skanpage
 spectacle
+
+# video player
+vlc
 
 # encrypt
 cryfs

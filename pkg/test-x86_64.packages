@@ -108,9 +108,11 @@ qt5-imageformats
 sddm
 
 # kde apps
-dragon-player
 elisa
 kde5-baseapps
+
+# video player
+vlc
 
 # fonts
 xorg-fonts
