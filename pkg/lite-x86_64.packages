@@ -111,12 +111,12 @@ system-config-printer-udev
 acpi
 android-tools
 android-udev-rules
-bottom
 earlyoom
 fig2dev
 fish-shell
 glibc-locales
 gptfdisk
+htop
 ifuse
 inxi
 libwebp-tools
