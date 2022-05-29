@@ -828,7 +828,7 @@ failed to run grub-mkconfig!\nCheck $LOG for errors." ${MSGBOXSIZE}
 test_network() {
     # pick a peace of data to download to ensure that a network connection is
     # available.
-    local file="http://alpha.de.repo.voidlinux.org/live/xtraeme.asc"
+    local file="http://repo-default.voidlinux.org/live/xtraeme.asc"
 
     # download file with XBPS, remove it directly afterwards
     xbps-uhelper fetch "$file" >$LOG 2>&1
