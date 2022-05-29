@@ -137,6 +137,11 @@ install_packages() {
     sed -i "$ROOTFS"/etc/default/grub -res'#^(GRUB_DISTRIBUTOR).*#GRUB_DISTRIBUTOR="LangitKetujuh"#'
     sed -i 's/Void/LangitKetujuh/g' "$ROOTFS"/etc/runit/1
 
+    # disable kmail first-start for live usb
+    if [ -f "$ROOTFS"/etc/skel/.config/kmail2rc ]; then
+    sed -i 's/first-start=true/first-start=false/g' "$ROOTFS"/etc/skel/.config/kmail2rc
+    fi
+
     # qtwebengine dark-mode
     echo "QTWEBENGINE_CHROMIUM_FLAGS=--force-dark-mode" >> "$ROOTFS"/etc/environment
 
