@@ -197,8 +197,8 @@ octoxbps
 amiri-font
 font-awesome5
 liberation-fonts-ttf
+noto-fonts-emoji
 ttf-opensans
-unicode-emoji
 
 # appareance
 papirus-icon-theme
