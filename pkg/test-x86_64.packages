@@ -125,7 +125,6 @@ firefox
 geckodriver
 
 # repository
-void-repo-nonfree
 l7-repo
 
 # l7 base
