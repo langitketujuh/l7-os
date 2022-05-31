@@ -1303,10 +1303,6 @@ ${BOLD}Do you want to continue?${RESET}" 20 80 || return
         rm -f $TARGETDIR/etc/issue
         rm -f $TARGETDIR/usr/sbin/langitketujuh-install
         rm -f $TARGETDIR/usr/share/applications/langitketujuh.installer.desktop
-        # re-enable kmail first-start
-        if [ -f $TARGETDIR/etc/skel/.config/kmail2rc ]; then
-        sed -i 's/first-start=false/first-start=true/g' $TARGETDIR/etc/skel/.config/kmail2rc
-        fi
         # sddm use the defaults settings l7-sddm.
         if [ -x $TARGETDIR/usr/bin/sddm ]; then
         cat > $TARGETDIR/etc/sddm.conf <<_EOF
