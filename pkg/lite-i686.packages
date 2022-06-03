@@ -102,7 +102,6 @@ cups-filters
 epson-inkjet-printer-escpr
 gutenprint
 hplip
-nss-mdns
 system-config-printer
 system-config-printer-udev
 
@@ -158,7 +157,6 @@ qt5-imageformats
 sddm
 
 # kde apps
-akregator
 ark
 elisa
 gnupg2-scdaemon
@@ -168,7 +166,6 @@ kcalc
 kde5-baseapps
 kdeconnect
 kgpg
-kmail
 kmediaplayer
 kolourpaint
 krdc
@@ -229,7 +226,6 @@ digimend-kernel-drivers
 l7-docs
 l7-export
 l7-fish-shell
-l7-kmail
 l7-krunner
 l7-octoxbps
 l7-opendoas
@@ -250,7 +246,6 @@ l7-libreoffice
 
 # l7 kde
 l7-ark
-l7-akregator
 l7-baloo5
 l7-base-files
 l7-breeze
