@@ -46,6 +46,7 @@ xorg
 # codec
 alsa-pipewire
 alsa-plugins-ffmpeg
+alsa-plugins-jack
 alsa-utils
 bluez-alsa
 pipewire
