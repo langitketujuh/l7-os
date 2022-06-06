@@ -67,6 +67,7 @@ libjack-pipewire
 libspa-bluetooth
 libspa-jack
 pipewire
+pulseaudio-utils
 v4l2loopback
 wavpack
 

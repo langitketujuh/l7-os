@@ -49,6 +49,7 @@ alsa-plugins-ffmpeg
 alsa-utils
 bluez-alsa
 pipewire
+pulseaudio-utils
 
 # filesystem
 exfat-utils
