@@ -86,6 +86,7 @@ zramen
 xdg-desktop-portal
 xdg-desktop-portal-gtk
 xdg-desktop-portal-kde
+xdg-desktop-portal-wlr
 xdg-user-dirs
 xdg-user-dirs-gtk
 

@@ -135,6 +135,7 @@ zramen
 xdg-desktop-portal
 xdg-desktop-portal-gtk
 xdg-desktop-portal-kde
+xdg-desktop-portal-wlr
 xdg-user-dirs
 xdg-user-dirs-gtk
 
@@ -196,7 +197,13 @@ octoxbps
 # fonts
 amiri-font
 font-awesome5
+font-sil-alkalami
+font-sil-awami-nastaliq
+font-sil-harmattan
+font-sil-lateef
+font-sil-scheherazade
 liberation-fonts-ttf
+noto-fonts-cjk
 noto-fonts-emoji
 ttf-opensans
 
