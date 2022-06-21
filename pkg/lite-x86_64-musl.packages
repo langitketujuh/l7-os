@@ -25,6 +25,7 @@ wget
 wpa_supplicant
 
 # firmware
+b43-fwcutter
 dkms
 linux-base
 linux-firmware
