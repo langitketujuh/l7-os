@@ -116,6 +116,7 @@ earlyoom
 fig2dev
 fish-shell
 glibc-locales
+glmark2
 gptfdisk
 htop
 ifuse
@@ -174,6 +175,7 @@ kmediaplayer
 kolourpaint
 krdc
 krfb
+kronometer
 ktorrent
 kup
 kwalletmanager

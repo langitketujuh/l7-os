@@ -115,6 +115,7 @@ android-udev-rules
 earlyoom
 fig2dev
 fish-shell
+glmark2
 gptfdisk
 htop
 ifuse
@@ -173,6 +174,7 @@ kmediaplayer
 kolourpaint
 krdc
 krfb
+kronometer
 ktorrent
 kup
 kwalletmanager
