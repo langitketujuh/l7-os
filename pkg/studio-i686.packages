@@ -71,6 +71,7 @@ godot
 # parametric
 LibreCAD
 freecad
+openscad
 
 # l7 studio
 l7-ardour
@@ -80,5 +81,6 @@ l7-godot
 l7-goxel
 l7-krita
 l7-obs
+l7-openscad
 l7-opentoonz
 l7-scribus
