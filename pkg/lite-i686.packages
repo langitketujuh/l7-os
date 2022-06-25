@@ -121,10 +121,12 @@ gptfdisk
 htop
 ifuse
 inxi
+librsvg-utils
 libwebp-tools
 nano
 opendoas
 optipng
+pkg-config
 rnnoise
 ufw
 vim
