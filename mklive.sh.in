@@ -131,6 +131,13 @@ install_packages() {
         echo "ignorepkg=${f}" >> "$ROOTFS"/usr/share/xbps.d/xbps.conf
     done
 
+    # remove packages
+    LANG=C XBPS_ARCH=$BASE_ARCH "${XBPS_INSTALL_CMD}" -S -r "$ROOTFS" \
+        ${XBPS_REPOSITORY} -c "$XBPS_CACHEDIR"
+    LANG=C XBPS_ARCH=$BASE_ARCH "${XBPS_REMOVE_CMD}" -r "$ROOTFS" \
+        -c "$XBPS_CACHEDIR" -y $REMOVE_LIST
+    [ $? -ne 0 ] && die "Failed to remove $REMOVE_LIST"
+
     xbps-reconfigure -r "$ROOTFS" -f base-files >/dev/null 2>&1
 
     # grub distributor and init
@@ -325,7 +332,7 @@ generate_checksum_iso_image() {
 #
 # main()
 #
-while getopts "a:b:r:c:e:C:T:Kk:l:i:I:s:o:p:v:h" opt; do
+while getopts "a:b:r:c:e:C:T:Kk:l:i:I:s:o:p:R:v:h" opt; do
     case $opt in
         a) BASE_ARCH="$OPTARG";;
         b) BASE_SYSTEM_PKG="$OPTARG";;
@@ -340,6 +347,7 @@ while getopts "a:b:r:c:e:C:T:Kk:l:i:I:s:o:p:v:h" opt; do
         s) SQUASHFS_COMPRESSION="$OPTARG";;
         o) OUTPUT_FILE="$OPTARG";;
         p) PACKAGE_LIST="$OPTARG";;
+        R) REMOVE_LIST="$OPTARG";;
         C) BOOT_CMDLINE="$OPTARG";;
         T) BOOT_TITLE="$OPTARG";;
         v) LINUX_VERSION="$OPTARG";;
