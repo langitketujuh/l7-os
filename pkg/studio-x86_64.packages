@@ -14,6 +14,12 @@ Converseen
 digikam
 rawtherapee
 
+# color monitor
+dispcalGUI
+
+# panorama
+hugin
+
 # audio editor
 Carla
 ardour
