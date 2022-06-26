@@ -230,6 +230,10 @@ xournalpp
 # recorder
 ssr
 
+# live keyboard
+screenkey
+slop
+
 # vector
 inkscape
 
@@ -257,11 +261,9 @@ l7-v4l2loopback
 runit-backlight
 
 # l7 lite
-key-mon
 isoimagewriter
 l7-gimp
 l7-inkscape
-l7-key-mon
 l7-libreoffice
 l7-ssr
 
