@@ -127,7 +127,8 @@ install_packages() {
     [ $? -ne 0 ] && die "Failed to install $PACKAGE_LIST"
 
     # ignorepkg
-    cp "$ROOTFS"/usr/share/xbps.d/xbps.conf "$ROOTFS"/etc/xbps.d/
+    mkdir -p "$ROOTFS"/etc/xbps.d/
+    cp -r "$ROOTFS"/usr/share/xbps.d/xbps.conf "$ROOTFS"/etc/xbps.d/
     for f in ${REMOVE_LIST}; do
         echo "ignorepkg=${f}" >> "$ROOTFS"/etc/xbps.d/xbps.conf
     done
