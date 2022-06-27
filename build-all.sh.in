@@ -1,9 +1,9 @@
 #!/usr/bin/env sh
 # Make sure we don't inherit these from env.
 
-bash mkl7.sh -b studio -a x86_64
 bash mkl7.sh -b studio -a x86_64-musl
+bash mkl7.sh -b studio -a x86_64
 bash mkl7.sh -b studio -a i686
-bash mkl7.sh -b lite -a x86_64
 bash mkl7.sh -b lite -a x86_64-musl
+bash mkl7.sh -b lite -a x86_64
 bash mkl7.sh -b lite -a i686
