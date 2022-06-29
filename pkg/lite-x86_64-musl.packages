@@ -229,6 +229,9 @@ xournalpp
 # recorder
 ssr
 
+# cpu control
+corectrl
+
 # live keyboard
 screenkey
 slop
