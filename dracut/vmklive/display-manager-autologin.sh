@@ -27,9 +27,6 @@ if [ -x ${NEWROOT}/usr/bin/sddm ]; then
 [Autologin]
 User=anon
 Session=plasma
-
-[General]
-DisplayServer=plasma
 _EOF
 fi
 
