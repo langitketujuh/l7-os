@@ -56,6 +56,10 @@ krita
 # record
 obs
 
+# live keyboard
+screenkey
+slop
+
 # publishing
 python3-tkinter
 scribus

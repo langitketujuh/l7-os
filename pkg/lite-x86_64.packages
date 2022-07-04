@@ -233,10 +233,6 @@ ssr
 # cpu control
 corectrl
 
-# live keyboard
-screenkey
-slop
-
 # vector
 inkscape
 
