@@ -4,6 +4,6 @@
 bash mkl7.sh -b studio -a x86_64-musl
 bash mkl7.sh -b studio -a x86_64
 bash mkl7.sh -b studio -a i686
-bash mkl7.sh -b lite -a x86_64-musl
-bash mkl7.sh -b lite -a x86_64
-bash mkl7.sh -b lite -a i686
+bash mkl7.sh -b home -a x86_64-musl
+bash mkl7.sh -b home -a x86_64
+bash mkl7.sh -b home -a i686

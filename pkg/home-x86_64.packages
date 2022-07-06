@@ -1,4 +1,4 @@
-## LITE EDITION
+## HOME EDITION
 
 # grub
 grub-i386-efi
@@ -259,7 +259,7 @@ l7-tools
 l7-v4l2loopback
 runit-backlight
 
-# l7 lite
+# l7 home
 isoimagewriter
 l7-gimp
 l7-inkscape

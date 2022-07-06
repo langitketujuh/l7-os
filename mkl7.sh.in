@@ -9,7 +9,7 @@ while getopts "a:b:hr:" opt; do
     case $opt in
         a) ARCH="$OPTARG";;
         b) IMAGE="$OPTARG";;
-        h) echo "${0#/*}: [-a x86_64|x86_64-musl|i686] [-b lite|studio|test] [-r repo]" >&2; exit 1;;
+        h) echo "${0#/*}: [-a x86_64|x86_64-musl|i686] [-b home|studio|test] [-r repo]" >&2; exit 1;;
         r) REPO="-r $OPTARG $REPO";;
     esac
 done
@@ -18,7 +18,7 @@ shift $((OPTIND - 1))
 : ${ARCH:=$(uname -m)}
 
 readonly DATE=$(date +%Y%m%d)
-readonly LITE_IMG=langitketujuh-lite-${ARCH}-${DATE}.iso
+readonly HOME_IMG=langitketujuh-home-${ARCH}-${DATE}.iso
 readonly STUDIO_IMG=langitketujuh-studio-${ARCH}-${DATE}.iso
 readonly TEST_IMG=langitketujuh-test-${ARCH}-${DATE}.iso
 readonly INITRAMFS="gzip"
@@ -26,35 +26,35 @@ readonly SQUASHFS="gzip"
 
 [ ! -x mklive.sh ] && exit 0
 
-if [ -z "$IMAGE" -o "$IMAGE" = lite ]; then
+if [ -z "$IMAGE" -o "$IMAGE" = home ]; then
     if [ -z "$ARCH" -o "$ARCH" = x86_64-musl ]; then
-        if [ ! -e $LITE_IMG ]; then
+        if [ ! -e $HOME_IMG ]; then
             sh mklive.sh \
             -a $ARCH \
-            -o $LITE_IMG \
-            -p "$(grep '^[^#].' pkg/lite-x86_64-musl.packages)" \
+            -o $HOME_IMG \
+            -p "$(grep '^[^#].' pkg/home-x86_64-musl.packages)" \
             -R "$(grep '^[^#].' pkg/remove-list.packages)" \
             -i $INITRAMFS \
             -s $SQUASHFS \
             ${REPO} "$@"
         fi
         elif [ -z "$ARCH" -o "$ARCH" = x86_64 ]; then
-        if [ ! -e $LITE_IMG ]; then
+        if [ ! -e $HOME_IMG ]; then
             sh mklive.sh \
             -a $ARCH \
-            -o $LITE_IMG \
-            -p "$(grep '^[^#].' pkg/lite-x86_64.packages)" \
+            -o $HOME_IMG \
+            -p "$(grep '^[^#].' pkg/home-x86_64.packages)" \
             -R "$(grep '^[^#].' pkg/remove-list.packages)" \
             -i $INITRAMFS \
             -s $SQUASHFS \
             ${REPO} "$@"
         fi
         elif [ -z "$ARCH" -o "$ARCH" = i686 ]; then
-        if [ ! -e $LITE_IMG ]; then
+        if [ ! -e $HOME_IMG ]; then
             sh mklive.sh \
             -a $ARCH \
-            -o $LITE_IMG \
-            -p "$(grep '^[^#].' pkg/lite-i686.packages)" \
+            -o $HOME_IMG \
+            -p "$(grep '^[^#].' pkg/home-i686.packages)" \
             -R "$(grep '^[^#].' pkg/remove-list.packages)" \
             -i $INITRAMFS \
             -s $SQUASHFS \

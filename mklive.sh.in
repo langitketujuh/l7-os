@@ -71,7 +71,7 @@ Options:
  -r <repo-url>      Use this XBPS repository (may be specified multiple times).
  -c <cachedir>      Use this XBPS cache directory (a subdirectory of current 
 directory if unset).
- -e <edition>       Edition lite or pro (default lite)
+ -e <edition>       Edition home or pro (default home)
  -k <keymap>        Default keymap to use (us if unset)
  -l <locale>        Default locale to use (en_US.UTF-8 if unset).
  -i <lz4|gzip|bzip2|xz> Compression type for the initramfs image (xz if unset).
@@ -374,7 +374,7 @@ ARCH=$(xbps-uhelper arch)
 : ${SQUASHFS_COMPRESSION:=xz}
 : ${BASE_SYSTEM_PKG:=base-system}
 : ${BOOT_TITLE:="LangitKetujuh"}
-: ${EDITION:="lite"}
+: ${EDITION:="home"}
 
 # Required packages in the image for a working system.
 PACKAGE_LIST="$BASE_SYSTEM_PKG $PACKAGE_LIST"

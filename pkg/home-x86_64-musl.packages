@@ -1,4 +1,4 @@
-## LITE EDITION
+## HOME EDITION
 
 # grub
 grub-i386-efi
@@ -115,7 +115,6 @@ android-udev-rules
 earlyoom
 fig2dev
 fish-shell
-glibc-locales
 glmark2
 gptfdisk
 htop
@@ -259,7 +258,7 @@ l7-tools
 l7-v4l2loopback
 runit-backlight
 
-# l7 lite
+# l7 home
 isoimagewriter
 l7-gimp
 l7-inkscape
