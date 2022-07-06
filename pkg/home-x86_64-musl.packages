@@ -27,9 +27,11 @@ wpa_supplicant
 # firmware
 b43-fwcutter
 dkms
+linux
 linux-base
 linux-firmware
 linux-firmware-qualcomm
+linux-headers
 
 # xorg
 mesa-ati-dri
