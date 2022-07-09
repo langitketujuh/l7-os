@@ -1384,11 +1384,11 @@ ${BOLD}Do you want to continue?${RESET}" 20 80 || return
         if [ -z "$(echo $(get_option USERGROUPS) | grep -w wheel)" -a -n "$USERLOGIN" ]; then
             # enable sudo for primary user USERLOGIN who is not member of wheel
             echo "# Enable sudo for login '$USERLOGIN'" >> $TARGETDIR/etc/sudoers
-            echo "$USERLOGIN ALL=(ALL) ALL" >> $TARGETDIR/etc/sudoers
+            echo "$USERLOGIN ALL=(ALL:ALL) ALL" >> $TARGETDIR/etc/sudoers
         else
             # enable the sudoers entry for members of group wheel
             sed -i $TARGETDIR/etc/sudoers \
-                -e "s;#.*%wheel ALL=(ALL) ALL;%wheel ALL=(ALL) ALL;"
+                -e "s;#.*%wheel ALL=(ALL:ALL) ALL;%wheel ALL=(ALL:ALL) ALL;"
         fi
         unset USERLOGIN
     fi
