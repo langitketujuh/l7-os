@@ -1,9 +1,8 @@
 # bug screen tearing intel gpu
 # or fix with switch to wayland
-xf86-video-intel
+#xf86-video-intel
 
 # no yet support wayland
-
 #dispcalGUI
 #freecad
 #hugin
