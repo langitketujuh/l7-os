@@ -57,22 +57,34 @@ vkBasalt
 amdvlk
 
 # codec
+MonkeysAudio
 alsa-pipewire
 alsa-plugins-ffmpeg
 alsa-plugins-jack
 alsa-utils
 bluez-alsa
+cdparanoia
 flac
+fluidsynth
 gst-libav
 gst-plugins-ugly1
 gstreamer-vaapi
 gstreamer1-pipewire
+lame
 libjack-pipewire
 libspa-bluetooth
 libspa-jack
+mp3gain
+mplayer
+opus-tools
 pipewire
 pulseaudio-utils
+speex
+timidity
+twolame
 v4l2loopback
+vorbis-tools
+vorbisgain
 wavpack
 
 # archives
@@ -86,6 +98,7 @@ zutils
 
 # filesystem
 exfat-utils
+f2fs-tools
 gvfs-afc
 gvfs-mtp
 gvfs-smb
