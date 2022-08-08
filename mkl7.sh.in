@@ -24,7 +24,10 @@ readonly TEST_IMG=langitketujuh-test-${ARCH}-${DATE}.iso
 readonly INITRAMFS="gzip"
 readonly SQUASHFS="gzip"
 
-[ ! -x mklive.sh ] && exit 0
+if [ ! -x mklive.sh ]; then
+    echo mklive.sh not found >&2
+    exit 1
+fi
 
 if [ -z "$IMAGE" -o "$IMAGE" = home ]; then
     if [ -z "$ARCH" -o "$ARCH" = x86_64-musl ]; then
