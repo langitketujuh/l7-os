@@ -73,6 +73,7 @@ cups
 
 # tools
 earlyoom
+fastfetch
 fish-shell
 glibc-locales
 gptfdisk
