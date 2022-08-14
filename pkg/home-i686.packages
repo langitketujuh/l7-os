@@ -117,6 +117,8 @@ polkit-elogind
 bluez-cups
 cups
 cups-filters
+cups-pdf
+cups-pk-helper
 epson-inkjet-printer-escpr
 gutenprint
 hplip
