@@ -90,6 +90,7 @@ wavpack
 # archives
 bsdtar
 p7zip
+unrar
 unzip
 xz
 zip
@@ -115,11 +116,14 @@ polkit-elogind
 
 # printer
 bluez-cups
+cnijfilter2
 cups
 cups-filters
 cups-pdf
 cups-pk-helper
 epson-inkjet-printer-escpr
+foomatic-db
+foomatic-db-nonfree
 gutenprint
 hplip
 system-config-printer
@@ -257,6 +261,7 @@ inkscape
 gimp
 
 # repository
+void-repo-nonfree
 l7-repo
 
 # l7 base
