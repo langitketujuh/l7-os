@@ -285,6 +285,7 @@ l7-v4l2loopback
 runit-backlight
 
 # l7 home
+ccc
 isoimagewriter
 l7-gimp
 l7-inkscape
