@@ -226,7 +226,9 @@ octoxbps
 
 # fonts
 amiri-font
+font-awesome
 font-awesome5
+font-awesome6
 font-sil-alkalami
 font-sil-awami-nastaliq
 font-sil-harmattan
