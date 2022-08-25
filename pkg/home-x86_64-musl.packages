@@ -241,7 +241,7 @@ ttf-opensans
 papirus-icon-theme
 
 # browser
-falkon
+firefox
 
 # office
 lgi
@@ -269,7 +269,6 @@ l7-repo
 digimend-kernel-drivers
 l7-docs
 l7-export
-l7-falkon
 l7-fish-shell
 l7-krunner
 l7-octoxbps

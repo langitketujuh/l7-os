@@ -128,13 +128,12 @@ xorg-fonts
 papirus-icon-theme
 
 # browser
-falkon
+firefox
 
 # repository
 l7-repo
 
 # l7 base
-l7-falkon
 l7-fish-shell
 l7-opendoas
 l7-papirus-icon-theme
