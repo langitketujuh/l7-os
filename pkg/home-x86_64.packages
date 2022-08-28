@@ -117,6 +117,7 @@ polkit-elogind
 
 # printer
 bluez-cups
+brother-brlaser
 cnijfilter2
 cups
 cups-filters
