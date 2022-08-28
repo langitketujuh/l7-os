@@ -288,14 +288,6 @@ l7-tools
 l7-v4l2loopback
 runit-backlight
 
-# l7 home
-ccc
-isoimagewriter
-l7-gimp
-l7-inkscape
-l7-libreoffice
-l7-ssr
-
 # l7 kde
 l7-ark
 l7-baloo5
@@ -316,3 +308,11 @@ l7-plasma-framework
 l7-sddm
 l7-site
 l7-systemsettings
+
+# l7 home
+ccc
+isoimagewriter
+l7-gimp
+l7-inkscape
+l7-libreoffice
+l7-ssr
