@@ -47,6 +47,7 @@ xf86-input-synaptics
 xf86-input-vmmouse
 xf86-input-wacom
 xorg
+xorg-server-devel
 
 # vulkan
 Vulkan-Headers
