@@ -621,7 +621,7 @@ menu_timezone() {
 set_timezone() {
     local TIMEZONE="$(get_option TIMEZONE)"
 
-    sed -i -e "s|#TIMEZONE=.*|TIMEZONE=$TIMEZONE|g" $TARGETDIR/etc/rc.conf
+    ln -sf "/usr/share/zoneinfo/${TIMEZONE}" "${TARGETDIR}/etc/localtime"
 }
 
 menu_hostname() {
@@ -1074,7 +1074,7 @@ failed to activate swap on $dev!\ncheck $LOG for errors." ${MSGBOXSIZE}
             fi
             # add entry for target fstab
             uuid=$(blkid -o value -s UUID "$dev")
-            echo "UUID=$uuid none swap sw 0 0" >>$TARGET_FSTAB
+            echo "UUID=$uuid none swap defaults 0 0" >>$TARGET_FSTAB
             continue
         fi
 
@@ -1123,7 +1123,7 @@ failed to mount $dev on ${mntpt}! check $LOG for errors." ${MSGBOXSIZE}
         fi
         # add entry to target fstab
         uuid=$(blkid -o value -s UUID "$dev")
-        if [ "$fstype" = "f2fs" ]; then
+        if [ "$fstype" = "f2fs" -o "$fstype" = "btrfs" -o "$fstype" = "xfs" ]; then
             fspassno=0
         else
             fspassno=1
@@ -1148,7 +1148,12 @@ failed to mount $dev on $mntpt! check $LOG for errors." ${MSGBOXSIZE}
         fi
         # Add entry to target fstab
         uuid=$(blkid -o value -s UUID "$dev")
-        echo "UUID=$uuid $mntpt $fstype $FSOPTS 0 2" >>$TARGET_FSTAB
+        if [ "$fstype" = "f2fs" -o "$fstype" = "btrfs" -o "$fstype" = "xfs" ]; then
+            fspassno=0
+        else
+            fspassno=2
+        fi
+        echo "UUID=$uuid $mntpt $fstype defaults 0 $fspassno" >>$TARGET_FSTAB
     done
 }
 
@@ -1317,7 +1322,7 @@ ${BOLD}Do you want to continue?${RESET}" 20 80 || return
         echo "Removing $USERNAME live user from targetdir ..." >$LOG
         sed -i "s,GETTY_ARGS=\"--noclear -a $USERNAME\",GETTY_ARGS=\"--noclear\",g" $TARGETDIR/etc/sv/agetty-tty1/conf
         chroot $TARGETDIR userdel -r $USERNAME >$LOG 2>&1
-        sed -i -e "/$USERNAME ALL=.*/d" $TARGETDIR/etc/sudoers
+        rm -f $TARGETDIR/etc/sudoers.d/99-langitketujuh-live
         # remove doas permissions installer.
         sed -i -e "/permit nopass keepenv :wheel cmd langitketujuh-install/d" $TARGETDIR/etc/doas.conf
         # remove installer from favorite menu
@@ -1387,16 +1392,15 @@ ${BOLD}Do you want to continue?${RESET}" 20 80 || return
         fi
     fi
 
-    if [ -f $TARGETDIR/etc/sudoers ]; then
+    if [ -d $TARGETDIR/etc/sudoers.d ]; then
         USERLOGIN="$(get_option USERLOGIN)"
         if [ -z "$(echo $(get_option USERGROUPS) | grep -w wheel)" -a -n "$USERLOGIN" ]; then
             # enable sudo for primary user USERLOGIN who is not member of wheel
-            echo "# Enable sudo for login '$USERLOGIN'" >> $TARGETDIR/etc/sudoers
-            echo "$USERLOGIN ALL=(ALL:ALL) ALL" >> $TARGETDIR/etc/sudoers
+            echo "# Enable sudo for login '$USERLOGIN'" > "$TARGETDIR/etc/sudoers.d/$USERLOGIN"
+            echo "$USERLOGIN ALL=(ALL:ALL) ALL" >> "$TARGETDIR/etc/sudoers.d/$USERLOGIN"
         else
             # enable the sudoers entry for members of group wheel
-            sed -i $TARGETDIR/etc/sudoers \
-                -e "s;#.*%wheel ALL=(ALL:ALL) ALL;%wheel ALL=(ALL:ALL) ALL;"
+            echo "%wheel ALL=(ALL:ALL) ALL" > "$TARGETDIR/etc/sudoers.d/wheel"
         fi
         unset USERLOGIN
     fi
