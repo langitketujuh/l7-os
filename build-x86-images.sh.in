@@ -29,11 +29,11 @@ build_variant() {
 
     case $variant in
         kde-home)
-            PKGS="$(grep '^[^#].' pkg/home.packages)"
+            PKGS="$(grep '^[^#].' pkg/kde-home.packages)"
             SERVICES="$SERVICES NetworkManager backlight bluetoothd bluez-alsa cupsd dbus elogind ntpd sddm ufw uuidd zramen"
         ;;
         kde-studio)
-            PKGS="$(grep '^[^#].' pkg/*.packages | cut -d ":" -f 2)"
+            PKGS="$(grep '^[^#].' pkg/kde-*.packages | cut -d ":" -f 2)"
             SERVICES="$SERVICES NetworkManager backlight bluetoothd bluez-alsa cupsd dbus elogind ntpd sddm ufw uuidd zramen"
         ;;
         *)
