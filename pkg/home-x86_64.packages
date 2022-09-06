@@ -143,6 +143,7 @@ fish-shell
 glibc-locales
 glmark2
 gptfdisk
+helix
 htop
 ifuse
 inxi
@@ -254,6 +255,7 @@ firefox
 lgi
 libreoffice
 libreoffice-kde
+qownnotes
 xournalpp
 
 # recorder
@@ -316,4 +318,5 @@ isoimagewriter
 l7-gimp
 l7-inkscape
 l7-libreoffice
+l7-qownnotes
 l7-ssr
