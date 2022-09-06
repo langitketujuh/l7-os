@@ -34,28 +34,20 @@ cd os
 make
 ```
 
-and then see the usage output:
-
-```
-sudo ./mkl7.sh -h
-```
-
 #### How to build iso (root)
 
-##### Lite
+##### x86_64
 
 ```
-sudo ./mkl7.sh -b home -a x86_64
-sudo ./mkl7.sh -b home -a x86_64-musl
-sudo ./mkl7.sh -b home -a i686
+./build-x86-images.sh -a x86_64 -b kde-home
+./build-x86-images.sh -a x86_64 -b kde-studio
 ```
 
-##### Studio
+##### x86_64-musl
 
 ```
-sudo ./mkl7.sh -b studio -a x86_64
-sudo ./mkl7.sh -b studio -a x86_64-musl
-sudo ./mkl7.sh -b studio -a i686
+./build-x86-images.sh -a x86_64-musl -b kde-home
+./build-x86-images.sh -a x86_64-musl -b kde-studio
 ```
 
 ---

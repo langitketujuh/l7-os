@@ -1,0 +1,55 @@
+#!/bin/sh
+
+set -eu
+
+ARCH=$(uname -m)
+IMAGES="kde-home kde-studio"
+REPO=
+DATE=$(date +%Y%m%d)
+
+help() {
+    echo "${0#/*}: [-a arch] [-b kde-home|kde-studio] [-r repo]" >&2
+}
+
+while getopts "a:b:hr:" opt; do
+case $opt in
+    a) ARCH="$OPTARG";;
+    b) IMAGES="$OPTARG";;
+    h) help; exit 0;;
+    r) REPO="-r $OPTARG $REPO";;
+    *) help; exit 1;;
+esac
+done
+shift $((OPTIND - 1))
+
+build_variant() {
+    variant="$1"
+    IMG=langitketujuh-live-${ARCH}-${DATE}-${variant}.iso
+    SERVICES="sshd"
+
+    case $variant in
+        kde-home)
+            PKGS="$(grep '^[^#].' pkg/home.packages)"
+            SERVICES="$SERVICES NetworkManager backlight bluetoothd bluez-alsa cupsd dbus elogind ntpd sddm uuidd zramen"
+        ;;
+        kde-studio)
+            PKGS="$(grep '^[^#].' pkg/*.packages | cut -d ":" -f 2)"
+            SERVICES="$SERVICES NetworkManager backlight bluetoothd bluez-alsa cupsd dbus elogind ntpd sddm uuidd zramen"
+        ;;
+        *)
+            >&2 echo "Unknown variant $variant"
+            exit 1
+        ;;
+    esac
+
+    ./mklive.sh -a "$ARCH" -o "$IMG" -p "$PKGS" -S "$SERVICES" ${REPO} "$@"
+}
+
+if [ ! -x mklive.sh ]; then
+    echo mklive.sh not found >&2
+    exit 1
+fi
+
+for image in $IMAGES; do
+    build_variant "$image"
+done

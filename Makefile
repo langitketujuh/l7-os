@@ -31,7 +31,8 @@ ALL_MASTERDIRS=$(foreach arch,$(MASTERDIRS), masterdir-$(arch))
 
 SUDO := sudo
 
-XBPS_REPOSITORY := -r https://repo-default.voidlinux.org/current -r https://repo-default.voidlinux.org/current/nonfree -r https://repo-default.voidlinux.org/current/musl -r https://repo-default.voidlinux.org/current/musl/nonfree -r https://repo-default.voidlinux.org/current/multilib -r https://repo-default.voidlinux.org/current/aarch64 -r https://al.quds.repo.langitketujuh.id/current -r https://al.quds.repo.langitketujuh.id/current/musl
+XBPS_REPOSITORY := -r https://repo-default.voidlinux.org/current -r https://repo-default.voidlinux.org/current/nonfree -r https://repo-default.voidlinux.org/current/musl -r https://repo-default.voidlinux.org/current/musl/nonfree -r https://repo-default.voidlinux.org/current/aarch64 -r https://al.quds.repo.langitketujuh.id/current -r https://al.quds.repo.langitketujuh.id/current/musl
+
 COMPRESSOR_THREADS=2
 
 %.sh: %.sh.in
@@ -43,62 +44,4 @@ all: $(SCRIPTS)
 clean:
 	-rm -f *.sh
 
-distdir-$(DATECODE):
-	mkdir -p distdir-$(DATECODE)
-
-dist: distdir-$(DATECODE)
-	mv langitketujuh*$(DATECODE)* distdir-$(DATECODE)/
-
-rootfs-all: $(ALL_ROOTFS)
-
-rootfs-all-print:
-	@echo $(ALL_ROOTFS) | sed "s: :\n:g"
-
-langitketujuh-%-ROOTFS-$(DATECODE).tar.xz: $(SCRIPTS)
-	$(SUDO) ./mkrootfs.sh $(XBPS_REPOSITORY) -x $(COMPRESSOR_THREADS) $*
-
-platformfs-all: $(ALL_PLATFORMFS)
-
-platformfs-all-print:
-	@echo $(ALL_PLATFORMFS) | sed "s: :\n:g"
-
-langitketujuh-%-PLATFORMFS-$(DATECODE).tar.xz: $(SCRIPTS)
-	$(SUDO) ./mkplatformfs.sh $(XBPS_REPOSITORY) -x $(COMPRESSOR_THREADS) $* langitketujuh-$(shell ./lib.sh platform2arch $*)-ROOTFS-$(DATECODE).tar.xz
-
-images-all: platformfs-all images-all-sbc images-all-cloud
-
-images-all-sbc: $(ALL_SBC_IMAGES)
-
-images-all-sbc-print:
-	@echo $(ALL_SBC_IMAGES) | sed "s: :\n:g"
-
-images-all-cloud: $(ALL_CLOUD_IMAGES)
-
-images-all-print:
-	@echo $(ALL_SBC_IMAGES) $(ALL_CLOUD_IMAGES) | sed "s: :\n:g"
-
-langitketujuh-%-$(DATECODE).img.xz: langitketujuh-%-PLATFORMFS-$(DATECODE).tar.xz
-	$(SUDO) ./mkimage.sh -x $(COMPRESSOR_THREADS) langitketujuh-$*-PLATFORMFS-$(DATECODE).tar.xz
-
-# Some of the images MUST be compressed with gzip rather than xz, this
-# rule services those images.
-langitketujuh-%-$(DATECODE).tar.gz: langitketujuh-%-PLATFORMFS-$(DATECODE).tar.xz
-	$(SUDO) ./mkimage.sh -x $(COMPRESSOR_THREADS) langitketujuh-$*-PLATFORMFS-$(DATECODE).tar.xz
-
-pxe-all: $(ALL_PXE_ARCHS)
-
-pxe-all-print:
-	@echo $(ALL_PXE_ARCHS) | sed "s: :\n:g"
-
-langitketujuh-%-NETBOOT-$(DATECODE).tar.gz: $(SCRIPTS) langitketujuh-%-ROOTFS-$(DATECODE).tar.xz
-	$(SUDO) ./mknet.sh langitketujuh-$*-ROOTFS-$(DATECODE).tar.xz
-
-masterdir-all-print:
-	@echo $(ALL_MASTERDIRS) | sed "s: :\n:g"
-
-masterdir-all: $(ALL_MASTERDIRS)
-
-masterdir-%:
-	$(SUDO) docker build --build-arg REPOSITORY=$(XBPS_REPOSITORY) --build-arg ARCH=$* -t langitketujuhlinux/masterdir-$*:$(DATECODE) .
-
-.PHONY: clean dist rootfs-all-print rootfs-all platformfs-all-print platformfs-all pxe-all-print pxe-all masterdir-all-print masterdir-all masterdir-push-all
+.PHONY: clean

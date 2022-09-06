@@ -1,0 +1,19 @@
+#!/bin/bash
+
+DATECODE=$(date "+%Y%m%d")
+
+make
+
+ARCHS="$(echo x86_64{,-musl})"
+
+./build-x86-images.sh -a x86_64 -b kde-home ${REPO} "$@"
+./build-x86-images.sh -a x86_64 -b kde-studio ${REPO} "$@"
+
+./build-x86-images.sh -a x86_64-musl -b kde-home ${REPO} "$@"
+./build-x86-images.sh -a x86_64-musl -b kde-studio ${REPO} "$@"
+
+mkdir "$DATECODE"
+mv "*${DATECODE}*.iso" "$DATECODE/"
+
+cd "$DATECODE" || exit 1
+sha256sum --tag -- * > sha256sums.txt

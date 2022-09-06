@@ -4,12 +4,12 @@
 
 type getarg >/dev/null 2>&1 || . /lib/dracut-lib.sh
 
-echo langitketujuh > ${NEWROOT}/etc/hostname
+echo langitketujuh-live > ${NEWROOT}/etc/hostname
 
 AUTOLOGIN=$(getarg live.autologin)
 USERNAME=$(getarg live.user)
 USERSHELL=$(getarg live.shell)
-USERCOMMENT="LangitKetujuh"
+USERCOMMENT="LangitKetujuh Live"
 
 [ -z "$USERNAME" ] && USERNAME=anon
 [ -x $NEWROOT/bin/fish -a -z "$USERSHELL" ] && USERSHELL=/bin/fish
@@ -38,7 +38,7 @@ fi
 
 if [ -d ${NEWROOT}/etc/polkit-1 ]; then
     # If polkit is installed allow users in the wheel group to run anything.
-    cat > ${NEWROOT}/etc/polkit-1/rules.d/langitketujuh.rules <<_EOF
+    cat > ${NEWROOT}/etc/polkit-1/rules.d/langitketujuh-live.rules <<_EOF
 polkit.addAdminRule(function(action, subject) {
     return ["unix-group:wheel"];
 });
@@ -49,7 +49,7 @@ polkit.addRule(function(action, subject) {
     }
 });
 _EOF
-    chroot ${NEWROOT} chown polkitd:polkitd /etc/polkit-1/rules.d/langitketujuh.rules
+    chroot ${NEWROOT} chown polkitd:polkitd /etc/polkit-1/rules.d/langitketujuh-live.rules
 fi
 
 if [ -n "$AUTOLOGIN" ]; then

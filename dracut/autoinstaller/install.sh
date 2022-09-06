@@ -17,7 +17,7 @@ VAI_print_step() {
 VAI_welcome() {
     clear
     printf "=============================================================\n"
-    printf "=========== LangitKetujuh GNU/Linux Auto-Installer ===========\n"
+    printf "=========== LangitKetujuh GNU/Linux Auto-Installer ==========\n"
     printf "=============================================================\n"
 }
 

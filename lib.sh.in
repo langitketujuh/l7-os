@@ -82,7 +82,7 @@ mount_pseudofs() {
             # pseudofs isn't already mounted.  If it already is then
             # this is virtually impossible to troubleshoot because it
             # looks like the subsequent umount just isn't working.
-            mount -r --rbind /$f "$ROOTFS/$f" --make-rslave
+            mount -r --rbind /$f "$ROOTFS/$f"
         fi
     done
     if ! mountpoint -q "$ROOTFS/tmp" ; then
@@ -285,21 +285,19 @@ set_target_arch_from_platform() {
         bananapi*) XBPS_TARGET_ARCH="armv7l";;
         beaglebone*) XBPS_TARGET_ARCH="armv7l";;
         cubieboard2*|cubietruck*) XBPS_TARGET_ARCH="armv7l";;
-        dockstar*) XBPS_TARGET_ARCH="armv5tel";;
-        pogoplugv4*) XBPS_TARGET_ARCH="armv5tel" ;;
         odroid-u2*) XBPS_TARGET_ARCH="armv7l";;
         odroid-c2*) XBPS_TARGET_ARCH="aarch64";;
         rpi4*) XBPS_TARGET_ARCH="aarch64";;
         rpi3*) XBPS_TARGET_ARCH="aarch64";;
         rpi2*) XBPS_TARGET_ARCH="armv7l";;
         rpi*) XBPS_TARGET_ARCH="armv6l";;
-        usbarmory*) XBPS_TARGET_ARCH="armv7l";;
         ci20*) XBPS_TARGET_ARCH="mipsel";;
         i686*) XBPS_TARGET_ARCH="i686";;
         x86_64*) XBPS_TARGET_ARCH="x86_64";;
         GCP*) XBPS_TARGET_ARCH="x86_64";;
         pinebookpro*) XBPS_TARGET_ARCH="aarch64";;
         pinephone*) XBPS_TARGET_ARCH="aarch64";;
+        rock64*) XBPS_TARGET_ARCH="aarch64";;
         *) die "$PROGNAME: Unable to compute target architecture from platform";;
     esac
 
@@ -312,7 +310,6 @@ set_dracut_args_from_platform() {
     # In rare cases it is necessary to set platform specific dracut
     # args.  This is mostly the case on ARM platforms.
     case "$PLATFORM" in
-        pogoplugv4*) dracut_args="-o 'btrfs drm i18n resume terminfo'" ;;
         *) ;;
     esac
 }
@@ -321,6 +318,13 @@ set_cachedir() {
     # The package artifacts are cacheable, but they need to be isolated
     # from the host cache.
     : "${XBPS_CACHEDIR:=--cachedir=$PWD/xbps-cache/${XBPS_TARGET_ARCH}}"
+}
+
+rk33xx_flash_uboot() {
+    local dir="$1"
+    local dev="$2"
+    dd if="${dir}/idbloader.img" of="${dev}" seek=64 conv=notrunc,fsync >/dev/null 2>&1
+    dd if="${dir}/u-boot.itb" of="${dev}" seek=16384 conv=notrunc,fsync >/dev/null 2>&1
 }
 
 # These should all resolve even if they won't have the appropriate
