@@ -24,7 +24,7 @@ shift $((OPTIND - 1))
 
 build_variant() {
     variant="$1"
-    IMG=langitketujuh-live-${ARCH}-${DATE}-${variant}.iso
+    IMG=langitketujuh-${variant}-${ARCH}-${DATE}.iso
     SERVICES="sshd"
 
     case $variant in
