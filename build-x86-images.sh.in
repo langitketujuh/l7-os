@@ -25,16 +25,16 @@ shift $((OPTIND - 1))
 build_variant() {
     variant="$1"
     IMG=langitketujuh-${variant}-${ARCH}-${DATE}.iso
-    SERVICES="sshd"
+    SERVICES="dbus"
 
     case $variant in
         kde-home)
             PKGS="$(grep '^[^#].' pkg/kde-home.packages)"
-            SERVICES="$SERVICES NetworkManager backlight bluetoothd bluez-alsa cupsd dbus elogind ntpd sddm ufw uuidd zramen"
+            SERVICES="$SERVICES NetworkManager backlight bluetoothd bluez-alsa cupsd ntpd sddm ufw uuidd zramen"
         ;;
         kde-studio)
             PKGS="$(grep '^[^#].' pkg/kde-*.packages | cut -d ":" -f 2)"
-            SERVICES="$SERVICES NetworkManager backlight bluetoothd bluez-alsa cupsd dbus elogind ntpd sddm ufw uuidd zramen"
+            SERVICES="$SERVICES NetworkManager backlight bluetoothd bluez-alsa cupsd ntpd sddm ufw uuidd zramen"
         ;;
         *)
             >&2 echo "Unknown variant $variant"
