@@ -50,6 +50,12 @@ make
 ./build-x86-images.sh -a x86_64-musl -b kde-studio
 ```
 
+##### all images
+
+```
+./release.sh
+```
+
 ---
 ##### Thanks To:
 
