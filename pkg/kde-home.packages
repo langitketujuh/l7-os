@@ -10,6 +10,7 @@ dialog
 cryptsetup
 lvm2
 mdadm
+syslinux
 
 # initrd
 dracut
@@ -141,7 +142,6 @@ fig2dev
 fish-shell
 glmark2
 gptfdisk
-helix
 htop
 ifuse
 inxi
@@ -277,7 +277,6 @@ digimend-kernel-drivers
 l7-docs
 l7-export
 l7-fish-shell
-l7-helix
 l7-krunner
 l7-octoxbps
 l7-opendoas
@@ -289,6 +288,15 @@ l7-shadow
 l7-tools
 l7-v4l2loopback
 runit-backlight
+
+# l7 home
+ccc
+isoimagewriter
+l7-gimp
+l7-inkscape
+l7-libreoffice
+l7-qownnotes
+l7-ssr
 
 # l7 kde
 l7-ark
@@ -310,12 +318,3 @@ l7-plasma-framework
 l7-sddm
 l7-site
 l7-systemsettings
-
-# l7 home
-ccc
-isoimagewriter
-l7-gimp
-l7-inkscape
-l7-libreoffice
-l7-qownnotes
-l7-ssr

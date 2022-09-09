@@ -186,10 +186,6 @@ install_packages() {
     sed -i 's/preferred/langitketujuh.installer.desktop,preferred/' "$ROOTFS"/usr/share/plasma/plasmoids/org.kde.plasma.kickoff/contents/config/main.xml
     sed -i 's/preferred/langitketujuh.installer.desktop,preferred/' "$ROOTFS"/usr/share/plasma/plasmoids/org.kde.plasma.kicker/contents/config/main.xml
 
-    # Support default helix theme for root
-    chroot "$ROOTFS" mkdir "$ROOTFS"/root/.config/helix/
-    chroot "$ROOTFS" echo 'theme = "base16_transparent"' | tee "$ROOTFS"/root/.config/helix/config.toml
-
     # Cleanup and remove useless stuff.
     rm -rf "$ROOTFS"/var/cache/* "$ROOTFS"/run/* "$ROOTFS"/var/run/*
 }
