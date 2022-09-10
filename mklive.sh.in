@@ -410,8 +410,8 @@ CURRENT_STEP=0
 STEP_COUNT=9
 [ -n "${INCLUDE_DIRECTORY}" ] && STEP_COUNT=$((STEP_COUNT+1))
 
-: ${SYSLINUX_DATADIR:="$VOIDHOSTDIR"/usr/lib/syslinux}
-: ${GRUB_DATADIR:="$VOIDHOSTDIR"/usr/share/grub}
+: ${SYSLINUX_DATADIR:="$LANGITKETUJUHHOSTDIR"/usr/lib/syslinux}
+: ${GRUB_DATADIR:="$LANGITKETUJUHHOSTDIR"/usr/share/grub}
 : ${SPLASH_IMAGE:=data/splash.png}
 : ${XBPS_INSTALL_CMD:=xbps-install}
 : ${XBPS_REMOVE_CMD:=xbps-remove}

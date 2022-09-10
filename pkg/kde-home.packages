@@ -10,7 +10,6 @@ dialog
 cryptsetup
 lvm2
 mdadm
-syslinux
 
 # initrd
 dracut
