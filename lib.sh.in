@@ -331,7 +331,9 @@ rk33xx_flash_uboot() {
 # repodata files for the selected architecture.
 : "${XBPS_REPOSITORY:=--repository=https://repo-default.voidlinux.org/current \
                       --repository=https://repo-default.voidlinux.org/current/musl \
-                      --repository=https://repo-default.voidlinux.org/current/aarch64}"
+                      --repository=https://repo-default.voidlinux.org/current/aarch64 \
+                      --repository=https://al.quds.repo.langitketujuh.id/current \
+                      --repository=https://al.quds.repo.langitketujuh.id/current/musl}"
 
 
 
