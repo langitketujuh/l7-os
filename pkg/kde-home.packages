@@ -152,6 +152,7 @@ opendoas
 optipng
 pkg-config
 rnnoise
+tmux
 ufw
 vim
 vpsm
@@ -160,7 +161,6 @@ wayclip
 wayland-utils
 xtools
 yank
-zellij
 zramen
 
 # desktop
