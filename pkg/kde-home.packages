@@ -146,6 +146,7 @@ ifuse
 inxi
 librsvg-utils
 libwebp-tools
+mc
 nano
 opendoas
 optipng
@@ -159,6 +160,7 @@ wayclip
 wayland-utils
 xtools
 yank
+zellij
 zramen
 
 # desktop
