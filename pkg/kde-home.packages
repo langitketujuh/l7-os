@@ -152,6 +152,7 @@ opendoas
 optipng
 pkg-config
 rnnoise
+tmate
 tmux
 ufw
 vim
