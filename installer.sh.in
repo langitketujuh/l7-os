@@ -815,11 +815,7 @@ set_bootloader() {
     if [ -d $TARGETDIR/boot/efi/EFI/Microsoft ]; then
         sed -i 's|#HARDWARECLOCK="UTC"|HARDWARECLOCK="localtime"|' $TARGETDIR/etc/rc.conf
         # Disable set date & time automatically
-        for s in ntpd openntpd ; do
-            if [ -h $TARGETDIR/var/service/${s} ]; then
-                rm -f $TARGETDIR/var/service/${s} >$LOG 2>&1
-            fi
-        done
+        rm -f $TARGETDIR/var/service/ntpd >$LOG 2>&1
     fi
 
     echo "Running grub-install $grub_args $dev..." >$LOG
