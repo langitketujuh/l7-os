@@ -807,7 +807,7 @@ set_bootloader() {
     fi
 
     # Check if efi dual boot or more
-    if [ $(ls $TARGETDIR/boot/efi/EFI/ | wc -l) -ne 1 ]; then # if uefi not one folder
+    if [[ -n "$EFI_SYSTEM" && $(ls $TARGETDIR/boot/efi/EFI/ | wc -l) -gt 1 ]]; then # if uefi not one folder
         echo "GRUB_DISABLE_OS_PROBER=false" >> $TARGETDIR/etc/default/grub
     fi
 
