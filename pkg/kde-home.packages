@@ -20,7 +20,7 @@ dracut-uefi
 NetworkManager
 curl
 inetutils
-ntp
+openntpd
 wget
 wpa_supplicant
 
