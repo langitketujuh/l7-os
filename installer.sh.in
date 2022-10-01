@@ -442,6 +442,18 @@ ${RESET}\n" 18 80
             ${MENUSIZE} $(show_partitions)
         [ $? -ne 0 ] && return
 
+        DIALOG --title "Filesystems for mount point" --msgbox "\n
+There are ${BOLD}${RED}3 types${RESET} of mount points that we recommend. Make sure \
+you already know the type of boot mode that is being used with: \
+${BOLD}${RED}$ efibootmgr${RESET} \n\n
+1. - boot (uefi)   : ${BOLD}${RED}/boot/efi${RESET} (recommend ${BOLD}${RED}vfat${RESET} filesystem). \n
+   - boot (legacy) : ${BOLD}${RED}/boot${RESET} (recommend ${BOLD}${RED}vfat${RESET} filesystem). \n
+2. - root          : ${BOLD}${RED}/${RESET} (recommend ${BOLD}${RED}ext4${RESET}, ${BOLD}${RED}xfs${RESET}, ${BOLD}${RED}f2fs${RESET} or other filesystem). \n
+3. - home          : ${BOLD}${RED}/home${RESET} (recommend ${BOLD}${RED}ext4${RESET}, ${BOLD}${RED}xfs${RESET}, ${BOLD}${RED}f2fs${RESET} or other filesystem). \n\n
+${BOLD}${RED}Don't create linux swap${RESET}, LangitKetujuh available ZRAM to replace swap. \
+And if your storage is hardisk (not SSD) ${BOLD}${RED}don't choose f2fs${RESET} filesystem. \n
+${RESET}\n" 17 80
+
         dev=$(cat $ANSWER)
         DIALOG --title " Select the filesystem type for $dev " \
             --menu "$MENULABEL" ${MENUSIZE} \
@@ -1509,15 +1521,15 @@ DIALOG --title "${BOLD}${RED} LangitKetujuh OS Installer${RESET}" --msgbox "\n
 Welcome to the LangitKetujuh installation. A simple and minimal \
 Linux distribution based on voidlinux made from scratch \
 and built from the source package tree available for XBPS, \
-a new alternative binary package system.\n\n
+a new alternative binary package system. \
+Documentation: ${BOLD}https://panduan.langitketujuh.id${RESET} \n\n
 ${BOLD}${RED}PLEASE DON'T MOUNT ANYTHING PARTITION (e.g /run/media/...)${RESET} \n\n
 Check list partition: \n
-$ disk \n\n
+${BOLD}${RED}$ disk${RESET} \n\n
 Check boot mode (legacy/uefi): \n
-$ efibootmgr \n\n
+${BOLD}${RED}$ efibootmgr${RESET} \n\n
 Check type partition (dos/gpt): \n
-$ doas fdisk -l /dev/sda \n\n
-Docs: ${BOLD}https://panduan.langitketujuh.id${RESET}\n\n" 21 80
+${BOLD}${RED}$ doas fdisk -l /dev/<part>${RESET} \n\n" 21 80
 
 while true; do
     menu
