@@ -806,18 +806,6 @@ set_bootloader() {
         grub_args="--target=$EFI_TARGET --efi-directory=/boot/efi --bootloader-id=LangitKetujuh --recheck"
     fi
 
-    # Check if efi dual boot or more
-    if [[ -n "$EFI_SYSTEM" && $(ls $TARGETDIR/boot/efi/EFI/ | wc -l) -gt 1 ]]; then # if uefi not one folder
-        echo "GRUB_DISABLE_OS_PROBER=false" >> $TARGETDIR/etc/default/grub
-    fi
-
-    # Check hardware clock if dual boot with Windows
-    if [ -d $TARGETDIR/boot/efi/EFI/Microsoft ]; then
-        sed -i 's|#HARDWARECLOCK="UTC"|HARDWARECLOCK="localtime"|' $TARGETDIR/etc/rc.conf
-        # Disable set date & time automatically
-        rm -f $TARGETDIR/var/service/openntpd >$LOG 2>&1
-    fi
-
     echo "Running grub-install $grub_args $dev..." >$LOG
     chroot $TARGETDIR grub-install $grub_args $dev >$LOG 2>&1
     if [ $? -ne 0 ]; then
