@@ -13,5 +13,6 @@ includedir
 xbps-cache
 xbps-cachedir*
 stamps*
+otime
 !dracut/*/*.sh
 !packer/scripts/*.sh
