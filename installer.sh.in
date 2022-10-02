@@ -427,18 +427,6 @@ show_partitions() {
 menu_filesystems() {
     local dev fstype fssize mntpoint reformat
 
-        DIALOG --title "Filesystems for mountpoint" --msgbox "\n
-There are 3 types of filesystem mount points that we recommend.\n
-Make sure you already know the type of boot mode \n
-that is being used with: $ efibootmgr \n\n
-1. boot: ${BOLD}${RED}/boot/efi${RESET} for uefi, ${BOLD}${RED}/boot${RESET} for legacy. \n
-2. root: ${BOLD}${RED}/${RESET} \n
-3. home: ${BOLD}${RED}/home${RESET} \n\n
-Optional mountpoint: \n
-4. var: ${BOLD}${RED}/var${RESET} \n
-5. tmp: ${BOLD}${RED}/tmp${RESET} \n\n
-${RESET}\n" 18 80
-
     while true; do
         DIALOG --ok-label "Change" --cancel-label "Done" \
             --title " Select the partition to edit " --menu "$MENULABEL" \
@@ -452,7 +440,7 @@ There are 3 types of mount points that we recommend. \n\n
    - If BIOS Legacy : ${BOLD}${RED}/boot${RESET} (choose ${BOLD}${RED}vfat${RESET} filesystem). \n
 2. Root directory   : ${BOLD}${RED}/${RESET} (recommend ${BOLD}${RED}ext4${RESET}, ${BOLD}${RED}xfs${RESET}, ${BOLD}${RED}f2fs${RESET} or other filesystem). \n
 3. Home directory   : ${BOLD}${RED}/home${RESET} (recommend ${BOLD}${RED}ext4${RESET}, ${BOLD}${RED}xfs${RESET}, ${BOLD}${RED}f2fs${RESET} or other filesystem). \n\n
-If your storage is hardisk (not SSD) don't choose ${BOLD}${RED}f2fs${RESET} filesystem. \n
+If your storage is hardisk (not SSD) don't choose ${BOLD}${RED}f2fs${RESET} and ${BOLD}${RED}btrfs${RESET} filesystem. \n
 ${RESET}\n" 15 80
 
         dev=$(cat $ANSWER)
