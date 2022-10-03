@@ -510,10 +510,10 @@ menu_partitions() {
             DIALOG --title "Modify Partition Table on $device" --msgbox "\n
 ${software} will be executed in disk ${BOLD}${RED}$device${RESET} with ${BOLD}${RED}$disklabel${RESET} disklabel type. \
 There are 3 types of partitions that we recommend. \n\n
-1. ${BOLD}${RED}1GB${RESET} for boot directory. Current boot mode using ${BOLD}${RED}$EFI_TEXT${RESET}. \n
+1. ${BOLD}${RED}512M${RESET} for boot directory. Current boot mode using ${BOLD}${RED}$EFI_TEXT${RESET}. \n
    - If UEFI use ${BOLD}${RED}Efi system${RESET} type. \n
    - If Bios Legacy use ${BOLD}${RED}Linux filesystem${RESET} type & enable ${BOLD}${RED}boot${RESET} flag. \n
-2. ${BOLD}${RED}30GB${RESET} for root directory. (recommend 50GB or more) \n
+2. ${BOLD}${RED}40GB${RESET} for root directory. (recommend 50GB or more) \n
 3. ${BOLD}${RED}~ GB${RESET} for home directory. (recommend 100GB or more) \n\n
 Don't create ${BOLD}${RED}linux swap${RESET}, LangitKetujuh using zram to replace linux swap. \
 ${RESET}\n" 15 80
