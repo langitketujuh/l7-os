@@ -30,11 +30,11 @@ build_variant() {
     case $variant in
         kde-home)
             PKGS="$(grep '^[^#].' pkg/kde-home.packages)"
-            SERVICES="$SERVICES NetworkManager backlight bluetoothd bluez-alsa cupsd openntpd sddm ufw uuidd zramen"
+            SERVICES="$SERVICES NetworkManager backlight bluetoothd bluez-alsa cupsd openntpd sddm tlp ufw uuidd zramen"
         ;;
         kde-studio)
             PKGS="$(grep '^[^#].' pkg/kde-*.packages | cut -d ":" -f 2)"
-            SERVICES="$SERVICES NetworkManager backlight bluetoothd bluez-alsa cupsd openntpd sddm ufw uuidd zramen"
+            SERVICES="$SERVICES NetworkManager backlight bluetoothd bluez-alsa cupsd openntpd sddm tlp ufw uuidd zramen"
         ;;
         *)
             >&2 echo "Unknown variant $variant"
