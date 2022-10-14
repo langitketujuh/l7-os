@@ -322,3 +322,8 @@ l7-plasma-workspace-wallpapers
 l7-sddm
 l7-site
 l7-systemsettings
+
+# plasma
+plasma-applet-active-window-control
+plasma-onzemenu
+plasma-panel-transparency-button
