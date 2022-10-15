@@ -173,6 +173,7 @@ xdg-user-dirs
 xdg-user-dirs-gtk
 
 # kde
+appmenu-gtk3-module
 colord-kde
 ffmpegthumbs
 kde5
@@ -182,6 +183,7 @@ kimageformats
 kio-gdrive
 ksuperkey
 libappindicator
+plasma-applet-active-window-control
 plasma-browser-integration
 plasma-disks
 plasma-firewall
@@ -302,6 +304,7 @@ l7-ssr
 webapp-manager
 
 # l7 kde
+l7-appmenu-gtk3-module
 l7-ark
 l7-baloo5
 l7-base-files
@@ -322,8 +325,5 @@ l7-plasma-workspace-wallpapers
 l7-sddm
 l7-site
 l7-systemsettings
-
-# plasma
-plasma-applet-active-window-control
 plasma-onzemenu
 plasma-panel-transparency-button
