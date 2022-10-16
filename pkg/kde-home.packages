@@ -191,6 +191,7 @@ plasma-nm
 plasma-pa
 plasma-wayland-protocols
 qt5-imageformats
+qt6-wayland
 sddm
 
 # kde apps
