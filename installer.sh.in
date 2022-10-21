@@ -433,7 +433,9 @@ menu_filesystems() {
             ${MENUSIZE} $(show_partitions)
         [ $? -ne 0 ] && return
 
-        DIALOG --title "Filesystems for mount point" --msgbox "\n
+        dev=$(cat $ANSWER)
+
+        DIALOG --title "Filesystems for $dev " --msgbox "\n
 There are 3 types of mount points that we recommend. \n\n
 1. Boot directory. Current boot mode using ${BOLD}${RED}$EFI_TEXT${RESET}. \n
    - If UEFI        : ${BOLD}${RED}/boot/efi${RESET} (choose ${BOLD}${RED}vfat${RESET} filesystem). \n
@@ -443,7 +445,6 @@ There are 3 types of mount points that we recommend. \n\n
 If your storage is hardisk (not SSD) don't choose ${BOLD}${RED}f2fs${RESET} and ${BOLD}${RED}btrfs${RESET} filesystem. \n
 ${RESET}\n" 15 80
 
-        dev=$(cat $ANSWER)
         DIALOG --title " Select the filesystem type for $dev " \
             --menu "$MENULABEL" ${MENUSIZE} \
             "btrfs" "Oracle's Btrfs" \
@@ -504,11 +505,10 @@ menu_partitions() {
             "fdisk" "More advanced"
         if [ $? -eq 0 ]; then
             local software=$(cat $ANSWER)
-
-            local disklabel=$(fdisk -l $device | grep type | cut -d " " -f 3)
+            DISK_LABEL=$(fdisk -l $device | grep type | cut -d " " -f 3)
 
             DIALOG --title "Modify Partition Table on $device" --msgbox "\n
-${software} will be executed in disk ${BOLD}${RED}$device${RESET} with ${BOLD}${RED}$disklabel${RESET} disklabel type. \
+${software} will be executed in disk ${BOLD}${RED}$device${RESET} with ${BOLD}${RED}$DISK_LABEL${RESET} disklabel type. \
 There are 3 types of partitions that we recommend. \n\n
 1. ${BOLD}${RED}512M${RESET} for boot directory. Current boot mode using ${BOLD}${RED}$EFI_TEXT${RESET}. \n
    - If UEFI use ${BOLD}${RED}Efi system${RESET} type. \n
@@ -817,7 +817,6 @@ set_bootloader() {
     if [ -n "$EFI_SYSTEM" ]; then
         grub_args="--target=$EFI_TARGET --efi-directory=/boot/efi --bootloader-id=LangitKetujuh --recheck"
     fi
-
     echo "Running grub-install $grub_args $dev..." >$LOG
     chroot $TARGETDIR grub-install $grub_args $dev >$LOG 2>&1
     if [ $? -ne 0 ]; then
