@@ -97,7 +97,7 @@ WIDGET_SIZE="10 70"
 DIALOG() {
     rm -f $ANSWER
     dialog --colors --keep-tite --no-shadow --no-mouse \
-        --backtitle "${BOLD}${WHITE}LangitKetujuh installation -- https://langitketujuh.id/ (@@MKLIVE_VERSION@@)${RESET}" \
+        --backtitle "${BOLD}${WHITE}LangitKetujuh installation | https://langitketujuh.id (@@MKLIVE_VERSION@@)${RESET}" \
         --cancel-label "Back" --aspect 20 "$@" 2>$ANSWER
     return $?
 }
@@ -105,7 +105,7 @@ DIALOG() {
 INFOBOX() {
     # Note: dialog --infobox and --keep-tite don't work together
     dialog --colors --no-shadow --no-mouse \
-        --backtitle "${BOLD}${WHITE}LangitKetujuh installation -- https://langitketujuh.id/ (@@MKLIVE_VERSION@@)${RESET}" \
+        --backtitle "${BOLD}${WHITE}LangitKetujuh installation | https://langitketujuh.id (@@MKLIVE_VERSION@@)${RESET}" \
         --title "${TITLE}" --aspect 20 --infobox "$@"
 }
 
@@ -681,6 +681,14 @@ menu_useraccount() {
 
     while true; do
         _preset=$(get_option USERLOGIN)
+        DIALOG --title "Primary login name for user" --msgbox "\n
+Login name must start with a ${BOLD}${RED}lower case letter${RESET} or an ${BOLD}${RED}underscore${RESET}, \
+followed by lower case letters ${BOLD}${RED}[a-z]${RESET}, digits ${BOLD}${RED}[0-9]${RESET}, \
+underscores ${BOLD}${RED}[_]${RESET}, or dashes ${BOLD}${RED}[-]${RESET}. \
+Login name may only be up to 32 characters long. \
+They can end with a dollar sign ${BOLD}${RED}[$]${RESET}. \n\n
+For example: hervyqa, _effendi, zahra7, sky-lab, etc.
+${RESET}" 11 75
         [ -z "$_preset" ] && _preset="langitketujuh"
         DIALOG --inputbox "Enter a primary login name:" ${INPUTSIZE} "$_preset"
         if [ $? -eq 0 ]; then
@@ -702,8 +710,16 @@ menu_useraccount() {
 
     while true; do
         _preset=$(get_option USERNAME)
+        DIALOG --title "Full name for user" --msgbox "\n
+Full name suggested start with a ${BOLD}${RED}upper case${RESET} or ${BOLD}${RED}lower case letter${RESET}, \
+followed by upper case letters ${BOLD}${RED}[A-Z]${RESET}, lower case letters ${BOLD}${RED}[a-z]${RESET}, \
+digits ${BOLD}${RED}[0-9]${RESET}, underscores ${BOLD}${RED}[_]${RESET}, dashes ${BOLD}${RED}[-]${RESET}, \
+or spacebar ${BOLD}${RED}[ ]${RESET}. Full name may only be up to 32 characters long. \
+They can end with a dollar sign ${BOLD}${RED}[$]${RESET}. \n\n
+For example: Effendi Studio, Zahra Media, Skylab Production, etc. \
+${RESET}" 11 75
         [ -z "$_preset" ] && _preset="LangitKetujuh User"
-        DIALOG --inputbox "Enter a user name for login '$(get_option USERLOGIN)' :" \
+        DIALOG --inputbox "Enter a full name for login '$(get_option USERLOGIN)' :" \
             ${INPUTSIZE} "$_preset"
         if [ $? -eq 0 ]; then
             set_option USERNAME "$(cat $ANSWER)"
@@ -1467,7 +1483,7 @@ menu() {
         # Show settings
         cp $CONF_FILE /tmp/conf_hidden.$$;
         sed -i "s/^ROOTPASSWORD.*/ROOTPASSWORD <-hidden->/" /tmp/conf_hidden.$$
-        DIALOG --title "Saved settings for installation" --textbox /tmp/conf_hidden.$$ 14 60
+        DIALOG --title "Saved settings for installation" --textbox /tmp/conf_hidden.$$ 19 60
         rm /tmp/conf_hidden.$$
         return
     fi
