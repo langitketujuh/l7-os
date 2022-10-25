@@ -847,6 +847,7 @@ set_bootloader() {
         failed to run grub-mkconfig!\nCheck $LOG for errors." ${MSGBOXSIZE}
         DIE 1
     fi
+    chroot $TARGETDIR l7-tools -p >$LOG 2>&1
 }
 
 test_network() {
