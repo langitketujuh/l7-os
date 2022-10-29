@@ -159,7 +159,7 @@ install_packages() {
     xbps-reconfigure -r "$ROOTFS" -f fontconfig >/dev/null 2>&1
 
     # Change default fish-shell for root
-    chroot "$ROOTFS" chsh -s /bin/fish root
+    chroot "$ROOTFS" env -i chsh -s /usr/bin/fish root
 
     xbps-reconfigure -r "$ROOTFS" -f base-files >/dev/null 2>&1
     chroot "$ROOTFS" env -i xbps-reconfigure -f base-files
