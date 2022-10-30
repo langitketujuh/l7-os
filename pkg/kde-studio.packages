@@ -16,10 +16,10 @@ digikam
 rawtherapee
 
 # color monitor
-dispcalGUI
+#dispcalGUI
 
 # panorama
-hugin
+#hugin
 
 # audio editor
 Carla
@@ -59,8 +59,8 @@ krita
 obs
 
 # live keyboard
-screenkey
-slop
+#screenkey
+#slop
 
 # publishing
 python3-tkinter
@@ -82,7 +82,7 @@ godot
 
 # parametric
 LibreCAD
-freecad
+#freecad
 openscad
 
 # l7 studio

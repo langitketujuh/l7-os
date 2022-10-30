@@ -59,7 +59,6 @@ vkBasalt
 amdvlk
 
 # codec
-MonkeysAudio
 alsa-pipewire
 alsa-plugins-ffmpeg
 alsa-plugins-jack
@@ -201,7 +200,7 @@ gnupg2-scdaemon
 gwenview
 kamoso
 kcalc
-kcm-wacomtablet
+#kcm-wacomtablet
 kde5-baseapps
 kdeconnect
 kgpg
@@ -262,7 +261,7 @@ qownnotes
 xournalpp
 
 # recorder
-ssr
+#ssr
 
 # cpu control
 corectrl
