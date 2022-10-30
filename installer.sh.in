@@ -1302,8 +1302,11 @@ ${BOLD}Do you want to continue?${RESET}" 20 80 || return
         rm -f $TARGETDIR/etc/issue
         rm -f $TARGETDIR/usr/sbin/langitketujuh-install
         rm -f $TARGETDIR/usr/share/applications/langitketujuh.installer.desktop
-        # Remove modified sddm.conf to let sddm use the defaults.
-        rm -f $TARGETDIR/etc/sddm.conf
+        # Modified sddm.conf to let sddm use wayland session.
+        cat > $TARGETDIR/etc/sddm.conf <<_EOF
+[Autologin]
+Session=plasmawayland.desktop
+_EOF
         # Remove live user.
         echo "Removing $USERNAME live user from targetdir ..." >$LOG
         chroot $TARGETDIR userdel -r $USERNAME >$LOG 2>&1
