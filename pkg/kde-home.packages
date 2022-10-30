@@ -300,7 +300,7 @@ l7-gimp
 l7-inkscape
 l7-libreoffice
 l7-qownnotes
-l7-ssr
+#l7-ssr
 webapp-manager
 
 # l7 kde
