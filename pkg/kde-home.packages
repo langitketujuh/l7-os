@@ -30,7 +30,6 @@ broadcom-wl-dkms
 dkms
 linux
 linux-base
-linux-firmware
 linux-firmware-qualcomm
 linux-headers
 
