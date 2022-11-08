@@ -58,7 +58,6 @@ vkBasalt
 amdvlk
 
 # codec
-MonkeysAudio
 alsa-pipewire
 alsa-plugins-ffmpeg
 alsa-plugins-jack
