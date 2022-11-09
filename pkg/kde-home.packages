@@ -25,6 +25,7 @@ wget
 wpa_supplicant
 
 # firmware
+alsa-firmware
 b43-fwcutter
 broadcom-wl-dkms
 dkms
