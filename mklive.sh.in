@@ -157,6 +157,7 @@ install_packages() {
     ln -sf /usr/share/fontconfig/conf.avail/50-user.conf "$ROOTFS"/etc/fonts/conf.d/
     ln -sf /usr/share/fontconfig/conf.avail/70-no-bitmaps.conf "$ROOTFS"/etc/fonts/conf.d/
     xbps-reconfigure -r "$ROOTFS" -f fontconfig >/dev/null 2>&1
+    chroot "$ROOTFS" env -i xbps-reconfigure -f fontconfig
 
     # Change default fish-shell for root
     chroot "$ROOTFS" env -i chsh -s /usr/bin/fish root
