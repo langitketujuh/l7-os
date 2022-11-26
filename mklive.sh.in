@@ -171,7 +171,6 @@ install_packages() {
         # Activate all locales if available
         [ -s data/libc-locales ] && cp data/libc-locales "$ROOTFS"/etc/default
     fi
-    chroot "$ROOTFS" env -i xbps-reconfigure -a
 
     # Add installer applications desktop
     if [ -x installer.sh ]; then
@@ -180,7 +179,6 @@ install_packages() {
     else
         install -Dm755 /usr/sbin/langitketujuh-install "$ROOTFS"/usr/sbin/langitketujuh-install
         install -Dm755 data/installer.desktop "$ROOTFS"/usr/share/applications/langitketujuh.installer.desktop
-
     fi
 
     # Add permit installer for doas
@@ -189,6 +187,8 @@ install_packages() {
     # Add installer to favorite menu
     sed -i 's/preferred/langitketujuh.installer.desktop,preferred/' "$ROOTFS"/usr/share/plasma/plasmoids/org.kde.plasma.kickoff/contents/config/main.xml
     sed -i 's/preferred/langitketujuh.installer.desktop,preferred/' "$ROOTFS"/usr/share/plasma/plasmoids/org.kde.plasma.kicker/contents/config/main.xml
+
+    chroot "$ROOTFS" env -i xbps-reconfigure -a
 
     # Cleanup and remove useless stuff.
     rm -rf "$ROOTFS"/var/cache/* "$ROOTFS"/run/* "$ROOTFS"/var/run/*
