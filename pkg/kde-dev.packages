@@ -1,0 +1,130 @@
+## STUDIO EDITION
+
+# golang
+glide
+go
+go-langserver
+golangci-lint
+
+# gcp
+GCP-Guest-Environment
+GCP-base
+
+# python
+python3-jupyter
+python3-pip
+python3-virtualenv
+
+# rust
+cargo
+cargo-aoc
+cargo-geiger
+racer
+rust
+rust-analyzer
+rust-cargo-audit
+rust-cargo-bloat
+rust-doc
+rust-sccache
+rust-std
+
+# php
+php
+php-apache
+php-cgi
+php-embed
+php-fpm
+php-gd
+php-intl
+php-snmp
+phpMyAdmin
+
+# ruby
+mruby
+rbenv
+ruby
+
+# editor
+helix
+kdevelop
+kdevelop-pg-qt
+kdevelop-php
+neovim
+vim-huge
+vscode
+
+# lampp
+apache
+mariadb
+nginx
+
+# container
+docker
+docker-compose
+docker-gc
+docker-gen
+docker-machine
+k3d
+kubernetes
+lxc
+lxd
+podman
+
+# git
+doctl
+git-all
+gitea
+github-cli
+github-opml
+gitui
+glab
+qgit
+
+# virtual
+qemu
+virt-manager
+virt-manager-tools
+
+# iot
+arduino
+arduino-cli
+
+# compiler
+bison
+clang
+cmake
+fakeroot
+flex
+gcc-objc++
+gdb
+ghc
+icu
+libtool
+llvm
+m4
+make
+patch
+pkg-config
+pkgconf
+python3-pip
+qemu-user-static
+scons
+xorgproto
+yasm
+
+# game dev
+godot
+solarus
+
+# latex
+texlive-full
+texmaker
+texstudio
+
+# record
+obs
+
+# live keyboard
+screenkey
+slop
+

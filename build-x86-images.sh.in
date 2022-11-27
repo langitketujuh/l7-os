@@ -8,7 +8,7 @@ REPO=
 DATE=$(date +%Y%m%d)
 
 help() {
-    echo "${0#/*}: [-a arch] [-b kde-home|kde-studio] [-r repo]" >&2
+    echo "${0#/*}: [-a arch] [-b kde-home|kde-studio|kde-dev] [-r repo]" >&2
 }
 
 while getopts "a:b:hr:" opt; do
@@ -33,7 +33,11 @@ build_variant() {
             SERVICES="$SERVICES NetworkManager backlight bluetoothd bluez-alsa cupsd colord earlyoom ntpd sddm ufw uuidd zramen"
         ;;
         kde-studio)
-            PKGS="$(grep '^[^#].' pkg/kde-*.packages | cut -d ":" -f 2)"
+            PKGS="$(grep '^[^#].' pkg/kde-home.packages && grep '^[^#].' pkg/kde-studio.packages | cut -d ":" -f 2)"
+            SERVICES="$SERVICES NetworkManager backlight bluetoothd bluez-alsa cupsd colord earlyoom ntpd sddm ufw uuidd zramen"
+        ;;
+        kde-dev)
+            PKGS="$(grep '^[^#].' pkg/kde-home.packages && grep '^[^#].' pkg/kde-dev.packages | cut -d ":" -f 2)"
             SERVICES="$SERVICES NetworkManager backlight bluetoothd bluez-alsa cupsd colord earlyoom ntpd sddm ufw uuidd zramen"
         ;;
         *)
