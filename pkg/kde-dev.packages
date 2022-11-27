@@ -28,6 +28,12 @@ rust-doc
 rust-sccache
 rust-std
 
+# js
+node_exporter
+nodeenv
+nodejs
+yarn
+
 # php
 php
 php-apache
