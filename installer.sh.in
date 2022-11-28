@@ -1418,10 +1418,9 @@ menu() {
         DIALOG --default-item $DEFITEM \
             --extra-button --extra-label "Settings" \
             --title " LangitKetujuh installation menu " \
-            --menu "$MENULABEL" 10 70 0 \
+            --menu "$MENULABEL" 8 70 0 \
             "Keyboard" "Set system keyboard" \
             "Network" "Set up the network" \
-            "Source" "Set source installation" \
             "Hostname" "Set system hostname" \
             "Timezone" "Set system time zone" \
             "RootPassword" "Set system root password" \
@@ -1436,10 +1435,9 @@ menu() {
         DIALOG --default-item $DEFITEM \
             --extra-button --extra-label "Settings" \
             --title " LangitKetujuh installation menu " \
-            --menu "$MENULABEL" 10 70 0 \
+            --menu "$MENULABEL" 8 70 0 \
             "Keyboard" "Set system keyboard" \
             "Network" "Set up the network" \
-            "Source" "Set source installation" \
             "Hostname" "Set system hostname" \
             "Locale" "Set system locale" \
             "Timezone" "Set system time zone" \
