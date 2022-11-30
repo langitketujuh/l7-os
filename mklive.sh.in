@@ -42,7 +42,7 @@ die() {
 }
 print_step() {
     CURRENT_STEP=$((CURRENT_STEP+1))
-    info_msg "[${CURRENT_STEP}/${STEP_COUNT}] $@"
+    info_msg "[${CURRENT_STEP}/${STEP_COUNT}] (${STEP_DATE}) $@"
 }
 mount_pseudofs() {
     for f in sys dev proc; do
@@ -412,6 +412,7 @@ GRUB_DIR="$BOOT_DIR/grub"
 ISOLINUX_CFG="$ISOLINUX_DIR/isolinux.cfg"
 CURRENT_STEP=0
 STEP_COUNT=9
+STEP_DATE=$(date +%T-%Y/%m/%d)
 [ -n "${INCLUDE_DIRECTORY}" ] && STEP_COUNT=$((STEP_COUNT+1))
 
 : ${SYSLINUX_DATADIR:="$LANGITKETUJUHHOSTDIR"/usr/lib/syslinux}
