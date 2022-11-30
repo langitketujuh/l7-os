@@ -127,7 +127,22 @@ godot
 solarus
 
 # latex
-texlive-basic
+texlive
+texlive-BibTeX
+texlive-ConTeXt
+texlive-LuaTeX
+texlive-PythonTeX
+texlive-Xdvi
+texlive-XeTeX
+texlive-dvi
+texlive-core
+texlive-games
+texlive-humanities
+texlive-music
+texlive-pictures
+texlive-pstricks
+texlive-publishers
+texlive-science
 texmaker
 texstudio
 
