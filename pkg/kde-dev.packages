@@ -52,7 +52,7 @@ rbenv
 ruby
 
 # java
-opnjdk
+openjdk
 openjdk-jre
 
 # editor
