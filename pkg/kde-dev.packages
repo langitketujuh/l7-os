@@ -97,7 +97,6 @@ virt-manager
 virt-manager-tools
 
 # iot
-arduino
 arduino-cli
 
 # compiler
@@ -128,7 +127,7 @@ godot
 solarus
 
 # latex
-texlive-full
+texlive-basic
 texmaker
 texstudio
 
