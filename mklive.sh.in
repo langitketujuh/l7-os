@@ -42,7 +42,7 @@ die() {
 }
 print_step() {
     CURRENT_STEP=$((CURRENT_STEP+1))
-    info_msg "[${CURRENT_STEP}/${STEP_COUNT}] ($(date +%T-%Y/%m/%d)) $@"
+    info_msg "[${CURRENT_STEP}/${STEP_COUNT}] ($(date +%T)) $@"
 }
 mount_pseudofs() {
     for f in sys dev proc; do
