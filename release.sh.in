@@ -7,10 +7,13 @@ make
 ARCHS="$(echo x86_64{,-musl})"
 
 ./build-x86-images.sh -a x86_64 -b kde-home ${REPO} "$@"
-./build-x86-images.sh -a x86_64 -b kde-studio ${REPO} "$@"
-
 ./build-x86-images.sh -a x86_64-musl -b kde-home ${REPO} "$@"
+
+./build-x86-images.sh -a x86_64 -b kde-studio ${REPO} "$@"
 ./build-x86-images.sh -a x86_64-musl -b kde-studio ${REPO} "$@"
+
+./build-x86-images.sh -a x86_64 -b kde-dev ${REPO} "$@"
+./build-x86-images.sh -a x86_64-musl -b kde-dev ${REPO} "$@"
 
 mkdir "$DATECODE"
 mv *${DATECODE}*.iso $DATECODE/
