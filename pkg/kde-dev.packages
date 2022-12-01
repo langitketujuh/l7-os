@@ -136,11 +136,3 @@ texlive-Xdvi
 texlive-XeTeX
 texmaker
 texstudio
-
-# record
-obs
-
-# live keyboard
-screenkey
-slop
-
