@@ -244,12 +244,6 @@ ssr
 # cpu control
 corectrl
 
-# vector
-inkscape
-
-# manipulation
-gimp
-
 # repository
 void-repo-nonfree
 l7-repo
@@ -274,8 +268,6 @@ runit-backlight
 # l7 home
 ccc
 isoimagewriter
-l7-gimp
-l7-inkscape
 l7-libreoffice
 l7-qownnotes
 l7-ssr

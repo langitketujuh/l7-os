@@ -1,5 +1,11 @@
 ## STUDIO EDITION
 
+# vector
+inkscape
+
+# manipulation
+gimp
+
 # plugins
 gimp-lqr-plugin
 gmic
@@ -91,8 +97,10 @@ l7-ardour
 l7-audacity
 l7-blender
 l7-carla
+l7-gimp
 l7-godot
 l7-goxel
+l7-inkscape
 l7-krita
 l7-openscad
 l7-opentoonz
