@@ -167,9 +167,7 @@ install_packages() {
 
     # Enable choosen UTF-8 locale and generate it into the target rootfs.
     if [ -f "$ROOTFS"/etc/default/libc-locales ]; then
-        # sed -e "s/\#\(${LOCALE}.*\)/\1/g" -i "$ROOTFS"/etc/default/libc-locales
-        # Activate all locales if available
-        [ -s data/libc-locales ] && cp data/libc-locales "$ROOTFS"/etc/default
+        sed -e "s/\#\(${LOCALE}.*\)/\1/g" -i "$ROOTFS"/etc/default/libc-locales
     fi
 
     # Add installer applications desktop

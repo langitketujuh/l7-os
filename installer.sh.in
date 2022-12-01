@@ -589,9 +589,9 @@ set_locale() {
         local LOCALE=$(get_option LOCALE)
         sed -i -e "s|LANG=.*|LANG=$LOCALE|g" $TARGETDIR/etc/locale.conf
         # Uncomment locale from /etc/default/libc-locales and regenerate it.
-        #sed -e "/${LOCALE}/s/^\#//" -i $TARGETDIR/etc/default/libc-locales
-        #echo "Running xbps-reconfigure -f glibc-locales ..." >$LOG
-        #chroot $TARGETDIR xbps-reconfigure -f glibc-locales >$LOG 2>&1
+        sed -e "/${LOCALE}/s/^\#//" -i $TARGETDIR/etc/default/libc-locales
+        echo "Running xbps-reconfigure -f glibc-locales ..." >$LOG
+        chroot $TARGETDIR xbps-reconfigure -f glibc-locales >$LOG 2>&1
     fi
 }
 
