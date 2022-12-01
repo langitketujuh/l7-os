@@ -57,12 +57,13 @@ openjdk
 openjdk-jre
 
 # editor
+eclipse
 kdevelop
 kdevelop-pg-qt
 kdevelop-php
 neovim
+qtcreator-full
 vscode
-eclipse
 
 # lampp
 apache
