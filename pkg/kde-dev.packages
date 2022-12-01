@@ -51,18 +51,18 @@ mruby
 rbenv
 ruby
 
+
 # java
 openjdk
 openjdk-jre
 
 # editor
-helix
 kdevelop
 kdevelop-pg-qt
 kdevelop-php
 neovim
 vscode
-l7-helix
+eclipse
 
 # lampp
 apache
