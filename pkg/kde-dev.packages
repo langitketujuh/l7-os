@@ -28,6 +28,9 @@ rust-doc
 rust-sccache
 rust-std
 
+# lua
+lua
+
 # js
 node_exporter
 nodeenv
