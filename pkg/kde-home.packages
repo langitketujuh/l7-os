@@ -26,12 +26,8 @@ wpa_supplicant
 
 # firmware
 alsa-firmware
-b43-fwcutter
-broadcom-wl-dkms
-dkms
 linux
 linux-base
-linux-firmware-qualcomm
 linux-headers
 
 # xorg
@@ -137,14 +133,12 @@ earlyoom
 fastfetch
 fig2dev
 fish-shell
-glmark2
 gptfdisk
 htop
 ifuse
 inxi
 librsvg-utils
 libwebp-tools
-mc
 nano
 opendoas
 optipng
@@ -154,7 +148,7 @@ rsv
 tmate
 tmux
 ufw
-vim-huge
+vim
 vpsm
 wayclip
 wayland-utils
@@ -164,11 +158,8 @@ zramen
 
 # desktop
 xdg-desktop-portal
-xdg-desktop-portal-gtk
 xdg-desktop-portal-kde
-xdg-desktop-portal-wlr
 xdg-user-dirs
-xdg-user-dirs-gtk
 
 # kde
 appmenu-gtk3-module
@@ -201,22 +192,16 @@ kcalc
 kcm-wacomtablet
 kde5-baseapps
 kdeconnect
-kgpg
 kmediaplayer
-kolourpaint
 krdc
 krfb
-kronometer
-kteatime
 ktorrent
-kup
 kwalletmanager
 okular
 partitionmanager
 print-manager
 skanpage
 spectacle
-sweeper
 
 # video player
 vlc
@@ -236,11 +221,6 @@ amiri-font
 font-awesome
 font-awesome5
 font-awesome6
-font-sil-alkalami
-font-sil-awami-nastaliq
-font-sil-harmattan
-font-sil-lateef
-font-sil-scheherazade
 liberation-fonts-ttf
 noto-fonts-emoji
 ttf-opensans
