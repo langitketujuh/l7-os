@@ -1,4 +1,4 @@
-## STUDIO EDITION
+## DEV EDITION
 
 # golang
 glide
@@ -11,7 +11,9 @@ GCP-Guest-Environment
 GCP-base
 
 # python
+jupyterlab
 python3-jupyter
+python3-language-server
 python3-pip
 python3-virtualenv
 
@@ -30,6 +32,12 @@ rust-std
 
 # lua
 lua
+lua-language-server
+
+# haskell
+ghc
+hlint
+haskell-language-server
 
 # js
 node_exporter
@@ -54,19 +62,19 @@ mruby
 rbenv
 ruby
 
-
 # java
 openjdk
 openjdk-jre
 
 # editor
-eclipse
+helix
 kdevelop
 kdevelop-pg-qt
 kdevelop-php
 neovim
 qtcreator-full
 vscode
+l7-helix
 
 # lampp
 apache
@@ -111,7 +119,6 @@ fakeroot
 flex
 gcc-objc++
 gdb
-ghc
 icu
 libtool
 llvm
@@ -130,7 +137,8 @@ yasm
 godot
 
 # latex
-texlive-basic
+texlive
+texlive-core
 texlive-BibTeX
 texlive-ConTeXt
 texlive-LuaTeX
