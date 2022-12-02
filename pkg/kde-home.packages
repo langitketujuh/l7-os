@@ -247,6 +247,12 @@ corectrl
 void-repo-nonfree
 l7-repo
 
+# vector
+inkscape
+
+# raster
+gimp
+
 # l7 base
 digimend-kernel-drivers
 l7-docs
@@ -267,6 +273,8 @@ runit-backlight
 # l7 home
 ccc
 isoimagewriter
+l7-gimp
+l7-inkscape
 l7-libreoffice
 l7-qownnotes
 l7-ssr
@@ -294,5 +302,3 @@ l7-plasma-workspace-wallpapers
 l7-sddm
 l7-site
 l7-systemsettings
-plasma-onzemenu
-plasma-panel-transparency-button
