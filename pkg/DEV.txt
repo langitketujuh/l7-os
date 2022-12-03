@@ -85,7 +85,7 @@ l7-helix
 apache
 mariadb
 nginx
-posgresql
+postgresql
 
 # container
 docker
@@ -138,9 +138,6 @@ qemu-user-static
 scons
 xorgproto
 yasm
-
-# game dev
-godot
 
 # latex
 texlab

@@ -3,21 +3,27 @@
 set -eu
 
 ARCH=$(uname -m)
-IMAGES="kde-home kde-studio kde-dev"
+IMAGES="kde-home kde-studio kde-dev sway-home sway-studio sway-dev"
 REPO=
 DATE=$(date +%Y%m%d)
 GEN=$(pwgen -sA 7 1)
 
-PKGS_1="$(grep '^[^#].' pkg/kde-home.packages)"
-PKGS_2="$(grep '^[^#].' pkg/kde-studio.packages)"
-PKGS_3="$(grep '^[^#].' pkg/kde-dev.packages)"
+KDE="$(grep '^[^#].' pkg/KDE.txt | xargs)"
+SWAY="$(grep '^[^#].' pkg/SWAY.txt | xargs)"
 
-PKGS_HOME="$(echo $PKGS_1)"
-PKGS_STUDIO="$(echo $PKGS_1 && echo $PKGS_2 | cut -d ":" -f 2)"
-PKGS_DEV="$(echo $PKGS_1 && echo $PKGS_3 | cut -d ":" -f 2)"
+HOME="$(grep '^[^#].' pkg/HOME.txt | xargs)"
+STUDIO="$(grep '^[^#].' pkg/STUDIO.txt | xargs)"
+DEV="$(grep '^[^#].' pkg/DEV.txt | xargs)"
+
+KDE_HOME="$(echo $KDE $HOME)"
+KDE_STUDIO="$(echo $KDE $HOME $STUDIO)"
+KDE_DEV="$(echo $KDE $HOME $DEV)"
+SWAY_HOME="$(echo $SWAY $HOME)"
+SWAY_STUDIO="$(echo $SWAY $HOME $STUDIO)"
+SWAY_DEV="$(echo $SWAY $HOME $DEV)"
 
 help() {
-    echo "${0#/*}: [-a arch] [-b kde-home|kde-studio|kde-dev] [-r repo]" >&2
+    echo "${0#/*}: [-a arch] [-b kde-home|kde-studio|kde-dev|sway-home|sway-studio|sway-dev] [-r repo]" >&2
 }
 
 while getopts "a:b:hr:" opt; do
@@ -38,16 +44,28 @@ build_variant() {
 
     case $variant in
         kde-home)
-            PKGS="$PKGS_HOME"
+            PKGS="$KDE_HOME"
             SERVICES="$SERVICES NetworkManager sddm"
         ;;
         kde-studio)
-            PKGS="$PKGS_STUDIO"
+            PKGS="$KDE_STUDIO"
             SERVICES="$SERVICES NetworkManager sddm"
         ;;
         kde-dev)
-            PKGS="$PKGS_DEV"
+            PKGS="$KDE_DEV"
             SERVICES="$SERVICES NetworkManager sddm"
+        ;;
+        sway-home)
+            PKGS="$SWAY_HOME"
+            SERVICES="$SERVICES NetworkManager greetd"
+        ;;
+        sway-studio)
+            PKGS="$SWAY_STUDIO"
+            SERVICES="$SERVICES NetworkManager greetd"
+        ;;
+        sway-dev)
+            PKGS="$SWAY_DEV"
+            SERVICES="$SERVICES NetworkManager greetd"
         ;;
         *)
             >&2 echo "Unknown variant $variant"

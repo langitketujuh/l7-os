@@ -93,23 +93,6 @@ zip
 zstd
 zutils
 
-# filesystem
-exfat-utils
-f2fs-tools
-gvfs-afc
-gvfs-mtp
-gvfs-smb
-ntfs-3g
-udisks2
-
-# auth
-dbus-elogind
-dbus-elogind-libs
-dbus-elogind-x11
-elogind
-gnome-keyring
-polkit-elogind
-
 # printer
 bluez-cups
 brother-brlaser
@@ -129,24 +112,41 @@ system-config-printer-udev
 acpi
 android-tools
 android-udev-rules
+cryfs
+dbus-elogind
+dbus-elogind-libs
+dbus-elogind-x11
 earlyoom
+elogind
+encfs
+exfat-utils
+f2fs-tools
 fastfetch
 fig2dev
 fish-shell
+flatpak
+gnome-keyring
+gocryptfs
 gptfdisk
+gvfs-afc
+gvfs-mtp
+gvfs-smb
 htop
 ifuse
 inxi
 librsvg-utils
 libwebp-tools
 nano
+ntfs-3g
 opendoas
 optipng
 pkg-config
+polkit-elogind
 rnnoise
 rsv
 tmate
 tmux
+udisks2
 ufw
 vim
 vpsm
@@ -156,64 +156,7 @@ xtools
 yank
 zramen
 
-# desktop
-xdg-desktop-portal
-xdg-desktop-portal-kde
-xdg-user-dirs
-
-# kde
-appmenu-gtk3-module
-colord-kde
-ffmpegthumbs
-kde5
-kdegraphics-thumbnailers
-kidentitymanagement
-kimageformats
-kio-gdrive
-ksuperkey
-libappindicator
-plasma-applet-active-window-control
-plasma-disks
-plasma-firewall
-plasma-nm
-plasma-pa
-plasma-wayland-protocols
-qt5-imageformats
-qt6-wayland
-sddm
-
-# kde apps
-ark
-elisa
-gnupg2-scdaemon
-gwenview
-kamoso
-kcalc
-kcm-wacomtablet
-kde5-baseapps
-kdeconnect
-kmediaplayer
-krdc
-krfb
-ktorrent
-kwalletmanager
-okular
-partitionmanager
-print-manager
-skanpage
-spectacle
-
-# video player
-vlc
-
-# encrypt
-cryfs
-encfs
-gocryptfs
-plasma-vault
-
-# package manager
-flatpak
+# gui package
 octoxbps
 
 # fonts
@@ -228,6 +171,11 @@ ttf-opensans
 # appareance
 papirus-icon-theme
 
+# desktop
+xdg-desktop-portal
+xdg-desktop-portal-kde
+xdg-user-dirs
+
 # browser
 firefox
 
@@ -236,9 +184,6 @@ lgi
 libreoffice
 libreoffice-kde
 qownnotes
-
-# recorder
-ssr
 
 # cpu control
 corectrl
@@ -254,11 +199,10 @@ inkscape
 gimp
 
 # l7 base
-digimend-kernel-drivers
+l7-dconf
 l7-docs
 l7-export
 l7-fish-shell
-l7-krunner
 l7-octoxbps
 l7-opendoas
 l7-papirus-icon-theme
@@ -266,39 +210,18 @@ l7-pipewire
 l7-removed-packages
 l7-runit-void
 l7-shadow
+l7-site
 l7-tools
 l7-v4l2loopback
+digimend-kernel-drivers
 runit-backlight
 
 # l7 home
-ccc
-isoimagewriter
 l7-gimp
 l7-inkscape
 l7-libreoffice
 l7-qownnotes
 l7-ssr
+ccc
+isoimagewriter
 webapp-manager
-
-# l7 kde
-l7-appmenu-gtk3-module
-l7-ark
-l7-baloo5
-l7-base-files
-l7-breeze
-l7-breeze-gtk
-l7-breeze-icons
-l7-dconf
-l7-desktop-file-utils
-l7-gwenview
-l7-kate5
-l7-kcmutils
-l7-konsole
-l7-kscreenlocker
-l7-kservice
-l7-plasma-desktop
-l7-plasma-framework
-l7-plasma-workspace-wallpapers
-l7-sddm
-l7-site
-l7-systemsettings

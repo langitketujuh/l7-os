@@ -1,0 +1,75 @@
+## KDE
+
+# kde
+appmenu-gtk3-module
+colord-kde
+ffmpegthumbs
+kde5
+kdegraphics-thumbnailers
+kidentitymanagement
+kimageformats
+kio-gdrive
+ksuperkey
+libappindicator
+plasma-applet-active-window-control
+plasma-disks
+plasma-firewall
+plasma-nm
+plasma-pa
+plasma-wayland-protocols
+qt5-imageformats
+qt6-wayland
+sddm
+
+# kde apps
+ark
+elisa
+gnupg2-scdaemon
+gwenview
+kamoso
+kcalc
+kcm-wacomtablet
+kde5-baseapps
+kdeconnect
+kmediaplayer
+krdc
+krfb
+ktorrent
+kwalletmanager
+okular
+partitionmanager
+print-manager
+skanpage
+spectacle
+plasma-vault
+l7-krunner
+
+# video player
+vlc
+
+# browser
+firefox
+
+# recorder
+ssr
+
+# l7 kde
+l7-appmenu-gtk3-module
+l7-ark
+l7-baloo5
+l7-base-files
+l7-breeze
+l7-breeze-gtk
+l7-breeze-icons
+l7-desktop-file-utils
+l7-gwenview
+l7-kate5
+l7-kcmutils
+l7-konsole
+l7-kscreenlocker
+l7-kservice
+l7-plasma-desktop
+l7-plasma-framework
+l7-plasma-workspace-wallpapers
+l7-sddm
+l7-systemsettings
