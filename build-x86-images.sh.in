@@ -15,12 +15,12 @@ HOME="$(grep '^[^#].' pkg/HOME.txt | xargs)"
 STUDIO="$(grep '^[^#].' pkg/STUDIO.txt | xargs)"
 DEV="$(grep '^[^#].' pkg/DEV.txt | xargs)"
 
-KDE_HOME="$(echo $KDE $HOME)"
-KDE_STUDIO="$(echo $KDE $HOME $STUDIO)"
-KDE_DEV="$(echo $KDE $HOME $DEV)"
-SWAY_HOME="$(echo $SWAY $HOME)"
-SWAY_STUDIO="$(echo $SWAY $HOME $STUDIO)"
-SWAY_DEV="$(echo $SWAY $HOME $DEV)"
+KDE_HOME="$(echo $HOME $KDE)"
+KDE_STUDIO="$(echo $HOME $KDE $STUDIO)"
+KDE_DEV="$(echo $HOME $KDE $DEV)"
+SWAY_HOME="$(echo $HOME $SWAY )"
+SWAY_STUDIO="$(echo $HOME $SWAY $STUDIO)"
+SWAY_DEV="$(echo $HOME $SWAY $DEV)"
 
 help() {
     echo "${0#/*}: [-a arch] [-b kde-home|kde-studio|kde-dev|sway-home|sway-studio|sway-dev] [-r repo]" >&2
