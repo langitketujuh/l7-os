@@ -11,7 +11,7 @@ GEN=$(pwgen -sA 7 1)
 KDE="$(grep '^[^#].' pkg/KDE.txt | xargs)"
 SWAY="$(grep '^[^#].' pkg/SWAY.txt | xargs)"
 
-GLIBC="unrar cnijfilter2"
+GLIBC="cnijfilter2"
 HOME="$(grep '^[^#].' pkg/HOME.txt | xargs)"
 STUDIO="$(grep '^[^#].' pkg/STUDIO.txt | xargs)"
 DEV="$(grep '^[^#].' pkg/DEV.txt | xargs)"
