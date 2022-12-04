@@ -8,20 +8,20 @@ REPO=
 DATE=$(date +%Y%m%d)
 GEN=$(pwgen -sA 7 1)
 
-KDE="$(grep '^[^#].' pkg/KDE.txt | xargs)"
-SWAY="$(grep '^[^#].' pkg/SWAY.txt | xargs)"
+PKGS_KDE="$(grep '^[^#].' pkg/kde.txt)"
+PKGS_SWAY="$(grep '^[^#].' pkg/sway.txt)"
 
-GLIBC="cnijfilter2"
-HOME="$(grep '^[^#].' pkg/HOME.txt | xargs)"
-STUDIO="$(grep '^[^#].' pkg/STUDIO.txt | xargs)"
-DEV="$(grep '^[^#].' pkg/DEV.txt | xargs)"
+PKGS_HOME="$(grep '^[^#].' pkg/home.txt)"
+PKGS_STUDIO="$(grep '^[^#].' pkg/studio.txt)"
+PKGS_DEV="$(grep '^[^#].' pkg/dev.txt)"
+PKGS_GLIBC="cnijfilter2"
 
-KDE_HOME="$(echo $HOME $KDE)"
-KDE_STUDIO="$(echo $HOME $KDE $STUDIO)"
-KDE_DEV="$(echo $HOME $KDE $DEV)"
-SWAY_HOME="$(echo $HOME $SWAY )"
-SWAY_STUDIO="$(echo $HOME $SWAY $STUDIO)"
-SWAY_DEV="$(echo $HOME $SWAY $DEV)"
+PKGS_KDE_HOME="$PKGS_HOME $PKGS_KDE"
+PKGS_KDE_STUDIO="$PKGS_HOME $PKGS_KDE $PKGS_STUDIO"
+PKGS_KDE_DEV="$PKGS_HOME $PKGS_KDE $PKGS_DEV"
+PKGS_SWAY_HOME="$PKGS_HOME $PKGS_SWAY"
+PKGS_SWAY_STUDIO="$PKGS_HOME $PKGS_SWAY $PKGS_STUDIO"
+PKGS_SWAY_DEV="$PKGS_HOME $PKGS_SWAY $PKGS_DEV"
 
 help() {
     echo "${0#/*}: [-a arch] [-b base|kde-home|kde-studio|kde-dev|sway-home|sway-studio|sway-dev] [-r repo]" >&2
