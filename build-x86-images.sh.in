@@ -8,12 +8,12 @@ REPO=
 DATE=$(date +%Y%m%d)
 GEN=$(pwgen -sA 7 1)
 
-PKGS_KDE="$(grep '^[^#].' pkg/kde.txt)"
-PKGS_SWAY="$(grep '^[^#].' pkg/sway.txt)"
+PKGS_KDE="$(grep '^[^#].' pkg/kde.txt | xargs)"
+PKGS_SWAY="$(grep '^[^#].' pkg/sway.txt | xargs)"
 
-PKGS_HOME="$(grep '^[^#].' pkg/home.txt)"
-PKGS_STUDIO="$(grep '^[^#].' pkg/studio.txt)"
-PKGS_DEV="$(grep '^[^#].' pkg/dev.txt)"
+PKGS_HOME="$(grep '^[^#].' pkg/home.txt | xargs)"
+PKGS_STUDIO="$(grep '^[^#].' pkg/studio.txt | xargs)"
+PKGS_DEV="$(grep '^[^#].' pkg/dev.txt | xargs)"
 PKGS_GLIBC="cnijfilter2"
 
 PKGS_KDE_HOME="$PKGS_HOME $PKGS_KDE"
