@@ -71,7 +71,6 @@ openjdk
 openjdk-jre
 
 # editor
-helix
 kdevelop
 kdevelop-pg-qt
 kdevelop-php
@@ -79,7 +78,6 @@ neovim
 octave
 qtcreator-full
 vscode
-l7-helix
 
 # lampp
 apache
