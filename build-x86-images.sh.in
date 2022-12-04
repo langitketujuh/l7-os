@@ -67,7 +67,7 @@ build_variant() {
         ;;
         kde-dev)
             if [ $ARCH = x86_64 ]; then
-                PKGS="$PKGS_KDE_DEV $PKGS_GLIBC"
+                PKGS="$PKGS_KDE_DEV $PKGS_GLIBC arduino eclipse"
             else
                 PKGS="$PKGS_KDE_DEV"
             fi
