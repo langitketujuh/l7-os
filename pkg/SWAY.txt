@@ -6,6 +6,9 @@ sway-audio-idle-inhibit
 swayidle
 swaykbdd
 
+# connection
+iwd
+
 # panel & bar
 Waybar
 autotiling
