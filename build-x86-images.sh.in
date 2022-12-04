@@ -11,6 +11,7 @@ GEN=$(pwgen -sA 7 1)
 KDE="$(grep '^[^#].' pkg/KDE.txt | xargs)"
 SWAY="$(grep '^[^#].' pkg/SWAY.txt | xargs)"
 
+GLIBC="unrar cnijfilter2"
 HOME="$(grep '^[^#].' pkg/HOME.txt | xargs)"
 STUDIO="$(grep '^[^#].' pkg/STUDIO.txt | xargs)"
 DEV="$(grep '^[^#].' pkg/DEV.txt | xargs)"
@@ -44,28 +45,52 @@ build_variant() {
 
     case $variant in
         kde-home)
-            PKGS="$KDE_HOME"
+            if [ $ARCH = x86_64 ]; then
+                PKGS="$KDE_HOME $GLIBC"
+            else
+                PKGS="$KDE_HOME"
+            fi
             SERVICES="$SERVICES NetworkManager sddm"
         ;;
         kde-studio)
-            PKGS="$KDE_STUDIO"
+            if [ $ARCH = x86_64 ]; then
+                PKGS="$KDE_STUDIO $GLIBC"
+            else
+                PKGS="$KDE_STUDIO"
+            fi
             SERVICES="$SERVICES NetworkManager sddm"
         ;;
         kde-dev)
-            PKGS="$KDE_DEV"
+            if [ $ARCH = x86_64 ]; then
+                PKGS="$KDE_DEV $GLIBC"
+            else
+                PKGS="$KDE_DEV"
+            fi
             SERVICES="$SERVICES NetworkManager sddm"
         ;;
         sway-home)
-            PKGS="$SWAY_HOME"
-            SERVICES="$SERVICES NetworkManager greetd"
+            if [ $ARCH = x86_64 ]; then
+                PKGS="$SWAY_HOME $GLIBC"
+            else
+                PKGS="$SWAY_HOME"
+            fi
+            SERVICES="$SERVICES iwd greetd"
         ;;
         sway-studio)
-            PKGS="$SWAY_STUDIO"
-            SERVICES="$SERVICES NetworkManager greetd"
+            if [ $ARCH = x86_64 ]; then
+                PKGS="$SWAY_STUDIO $GLIBC"
+            else
+                PKGS="$SWAY_STUDIO"
+            fi
+            SERVICES="$SERVICES iwd greetd"
         ;;
         sway-dev)
-            PKGS="$SWAY_DEV"
-            SERVICES="$SERVICES NetworkManager greetd"
+            if [ $ARCH = x86_64 ]; then
+                PKGS="$SWAY_DEV $GLIBC"
+            else
+                PKGS="$SWAY_DEV"
+            fi
+            SERVICES="$SERVICES iwd greetd"
         ;;
         *)
             >&2 echo "Unknown variant $variant"
