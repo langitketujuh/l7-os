@@ -47,7 +47,7 @@ build_variant() {
         base)
             GRUB_PKGS="grub-i386-efi grub-x86_64-efi"
             PKGS="dialog cryptsetup lvm2 mdadm xtools-minimal dbus-elogind util-linux $GRUB_PKGS"
-            SERVICES="dhcpcd wpa_supplicant acpid dbus uuid"
+            SERVICES="dhcpcd wpa_supplicant acpid dbus uuidd"
         ;;
         kde-home)
             if [ $ARCH = x86_64 ]; then
