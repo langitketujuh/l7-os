@@ -3,7 +3,7 @@
 set -eu
 
 ARCH=$(uname -m)
-IMAGES="kde-home kde-studio kde-dev sway-home sway-studio sway-dev"
+IMAGES="base kde-home kde-studio kde-dev sway-home sway-studio sway-dev"
 REPO=
 DATE=$(date +%Y%m%d)
 GEN=$(pwgen -sA 7 1)
