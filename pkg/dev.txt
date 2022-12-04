@@ -115,6 +115,9 @@ virt-manager-tools
 # iot
 arduino-cli
 
+# data
+rstudio
+
 # compiler
 bison
 clang
