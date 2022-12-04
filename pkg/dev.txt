@@ -121,8 +121,6 @@ gnuplot-qt
 libgomp
 maxima
 openmpi
-plplot-lua
-plplot-python3
 python3-ipython
 python3-matplotlib
 python3-pandas
