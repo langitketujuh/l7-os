@@ -51,49 +51,49 @@ build_variant() {
         ;;
         kde-home)
             if [ $ARCH = x86_64 ]; then
-                PKGS="$KDE_HOME $GLIBC"
+                PKGS="$PKGS_KDE_HOME $PKGS_GLIBC"
             else
-                PKGS="$KDE_HOME"
+                PKGS="$PKGS_KDE_HOME"
             fi
             SERVICES="$SERVICES NetworkManager sddm"
         ;;
         kde-studio)
             if [ $ARCH = x86_64 ]; then
-                PKGS="$KDE_STUDIO $GLIBC"
+                PKGS="$PKGS_KDE_STUDIO $PKGS_GLIBC"
             else
-                PKGS="$KDE_STUDIO"
+                PKGS="$PKGS_KDE_STUDIO"
             fi
             SERVICES="$SERVICES NetworkManager sddm"
         ;;
         kde-dev)
             if [ $ARCH = x86_64 ]; then
-                PKGS="$KDE_DEV $GLIBC"
+                PKGS="$PKGS_KDE_DEV $PKGS_GLIBC"
             else
-                PKGS="$KDE_DEV"
+                PKGS="$PKGS_KDE_DEV"
             fi
             SERVICES="$SERVICES NetworkManager sddm"
         ;;
         sway-home)
             if [ $ARCH = x86_64 ]; then
-                PKGS="$SWAY_HOME $GLIBC"
+                PKGS="$PKGS_SWAY_HOME $PKGS_GLIBC"
             else
-                PKGS="$SWAY_HOME"
+                PKGS="$PKGS_SWAY_HOME"
             fi
             SERVICES="$SERVICES iwd greetd"
         ;;
         sway-studio)
             if [ $ARCH = x86_64 ]; then
-                PKGS="$SWAY_STUDIO $GLIBC"
+                PKGS="$PKGS_SWAY_STUDIO $PKGS_GLIBC"
             else
-                PKGS="$SWAY_STUDIO"
+                PKGS="$PKGS_SWAY_STUDIO"
             fi
             SERVICES="$SERVICES iwd greetd"
         ;;
         sway-dev)
             if [ $ARCH = x86_64 ]; then
-                PKGS="$SWAY_DEV $GLIBC"
+                PKGS="$PKGS_SWAY_DEV $PKGS_GLIBC"
             else
-                PKGS="$SWAY_DEV"
+                PKGS="$PKGS_SWAY_DEV"
             fi
             SERVICES="$SERVICES iwd greetd"
         ;;
