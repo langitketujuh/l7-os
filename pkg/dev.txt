@@ -120,6 +120,7 @@ gnuplot
 gnuplot-qt
 libgomp
 maxima
+xmaxima
 openmpi
 python3-ipython
 python3-matplotlib
