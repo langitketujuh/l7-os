@@ -156,9 +156,6 @@ xtools
 yank
 zramen
 
-# gui package
-octoxbps
-
 # fonts
 amiri-font
 font-awesome
@@ -185,12 +182,18 @@ libreoffice
 libreoffice-kde
 qownnotes
 
+# xbps frontend
+octoxbps
+
 # cpu control
 corectrl
 
 # repository
 void-repo-nonfree
 l7-repo
+
+# audio control
+qpwgraph
 
 # vector
 inkscape
