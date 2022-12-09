@@ -86,6 +86,9 @@ LibreCAD
 freecad
 openscad
 
+# teleprompter
+qprompt
+
 # l7 studio
 l7-ardour
 l7-audacity
