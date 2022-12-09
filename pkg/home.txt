@@ -173,9 +173,6 @@ xdg-desktop-portal
 xdg-desktop-portal-kde
 xdg-user-dirs
 
-# browser
-firefox
-
 # office
 lgi
 libreoffice
