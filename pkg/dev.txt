@@ -15,8 +15,15 @@ GCP-base
 jupyterlab
 python3-jupyter
 python3-language-server
+python3-matplotlib
+python3-numpy
+python3-pandas
 python3-pip
+python3-scikit-learn
+python3-scipy
+python3-seaborn
 python3-virtualenv
+
 
 # rust
 cargo
