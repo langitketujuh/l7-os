@@ -83,7 +83,7 @@ kdevelop-pg-qt
 kdevelop-php
 neovim
 octave
-qtcreator-full
+qtcreator
 vscode
 
 # lampp
