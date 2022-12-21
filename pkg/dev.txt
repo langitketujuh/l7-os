@@ -151,8 +151,6 @@ make
 patch
 pkg-config
 pkgconf
-python3-pip
-qemu-user-static
 scons
 xorgproto
 yasm
