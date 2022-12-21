@@ -57,7 +57,6 @@ amdvlk
 # codec
 alsa-pipewire
 alsa-plugins-ffmpeg
-alsa-plugins-jack
 alsa-utils
 bluez-alsa
 cdparanoia
@@ -85,7 +84,8 @@ wavpack
 
 # archives
 bsdtar
-p7zip
+7zip
+7zip-unrar
 unrar
 unzip
 xz
