@@ -13,6 +13,7 @@ GCP-base
 
 # python
 jupyterlab
+python3-ipython
 python3-jupyter
 python3-language-server
 python3-matplotlib
@@ -23,7 +24,6 @@ python3-scikit-learn
 python3-scipy
 python3-seaborn
 python3-virtualenv
-
 
 # rust
 cargo
@@ -88,9 +88,12 @@ vscode
 
 # lampp
 apache
+dqlite
 mariadb
 nginx
 postgresql
+sqlite
+sqlitebrowser
 
 # container
 docker
@@ -98,10 +101,9 @@ docker-compose
 docker-gc
 docker-gen
 docker-machine
+jenkins
 k3d
 kubernetes
-lxc
-lxd
 podman
 
 # git
@@ -115,6 +117,8 @@ glab
 qgit
 
 # virtual
+lxc
+lxd
 qemu
 virt-manager
 virt-manager-tools
@@ -129,9 +133,6 @@ libgomp
 maxima
 xmaxima
 openmpi
-python3-ipython
-python3-matplotlib
-python3-pandas
 rstudio
 
 # compiler
