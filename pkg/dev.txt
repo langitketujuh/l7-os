@@ -161,7 +161,6 @@ texlive-BibTeX
 texlive-ConTeXt
 texlive-LuaTeX
 texlive-PythonTeX
-texlive-Xdvi
 texlive-XeTeX
 texstudio
 
