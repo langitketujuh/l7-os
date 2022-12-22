@@ -165,5 +165,4 @@ texlive-LuaTeX
 texlive-PythonTeX
 texlive-Xdvi
 texlive-XeTeX
-texmaker
 texstudio
