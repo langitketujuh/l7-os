@@ -166,3 +166,6 @@ texlive-PythonTeX
 texlive-Xdvi
 texlive-XeTeX
 texstudio
+
+# pentest
+wireshark-qt
