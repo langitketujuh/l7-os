@@ -130,8 +130,6 @@ arduino-cli
 gnuplot
 gnuplot-qt
 libgomp
-maxima
-xmaxima
 openmpi
 rstudio
 
