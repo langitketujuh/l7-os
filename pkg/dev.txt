@@ -109,7 +109,6 @@ podman
 # git
 doctl
 git-all
-gitea
 github-cli
 github-opml
 gitui
