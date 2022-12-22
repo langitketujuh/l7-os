@@ -166,3 +166,7 @@ texstudio
 
 # pentest
 wireshark-qt
+
+# l7
+l7-qtcreator
+l7-rstudio
