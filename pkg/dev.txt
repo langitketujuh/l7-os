@@ -92,6 +92,7 @@ dqlite
 mariadb
 nginx
 postgresql
+postgresql-client
 sqlite
 sqlitebrowser
 
