@@ -112,6 +112,7 @@ system-config-printer-udev
 acpi
 android-tools
 android-udev-rules
+clinfo
 cryfs
 dbus-elogind
 dbus-elogind-libs
