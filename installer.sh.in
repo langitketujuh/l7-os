@@ -851,7 +851,7 @@ set_bootloader() {
 
 test_network() {
     rm -f otime && \
-        xbps-uhelper fetch https://repo-default.voidlinux.org/current/otime >$LOG 2>&1
+        xbps-uhelper fetch https://repo-fastly.voidlinux.org/current/otime >$LOG 2>&1
     if [ $? -eq 0 ]; then
         DIALOG --msgbox "Network is working properly!" ${MSGBOXSIZE}
         NETWORK_DONE=1
