@@ -39,6 +39,7 @@ BOOTLOADER_DONE=
 PARTITIONS_DONE=
 NETWORK_DONE=
 FILESYSTEMS_DONE=
+MIRROR_DONE=
 
 TARGETDIR=/mnt/target
 LOG=/dev/tty8
@@ -586,7 +587,8 @@ menu_locale() {
 
 set_locale() {
     if [ -f $TARGETDIR/etc/default/libc-locales ]; then
-        local LOCALE=$(get_option LOCALE)
+        local LOCALE="$(get_option LOCALE)"
+        : "${LOCALE:=C.UTF-8}"
         sed -i -e "s|LANG=.*|LANG=$LOCALE|g" $TARGETDIR/etc/locale.conf
         # Uncomment locale from /etc/default/libc-locales and regenerate it.
         sed -e "/${LOCALE}/s/^\#//" -i $TARGETDIR/etc/default/libc-locales
@@ -769,6 +771,10 @@ ${RESET}" 11 75
             else
                 _status=on
             fi
+            # ignore the groups of existing users and package groups
+            if [[ "${_gid}" -ge 1000 || "${_group}" = "_"* ]]; then
+                continue
+            fi
             if [ -z "${_checklist}" ]; then
                 _checklist="${_group} ${_group}:${_gid} ${_status}"
             else
@@ -791,8 +797,8 @@ set_useraccount() {
     [ -z "$USERPASSWORD_DONE" ] && return
     [ -z "$USERNAME_DONE" ] && return
     [ -z "$USERGROUPS_DONE" ] && return
-    useradd -R $TARGETDIR -m -G $(get_option USERGROUPS) \
-        -c "$(get_option USERNAME)" $(get_option USERLOGIN)
+    useradd -R "$TARGETDIR" -m -G "$(get_option USERGROUPS)" \
+        -c "$(get_option USERNAME)" "$(get_option USERLOGIN)"
     echo "$(get_option USERLOGIN):$(get_option USERPASSWORD)" | \
         chpasswd -R $TARGETDIR -c SHA512
 }
@@ -1240,6 +1246,10 @@ install_packages() {
     mkdir -p $TARGETDIR/var/db/xbps/keys $TARGETDIR/usr/share
     cp -a /usr/share/xbps.d $TARGETDIR/usr/share/
     cp /var/db/xbps/keys/*.plist $TARGETDIR/var/db/xbps/keys
+    if [ -n "$MIRROR_DONE" ]; then
+        mkdir -p $TARGETDIR/etc
+        cp -a /etc/xbps.d $TARGETDIR/etc
+    fi
     mkdir -p $TARGETDIR/boot/grub
 
     _arch=$(xbps-uhelper arch)
@@ -1407,6 +1417,10 @@ Do you want to reboot the system?" ${YESNOSIZE}
     fi
 }
 
+menu_mirror() {
+    xmirror 2>$LOG && MIRROR_DONE=1
+}
+
 menu() {
     local AFTER_HOSTNAME
     if [ -z "$DEFITEM" ]; then
@@ -1421,6 +1435,7 @@ menu() {
             --menu "$MENULABEL" 8 70 0 \
             "Keyboard" "Set system keyboard" \
             "Network" "Set up the network" \
+            "Mirror" "Select XBPS mirror" \
             "Hostname" "Set system hostname" \
             "Timezone" "Set system time zone" \
             "RootPassword" "Set system root password" \
@@ -1438,6 +1453,7 @@ menu() {
             --menu "$MENULABEL" 8 70 0 \
             "Keyboard" "Set system keyboard" \
             "Network" "Set up the network" \
+            "Mirror" "Select XBPS mirror" \
             "Hostname" "Set system hostname" \
             "Locale" "Set system locale" \
             "Timezone" "Set system time zone" \
@@ -1461,7 +1477,8 @@ menu() {
 
     case $(cat $ANSWER) in
         "Keyboard") menu_keymap && [ -n "$KEYBOARD_DONE" ] && DEFITEM="Network";;
-        "Network") menu_network && [ -n "$NETWORK_DONE" ] && DEFITEM="Hostname";;
+        "Network") menu_network && [ -n "$NETWORK_DONE" ] && DEFITEM="Mirror";;
+        "Mirror") menu_mirror && [ -n "$MIRROR_DONE" ] && DEFITEM="Hostname";;
         "Hostname") menu_hostname && [ -n "$HOSTNAME_DONE" ] && DEFITEM="$AFTER_HOSTNAME";;
         "Locale") menu_locale && [ -n "$LOCALE_DONE" ] && DEFITEM="Timezone";;
         "Timezone") menu_timezone && [ -n "$TIMEZONE_DONE" ] && DEFITEM="RootPassword";;

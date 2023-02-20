@@ -40,6 +40,7 @@ shift $((OPTIND - 1))
 
 build_variant() {
     variant="$1"
+    shift
     IMG=langitketujuh-${variant}-${ARCH}-${DATE}-${GEN}.iso
     SERVICES="dbus backlight bluetoothd bluez-alsa cupsd colord earlyoom ntpd ufw uuidd zramen"
 
@@ -112,5 +113,5 @@ if [ ! -x mklive.sh ]; then
 fi
 
 for image in $IMAGES; do
-    build_variant "$image"
+    build_variant "$image" "$@"
 done

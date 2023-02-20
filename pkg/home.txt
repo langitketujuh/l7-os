@@ -6,8 +6,8 @@ grub-x86_64-efi
 
 # base
 base-system
-dialog
 cryptsetup
+dialog
 lvm2
 mdadm
 
@@ -153,6 +153,7 @@ vim
 vpsm
 wayclip
 wayland-utils
+xmirror
 xtools
 yank
 zramen
