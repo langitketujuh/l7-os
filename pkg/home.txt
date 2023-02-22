@@ -208,6 +208,9 @@ inkscape
 # raster
 gimp
 
+# password manager
+keepassxc
+
 # l7 base
 l7-dconf
 l7-docs
@@ -229,6 +232,7 @@ runit-backlight
 # l7 home
 l7-gimp
 l7-inkscape
+l7-keepassxc
 l7-libreoffice
 l7-qownnotes
 l7-ssr
