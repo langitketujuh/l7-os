@@ -110,6 +110,7 @@ system-config-printer-udev
 
 # tools
 acpi
+age
 android-tools
 android-udev-rules
 clinfo
@@ -117,6 +118,7 @@ cryfs
 dbus-elogind
 dbus-elogind-libs
 dbus-elogind-x11
+diffutils
 earlyoom
 elogind
 encfs
@@ -128,6 +130,7 @@ fish-shell
 flatpak
 gnome-keyring
 gocryptfs
+gopass
 gptfdisk
 gvfs-afc
 gvfs-mtp
@@ -135,12 +138,15 @@ gvfs-smb
 htop
 ifuse
 inxi
+lastpass-cli
 librsvg-utils
 libwebp-tools
 nano
 ntfs-3g
 opendoas
 optipng
+pass
+pinentry
 pkg-config
 polkit-elogind
 rnnoise
@@ -149,6 +155,7 @@ tmate
 tmux
 udisks2
 ufw
+vault
 vim
 vpsm
 wayclip
