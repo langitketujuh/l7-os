@@ -113,6 +113,7 @@ acpi
 age
 android-tools
 android-udev-rules
+chezmoi
 clinfo
 cryfs
 dbus-elogind
