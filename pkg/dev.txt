@@ -91,6 +91,7 @@ apache
 dqlite
 mariadb
 nginx
+pgcli
 postgresql
 postgresql-client
 sqlite
@@ -110,6 +111,7 @@ podman
 # git
 doctl
 git-all
+gitbatch
 github-cli
 github-opml
 gitui
