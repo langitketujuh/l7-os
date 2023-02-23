@@ -169,8 +169,8 @@ install_packages() {
     fi
 
     # Enable Fastly repository by default
-    mkdir -p "$ROOTFS"/etc
-    cp -a /etc/xbps.d "$ROOTFS"/etc
+    mkdir -p "$ROOTFS"/etc/xbps.d
+    cp -a "$ROOTFS"/usr/share/xbps.d/*-repository-*.conf "$ROOTFS"/etc/xbps.d/
     sed -i 's|repo-default|repo-fastly|g' "$ROOTFS"/etc/xbps.d/*-repository-*.conf
 
     # Add installer applications desktop
