@@ -24,10 +24,14 @@ LABEL linux
 MENU LABEL @@BOOT_TITLE@@ @@KERNVER@@ @@ARCH@@
 KERNEL /boot/vmlinuz
 APPEND initrd=/boot/initrd root=live:CDLABEL=LANGITKETUJUH init=/sbin/init ro rd.luks=0 rd.md=0 rd.dm=0 loglevel=4 vconsole.unicode=1 vconsole.keymap=@@KEYMAP@@ locale.LANG=@@LOCALE@@ @@BOOT_CMDLINE@@
-LABEL linuxram
-MENU LABEL @@BOOT_TITLE@@ @@KERNVER@@ @@ARCH@@ (RAM)
-KERNEL /boot/vmlinuz
-APPEND initrd=/boot/initrd root=live:CDLABEL=LANGITKETUJUH init=/sbin/init ro rd.luks=0 rd.md=0 rd.dm=0 loglevel=4 vconsole.unicode=1 vconsole.keymap=@@KEYMAP@@ locale.LANG=@@LOCALE@@ @@BOOT_CMDLINE@@ rd.live.ram
+LABEL linuxlts
+MENU LABEL @@BOOT_TITLE@@ @@LTSKVER@@ LTS @@ARCH@@
+KERNEL /boot/vmlinuz-lts
+APPEND initrd=/boot/initrd-lts root=live:CDLABEL=LANGITKETUJUH init=/sbin/init ro rd.luks=0 rd.md=0 rd.dm=0 loglevel=4 vconsole.unicode=1 vconsole.keymap=@@KEYMAP@@ locale.LANG=@@LOCALE@@ @@BOOT_CMDLINE@@
+LABEL linuxltstext
+MENU LABEL @@BOOT_TITLE@@ @@LTSKVER@@ LTS @@ARCH@@ (Text mode/Serial)
+KERNEL /boot/vmlinuz-lts
+APPEND initrd=/boot/initrd-lts root=live:CDLABEL=LANGITKETUJUH init=/sbin/init ro rd.luks=0 rd.md=0 rd.dm=0 loglevel=4 vconsole.unicode=1 vconsole.keymap=@@KEYMAP@@ locale.LANG=@@LOCALE@@ @@BOOT_CMDLINE@@ modprobe.blacklist=bochs_drm nomodeset console=tty0 console=ttyS0,115200n8
 LABEL c
 MENU LABEL Boot first HD found by BIOS
 COM32 chain.c32

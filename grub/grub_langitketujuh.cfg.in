@@ -34,13 +34,23 @@ if [ cpuid -l ]; then
 		locale.LANG=@@LOCALE@@ @@BOOT_CMDLINE@@
         initrd (${langitketujuhlive})/boot/initrd
     }
-    menuentry "@@BOOT_TITLE@@ @@KERNVER@@ (@@ARCH@@) (RAM)" {
+    menuentry "@@BOOT_TITLE@@ @@LTSKVER@@ LTS (@@ARCH@@)" {
         set gfxpayload="keep"
-        linux (${langitketujuhlive})/boot/vmlinuz \
+        linux (${langitketujuhlive})/boot/vmlinuz-lts \
 		root=live:CDLABEL=LANGITKETUJUH ro init=/sbin/init \
 		rd.luks=0 rd.md=0 rd.dm=0 loglevel=4 gpt add_efi_memmap \
 		vconsole.unicode=1 vconsole.keymap=@@KEYMAP@@ \
-		locale.LANG=@@LOCALE@@ @@BOOT_CMDLINE@@ rd.live.ram
-        initrd (${langitketujuhlive})/boot/initrd
+		locale.LANG=@@LOCALE@@ @@BOOT_CMDLINE@@
+        initrd (${langitketujuhlive})/boot/initrd-lts
+    }
+    menuentry "@@BOOT_TITLE@@ @@LTSKVER@@ LTS (@@ARCH@@) (Serial)" {
+        set gfxpayload="keep"
+        linux (${langitketujuhlive})/boot/vmlinuz-lts \
+		root=live:CDLABEL=LANGITKETUJUH ro init=/sbin/init \
+		rd.luks=0 rd.md=0 rd.dm=0 loglevel=4 gpt add_efi_memmap \
+		vconsole.unicode=1 vconsole.keymap=@@KEYMAP@@ \
+		locale.LANG=@@LOCALE@@ @@BOOT_CMDLINE@@ \
+        console=tty0 console=ttyS0,115200n8
+        initrd (${langitketujuhlive})/boot/initrd-lts
     }
 fi

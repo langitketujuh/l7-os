@@ -66,26 +66,24 @@ usage() {
 Usage: $PROGNAME [options]
 
 Options:
- -a <xbps-arch>     Set XBPS_ARCH (do not use it unless you know what it is)
- -b <system-pkg>    Set an alternative base-system package (defaults to base-system).
- -r <repo-url>      Use this XBPS repository (may be specified multiple times).
- -c <cachedir>      Use this XBPS cache directory (a subdirectory of current 
-directory if unset).
- -e <edition>       Edition home or pro (default home)
- -k <keymap>        Default keymap to use (us if unset)
- -l <locale>        Default locale to use (en_US.UTF-8 if unset).
- -i <lz4|gzip|bzip2|xz> Compression type for the initramfs image (xz if unset).
- -s <gzip|lzo|xz>     Compression type for the squashfs image (xz if unset)
- -o <file>          Output file name for the ISO image (auto if unset).
- -P "pkg pkgN ..."  Install additional LangitKetujuh Patch into the ISO image.
- -p "pkg pkgN ..."  Install additional packages into the ISO image.
- -I <includedir>    Include directory structure under given path into rootfs
- -S "service serviceN ..." Services to enable
+ -a <xbps-arch>               Set XBPS_ARCH (do not use it unless you know what it is)
+ -b <system-pkg>              Set an alternative base-system package (defaults to base-system).
+ -r <repo-url>                Use this XBPS repository (may be specified multiple times).
+ -c <cachedir>                Use this XBPS cache directory (a subdirectory of current directory if unset).
+ -e <edition>                 Edition home or pro (default home)
+ -k <keymap>                  Default keymap to use (us if unset)
+ -l <locale>                  Default locale to use (en_US.UTF-8 if unset).
+ -i <lz4|gzip|bzip2|xz>       Compression type for the initramfs image (xz if unset).
+ -s <gzip|lzo|xz>             Compression type for the squashfs image (xz if unset)
+ -o <file>                    Output file name for the ISO image (auto if unset).
+ -P "pkg pkgN ..."            Install additional LangitKetujuh Patch into the ISO image.
+ -p "pkg pkgN ..."            Install additional packages into the ISO image.
+ -I <includedir>              Include directory structure under given path into rootfs
+ -S "service serviceN ..."    Services to enable
 
- -C "cmdline args"  Add additional kernel command line arguments.
- -T "title"         Modify the bootloader title.
- -v linux<version>  Install a custom Linux version on ISO image (linux meta-package if unset).
- -K                 Do not remove builddir.
+ -C "cmdline args"            Add additional kernel command line arguments.
+ -T "title"                   Modify the bootloader title.
+ -K                           Do not remove builddir.
 
 The $PROGNAME script generates a live image of the LangitKetujuh distribution.
 This ISO image can be written to a CD/DVD-ROM or any USB stick.
@@ -213,10 +211,14 @@ generate_initramfs() {
     copy_autoinstaller_files "$ROOTFS"
     chroot "$ROOTFS" env -i /usr/bin/dracut -N --"${INITRAMFS_COMPRESSION}" \
         --add-drivers "ahci" --force-add "vmklive autoinstaller" --omit systemd "/boot/initrd" $KERNELVERSION
+    chroot "$ROOTFS" env -i /usr/bin/dracut -N --"${INITRAMFS_COMPRESSION}" \
+        --add-drivers "ahci" --force-add "vmklive autoinstaller" --omit systemd "/boot/initrd-lts" $LTSKERNELVERSION
     [ $? -ne 0 ] && die "Failed to generate the initramfs"
 
     mv "$ROOTFS"/boot/initrd "$BOOT_DIR"
+    mv "$ROOTFS"/boot/initrd-lts "$BOOT_DIR"
     cp "$ROOTFS"/boot/vmlinuz-$KERNELVERSION "$BOOT_DIR"/vmlinuz
+    cp "$ROOTFS"/boot/vmlinuz-$LTSKERNELVERSION "$BOOT_DIR"/vmlinuz-lts
 }
 
 cleanup_rootfs() {
@@ -244,6 +246,7 @@ generate_isolinux_boot() {
 
     sed -i  -e "s|@@SPLASHIMAGE@@|$(basename "${SPLASH_IMAGE}")|" \
         -e "s|@@KERNVER@@|${KERNELVERSION}|" \
+        -e "s|@@LTSKVER@@|${LTSKERNELVERSION}|" \
         -e "s|@@KEYMAP@@|${KEYMAP}|" \
         -e "s|@@ARCH@@|$BASE_ARCH|" \
         -e "s|@@LOCALE@@|${LOCALE}|" \
@@ -257,6 +260,7 @@ generate_grub_efi_boot() {
     cp -f grub/grub_langitketujuh.cfg.in "$GRUB_DIR"/grub_langitketujuh.cfg
     sed -i  -e "s|@@SPLASHIMAGE@@|$(basename "${SPLASH_IMAGE}")|" \
         -e "s|@@KERNVER@@|${KERNELVERSION}|" \
+        -e "s|@@LTSKVER@@|${LTSKERNELVERSION}|" \
         -e "s|@@KEYMAP@@|${KEYMAP}|" \
         -e "s|@@ARCH@@|$BASE_ARCH|" \
         -e "s|@@BOOT_TITLE@@|${BOOT_TITLE}|" \
@@ -353,7 +357,6 @@ while getopts "a:b:r:c:e:C:T:Kk:l:i:I:S:s:o:p:R:v:h" opt; do
         R) REMOVE_LIST="$OPTARG";;
         C) BOOT_CMDLINE="$OPTARG";;
         T) BOOT_TITLE="$OPTARG";;
-        v) LINUX_VERSION="$OPTARG";;
         h) usage;;
 	*) usage;;
     esac
@@ -426,21 +429,13 @@ copy_langitketujuh_keys "$LANGITKETUJUHHOSTDIR"
 XBPS_ARCH=$BASE_ARCH $XBPS_INSTALL_CMD -r "$ROOTFS" ${XBPS_REPOSITORY} -S
 XBPS_ARCH=$ARCH $XBPS_INSTALL_CMD -r "$LANGITKETUJUHHOSTDIR" ${XBPS_REPOSITORY} -S
 
-# Get linux version for ISO
-# If linux version option specified use
-if [ -n "$LINUX_VERSION" ]; then
-    if ! echo "$LINUX_VERSION" | grep "linux[0-9._]\+"; then
-        die "-v option must be in format linux<version>"
-    fi
-
-    _linux_series="$LINUX_VERSION"
-    PACKAGE_LIST="$PACKAGE_LIST $LINUX_VERSION"
-else # Otherwise find latest stable version from linux meta-package
-    _linux_series=$(XBPS_ARCH=$BASE_ARCH $XBPS_QUERY_CMD -r "$ROOTFS" ${XBPS_REPOSITORY:=-R} -x linux | grep 'linux[0-9._]\+')
-fi
-
+_linux_series=$(XBPS_ARCH=$BASE_ARCH $XBPS_QUERY_CMD -r "$ROOTFS" ${XBPS_REPOSITORY:=-R} -x linux | grep 'linux[0-9._]\+')
 _kver=$(XBPS_ARCH=$BASE_ARCH $XBPS_QUERY_CMD -r "$ROOTFS" ${XBPS_REPOSITORY:=-R} -p pkgver ${_linux_series})
 KERNELVERSION=$($XBPS_UHELPER_CMD getpkgversion ${_kver})
+
+_linux_lts_series=$(XBPS_ARCH=$BASE_ARCH $XBPS_QUERY_CMD -r $ROOTFS ${XBPS_REPOSITORY:=-R} -x linux-lts| grep 'linux[0-9._]\+')
+_lts_kver=$(XBPS_ARCH=$BASE_ARCH $XBPS_QUERY_CMD -r $ROOTFS ${XBPS_REPOSITORY:=-R} -p pkgver ${_linux_lts_series})
+LTSKERNELVERSION=$($XBPS_UHELPER_CMD getpkgversion ${_lts_kver})
 
 if [ "$?" -ne "0" ]; then
     die "Failed to find kernel package version"
