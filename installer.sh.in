@@ -635,7 +635,8 @@ menu_hostname() {
 }
 
 set_hostname() {
-    echo $(get_option HOSTNAME) > $TARGETDIR/etc/hostname
+    local hostname="$(get_option HOSTNAME)"
+    echo "${hostname:-langitketujuh}" > $TARGETDIR/etc/hostname
 }
 
 menu_rootpassword() {
