@@ -18,7 +18,7 @@ GNU/Linux Musl distribution based on Voidlinux with KDE desktop environment. Rol
 #### Clone repository
 
 ```
-git clone git@gitlab.com:langitketujuh/os.git --recursive
+git clone git@gitlab.com:langitketujuh/l7-os.git --recursive
 ```
 
 #### Install dependencies (root)
@@ -30,7 +30,7 @@ xbps-install -S git make liblz4 xbps qemu-user-static
 #### Usage
 
 ```
-cd os
+cd l7-os
 make
 ```
 
