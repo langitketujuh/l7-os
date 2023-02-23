@@ -165,7 +165,6 @@ vim
 vpsm
 wayclip
 wayland-utils
-xmirror
 xtools
 yank
 zramen
