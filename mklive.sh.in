@@ -168,6 +168,11 @@ install_packages() {
         sed -e "s/\#\(${LOCALE}.*\)/\1/g" -i "$ROOTFS"/etc/default/libc-locales
     fi
 
+    # Enable Fastly repository by default
+    mkdir -p "$ROOTFS"/etc
+    cp -a /etc/xbps.d "$ROOTFS"/etc
+    sed -i 's|repo-default|repo-fastly|g' "$ROOTFS"/etc/xbps.d/*-repository-*.conf
+
     # Add installer applications desktop
     if [ -x installer.sh ]; then
         install -Dm755 installer.sh "$ROOTFS"/usr/sbin/langitketujuh-install
