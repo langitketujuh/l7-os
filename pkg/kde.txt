@@ -24,6 +24,7 @@ sddm
 # kde apps
 ark
 elisa
+dragon-player
 gnupg2-scdaemon
 gwenview
 kamoso
@@ -44,9 +45,6 @@ print-manager
 skanpage
 spectacle
 l7-krunner
-
-# video player
-vlc
 
 # browser
 firefox
