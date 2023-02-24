@@ -1,10 +1,10 @@
->> Welcome to the LangitKetujuh GNU/Linux Live system. Two users are available to log in:
+>> Welcome to the LangitKetujuh OS Live system. Two users are available to log in:
 
-    # normal user   = anon
-    # root user     = root
-    # password      = langitketujuh
+| Users |    Password   |
+| ----- | ------------- |
+| anon  | langitketujuh |
+| root  | langitketujuh |
 
 >> To start the installation please type:
 
-    # langitketujuh-install
-
+% langitketujuh-install
