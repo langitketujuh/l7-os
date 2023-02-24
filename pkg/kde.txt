@@ -31,6 +31,7 @@ kcalc
 kcm-wacomtablet
 kde5-baseapps
 kdeconnect
+kgpg
 kmediaplayer
 krdc
 krfb
@@ -38,10 +39,10 @@ ktorrent
 kwalletmanager
 okular
 partitionmanager
+plasma-vault
 print-manager
 skanpage
 spectacle
-plasma-vault
 l7-krunner
 
 # video player
