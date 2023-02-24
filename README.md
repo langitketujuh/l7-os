@@ -1,6 +1,6 @@
 ## The LangitKetujuh Linux live maker and installer
 
-GNU/Linux Musl distribution based on Voidlinux with KDE desktop environment. Rolling release stable, light and efficient. `home` edition for common users and `studio` edition for the needs of designers, illustrators, animators and game designers.
+GNU/Linux distribution based on Voidlinux with KDE desktop environment. Rolling release stable, light and efficient. `home` edition for common users and `studio` edition for the needs of designers, illustrators, animators and game designers.
 
 #### System requirement:
 
