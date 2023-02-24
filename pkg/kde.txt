@@ -44,6 +44,7 @@ plasma-vault
 print-manager
 skanpage
 spectacle
+sweeper
 l7-krunner
 
 # browser
