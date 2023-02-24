@@ -390,7 +390,7 @@ ARCH=$(xbps-uhelper arch)
 : ${SQUASHFS_COMPRESSION:=xz}
 : ${BASE_SYSTEM_PKG:=base-system}
 : ${BOOT_TITLE:="LangitKetujuh"}
-: ${EDITION:="home"}
+: ${EDITION:="kde-home"}
 
 # Required packages in the image for a working system.
 PACKAGE_LIST="$BASE_SYSTEM_PKG $PACKAGE_LIST"
