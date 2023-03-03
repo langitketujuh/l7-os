@@ -6,6 +6,9 @@ make
 
 ARCHS="$(echo x86_64{,-musl})"
 
+./build-x86-images.sh -a x86_64 -b base ${REPO} "$@"
+./build-x86-images.sh -a x86_64-musl -b base ${REPO} "$@"
+
 ./build-x86-images.sh -a x86_64 -b kde-home ${REPO} "$@"
 ./build-x86-images.sh -a x86_64-musl -b kde-home ${REPO} "$@"
 
