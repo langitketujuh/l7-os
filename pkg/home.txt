@@ -1,39 +1,5 @@
 ## HOME EDITION
 
-# grub
-grub-i386-efi
-grub-x86_64-efi
-
-# base
-base-system
-cryptsetup
-dialog
-lvm2
-mdadm
-
-# lts kernel
-linux-lts
-linux-lts-headers
-
-# initrd
-dracut
-dracut-network
-dracut-uefi
-
-# network
-NetworkManager
-curl
-inetutils
-ntp
-wget
-wpa_supplicant
-
-# firmware
-alsa-firmware
-linux
-linux-base
-linux-headers
-
 # xorg
 mesa-ati-dri
 mesa-demos
@@ -86,17 +52,6 @@ vorbis-tools
 vorbisgain
 wavpack
 
-# archives
-bsdtar
-7zip
-7zip-unrar
-unrar
-unzip
-xz
-zip
-zstd
-zutils
-
 # printer
 bluez-cups
 brother-brlaser
@@ -111,63 +66,6 @@ gutenprint
 hplip
 system-config-printer
 system-config-printer-udev
-
-# tools
-acpi
-age
-android-tools
-android-udev-rules
-chezmoi
-clinfo
-cryfs
-dbus-elogind
-dbus-elogind-libs
-dbus-elogind-x11
-diffutils
-earlyoom
-elogind
-encfs
-exfat-utils
-f2fs-tools
-fastfetch
-fig2dev
-fish-shell
-flatpak
-gnome-keyring
-gocryptfs
-gopass
-gptfdisk
-gvfs-afc
-gvfs-mtp
-gvfs-smb
-htop
-ifuse
-inxi
-lastpass-cli
-librsvg-utils
-libwebp-tools
-nano
-ntfs-3g
-opendoas
-optipng
-pass
-pinentry
-pkg-config
-polkit-elogind
-rnnoise
-rsv
-tmate
-tmux
-udisks2
-ufw
-vault
-vim
-vpsm
-wayclip
-wayland-utils
-xtools
-yank
-zramen
 
 # fonts
 amiri-font
@@ -198,10 +96,6 @@ octoxbps
 # cpu control
 corectrl
 
-# repository
-void-repo-nonfree
-l7-repo
-
 # audio control
 qpwgraph
 
@@ -214,23 +108,15 @@ gimp
 # password manager
 keepassxc
 
-# l7 base
+# l7 base gui
 l7-dconf
 l7-docs
 l7-export
-l7-fish-shell
 l7-octoxbps
-l7-opendoas
 l7-papirus-icon-theme
 l7-pipewire
-l7-removed-packages
-l7-runit-void
-l7-shadow
 l7-site
-l7-tools
-l7-v4l2loopback
 digimend-kernel-drivers
-runit-backlight
 
 # l7 home
 l7-gimp
