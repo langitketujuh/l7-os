@@ -1,6 +1,8 @@
 ## HOME EDITION
 
 # base gui
+android-tools
+android-udev-rules
 flatpak
 gnome-keyring
 wayclip
