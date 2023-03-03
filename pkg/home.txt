@@ -1,5 +1,11 @@
 ## HOME EDITION
 
+# base gui
+flatpak
+gnome-keyring
+wayclip
+wayland-utils
+
 # xorg
 mesa-ati-dri
 mesa-demos
@@ -90,7 +96,7 @@ libreoffice
 libreoffice-kde
 qownnotes
 
-# xbps frontend
+# xbps gui
 octoxbps
 
 # cpu control
