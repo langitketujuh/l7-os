@@ -123,6 +123,7 @@ l7-octoxbps
 l7-papirus-icon-theme
 l7-pipewire
 l7-site
+l7-v4l2loopback
 digimend-kernel-drivers
 
 # l7 home

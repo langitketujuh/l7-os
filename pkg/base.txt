@@ -109,6 +109,5 @@ l7-removed-packages
 l7-runit-void
 l7-shadow
 l7-tools
-l7-v4l2loopback
 runit-backlight
 
