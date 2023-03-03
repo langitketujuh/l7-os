@@ -37,6 +37,7 @@ linux-headers
 # tools
 acpi
 age
+bluez
 chezmoi
 clinfo
 cryfs
