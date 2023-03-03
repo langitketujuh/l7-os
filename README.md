@@ -1,12 +1,15 @@
 ## The LangitKetujuh Linux live maker and installer
 
-GNU/Linux distribution based on Voidlinux with KDE desktop environment. Rolling release stable, light and efficient. `home` edition for common users and `studio` edition for the needs of designers, illustrators, animators and game designers.
+GNU/Linux distribution based on Voidlinux with KDE desktop environment.
+Rolling release stable, light and efficient. `home` edition for common users
+and `studio` edition for the needs of designers, illustrators, animators and
+game designers.
 
 #### System requirement:
 
-- 2G RAM.
-- CPU Dual core.
-- 10G free diskspace.
+* 2G RAM.
+* CPU Dual core.
+* 10G free diskspace for base, 20G for home or 40G for studio.
 
 #### Login:
 
@@ -39,6 +42,7 @@ make
 ##### x86_64
 
 ```
+./build-x86-images.sh -a x86_64 -b base
 ./build-x86-images.sh -a x86_64 -b kde-home
 ./build-x86-images.sh -a x86_64 -b kde-studio
 ```
@@ -46,6 +50,7 @@ make
 ##### x86_64-musl
 
 ```
+./build-x86-images.sh -a x86_64-musl -b base
 ./build-x86-images.sh -a x86_64-musl -b kde-home
 ./build-x86-images.sh -a x86_64-musl -b kde-studio
 ```
@@ -59,4 +64,4 @@ make
 ---
 ##### Thanks To:
 
-- VOID LINUX & CONTRIBUTOR - https://github.com/void-linux/void-mklive
+* VOID LINUX & CONTRIBUTOR - https://github.com/void-linux/void-mklive
