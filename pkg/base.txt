@@ -21,12 +21,11 @@ dracut-network
 dracut-uefi
 
 # network
-NetworkManager
 curl
 inetutils
+iwd
 ntp
 wget
-wpa_supplicant
 
 # firmware
 alsa-firmware
