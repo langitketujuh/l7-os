@@ -48,7 +48,7 @@ build_variant() {
     case $variant in
         base)
             PKGS="$PKGS_BASE"
-            SERVICES="$SERVICES dhcpcd wpa_supplicant"
+            SERVICES="$SERVICES dhcpcd iwd greetd"
         ;;
         kde-home)
             if [ "$ARCH" = x86_64 ]; then
@@ -80,7 +80,7 @@ build_variant() {
             else
                 PKGS="$PKGS_SWAY_HOME"
             fi
-            SERVICES="$SERVICES iwd greetd"
+            SERVICES="$SERVICES dhcpcd iwd greetd"
         ;;
         sway-studio)
             if [ "$ARCH" = x86_64 ]; then
@@ -88,7 +88,7 @@ build_variant() {
             else
                 PKGS="$PKGS_SWAY_STUDIO"
             fi
-            SERVICES="$SERVICES iwd greetd"
+            SERVICES="$SERVICES dhcpcd iwd greetd"
         ;;
         sway-dev)
             if [ "$ARCH" = x86_64 ]; then
@@ -96,7 +96,7 @@ build_variant() {
             else
                 PKGS="$PKGS_SWAY_DEV"
             fi
-            SERVICES="$SERVICES iwd greetd"
+            SERVICES="$SERVICES dhcpcd iwd greetd"
         ;;
         *)
             >&2 echo "Unknown variant $variant"
