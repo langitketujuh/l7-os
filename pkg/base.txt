@@ -56,7 +56,6 @@ fontconfig
 gocryptfs
 gopass
 gptfdisk
-greetd
 gvfs-afc
 gvfs-mtp
 gvfs-smb

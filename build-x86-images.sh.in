@@ -48,7 +48,7 @@ build_variant() {
     case $variant in
         base)
             PKGS="$PKGS_BASE"
-            SERVICES="$SERVICES dhcpcd iwd greetd"
+            SERVICES="$SERVICES dhcpcd iwd"
         ;;
         kde-home)
             if [ "$ARCH" = x86_64 ]; then
