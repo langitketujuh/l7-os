@@ -120,6 +120,7 @@ keepassxc
 l7-dconf
 l7-docs
 l7-export
+l7-kwin
 l7-keepassxc
 l7-octoxbps
 l7-papirus-icon-theme
