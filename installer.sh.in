@@ -1306,17 +1306,20 @@ ${BOLD}Do you want to continue?${RESET}" 20 80 || return
     rm -f $TARGETDIR/etc/issue
     rm -f $TARGETDIR/usr/sbin/langitketujuh-install
     rm -f $TARGETDIR/usr/share/applications/langitketujuh.installer.desktop
-    # Remove modified sddm.conf to let sddm use the defaults.
-    rm -f $TARGETDIR/etc/sddm.conf
     # Remove live user.
     echo "Removing $USERNAME live user from targetdir ..." >$LOG
     chroot $TARGETDIR userdel -r $USERNAME >$LOG 2>&1
     rm -f $TARGETDIR/etc/sudoers.d/99-langitketujuh-live
     # remove doas permissions installer.
     sed -i -e "/permit nopass keepenv :wheel cmd langitketujuh-install/d" $TARGETDIR/etc/doas.conf
-    # remove installer from favorite menu
-    sed -i 's/langitketujuh.installer.desktop,preferred/preferred/' $TARGETDIR/usr/share/plasma/plasmoids/org.kde.plasma.kickoff/contents/config/main.xml
-    sed -i 's/langitketujuh.installer.desktop,preferred/preferred/' $TARGETDIR/usr/share/plasma/plasmoids/org.kde.plasma.kicker/contents/config/main.xml
+    # remove if kde plasma
+    if [ -f "$ROOTFS"/usr/share/plasma/plasmoids ]; then
+        # remove modified sddm.conf to let sddm use the defaults.
+        rm -f $TARGETDIR/etc/sddm.conf
+        # remove installer favorite menu
+        sed -i 's/langitketujuh.installer.desktop,preferred/preferred/' $TARGETDIR/usr/share/plasma/plasmoids/org.kde.plasma.kickoff/contents/config/main.xml
+        sed -i 's/langitketujuh.installer.desktop,preferred/preferred/' $TARGETDIR/usr/share/plasma/plasmoids/org.kde.plasma.kicker/contents/config/main.xml
+    fi
     TITLE="Check $LOG for details ..."
     INFOBOX "Rebuilding initramfs for target ..." 4 60
     echo "Rebuilding initramfs for target ..." >$LOG
