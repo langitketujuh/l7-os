@@ -42,13 +42,13 @@ build_variant() {
     variant="$1"
     shift
     IMG=langitketujuh-${variant}-${ARCH}-${DATE}-${GEN}.iso
-    SERVICES="dbus backlight bluetoothd bluez-alsa cupsd colord earlyoom ntpd ufw uuidd zramen"
+    SERVICES="acpid dbus earlyoom ntpd ufw uuidd zramen"
 
     case $variant in
         base)
             GRUB_PKGS="grub-i386-efi grub-x86_64-efi"
             PKGS="dialog cryptsetup lvm2 mdadm xtools-minimal dbus-elogind util-linux $GRUB_PKGS"
-            SERVICES="dhcpcd wpa_supplicant acpid dbus uuidd"
+            SERVICES="$SERVICES dhcpcd wpa_supplicant"
         ;;
         kde-home)
             if [ $ARCH = x86_64 ]; then
@@ -56,7 +56,7 @@ build_variant() {
             else
                 PKGS="$PKGS_KDE_HOME"
             fi
-            SERVICES="$SERVICES NetworkManager sddm"
+            SERVICES="$SERVICES NetworkManager backlight bluetoothd bluez-alsa cupsd colord sddm"
         ;;
         kde-studio)
             if [ $ARCH = x86_64 ]; then
@@ -64,7 +64,7 @@ build_variant() {
             else
                 PKGS="$PKGS_KDE_STUDIO"
             fi
-            SERVICES="$SERVICES NetworkManager sddm"
+            SERVICES="$SERVICES NetworkManager backlight bluetoothd bluez-alsa cupsd colord sddm"
         ;;
         kde-dev)
             if [ $ARCH = x86_64 ]; then
@@ -72,7 +72,7 @@ build_variant() {
             else
                 PKGS="$PKGS_KDE_DEV"
             fi
-            SERVICES="$SERVICES NetworkManager sddm"
+            SERVICES="$SERVICES NetworkManager backlight bluetoothd bluez-alsa cupsd colord sddm"
         ;;
         sway-home)
             if [ $ARCH = x86_64 ]; then
