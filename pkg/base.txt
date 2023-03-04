@@ -37,6 +37,7 @@ linux-headers
 # tools
 acpi
 age
+bluez
 chezmoi
 clinfo
 cryfs
@@ -97,6 +98,14 @@ zip
 zstd
 zutils
 
+# codec
+alsa-pipewire
+alsa-utils
+bluez-alsa
+gstreamer1-pipewire
+libjack-pipewire
+pipewire
+
 # repository
 void-repo-nonfree
 l7-repo
@@ -104,6 +113,7 @@ l7-repo
 # l7 base cli
 l7-fish-shell
 l7-opendoas
+l7-pipewire
 l7-removed-packages
 l7-runit-void
 l7-shadow

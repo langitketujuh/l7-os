@@ -32,20 +32,15 @@ mesa-vulkan-overlay-layer
 vkBasalt
 amdvlk
 
-# codec
-alsa-pipewire
+# codec full
 alsa-plugins-ffmpeg
-alsa-utils
-bluez-alsa
 cdparanoia
 flac
 fluidsynth
 gst-libav
 gst-plugins-ugly1
 gstreamer-vaapi
-gstreamer1-pipewire
 lame
-libjack-pipewire
 libspa-bluetooth
 libspa-jack
 mplayer
@@ -123,7 +118,6 @@ l7-export
 l7-kwin
 l7-octoxbps
 l7-papirus-icon-theme
-l7-pipewire
 l7-site
 l7-v4l2loopback
 digimend-kernel-drivers
