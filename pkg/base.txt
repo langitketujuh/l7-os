@@ -52,6 +52,7 @@ f2fs-tools
 fastfetch
 fig2dev
 fish-shell
+fontconfig
 gocryptfs
 gopass
 gptfdisk
