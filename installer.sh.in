@@ -759,7 +759,7 @@ ${RESET}" 11 75
         fi
     done
 
-    _groups="_pipewire,audio,bluetooth,cdrom,colord,floppy,kvm,lpadmin,optical,video,wheel,xbuilder"
+    _groups="_pipewire,audio,bluetooth,cdrom,floppy,kvm,optical,video,wheel,xbuilder"
     while true; do
         _desc="Select group membership for login '$(get_option USERLOGIN)':"
         for _group in $(cat /etc/group); do
