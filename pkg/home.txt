@@ -128,6 +128,7 @@ l7-pipewire
 l7-site
 l7-v4l2loopback
 digimend-kernel-drivers
+runit-backlight
 
 # l7 home
 l7-gimp
