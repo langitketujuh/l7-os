@@ -8,6 +8,7 @@ REPO=
 DATE=$(date +%Y%m%d)
 GEN=$(pwgen -sA 7 1)
 
+PKGS_BASE="$(grep '^[^#].' pkg/base.txt | xargs)"
 PKGS_KDE="$(grep '^[^#].' pkg/kde.txt | xargs)"
 PKGS_SWAY="$(grep '^[^#].' pkg/sway.txt | xargs)"
 
@@ -16,12 +17,12 @@ PKGS_STUDIO="$(grep '^[^#].' pkg/studio.txt | xargs)"
 PKGS_DEV="$(grep '^[^#].' pkg/dev.txt | xargs)"
 PKGS_GLIBC="cnijfilter2"
 
-PKGS_KDE_HOME="$PKGS_HOME $PKGS_KDE"
-PKGS_KDE_STUDIO="$PKGS_HOME $PKGS_KDE $PKGS_STUDIO"
-PKGS_KDE_DEV="$PKGS_HOME $PKGS_KDE $PKGS_DEV"
-PKGS_SWAY_HOME="$PKGS_HOME $PKGS_SWAY"
-PKGS_SWAY_STUDIO="$PKGS_HOME $PKGS_SWAY $PKGS_STUDIO"
-PKGS_SWAY_DEV="$PKGS_HOME $PKGS_SWAY $PKGS_DEV"
+PKGS_KDE_HOME="$PKGS_BASE $PKGS_HOME $PKGS_KDE"
+PKGS_KDE_STUDIO="$PKGS_KDE_HOME $PKGS_STUDIO"
+PKGS_KDE_DEV="$PKGS_KDE_HOME $PKGS_DEV"
+PKGS_SWAY_HOME="$PKGS_BASE $PKGS_HOME $PKGS_SWAY"
+PKGS_SWAY_STUDIO="$PKGS_SWAY_HOME $PKGS_STUDIO"
+PKGS_SWAY_DEV="$PKGS_SWAY_HOME $PKGS_DEV"
 
 help() {
     echo "${0#/*}: [-a arch] [-b base|kde-home|kde-studio|kde-dev|sway-home|sway-studio|sway-dev] [-r repo]" >&2
@@ -46,12 +47,11 @@ build_variant() {
 
     case $variant in
         base)
-            GRUB_PKGS="grub-i386-efi grub-x86_64-efi"
-            PKGS="dialog cryptsetup lvm2 mdadm xtools-minimal dbus-elogind util-linux $GRUB_PKGS"
+            PKGS="$PKGS_BASE"
             SERVICES="$SERVICES dhcpcd wpa_supplicant"
         ;;
         kde-home)
-            if [ $ARCH = x86_64 ]; then
+            if [ "$ARCH" = x86_64 ]; then
                 PKGS="$PKGS_KDE_HOME $PKGS_GLIBC"
             else
                 PKGS="$PKGS_KDE_HOME"
@@ -59,7 +59,7 @@ build_variant() {
             SERVICES="$SERVICES NetworkManager backlight bluetoothd bluez-alsa cupsd colord sddm"
         ;;
         kde-studio)
-            if [ $ARCH = x86_64 ]; then
+            if [ "$ARCH" = x86_64 ]; then
                 PKGS="$PKGS_KDE_STUDIO $PKGS_GLIBC"
             else
                 PKGS="$PKGS_KDE_STUDIO"
@@ -67,7 +67,7 @@ build_variant() {
             SERVICES="$SERVICES NetworkManager backlight bluetoothd bluez-alsa cupsd colord sddm"
         ;;
         kde-dev)
-            if [ $ARCH = x86_64 ]; then
+            if [ "$ARCH" = x86_64 ]; then
                 PKGS="$PKGS_KDE_DEV $PKGS_GLIBC arduino dbeaver eclipse plplot-lua plplot-python3"
             else
                 PKGS="$PKGS_KDE_DEV"
@@ -75,7 +75,7 @@ build_variant() {
             SERVICES="$SERVICES NetworkManager backlight bluetoothd bluez-alsa cupsd colord sddm"
         ;;
         sway-home)
-            if [ $ARCH = x86_64 ]; then
+            if [ "$ARCH" = x86_64 ]; then
                 PKGS="$PKGS_SWAY_HOME $PKGS_GLIBC"
             else
                 PKGS="$PKGS_SWAY_HOME"
@@ -83,7 +83,7 @@ build_variant() {
             SERVICES="$SERVICES iwd greetd"
         ;;
         sway-studio)
-            if [ $ARCH = x86_64 ]; then
+            if [ "$ARCH" = x86_64 ]; then
                 PKGS="$PKGS_SWAY_STUDIO $PKGS_GLIBC"
             else
                 PKGS="$PKGS_SWAY_STUDIO"
@@ -91,7 +91,7 @@ build_variant() {
             SERVICES="$SERVICES iwd greetd"
         ;;
         sway-dev)
-            if [ $ARCH = x86_64 ]; then
+            if [ "$ARCH" = x86_64 ]; then
                 PKGS="$PKGS_SWAY_DEV $PKGS_GLIBC"
             else
                 PKGS="$PKGS_SWAY_DEV"
@@ -104,7 +104,7 @@ build_variant() {
         ;;
     esac
 
-    ./mklive.sh -a "$ARCH" -o "$IMG" -p "$PKGS" -S "$SERVICES" ${REPO} "$@"
+    ./mklive.sh -a "$ARCH" -o "$IMG" -p "$PKGS" -S "$SERVICES" "${REPO}" "$@"
 }
 
 if [ ! -x mklive.sh ]; then
