@@ -185,9 +185,11 @@ install_packages() {
     # Add permit installer for doas
     echo "permit nopass keepenv :wheel cmd langitketujuh-install" >> "$ROOTFS"/etc/doas.conf
 
-    # Add installer to favorite menu
-    sed -i 's/preferred/langitketujuh.installer.desktop,preferred/' "$ROOTFS"/usr/share/plasma/plasmoids/org.kde.plasma.kickoff/contents/config/main.xml
-    sed -i 's/preferred/langitketujuh.installer.desktop,preferred/' "$ROOTFS"/usr/share/plasma/plasmoids/org.kde.plasma.kicker/contents/config/main.xml
+    # Add installer to favorite plasma menu
+    if [ -f "$ROOTFS"/usr/share/plasma/plasmoids ]; then
+        sed -i 's/preferred/langitketujuh.installer.desktop,preferred/' "$ROOTFS"/usr/share/plasma/plasmoids/org.kde.plasma.kickoff/contents/config/main.xml
+        sed -i 's/preferred/langitketujuh.installer.desktop,preferred/' "$ROOTFS"/usr/share/plasma/plasmoids/org.kde.plasma.kicker/contents/config/main.xml
+    fi
 
     chroot "$ROOTFS" env -i xbps-reconfigure -a
 
