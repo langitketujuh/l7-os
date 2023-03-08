@@ -1313,7 +1313,7 @@ ${BOLD}Do you want to continue?${RESET}" 20 80 || return
     # remove doas permissions installer.
     sed -i -e "/permit nopass keepenv :wheel cmd langitketujuh-install/d" $TARGETDIR/etc/doas.conf
     # remove if kde plasma
-    if [ -f "$ROOTFS"/usr/share/plasma/plasmoids ]; then
+    if [ -f "$TARGETDIR"/usr/bin/plasmashell ]; then
         # remove modified sddm.conf to let sddm use the defaults.
         rm -f $TARGETDIR/etc/sddm.conf
         # remove installer favorite menu
