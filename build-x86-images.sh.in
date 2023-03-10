@@ -15,7 +15,7 @@ PKGS_SWAY="$(grep '^[^#].' pkg/sway.txt | xargs)"
 PKGS_HOME="$(grep '^[^#].' pkg/home.txt | xargs)"
 PKGS_STUDIO="$(grep '^[^#].' pkg/studio.txt | xargs)"
 PKGS_DEV="$(grep '^[^#].' pkg/dev.txt | xargs)"
-PKGS_DEV_GLIBC="$(grep '^[^#].' pkg/dev_glibc.txt | xargs)"
+PKGS_DATASC="$(grep '^[^#].' pkg/datasc.txt | xargs)"
 PKGS_NONFREE="$(grep '^[^#].' pkg/nonfree.txt | xargs)"
 
 PKGS_REMOVE="$(grep '^[^#].' pkg/remove.txt | xargs)"
@@ -23,12 +23,14 @@ PKGS_REMOVE="$(grep '^[^#].' pkg/remove.txt | xargs)"
 PKGS_KDE_HOME="$PKGS_BASE $PKGS_HOME $PKGS_KDE"
 PKGS_KDE_STUDIO="$PKGS_KDE_HOME $PKGS_STUDIO"
 PKGS_KDE_DEV="$PKGS_KDE_HOME $PKGS_DEV"
+PKGS_KDE_DATASC="$PKGS_KDE_HOME $PKGS_DATASC"
+
 PKGS_SWAY_HOME="$PKGS_BASE $PKGS_HOME $PKGS_SWAY"
 PKGS_SWAY_STUDIO="$PKGS_SWAY_HOME $PKGS_STUDIO"
 PKGS_SWAY_DEV="$PKGS_SWAY_HOME $PKGS_DEV"
 
 help() {
-    echo "${0#/*}: [-a arch] [-b base|kde-home|kde-studio|kde-dev|sway-home|sway-studio|sway-dev] [-r repo] [-R rmpkgs]" >&2
+    echo "${0#/*}: [-a arch] [-b base|kde-home|kde-studio|kde-dev|kde-datasc|sway-home|sway-studio|sway-dev] [-r repo] [-R rmpkgs]" >&2
 }
 
 while getopts "a:b:hr:" opt; do
@@ -72,11 +74,21 @@ build_variant() {
         ;;
         kde-dev)
             if [ "$ARCH" = x86_64 ]; then
-                PKGS="$PKGS_KDE_DEV $PKGS_NONFREE $PKGS_DEV_GLIBC"
+                PKGS="$PKGS_KDE_DEV $PKGS_NONFREE"
                 REMOVE="$PKGS_REMOVE"
             else
-                PKGS="$PKGS_KDE_DEV"
+                >&2 echo "Not support architecture $ARCH"
+                exit 1
+            fi
+            SERVICES="$SERVICES NetworkManager backlight bluetoothd bluez-alsa cupsd colord sddm"
+        ;;
+        kde-datasc)
+            if [ "$ARCH" = x86_64 ]; then
+                PKGS="$PKGS_KDE_DATASC $PKGS_NONFREE"
                 REMOVE="$PKGS_REMOVE"
+            else
+                >&2 echo "Not support architecture $ARCH"
+                exit 1
             fi
             SERVICES="$SERVICES NetworkManager backlight bluetoothd bluez-alsa cupsd colord sddm"
         ;;
@@ -100,7 +112,8 @@ build_variant() {
             if [ "$ARCH" = x86_64 ]; then
                 PKGS="$PKGS_SWAY_DEV $PKGS_NONFREE"
             else
-                PKGS="$PKGS_SWAY_DEV"
+                >&2 echo "Not support architecture $ARCH"
+                exit 1
             fi
             SERVICES="$SERVICES dhcpcd iwd greetd"
         ;;
