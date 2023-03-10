@@ -18,6 +18,8 @@ PKGS_DEV="$(grep '^[^#].' pkg/dev.txt | xargs)"
 PKGS_DEV_GLIBC="$(grep '^[^#].' pkg/dev_glibc.txt | xargs)"
 PKGS_NONFREE="$(grep '^[^#].' pkg/nonfree.txt | xargs)"
 
+PKGS_REMOVE="$(grep '^[^#].' pkg/remove.txt | xargs)"
+
 PKGS_KDE_HOME="$PKGS_BASE $PKGS_HOME $PKGS_KDE"
 PKGS_KDE_STUDIO="$PKGS_KDE_HOME $PKGS_STUDIO"
 PKGS_KDE_DEV="$PKGS_KDE_HOME $PKGS_DEV"
@@ -26,7 +28,7 @@ PKGS_SWAY_STUDIO="$PKGS_SWAY_HOME $PKGS_STUDIO"
 PKGS_SWAY_DEV="$PKGS_SWAY_HOME $PKGS_DEV"
 
 help() {
-    echo "${0#/*}: [-a arch] [-b base|kde-home|kde-studio|kde-dev|sway-home|sway-studio|sway-dev] [-r repo]" >&2
+    echo "${0#/*}: [-a arch] [-b base|kde-home|kde-studio|kde-dev|sway-home|sway-studio|sway-dev] [-r repo] [-R rmpkgs]" >&2
 }
 
 while getopts "a:b:hr:" opt; do
@@ -35,6 +37,7 @@ case $opt in
     b) IMAGES="$OPTARG";;
     h) help; exit 0;;
     r) REPO="-r $OPTARG $REPO";;
+    R) REMOVE="$OPTARG";;
     *) help; exit 1;;
 esac
 done
@@ -70,8 +73,10 @@ build_variant() {
         kde-dev)
             if [ "$ARCH" = x86_64 ]; then
                 PKGS="$PKGS_KDE_DEV $PKGS_NONFREE $PKGS_DEV_GLIBC"
+                REMOVE="$PKGS_REMOVE"
             else
                 PKGS="$PKGS_KDE_DEV"
+                REMOVE="$PKGS_REMOVE"
             fi
             SERVICES="$SERVICES NetworkManager backlight bluetoothd bluez-alsa cupsd colord sddm"
         ;;
@@ -105,7 +110,7 @@ build_variant() {
         ;;
     esac
 
-    ./mklive.sh -a "$ARCH" -o "$IMG" -p "$PKGS" -S "$SERVICES" "${REPO}" "$@"
+    ./mklive.sh -a "$ARCH" -o "$IMG" -p "$PKGS" -R "$REMOVE" -S "$SERVICES" "${REPO}" "$@"
 }
 
 if [ ! -x mklive.sh ]; then
