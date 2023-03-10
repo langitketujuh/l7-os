@@ -1,5 +1,0 @@
-arduino
-dbeaver
-eclipse
-plplot-lua
-plplot-python3
