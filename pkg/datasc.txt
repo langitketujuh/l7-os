@@ -1,0 +1,90 @@
+## DEV EDITION
+
+# python
+jupyterlab
+python3-ipython
+python3-jupyter
+python3-language-server
+python3-matplotlib
+python3-numpy
+python3-pandas
+python3-scikit-learn
+python3-scipy
+python3-seaborn
+
+# raku
+rakudo
+
+# java
+openjdk
+openjdk-jre
+
+# editor
+dbeaver
+neovim
+octave
+vscode
+
+# databse
+apache
+dqlite
+mariadb
+nginx
+orientdb
+pgcli
+postgresql
+postgresql-client
+redis
+sqlite
+sqlitebrowser
+
+# container
+docker
+docker-compose
+docker-gc
+docker-gen
+docker-machine
+jenkins
+k3d
+kubernetes
+podman
+
+# git
+doctl
+git-all
+gitbatch
+github-cli
+github-opml
+gitui
+glab
+qgit
+
+# data science
+gnuplot
+gnuplot-qt
+libgomp
+openmpi
+rstudio
+
+# compiler
+bison
+clang
+cmake
+fakeroot
+flex
+gcc-objc++
+gdb
+icu
+libtool
+llvm
+m4
+make
+patch
+pkg-config
+pkgconf
+scons
+xorgproto
+yasm
+
+# l7
+l7-rstudio
