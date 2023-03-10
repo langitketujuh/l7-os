@@ -15,7 +15,8 @@ PKGS_SWAY="$(grep '^[^#].' pkg/sway.txt | xargs)"
 PKGS_HOME="$(grep '^[^#].' pkg/home.txt | xargs)"
 PKGS_STUDIO="$(grep '^[^#].' pkg/studio.txt | xargs)"
 PKGS_DEV="$(grep '^[^#].' pkg/dev.txt | xargs)"
-PKGS_GLIBC="cnijfilter2"
+PKGS_DEV_GLIBC="$(grep '^[^#].' pkg/dev_glibc.txt | xargs)"
+PKGS_NONFREE="$(grep '^[^#].' pkg/nonfree.txt | xargs)"
 
 PKGS_KDE_HOME="$PKGS_BASE $PKGS_HOME $PKGS_KDE"
 PKGS_KDE_STUDIO="$PKGS_KDE_HOME $PKGS_STUDIO"
@@ -52,7 +53,7 @@ build_variant() {
         ;;
         kde-home)
             if [ "$ARCH" = x86_64 ]; then
-                PKGS="$PKGS_KDE_HOME $PKGS_GLIBC"
+                PKGS="$PKGS_KDE_HOME $PKGS_NONFREE"
             else
                 PKGS="$PKGS_KDE_HOME"
             fi
@@ -60,7 +61,7 @@ build_variant() {
         ;;
         kde-studio)
             if [ "$ARCH" = x86_64 ]; then
-                PKGS="$PKGS_KDE_STUDIO $PKGS_GLIBC"
+                PKGS="$PKGS_KDE_STUDIO $PKGS_NONFREE"
             else
                 PKGS="$PKGS_KDE_STUDIO"
             fi
@@ -68,7 +69,7 @@ build_variant() {
         ;;
         kde-dev)
             if [ "$ARCH" = x86_64 ]; then
-                PKGS="$PKGS_KDE_DEV $PKGS_GLIBC arduino dbeaver eclipse plplot-lua plplot-python3"
+                PKGS="$PKGS_KDE_DEV $PKGS_NONFREE $PKGS_DEV_GLIBC"
             else
                 PKGS="$PKGS_KDE_DEV"
             fi
@@ -76,7 +77,7 @@ build_variant() {
         ;;
         sway-home)
             if [ "$ARCH" = x86_64 ]; then
-                PKGS="$PKGS_SWAY_HOME $PKGS_GLIBC"
+                PKGS="$PKGS_SWAY_HOME $PKGS_NONFREE"
             else
                 PKGS="$PKGS_SWAY_HOME"
             fi
@@ -84,7 +85,7 @@ build_variant() {
         ;;
         sway-studio)
             if [ "$ARCH" = x86_64 ]; then
-                PKGS="$PKGS_SWAY_STUDIO $PKGS_GLIBC"
+                PKGS="$PKGS_SWAY_STUDIO $PKGS_NONFREE"
             else
                 PKGS="$PKGS_SWAY_STUDIO"
             fi
@@ -92,7 +93,7 @@ build_variant() {
         ;;
         sway-dev)
             if [ "$ARCH" = x86_64 ]; then
-                PKGS="$PKGS_SWAY_DEV $PKGS_GLIBC"
+                PKGS="$PKGS_SWAY_DEV $PKGS_NONFREE"
             else
                 PKGS="$PKGS_SWAY_DEV"
             fi
