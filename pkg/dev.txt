@@ -86,14 +86,16 @@ octave
 qtcreator
 vscode
 
-# lampp
+# databse
 apache
 dqlite
 mariadb
 nginx
+orientdb
 pgcli
 postgresql
 postgresql-client
+redis
 sqlite
 sqlitebrowser
 
