@@ -8,24 +8,31 @@ REPO=
 DATE=$(date +%Y%m%d)
 GEN=$(pwgen -sA 7 1)
 
+# base packages
 PKGS_BASE="$(grep '^[^#].' pkg/base.txt | xargs)"
+PKGS_DESKTOP="$(grep '^[^#].' pkg/desktop.txt | xargs)"
 PKGS_KDE="$(grep '^[^#].' pkg/kde.txt | xargs)"
 PKGS_SWAY="$(grep '^[^#].' pkg/sway.txt | xargs)"
+PKGS_NONFREE="$(grep '^[^#].' pkg/nonfree.txt | xargs)"
 
+# gui apps packages
 PKGS_HOME="$(grep '^[^#].' pkg/home.txt | xargs)"
 PKGS_STUDIO="$(grep '^[^#].' pkg/studio.txt | xargs)"
 PKGS_DEV="$(grep '^[^#].' pkg/dev.txt | xargs)"
 PKGS_DATASC="$(grep '^[^#].' pkg/datasc.txt | xargs)"
-PKGS_NONFREE="$(grep '^[^#].' pkg/nonfree.txt | xargs)"
 
+# remove packages after install
 PKGS_REMOVE="$(grep '^[^#].' pkg/remove.txt | xargs)"
 
-PKGS_KDE_HOME="$PKGS_BASE $PKGS_HOME $PKGS_KDE"
+# variant packages
+# kde plasma
+PKGS_KDE_HOME="$PKGS_BASE $PKGS_DESKTOP $PKGS_HOME $PKGS_KDE"
 PKGS_KDE_STUDIO="$PKGS_KDE_HOME $PKGS_STUDIO"
 PKGS_KDE_DEV="$PKGS_KDE_HOME $PKGS_DEV"
 PKGS_KDE_DATASC="$PKGS_KDE_HOME $PKGS_DATASC"
 
-PKGS_SWAY_HOME="$PKGS_BASE $PKGS_HOME $PKGS_SWAY"
+# sway
+PKGS_SWAY_HOME="$PKGS_BASE $PKGS_DESKTOP $PKGS_SWAY"
 PKGS_SWAY_STUDIO="$PKGS_SWAY_HOME $PKGS_STUDIO"
 PKGS_SWAY_DEV="$PKGS_SWAY_HOME $PKGS_DEV"
 
