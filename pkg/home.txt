@@ -1,95 +1,11 @@
 ## HOME EDITION
 
-# base gui
-android-tools
-android-udev-rules
-flatpak
-gnome-keyring
-wayclip
-wayland-utils
-
-# xorg
-mesa-ati-dri
-mesa-demos
-mesa-intel-dri
-mesa-nouveau-dri
-xf86-input-evdev
-xf86-input-joystick
-xf86-input-libinput
-xf86-input-mtrack
-xf86-input-synaptics
-xf86-input-vmmouse
-xf86-input-wacom
-xorg
-xorg-server-devel
-
-# vulkan
-Vulkan-Headers
-Vulkan-Tools
-Vulkan-ValidationLayers
-libspa-vulkan
-mesa-vulkan-overlay-layer
-vkBasalt
-amdvlk
-
-# codec full
-alsa-plugins-ffmpeg
-cdparanoia
-flac
-fluidsynth
-gst-libav
-gst-plugins-ugly1
-gstreamer-vaapi
-lame
-libspa-bluetooth
-libspa-jack
-mplayer
-opus-tools
-pulseaudio-utils
-speex
-timidity
-twolame
-v4l2loopback
-vorbis-tools
-vorbisgain
-wavpack
-
-# printer
-bluez-cups
-brother-brlaser
-cups
-cups-filters
-cups-pdf
-cups-pk-helper
-epson-inkjet-printer-escpr
-foomatic-db
-foomatic-db-nonfree
-gutenprint
-hplip
-system-config-printer
-system-config-printer-udev
-
-# fonts
-amiri-font
-font-awesome
-font-awesome5
-font-awesome6
-liberation-fonts-ttf
-noto-fonts-emoji
-ttf-opensans
-
-# appareance
-papirus-icon-theme
-
-# desktop
-xdg-desktop-portal
-xdg-desktop-portal-kde
-xdg-user-dirs
-
 # office
 lgi
 libreoffice
 libreoffice-kde
+
+# note
 qownnotes
 
 # xbps gui
@@ -97,9 +13,6 @@ octoxbps
 
 # cpu control
 corectrl
-
-# audio control
-qpwgraph
 
 # vector
 inkscape
@@ -110,24 +23,22 @@ gimp
 # password manager
 keepassxc
 
-# l7 base gui
-l7-dconf
-l7-docs
-l7-export
-l7-octoxbps
-l7-papirus-icon-theme
-l7-site
-l7-v4l2loopback
-digimend-kernel-drivers
-runit-backlight
+# audio control
+qpwgraph
+
+# recorder
+ssr
 
 # l7 home
+l7-export
 l7-gimp
 l7-inkscape
 l7-keepassxc
 l7-libreoffice
+l7-octoxbps
 l7-qownnotes
 l7-ssr
 ccc
+digimend-kernel-drivers
 isoimagewriter
 webapp-manager
