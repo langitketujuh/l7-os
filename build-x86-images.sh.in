@@ -35,9 +35,10 @@ PKGS_KDE_DATASC="$PKGS_KDE_HOME $PKGS_DATASC"
 PKGS_SWAY_HOME="$PKGS_BASE $PKGS_DESKTOP $PKGS_SWAY"
 PKGS_SWAY_STUDIO="$PKGS_SWAY_HOME $PKGS_STUDIO"
 PKGS_SWAY_DEV="$PKGS_SWAY_HOME $PKGS_DEV"
+PKGS_SWAY_DATASC="$PKGS_SWAY_HOME $PKGS_DATASC"
 
 help() {
-    echo "${0#/*}: [-a arch] [-b base|kde-home|kde-studio|kde-dev|kde-datasc|sway-home|sway-studio|sway-dev] [-r repo] [-R rmpkgs]" >&2
+    echo "${0#/*}: [-a arch] [-b base|kde-home|kde-studio|kde-dev|kde-datasc|sway-home|sway-studio|sway-dev|sway-datasc] [-r repo] [-R rmpkgs]" >&2
 }
 
 while getopts "a:b:hr:" opt; do
@@ -118,6 +119,15 @@ build_variant() {
         sway-dev)
             if [ "$ARCH" = x86_64 ]; then
                 PKGS="$PKGS_SWAY_DEV $PKGS_NONFREE"
+            else
+                >&2 echo "Not support architecture $ARCH"
+                exit 1
+            fi
+            SERVICES="$SERVICES dhcpcd iwd greetd"
+        ;;
+        sway-datasc)
+            if [ "$ARCH" = x86_64 ]; then
+                PKGS="$PKGS_SWAY_DATASC $PKGS_NONFREE"
             else
                 >&2 echo "Not support architecture $ARCH"
                 exit 1
