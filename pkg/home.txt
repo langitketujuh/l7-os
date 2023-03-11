@@ -45,7 +45,6 @@ libspa-bluetooth
 libspa-jack
 mplayer
 opus-tools
-pipewire
 pulseaudio-utils
 speex
 timidity
