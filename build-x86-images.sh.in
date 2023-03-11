@@ -3,10 +3,11 @@
 set -eu
 
 ARCH=$(uname -m)
-IMAGES="base kde-home kde-studio kde-dev sway-home sway-studio sway-dev"
-REPO=
+IMAGES="base kde-home kde-studio kde-dev kde-datasc sway-home sway-studio sway-dev sway-datasc"
 DATE=$(date +%Y%m%d)
 GEN=$(pwgen -sA 7 1)
+REMOVE=
+REPO=
 
 # base packages
 PKGS_BASE="$(grep '^[^#].' pkg/base.txt | xargs)"
@@ -61,7 +62,11 @@ build_variant() {
 
     case $variant in
         base)
-            PKGS="$PKGS_BASE"
+            if [ "$ARCH" = x86_64 ]; then
+                PKGS="$PKGS_BASE"
+            else
+                PKGS="$PKGS_BASE"
+            fi
             SERVICES="$SERVICES dhcpcd iwd"
         ;;
         kde-home)
