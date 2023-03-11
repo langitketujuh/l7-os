@@ -70,6 +70,7 @@ l7-kcmutils
 l7-konsole
 l7-kscreenlocker
 l7-kservice
+l7-kwin
 l7-plasma-desktop
 l7-plasma-framework
 l7-plasma-workspace-wallpapers
