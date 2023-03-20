@@ -71,10 +71,16 @@ system-config-printer-udev
 
 # fonts
 amiri-font
+font-adobe-source-code-pro
+font-adobe-source-sans-pro-v2
+font-adobe-source-serif-pro
 font-awesome
 font-awesome5
 font-awesome6
-liberation-fonts-ttf
+font-crosextra-caladea-ttf
+font-crosextra-carlito-ttf
+font-liberation-ttf
+font-liberation-narrow-ttf
 noto-fonts-emoji
 ttf-opensans
 
