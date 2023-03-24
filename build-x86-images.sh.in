@@ -79,7 +79,7 @@ build_variant() {
         ;;
         kde-studio)
             if [ "$ARCH" = x86_64 ]; then
-                PKGS="$PKGS_KDE_STUDIO $PKGS_NONFREE"
+                PKGS="$PKGS_KDE_STUDIO $PKGS_NONFREE obs-plugin-browser-bin"
             else
                 PKGS="$PKGS_KDE_STUDIO"
             fi

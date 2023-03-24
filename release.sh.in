@@ -22,4 +22,4 @@ mkdir "$DATECODE"
 mv *${DATECODE}*.iso $DATECODE/
 
 cd "$DATECODE" || exit 1
-sha256sum --tag -- * > sha256sums.txt
+sha256sum --tag -- *.iso >> sha256sums.txt
