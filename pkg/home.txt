@@ -20,9 +20,6 @@ inkscape
 # raster
 gimp
 
-# password manager
-keepassxc
-
 # audio control
 qpwgraph
 
@@ -33,7 +30,6 @@ ssr
 l7-export
 l7-gimp
 l7-inkscape
-l7-keepassxc
 l7-libreoffice
 l7-octoxbps
 l7-qownnotes
