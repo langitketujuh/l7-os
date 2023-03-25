@@ -49,7 +49,6 @@ pulseaudio-utils
 speex
 timidity
 twolame
-v4l2loopback
 vorbis-tools
 vorbisgain
 wavpack
@@ -97,6 +96,5 @@ l7-dconf
 l7-docs
 l7-papirus-icon-theme
 l7-site
-l7-v4l2loopback
 runit-backlight
 
