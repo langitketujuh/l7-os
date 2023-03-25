@@ -32,27 +32,6 @@ mesa-vulkan-overlay-layer
 vkBasalt
 amdvlk
 
-# codec full
-alsa-plugins-ffmpeg
-cdparanoia
-flac
-fluidsynth
-gst-libav
-gst-plugins-ugly1
-gstreamer-vaapi
-lame
-libspa-bluetooth
-libspa-jack
-mplayer
-opus-tools
-pulseaudio-utils
-speex
-timidity
-twolame
-vorbis-tools
-vorbisgain
-wavpack
-
 # printer
 bluez-cups
 brother-brlaser

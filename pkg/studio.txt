@@ -1,5 +1,23 @@
 ## STUDIO EDITION
 
+# codec full
+alsa-plugins-ffmpeg
+cdparanoia
+flac
+fluidsynth
+gst-plugins-ugly1
+gstreamer-vaapi
+libspa-bluetooth
+libspa-jack
+mplayer
+opus-tools
+speex
+timidity
+twolame
+vorbis-tools
+vorbisgain
+wavpack
+
 # plugins
 gimp-lqr-plugin
 gmic
