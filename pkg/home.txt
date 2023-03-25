@@ -1,5 +1,8 @@
 ## HOME EDITION
 
+# browser
+firefox
+
 # office
 lgi
 libreoffice

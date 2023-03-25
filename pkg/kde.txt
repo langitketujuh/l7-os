@@ -49,9 +49,6 @@ spectacle
 sweeper
 l7-krunner
 
-# browser
-firefox
-
 # l7 kde
 l7-appmenu-gtk3-module
 l7-ark
