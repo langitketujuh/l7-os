@@ -76,7 +76,6 @@ krita
 
 # record
 obs
-droidcam-obs-plugin
 
 # live keyboard
 screenkey
