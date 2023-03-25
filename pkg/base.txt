@@ -56,9 +56,6 @@ fontconfig
 gocryptfs
 gopass
 gptfdisk
-gvfs-afc
-gvfs-mtp
-gvfs-smb
 htop
 ifuse
 inxi
