@@ -59,7 +59,6 @@ gptfdisk
 htop
 ifuse
 inxi
-lastpass-cli
 librsvg-utils
 libwebp-tools
 nano
