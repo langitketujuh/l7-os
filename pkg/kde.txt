@@ -52,9 +52,6 @@ l7-krunner
 # browser
 firefox
 
-# recorder
-ssr
-
 # l7 kde
 l7-appmenu-gtk3-module
 l7-ark
