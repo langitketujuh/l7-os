@@ -161,12 +161,12 @@ yasm
 # latex
 texlab
 texlive
-texlive-core
 texlive-BibTeX
 texlive-ConTeXt
 texlive-LuaTeX
 texlive-PythonTeX
 texlive-XeTeX
+texlive-core
 texstudio
 
 # pentest

@@ -27,10 +27,10 @@ xorg-server-devel
 Vulkan-Headers
 Vulkan-Tools
 Vulkan-ValidationLayers
+amdvlk
 libspa-vulkan
 mesa-vulkan-overlay-layer
 vkBasalt
-amdvlk
 
 # printer
 bluez-cups
@@ -57,8 +57,8 @@ font-awesome5
 font-awesome6
 font-crosextra-caladea-ttf
 font-crosextra-carlito-ttf
-font-liberation-ttf
 font-liberation-narrow-ttf
+font-liberation-ttf
 noto-fonts-emoji
 ttf-opensans
 
