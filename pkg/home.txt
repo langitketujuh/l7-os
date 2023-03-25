@@ -38,6 +38,5 @@ l7-octoxbps
 l7-qownnotes
 l7-ssr
 ccc
-digimend-kernel-drivers
 isoimagewriter
 webapp-manager
