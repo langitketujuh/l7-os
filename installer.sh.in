@@ -1320,6 +1320,7 @@ ${BOLD}Do you want to continue?${RESET}" 20 80 || return
         sed -i 's/langitketujuh.installer.desktop,preferred/preferred/' $TARGETDIR/usr/share/plasma/plasmoids/org.kde.plasma.kickoff/contents/config/main.xml
         sed -i 's/langitketujuh.installer.desktop,preferred/preferred/' $TARGETDIR/usr/share/plasma/plasmoids/org.kde.plasma.kicker/contents/config/main.xml
     fi
+    sed -i "s,GETTY_ARGS=\"--noclear -a $USERNAME\",GETTY_ARGS=\"--noclear\",g" $TARGETDIR/etc/sv/agetty-tty1/conf
     TITLE="Check $LOG for details ..."
     INFOBOX "Rebuilding initramfs for target ..." 4 60
     echo "Rebuilding initramfs for target ..." >$LOG
