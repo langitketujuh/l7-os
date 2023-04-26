@@ -13,8 +13,6 @@ T_CLOUD_IMGS=GCP{,-musl}
 
 T_PXE_ARCHS=x86_64{,-musl}
 
-T_MASTERDIRS=x86_64{,-musl} i686
-
 ARCHS=$(shell echo $(T_ARCHS))
 PLATFORMS=$(shell echo $(T_PLATFORMS))
 SBC_IMGS=$(shell echo $(T_SBC_IMGS))
@@ -27,7 +25,6 @@ ALL_PLATFORMFS=$(foreach platform,$(PLATFORMS),langitketujuh-$(platform)-PLATFOR
 ALL_SBC_IMAGES=$(foreach platform,$(SBC_IMGS),langitketujuh-$(platform)-$(DATECODE).img.xz)
 ALL_CLOUD_IMAGES=$(foreach cloud,$(CLOUD_IMGS),langitketujuh-$(cloud)-$(DATECODE).tar.gz)
 ALL_PXE_ARCHS=$(foreach arch,$(PXE_ARCHS),langitketujuh-$(arch)-NETBOOT-$(DATECODE).tar.gz)
-ALL_MASTERDIRS=$(foreach arch,$(MASTERDIRS), masterdir-$(arch))
 
 SUDO := sudo
 
@@ -44,4 +41,4 @@ all: $(SCRIPTS)
 clean:
 	-rm -f *.sh
 
-.PHONY: clean
+.PHONY: clean dist rootfs-all-print rootfs-all platformfs-all-print platformfs-all pxe-all-print pxe-all
