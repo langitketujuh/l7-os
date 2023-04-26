@@ -32,6 +32,7 @@ alsa-firmware
 linux
 linux-base
 linux-headers
+sof-firmware
 
 # tools
 acpi
@@ -71,6 +72,7 @@ pkg-config
 polkit-elogind
 rnnoise
 rsv
+sof-tools
 tmate
 tmux
 udisks2
