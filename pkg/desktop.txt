@@ -72,8 +72,8 @@ xdg-user-dirs
 
 # l7 base gui
 l7-dconf
-l7-docs
 l7-papirus-icon-theme
 l7-site
+l7-wiki
 runit-backlight
 
