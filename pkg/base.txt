@@ -79,6 +79,7 @@ udisks2
 ufw
 vault
 vim
+void-live-audio
 vpsm
 xtools
 yank
