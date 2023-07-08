@@ -1507,7 +1507,7 @@ Welcome to the LangitKetujuh installation. A simple and minimal \
 Linux distribution based on voidlinux made from scratch \
 and built from the source package tree available for XBPS, \
 a new alternative binary package system. \
-Documentation: ${BOLD}https://panduan.langitketujuh.id${RESET} \n\n
+Documentation: ${BOLD}https://wiki.langitketujuh.id${RESET} \n\n
 Boot mode detect: ${BOLD}${RED}$EFI_TEXT${RESET} \n\n
 ${BOLD}${RED}PLEASE DON'T MOUNT OR OPEN ANYTHING PARTITION (e.g /run/media/...)${RESET}" 13 80
 
