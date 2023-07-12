@@ -64,4 +64,4 @@ make
 ---
 ##### Thanks To:
 
-* VOID LINUX & CONTRIBUTOR - https://github.com/void-linux/void-mklive
+- [Void Linux & Contributor](https://github.com/void-linux/void-mklive)
