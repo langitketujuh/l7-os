@@ -69,7 +69,7 @@ optipng
 pass
 pinentry
 pkg-config
-polkit-elogind
+polkit
 rnnoise
 rsv
 sof-tools

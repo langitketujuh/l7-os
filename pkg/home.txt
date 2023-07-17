@@ -4,7 +4,6 @@
 firefox
 
 # office
-lgi
 libreoffice
 libreoffice-kde
 
