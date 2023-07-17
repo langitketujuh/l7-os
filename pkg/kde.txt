@@ -11,6 +11,7 @@ kimageformats
 kio-gdrive
 ksuperkey
 libappindicator
+pinentry-qt
 plasma-applet-active-window-control
 plasma-disks
 plasma-firewall
