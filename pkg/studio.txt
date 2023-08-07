@@ -94,6 +94,7 @@ opentoonz
 synfigstudio
 
 # fonts
+font-inter
 google-fonts-ttf
 
 # game engine
