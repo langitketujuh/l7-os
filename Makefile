@@ -28,7 +28,7 @@ ALL_PXE_ARCHS=$(foreach arch,$(PXE_ARCHS),langitketujuh-$(arch)-NETBOOT-$(DATECO
 
 SUDO := sudo
 
-XBPS_REPOSITORY := -r https://repo-fastly.voidlinux.org/current -r https://repo-fastly.voidlinux.org/current/nonfree -r https://repo-fastly.voidlinux.org/current/musl -r https://repo-fastly.voidlinux.org/current/musl/nonfree -r https://repo-fastly.voidlinux.org/current/aarch64 -r https://al.quds.repo.langitketujuh.id/current -r https://al.quds.repo.langitketujuh.id/current/musl
+XBPS_REPOSITORY := -r https://repo-fastly.voidlinux.org/current -r https://repo-fastly.voidlinux.org/current/nonfree -r https://repo-fastly.voidlinux.org/current/musl -r https://repo-fastly.voidlinux.org/current/musl/nonfree -r https://repo-fastly.voidlinux.org/current/aarch64 -r https://repo-fatih.langitketujuh.id/current -r https://repo-fatih.langitketujuh.id/current/musl
 
 COMPRESSOR_THREADS=2
 

@@ -363,7 +363,7 @@ while getopts "a:b:r:c:e:C:T:Kk:l:i:I:S:s:o:p:R:v:h" opt; do
 done
 shift $((OPTIND - 1))
 START_TIME=$(date +%s)
-XBPS_REPOSITORY="$XBPS_REPOSITORY --repository=https://repo-fastly.voidlinux.org/current --repository=https://repo-fastly.voidlinux.org/current/nonfree --repository=https://repo-fastly.voidlinux.org/current/musl --repository=https://repo-fastly.voidlinux.org/current/musl/nonfree --repository=https://al.quds.repo.langitketujuh.id/current --repository=https://al.quds.repo.langitketujuh.id/current/musl"
+XBPS_REPOSITORY="$XBPS_REPOSITORY --repository=https://repo-fastly.voidlinux.org/current --repository=https://repo-fastly.voidlinux.org/current/nonfree --repository=https://repo-fastly.voidlinux.org/current/musl --repository=https://repo-fastly.voidlinux.org/current/musl/nonfree --repository=https://repo-fatih.langitketujuh.id/current --repository=https://repo-fatih.langitketujuh.id/current/musl"
 
 # Configure dracut to use overlayfs for the writable overlay.
 BOOT_CMDLINE="$BOOT_CMDLINE rd.live.overlay.overlayfs=1 "
