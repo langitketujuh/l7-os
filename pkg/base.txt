@@ -11,6 +11,11 @@ dialog
 lvm2
 mdadm
 
+# a11y
+espeakup
+void-live-audio
+brltty
+
 # lts kernel
 linux-lts
 linux-lts-headers
@@ -78,7 +83,6 @@ tmux
 udisks2
 ufw
 vim
-void-live-audio
 vpsm
 xtools
 yank
