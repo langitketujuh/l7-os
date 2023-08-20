@@ -7,6 +7,7 @@ flatpak
 gnome-keyring
 wayclip
 wayland-utils
+xclip
 
 # xorg
 mesa-demos
