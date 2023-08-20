@@ -1023,7 +1023,7 @@ validate_filesystems() {
     local bootdev=$(get_option BOOTLOADER)
 
     unset TARGETFS
-    mnts=$(grep -E '^MOUNTPOINT.*' $CONF_FILE)
+    mnts=$(grep -E '^MOUNTPOINT.*' $CONF_FILE | sort -k 5)
     set -- ${mnts}
     while [ $# -ne 0 ]; do
         fmt=""
