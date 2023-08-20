@@ -1,9 +1,17 @@
-## The LangitKetujuh Linux live maker and installer
+## Live maker and installer
 
 GNU/Linux distribution based on Voidlinux with KDE desktop environment.
 Rolling release stable, light and efficient. `home` edition for common users
 and `studio` edition for the needs of designers, illustrators, animators and
 game designers.
+
+This repository contains utilities for LangitKetujuh:
+ * installer: (The LangitKetujuh el-cheapo installer for x86)
+ * mklive: (The LangitKetujuh live image maker for x86)
+ * mkimage: (The LangitKetujuh image maker for ARM platforms)
+ * mkplatformfs: (The LangitKetujuh filesystem tool to produce a rootfs for a particular platform)
+ * mkrootfs: (The LangitKetujuh rootfs maker for ARM platforms)
+ * mknet: (Script to generate netboot tarballs for LangitKetujuh)
 
 #### System requirement:
 
