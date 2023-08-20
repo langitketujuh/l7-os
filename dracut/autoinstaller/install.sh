@@ -1,20 +1,8 @@
 #!/bin/sh
 
-set -e
+type getargbool >/dev/null 2>&1 || . /lib/dracut-lib.sh
 
-# These are for all you erroring dracuts out there
-VAI_getarg() {
-    set +e
-    getarg "$@"
-    set -e
-}
-VAI_getargbool() {
-    set +e
-    getargbool "$@"
-    set -e
-}
-
-# These functions pulled from langitketujuh's excellent mklive.sh
+# These functions pulled from void's excellent mklive.sh
 VAI_info_msg() {
     printf "\033[1m%s\n\033[m" "$@"
 }
@@ -29,7 +17,7 @@ VAI_print_step() {
 VAI_welcome() {
     clear
     printf "=============================================================\n"
-    printf "============== LangitKetujuh OS Auto-Installer ==============\n"
+    printf "================ LangitKetujuh Auto-Installer ==================\n"
     printf "=============================================================\n"
 }
 
@@ -79,6 +67,7 @@ VAI_install_base_system() {
 
     # Install additional packages
     if [  -n "${pkgs}" ] ; then
+        # shellcheck disable=SC2086
         XBPS_ARCH="${XBPS_ARCH}" xbps-install -Sy -R "${xbpsrepository}" -r /mnt ${pkgs}
     fi
 }
@@ -223,10 +212,13 @@ VAI_configure_autoinstall() {
     esac
 
     # --------------- Pull config URL out of kernel cmdline -------------------------
-    if VAI_getargbool 0 autourl ; then
-        xbps-uhelper fetch "$(VAI_getarg autourl)>/etc/autoinstall.cfg"
+    set +e
+    if getargbool 0 autourl ; then
+        set -e
+        xbps-uhelper fetch "$(getarg autourl)>/etc/autoinstall.cfg"
 
     else
+        set -e
         mv /etc/autoinstall.default /etc/autoinstall.cfg
     fi
 
@@ -299,9 +291,10 @@ VAI_main() {
 }
 
 # If we are using the autoinstaller, launch it
-if VAI_getargbool 0 auto  ; then
+if getargbool 0 auto  ; then
+    set -e
     VAI_main
+    # Very important to release this before returning to dracut code
+    set +e
 fi
 
-# Very important to release this before returning to dracut code
-set +e
