@@ -1,10 +1,18 @@
->> Welcome to the LangitKetujuh OS Live system. Two users are available to log in:
+===============================================================================
 
-| Users |    Password   |
-| ----- | ------------- |
-| anon  | langitketujuh |
-| root  | langitketujuh |
+Welcome to the LangitKetujuh OS Live system. Two users are available to log in:
 
->> To start the installation please type:
+    | Users |    Password   |
+    | ----- | ------------- |
+    | anon  | langitketujuh |
+    | root  | langitketujuh |
 
-% langitketujuh-install
+To start the installation please type:
+
+    % langitketujuh-install
+
+Thanks for using LangitKetujuh OS.
+
+    https://www.langitketujuh.id
+
+===============================================================================
