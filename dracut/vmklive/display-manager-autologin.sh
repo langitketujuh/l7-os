@@ -21,7 +21,7 @@ if [ -d ${NEWROOT}/etc/gdm ]; then
     fi
 fi
 
-# Configure sddm autologin for the kde iso. session: plasma or plasmawayland.
+# Configure sddm autologin for the kde iso.
 if [ -x ${NEWROOT}/usr/bin/sddm ]; then
     cat > ${NEWROOT}/etc/sddm.conf <<_EOF
 [Autologin]
@@ -31,11 +31,13 @@ _EOF
 fi
 
 # Configure lightdm autologin.
-if [ -r ${NEWROOT}/etc/lightdm.conf ]; then
-    sed -i -e "s|^\#\(default-user=\).*|\1$USERNAME|" \
-        ${NEWROOT}/etc/lightdm.conf
-    sed -i -e "s|^\#\(default-user-timeout=\).*|\10|" \
-        ${NEWROOT}/etc/lightdm.conf
+if [ -r "${NEWROOT}/etc/lightdm/lightdm.conf" ]; then
+    sed -i -e "s|^\#\(autologin-user=\).*|\1$USERNAME|" \
+        "${NEWROOT}/etc/lightdm/lightdm.conf"
+    sed -i -e "s|^\#\(autologin-user-timeout=\).*|\10|" \
+        "${NEWROOT}/etc/lightdm/lightdm.conf"
+    sed -i -e "s|^\#\(autologin-session=\).*|\1$(cat "${NEWROOT}/etc/lightdm/.session")|" \
+        "${NEWROOT}/etc/lightdm/lightdm.conf"
 fi
 
 # Configure lxdm autologin.
