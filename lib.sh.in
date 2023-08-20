@@ -33,6 +33,12 @@ is_target_native() {
     return $?
 }
 
+version() (
+    set +u
+    [ -n "$PROGNAME" ] && printf "%s " "$PROGNAME"
+    echo "$(cat ./version) ${MKLIVE_REV:-"$(git -c safe.directory="$(pwd)" rev-parse --short HEAD 2> /dev/null)"}"
+)
+
 info_msg() {
     # This function handles the printing that is bold within all
     # scripts.  This is a convenience function so that the rather ugly
@@ -332,7 +338,8 @@ rk33xx_flash_uboot() {
                       --repository=https://repo-fastly.voidlinux.org/current/musl \
                       --repository=https://repo-fastly.voidlinux.org/current/aarch64 \
                       --repository=https://repo-fatih.langitketujuh.id/current \
-                      --repository=https://repo-fatih.langitketujuh.id/current/musl}"
+                      --repository=https://repo-fatih.langitketujuh.id/current/musl \
+                      --repository=https://repo-fatih.langitketujuh.id/current/aarch64}"
 
 
 
