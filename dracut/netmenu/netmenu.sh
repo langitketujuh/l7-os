@@ -1,10 +1,10 @@
 #!/bin/sh
 
 dialog --colors --keep-tite --no-shadow --no-mouse \
-       --backtitle "\Zb\Z7LangitKetujuh installation -- https://langitketujuh.id/\Zn" \
+       --backtitle "\Zb\Z7LangitKetujuh installation -- https://langitketujuh.id\Zn" \
        --cancel-label "Reboot" --aspect 20 \
        --menu "Select an Action:" 10 50 2 \
-       "Install" "Run langitketujuh-install" \
+       "Install" "Run langitketujuh-installer" \
        "Shell" "Run dash" \
        2>/tmp/netmenu.action
 
@@ -13,6 +13,6 @@ if [ ! $? ] ; then
 fi
 
 case $(cat /tmp/netmenu.action) in
-    "Install") /usr/bin/langitketujuh-install ; exec sh ;;
+    "Install") /usr/bin/langitketujuh-installer ; exec sh ;;
     "Shell") exec sh ;;
 esac
