@@ -2,7 +2,7 @@
 Comment[en_US]=Installer LangitKetujuh OS
 Comment[id]=Pemasang LangitKetujuh OS
 Comment=Installer LangitKetujuh OS
-Exec=doas langitketujuh-install
+Exec=doas langitketujuh-installer
 GenericName[en_US]=Installer LangitKetujuh OS
 GenericName[id]=Pemasang LangitKetujuh OS
 GenericName=Installer LangitKetujuh OS
