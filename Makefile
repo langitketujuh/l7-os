@@ -28,9 +28,9 @@ ALL_PXE_ARCHS=$(foreach arch,$(PXE_ARCHS),langitketujuh-$(arch)-NETBOOT-$(DATECO
 
 SUDO := sudo
 
-REPOSITORY := https://repo-fastly.voidlinux.org/current
+REPOSITORY := https://repo-default.voidlinux.org/current
 L7_REPOSITORY := https://repo-fatih.langitketujuh.id/current
-XBPS_REPOSITORY := -r $(REPOSITORY) -r $(REPOSITORY)/musl -r $(REPOSITORY)/aarch64 -r $(L7_REPOSITORY) -r $(L7_REPOSITORY)/musl -r $(L7_REPOSITORY)/aarch64
+XBPS_REPOSITORY := -r $(REPOSITORY) -r $(REPOSITORY)/musl -r $(REPOSITORY)/aarch64 -r $(REPOSITORY)/nonfree -r $(L7_REPOSITORY) -r $(L7_REPOSITORY)/musl -r $(L7_REPOSITORY)/aarch64 -r $(L7_REPOSITORY)/nonfree
 COMPRESSOR_THREADS:=2
 
 all:
