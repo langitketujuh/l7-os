@@ -15,3 +15,5 @@ stamps*
 otime
 !dracut/*/*.sh
 !packer/scripts/*.sh
+langitketujuh-live-*/
+release/
