@@ -2,7 +2,7 @@
 
 type getargbool >/dev/null 2>&1 || . /lib/dracut-lib.sh
 
-# These functions pulled from void's excellent mklive.sh
+# These functions pulled from langitketujuh's excellent mklive.sh
 VAI_info_msg() {
     printf "\033[1m%s\n\033[m" "$@"
 }
@@ -107,7 +107,7 @@ VAI_configure_rc_conf() {
 }
 
 VAI_add_user() {
-    chroot "${target}" useradd -m -s /bin/fish -U -G wheel,users,audio,video,cdrom,input "${username}"
+    chroot "${target}" useradd -m -s /usr/bin/fish -U -G wheel,users,audio,video,cdrom,input "${username}"
     if [ -z "${password}" ] ; then
         chroot "${target}" passwd "${username}"
     else
@@ -204,10 +204,10 @@ VAI_configure_autoinstall() {
     XBPS_ARCH="$(xbps-uhelper arch)"
     case $XBPS_ARCH in
         *-musl)
-            xbpsrepository="https://repo-fastly.voidlinux.org/current/musl"
+            xbpsrepository="https://repo-default.voidlinux.org/current/musl"
             ;;
         *)
-            xbpsrepository="https://repo-fastly.voidlinux.org/current"
+            xbpsrepository="https://repo-default.voidlinux.org/current"
             ;;
     esac
 
