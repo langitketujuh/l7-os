@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 # vim: set ts=4 sw=4 et:
 #
@@ -29,9 +29,12 @@
 trap 'error_out $? $LINENO' INT TERM 0
 umask 022
 
-readonly REQUIRED_PKGS="base-files libgcc dash coreutils sed tar gawk syslinux grub-i386-efi grub-x86_64-efi squashfs-tools xorriso"
+. ./lib.sh
+
+readonly REQUIRED_PKGS="base-files libgcc dash coreutils sed tar gawk syslinux grub-i386-efi grub-x86_64-efi memtest86+ squashfs-tools xorriso"
 readonly INITRAMFS_PKGS="binutils xz device-mapper dhclient dracut-network openresolv"
 readonly PROGNAME=$(basename "$0")
+declare -a INCLUDE_DIRS=()
 
 info_msg() {
     printf "\033[1m$@\n\033[m"
@@ -66,26 +69,28 @@ usage() {
 Usage: $PROGNAME [options]
 
 Options:
- -a <xbps-arch>               Set XBPS_ARCH (do not use it unless you know what it is)
- -b <system-pkg>              Set an alternative base-system package (defaults to base-system).
- -r <repo-url>                Use this XBPS repository (may be specified multiple times).
- -c <cachedir>                Use this XBPS cache directory (a subdirectory of current directory if unset).
- -e <edition>                 Edition home or pro (default home)
- -k <keymap>                  Default keymap to use (us if unset)
- -l <locale>                  Default locale to use (en_US.UTF-8 if unset).
- -i <lz4|gzip|bzip2|xz>       Compression type for the initramfs image (xz if unset).
- -s <gzip|lzo|xz>             Compression type for the squashfs image (xz if unset)
- -o <file>                    Output file name for the ISO image (auto if unset).
- -P "pkg pkgN ..."            Install additional LangitKetujuh Patch into the ISO image.
- -p "pkg pkgN ..."            Install additional packages into the ISO image.
- -I <includedir>              Include directory structure under given path into rootfs
- -S "service serviceN ..."    Services to enable
+ -a <xbps-arch>             Set XBPS_ARCH (do not use it unless you know what it is)
+ -b <system-pkg>            Set an alternative base-system package (defaults to base-system).
+ -r <repo-url>              Use this XBPS repository (may be specified multiple times).
+ -c <cachedir>              Use this XBPS cache directory (a subdirectory of current
+directory if unset).
+ -e <edition>               Edition home or pro (default home)
+ -k <keymap>                Default keymap to use (us if unset)
+ -l <locale>                Default locale to use (en_US.UTF-8 if unset).
+ -i <lz4|gzip|bzip2|xz>     Compression type for the initramfs image (xz if unset).
+ -s <gzip|lzo|xz>           Compression type for the squashfs image (xz if unset)
+ -o <file>                  Output file name for the ISO image (auto if unset).
+ -P "pkg pkgN ..."          Install additional LangitKetujuh Patch into the ISO image.
+ -p "pkg pkgN ..."          Install additional packages into the ISO image.
+ -I <includedir>            Include directory structure under given path into rootfs
+ -S "service serviceN ..."  Services to enable
 
- -C "cmdline args"            Add additional kernel command line arguments.
- -T "title"                   Modify the bootloader title.
- -K                           Do not remove builddir.
+ -C "cmdline args"          Add additional kernel command line arguments.
+ -T "title"                 Modify the bootloader title.
+ -v linux<version>          Install a custom Linux version on ISO image (linux meta-package if unset).
+ -K                         Do not remove builddir.
 
-The $PROGNAME script generates a live image of the LangitKetujuh distribution.
+The $PROGNAME script generates a live image of the Void Linux distribution.
 This ISO image can be written to a CD/DVD-ROM or any USB stick.
 _EOF
     exit 1
@@ -113,14 +118,12 @@ install_prereqs() {
 }
 
 install_packages() {
-    # Install host packages
     XBPS_ARCH=$BASE_ARCH "${XBPS_INSTALL_CMD}" -r "$ROOTFS" \
         ${XBPS_REPOSITORY} -c "$XBPS_CACHEDIR" -yn $PACKAGE_LIST $INITRAMFS_PKGS
     [ $? -ne 0 ] && die "Missing required binary packages, exiting..."
 
     mount_pseudofs
 
-    # Install packages
     LANG=C XBPS_ARCH=$BASE_ARCH "${XBPS_INSTALL_CMD}" -U -I -r "$ROOTFS" \
         ${XBPS_REPOSITORY} -c "$XBPS_CACHEDIR" -y $PACKAGE_LIST $INITRAMFS_PKGS
     [ $? -ne 0 ] && die "Failed to install $PACKAGE_LIST"
@@ -200,8 +203,11 @@ enable_services() {
     done
 }
 
-copy_include_directory() {
-    find "$INCLUDE_DIRECTORY" -mindepth 1 -maxdepth 1 -exec cp -rfpPv {} "$ROOTFS"/ \;
+copy_include_directories() {
+    for includedir in "${INCLUDE_DIRS[@]}"; do
+        info_msg "=> copying include directory '$includedir' ..."
+        find "$includedir" -mindepth 1 -maxdepth 1 -exec cp -rfpPv {} "$ROOTFS"/ \;
+    done
 }
 
 generate_initramfs() {
@@ -217,6 +223,7 @@ generate_initramfs() {
 
     mv "$ROOTFS"/boot/initrd "$BOOT_DIR"
     mv "$ROOTFS"/boot/initrd-lts "$BOOT_DIR"
+
     cp "$ROOTFS"/boot/vmlinuz-$KERNELVERSION "$BOOT_DIR"/vmlinuz
     cp "$ROOTFS"/boot/vmlinuz-$LTSKERNELVERSION "$BOOT_DIR"/vmlinuz-lts
 }
@@ -241,6 +248,8 @@ generate_isolinux_boot() {
     cp -f "$SYSLINUX_DATADIR"/vesamenu.c32 "$ISOLINUX_DIR"
     cp -f "$SYSLINUX_DATADIR"/libutil.c32 "$ISOLINUX_DIR"
     cp -f "$SYSLINUX_DATADIR"/chain.c32 "$ISOLINUX_DIR"
+    cp -f "$SYSLINUX_DATADIR"/reboot.c32 "$ISOLINUX_DIR"
+    cp -f "$SYSLINUX_DATADIR"/poweroff.c32 "$ISOLINUX_DIR"
     cp -f isolinux/isolinux.cfg.in "$ISOLINUX_DIR"/isolinux.cfg
     cp -f ${SPLASH_IMAGE} "$ISOLINUX_DIR"
 
@@ -253,6 +262,9 @@ generate_isolinux_boot() {
         -e "s|@@BOOT_TITLE@@|${BOOT_TITLE}|" \
         -e "s|@@BOOT_CMDLINE@@|${BOOT_CMDLINE}|" \
         "$ISOLINUX_DIR"/isolinux.cfg
+
+    # include memtest86+
+    cp -f "$LANGITKETUJUHHOSTDIR"/boot/memtest.bin "$BOOT_DIR"
 }
 
 generate_grub_efi_boot() {
@@ -306,14 +318,27 @@ generate_grub_efi_boot() {
     umount "$GRUB_EFI_TMPDIR"
     losetup --detach "${LOOP_DEVICE}"
     rm -rf "$GRUB_EFI_TMPDIR"
+
+    # include memtest86+
+    cp -f "$LANGITKETUJUHHOSTDIR"/boot/memtest.efi "$BOOT_DIR"
 }
 
 generate_squashfs() {
     umount_pseudofs
 
+    # Find out required size for the rootfs and create an ext3fs image off it.
+    ROOTFS_SIZE=$(du --apparent-size -sm "$ROOTFS"|awk '{print $1}')
+    mkdir -p "$BUILDDIR/tmp/LiveOS"
+    truncate -s "$((ROOTFS_SIZE+ROOTFS_SIZE))M" \
+	    "$BUILDDIR"/tmp/LiveOS/ext3fs.img >/dev/null 2>&1
+    mkdir -p "$BUILDDIR/tmp-rootfs"
+    mkfs.ext3 -F -m1 "$BUILDDIR/tmp/LiveOS/ext3fs.img" >/dev/null 2>&1
+    mount -o loop "$BUILDDIR/tmp/LiveOS/ext3fs.img" "$BUILDDIR/tmp-rootfs"
+    cp -a "$ROOTFS"/* "$BUILDDIR"/tmp-rootfs/
+    umount -f "$BUILDDIR/tmp-rootfs"
     mkdir -p "$IMAGEDIR/LiveOS"
 
-    "$LANGITKETUJUHHOSTDIR"/usr/bin/mksquashfs "$ROOTFS" "$IMAGEDIR/LiveOS/squashfs.img" \
+    "$LANGITKETUJUHHOSTDIR"/usr/bin/mksquashfs "$BUILDDIR/tmp" "$IMAGEDIR/LiveOS/squashfs.img" \
         -comp "${SQUASHFS_COMPRESSION}" || die "Failed to generate squashfs image"
     chmod 444 "$IMAGEDIR/LiveOS/squashfs.img"
 
@@ -338,7 +363,7 @@ generate_iso_image() {
 #
 # main()
 #
-while getopts "a:b:r:c:e:C:T:Kk:l:i:I:S:s:o:p:R:v:h" opt; do
+while getopts "a:b:r:c:C:e:T:Kk:l:i:I:R:S:s:o:p:v:Vh" opt; do
     case $opt in
         a) BASE_ARCH="$OPTARG";;
         b) BASE_SYSTEM_PKG="$OPTARG";;
@@ -349,7 +374,7 @@ while getopts "a:b:r:c:e:C:T:Kk:l:i:I:S:s:o:p:R:v:h" opt; do
         k) KEYMAP="$OPTARG";;
         l) LOCALE="$OPTARG";;
         i) INITRAMFS_COMPRESSION="$OPTARG";;
-        I) INCLUDE_DIRECTORY="$OPTARG";;
+        I) INCLUDE_DIRS+=("$OPTARG");;
         S) SERVICE_LIST="$SERVICE_LIST $OPTARG";;
         s) SQUASHFS_COMPRESSION="$OPTARG";;
         o) OUTPUT_FILE="$OPTARG";;
@@ -357,8 +382,9 @@ while getopts "a:b:r:c:e:C:T:Kk:l:i:I:S:s:o:p:R:v:h" opt; do
         R) REMOVE_LIST="$OPTARG";;
         C) BOOT_CMDLINE="$OPTARG";;
         T) BOOT_TITLE="$OPTARG";;
-        h) usage;;
-	*) usage;;
+        v) LINUX_VERSION="$OPTARG";;
+        V) version; exit 0;;
+        *) usage;;
     esac
 done
 shift $((OPTIND - 1))
@@ -409,7 +435,7 @@ ISOLINUX_DIR="$BOOT_DIR/isolinux"
 GRUB_DIR="$BOOT_DIR/grub"
 CURRENT_STEP=0
 STEP_COUNT=10
-[ -n "${INCLUDE_DIRECTORY}" ] && STEP_COUNT=$((STEP_COUNT+1))
+[ "${#INCLUDE_DIRS[@]}" -gt 0 ] && STEP_COUNT=$((STEP_COUNT+1))
 
 : ${SYSLINUX_DATADIR:="$LANGITKETUJUHHOSTDIR"/usr/lib/syslinux}
 : ${GRUB_DATADIR:="$LANGITKETUJUHHOSTDIR"/usr/share/grub}
@@ -429,11 +455,23 @@ copy_langitketujuh_keys "$LANGITKETUJUHHOSTDIR"
 XBPS_ARCH=$BASE_ARCH $XBPS_INSTALL_CMD -r "$ROOTFS" ${XBPS_REPOSITORY} -S
 XBPS_ARCH=$ARCH $XBPS_INSTALL_CMD -r "$LANGITKETUJUHHOSTDIR" ${XBPS_REPOSITORY} -S
 
-_linux_series=$(XBPS_ARCH=$BASE_ARCH $XBPS_QUERY_CMD -r "$ROOTFS" ${XBPS_REPOSITORY:=-R} -x linux | grep 'linux[0-9._]\+')
+# Get linux version for ISO
+# If linux version option specified use
+if [ -n "$LINUX_VERSION" ]; then
+    if ! echo "$LINUX_VERSION" | grep "linux[0-9._]\+"; then
+        die "-v option must be in format linux<version>"
+    fi
+
+    _linux_series="$LINUX_VERSION"
+    PACKAGE_LIST="$PACKAGE_LIST $LINUX_VERSION"
+else # Otherwise find latest stable version from linux meta-package
+    _linux_series=$(XBPS_ARCH=$BASE_ARCH $XBPS_QUERY_CMD -r "$ROOTFS" ${XBPS_REPOSITORY:=-R} -x linux | grep 'linux[0-9._]\+')
+    _linux_lts_series=$(XBPS_ARCH=$BASE_ARCH $XBPS_QUERY_CMD -r $ROOTFS ${XBPS_REPOSITORY:=-R} -x linux-lts| grep 'linux[0-9._]\+')
+fi
+
 _kver=$(XBPS_ARCH=$BASE_ARCH $XBPS_QUERY_CMD -r "$ROOTFS" ${XBPS_REPOSITORY:=-R} -p pkgver ${_linux_series})
 KERNELVERSION=$($XBPS_UHELPER_CMD getpkgversion ${_kver})
 
-_linux_lts_series=$(XBPS_ARCH=$BASE_ARCH $XBPS_QUERY_CMD -r $ROOTFS ${XBPS_REPOSITORY:=-R} -x linux-lts| grep 'linux[0-9._]\+')
 _lts_kver=$(XBPS_ARCH=$BASE_ARCH $XBPS_QUERY_CMD -r $ROOTFS ${XBPS_REPOSITORY:=-R} -p pkgver ${_linux_lts_series})
 LTSKERNELVERSION=$($XBPS_UHELPER_CMD getpkgversion ${_lts_kver})
 
@@ -457,9 +495,9 @@ install_packages
 print_step "Enabling services: ${SERVICE_LIST} ..."
 enable_services ${DEFAULT_SERVICE_LIST} ${SERVICE_LIST}
 
-if [ -n "${INCLUDE_DIRECTORY}" ];then
-    print_step "Copying directory structure into the rootfs: ${INCLUDE_DIRECTORY} ..."
-    copy_include_directory
+if [ "${#INCLUDE_DIRS[@]}" -gt 0 ];then
+    print_step "Copying directory structures into the rootfs ..."
+    copy_include_directories
 fi
 
 print_step "Generating initramfs image ($INITRAMFS_COMPRESSION)..."

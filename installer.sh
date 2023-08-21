@@ -26,6 +26,7 @@
 #-
 
 # Make sure we don't inherit these from env.
+SOURCE_DONE=
 HOSTNAME_DONE=
 KEYBOARD_DONE=
 LOCALE_DONE=
@@ -35,10 +36,12 @@ USERLOGIN_DONE=
 USERPASSWORD_DONE=
 USERNAME_DONE=
 USERGROUPS_DONE=
+USERACCOUNT_DONE=
 BOOTLOADER_DONE=
 PARTITIONS_DONE=
 NETWORK_DONE=
 FILESYSTEMS_DONE=
+MIRROR_DONE=
 
 TARGETDIR=/mnt/target
 LOG=/dev/tty8
@@ -360,6 +363,15 @@ show_disks() {
     done
 }
 
+get_partfs() {
+    # Get fs type from configuration if available. This ensures
+    # that the user is shown the proper fs type if they install the system.
+    local part="$1"
+    local default="${2:-none}"
+    local fstype=$(grep "MOUNTPOINT ${part}" "$CONF_FILE"|awk '{print $3}')
+    echo "${fstype:-$default}"
+}
+
 show_partitions() {
     local dev fstype fssize p part
 
@@ -377,7 +389,7 @@ show_partitions() {
                 [ "$fstype" = "LVM2_member" ] && continue
                 fssize=$(lsblk -nr /dev/$part|awk '{print $4}'|head -1)
                 echo "/dev/$part"
-                echo "size:${fssize:-unknown};fstype:${fstype:-none}"
+                echo "size:${fssize:-unknown};fstype:$(get_partfs "/dev/$part")"
             fi
         done
     done
@@ -391,7 +403,7 @@ show_partitions() {
         fstype=$(lsblk -nfr $p|awk '{print $2}'|head -1)
         fssize=$(lsblk -nr $p|awk '{print $4}'|head -1)
         echo "${p}"
-        echo "size:${fssize:-unknown};fstype:${fstype:-none}"
+        echo "size:${fssize:-unknown};fstype:$(get_partfs "$p")"
     done
     # Software raid (md)
     for p in $(ls -d /dev/md* 2>/dev/null|grep '[0-9]'); do
@@ -402,7 +414,7 @@ show_partitions() {
             [ "$fstype" = "LVM2_member" ] && continue
             fssize=$(lsblk -nr /dev/$part|awk '{print $4}')
             echo "$p"
-            echo "size:${fssize:-unknown};fstype:${fstype:-none}"
+            echo "size:${fssize:-unknown};fstype:$(get_partfs "$p")"
         fi
     done
     # cciss(4) devices
@@ -412,13 +424,13 @@ show_partitions() {
         [ "$fstype" = "LVM2_member" ] && continue
         fssize=$(lsblk -nr /dev/cciss/$part|awk '{print $4}')
         echo "/dev/cciss/$part"
-        echo "size:${fssize:-unknown};fstype:${fstype:-none}"
+        echo "size:${fssize:-unknown};fstype:$(get_partfs "/dev/cciss/$part")"
     done
     if [ -e /sbin/lvs ]; then
         # LVM
         lvs --noheadings|while read lvname vgname perms size; do
             echo "/dev/mapper/${vgname}-${lvname}"
-            echo "size:${size};fstype:lvm"
+            echo "size:${size};fstype:$(get_partfs "/dev/mapper/${vgname}-${lvname}" lvm)"
         done
     fi
 }
@@ -490,6 +502,7 @@ ${RESET}\n" 15 80
             echo "MOUNTPOINT $dev $1 $2 $3 $4" >>$CONF_FILE
         fi
     done
+    FILESYSTEMS_DONE=1
 }
 
 menu_partitions() {
@@ -504,10 +517,9 @@ menu_partitions() {
             "fdisk" "More advanced"
         if [ $? -eq 0 ]; then
             local software=$(cat $ANSWER)
-            DISK_LABEL=$(fdisk -l $device | grep type | cut -d " " -f 3)
 
             DIALOG --title "Modify Partition Table on $device" --msgbox "\n
-${software} will be executed in disk ${BOLD}${RED}$device${RESET} with ${BOLD}${RED}$DISK_LABEL${RESET} disklabel type. \
+${BOLD}${software} will be executed in disk ${RED}$device${RESET} with ${BOLD}${RED}$DISK_LABEL${RESET} disklabel type. \
 There are 3 types of partitions that we recommend. \n\n
 1. ${BOLD}${RED}512M${RESET} for boot directory. Current boot mode using ${BOLD}${RED}$EFI_TEXT${RESET}. \n
    - If UEFI use ${BOLD}${RED}Efi system${RESET} type. \n
@@ -515,6 +527,7 @@ There are 3 types of partitions that we recommend. \n\n
 2. ${BOLD}${RED}40GB${RESET} for root directory. (recommend 50GB or more) \n
 3. ${BOLD}${RED}~ GB${RESET} for home directory. (recommend 100GB or more) \n\n
 Don't create ${BOLD}${RED}linux swap${RESET}, LangitKetujuh using zram to replace linux swap. \
+${BOLD}WARNING: /usr is not supported as a separate partition.${RESET}\n
 ${RESET}\n" 15 80
             if [ $? -eq 0 ]; then
                 while true; do
@@ -710,7 +723,7 @@ ${RESET}" 11 75
     done
 
     while true; do
-        _preset=$(get_option USERNAME)
+        _preset=$
         DIALOG --title "Full name for user" --msgbox "\n
 Full name suggested start with a ${BOLD}${RED}upper case${RESET} or ${BOLD}${RED}lower case letter${RESET}, \
 followed by upper case letters ${BOLD}${RED}[A-Z]${RESET}, lower case letters ${BOLD}${RED}[a-z]${RESET}, \
@@ -720,7 +733,7 @@ They can end with a dollar sign ${BOLD}${RED}[$]${RESET}. \n\n
 For example: Effendi Studio, Zahra Media, Skylab Production, etc. \
 ${RESET}" 11 75
         [ -z "$_preset" ] && _preset="LangitKetujuh User"
-        DIALOG --inputbox "Enter a full name for login '$(get_option USERLOGIN)' :" \
+        DIALOG --inputbox "Enter a display name for login '$(get_option USERLOGIN)' :" \
             ${INPUTSIZE} "$_preset"
         if [ $? -eq 0 ]; then
             set_option USERNAME "$(cat $ANSWER)"
@@ -793,10 +806,7 @@ ${RESET}" 11 75
 }
 
 set_useraccount() {
-    [ -z "$USERLOGIN_DONE" ] && return
-    [ -z "$USERPASSWORD_DONE" ] && return
-    [ -z "$USERNAME_DONE" ] && return
-    [ -z "$USERGROUPS_DONE" ] && return
+    [ -z "$USERACCOUNT_DONE" ] && return
     chroot $TARGETDIR useradd -m -G "$(get_option USERGROUPS)" \
         -c "$(get_option USERNAME)" "$(get_option USERLOGIN)"
     echo "$(get_option USERLOGIN):$(get_option USERPASSWORD)" | \
@@ -842,23 +852,28 @@ set_bootloader() {
     chroot $TARGETDIR grub-install $grub_args $dev >$LOG 2>&1
     if [ $? -ne 0 ]; then
         DIALOG --msgbox "${BOLD}${RED}ERROR:${RESET} \
-        failed to install GRUB to $dev!\nCheck $LOG for errors." ${MSGBOXSIZE}
+failed to install GRUB to $dev!\nCheck $LOG for errors." ${MSGBOXSIZE}
         DIE 1
     fi
     echo "Running grub-mkconfig on $TARGETDIR..." >$LOG
     chroot $TARGETDIR grub-mkconfig -o /boot/grub/grub.cfg >$LOG 2>&1
     if [ $? -ne 0 ]; then
         DIALOG --msgbox "${BOLD}${RED}ERROR${RESET}: \
-        failed to run grub-mkconfig!\nCheck $LOG for errors." ${MSGBOXSIZE}
+failed to run grub-mkconfig!\nCheck $LOG for errors." ${MSGBOXSIZE}
         DIE 1
     fi
-    chroot $TARGETDIR l7-tools -p >$LOG 2>&1
 }
 
 test_network() {
+    # Reset the global variable to ensure that network is accessible for this test.
+    NETWORK_DONE=
+
     rm -f otime && \
         xbps-uhelper fetch https://repo-fastly.voidlinux.org/current/otime >$LOG 2>&1
-    if [ $? -eq 0 ]; then
+    local status=$?
+    rm -f otime
+
+    if [ "$status" -eq 0 ]; then
         DIALOG --msgbox "Network is working properly!" ${MSGBOXSIZE}
         NETWORK_DONE=1
         return 1
@@ -1017,13 +1032,24 @@ menu_network() {
     fi
 }
 
+validate_useraccount() {
+    # don't check that USERNAME has been set because it can be empty
+    local USERLOGIN=$(get_option USERLOGIN)
+    local USERPASSWORD=$(get_option USERPASSWORD)
+    local USERGROUPS=$(get_option USERGROUPS)
+
+    if [ -n "$USERLOGIN" ] && [ -n "$USERPASSWORD" ] && [ -n "$USERGROUPS" ]; then
+        USERACCOUNT_DONE=1
+    fi
+}
+
 validate_filesystems() {
     local mnts dev size fstype mntpt mkfs rootfound fmt
     local usrfound efi_system_partition
     local bootdev=$(get_option BOOTLOADER)
 
     unset TARGETFS
-    mnts=$(grep -E '^MOUNTPOINT.*' $CONF_FILE | sort -k 5)
+    mnts=$(grep -E '^MOUNTPOINT.*' $CONF_FILE)
     set -- ${mnts}
     while [ $# -ne 0 ]; do
         fmt=""
@@ -1180,10 +1206,6 @@ umount_filesystems() {
             swapoff $dev >$LOG 2>&1
             continue
         fi
-        if [ "$mntpt" != "/" ]; then
-            echo "Unmounting $TARGETDIR/$mntpt..." >$LOG
-            umount $TARGETDIR/$mntpt >$LOG 2>&1
-        fi
     done
     echo "Unmounting $TARGETDIR..." >$LOG
     umount -R $TARGETDIR >$LOG 2>&1
@@ -1283,6 +1305,16 @@ please do so before starting the installation.${RESET}" ${MSGBOXSIZE}
         return 1
     fi
 
+    # Validate useraccount. All parameters must be set (name, password, login name, groups).
+    validate_useraccount
+
+    if [ -z "$USERACCOUNT_DONE" ]; then
+        DIALOG --yesno "${BOLD}The user account is not set up properly.${RESET}\n\n
+${BOLD}${RED}WARNING: no user will be created. You will only be able to login \
+with the root user in your new system.${RESET}\n\n
+${BOLD}Do you want to continue?${RESET}" 10 60 || return
+    fi
+
     DIALOG --yesno "${BOLD}The following operations will be executed:${RESET}\n\n
 ${BOLD}${TARGETFS}${RESET}\n
 ${BOLD}${RED}WARNING: data on partitions will be COMPLETELY DESTROYED for new \
@@ -1293,49 +1325,64 @@ ${BOLD}Do you want to continue?${RESET}" 20 80 || return
     # Create and mount filesystems
     create_filesystems
 
-    # If source not set use defaults.
+    # Set source to use local.
     copy_rootfs
     . /etc/default/live.conf
     rm -f $TARGETDIR/etc/motd
     rm -f $TARGETDIR/etc/issue
     rm -f $TARGETDIR/usr/sbin/langitketujuh-install
     rm -f $TARGETDIR/usr/share/applications/langitketujuh.installer.desktop
+
     # Remove live user.
     echo "Removing $USERNAME live user from targetdir ..." >$LOG
     chroot $TARGETDIR userdel -r $USERNAME >$LOG 2>&1
     rm -f $TARGETDIR/etc/sudoers.d/99-langitketujuh-live
-    # remove doas permissions installer.
+
+    # Remove doas permissions installer.
     sed -i -e "/permit nopass keepenv :wheel cmd langitketujuh-install/d" $TARGETDIR/etc/doas.conf
-    # remove if kde plasma
+
+    # Remove if KDE Plasma
     if [ -f "$TARGETDIR"/usr/bin/plasmashell ]; then
-        # remove modified sddm.conf to let sddm use the defaults.
+        # Remove modified sddm.conf to let sddm use the defaults.
         rm -f $TARGETDIR/etc/sddm.conf
-        # remove installer favorite menu
+        # Remove installer favorite menu
         sed -i 's/langitketujuh.installer.desktop,preferred/preferred/' $TARGETDIR/usr/share/plasma/plasmoids/org.kde.plasma.kickoff/contents/config/main.xml
         sed -i 's/langitketujuh.installer.desktop,preferred/preferred/' $TARGETDIR/usr/share/plasma/plasmoids/org.kde.plasma.kicker/contents/config/main.xml
-        # activate pinentry-qt
+        # Activate pinentry-qt
         chroot $TARGETDIR dracut xbps-alternatives -s pinentry-qt >>$LOG 2>&1
     fi
+
     sed -i "s,GETTY_ARGS=\"--noclear -a $USERNAME\",GETTY_ARGS=\"--noclear\",g" $TARGETDIR/etc/sv/agetty-tty1/conf
+
     TITLE="Check $LOG for details ..."
     INFOBOX "Rebuilding initramfs for target ..." 4 60
     echo "Rebuilding initramfs for target ..." >$LOG
-    # mount required fs
+
+    # Mount required fs
     mount_filesystems
     chroot $TARGETDIR dracut --no-hostonly --add-drivers "ahci" --force >>$LOG 2>&1
     INFOBOX "Removing temporary packages from target ..." 4 60
     echo "Removing temporary packages from target ..." >$LOG
-    xbps-remove -r $TARGETDIR -Ry dialog >>$LOG 2>&1
+    TO_REMOVE="dialog xtools-minimal xmirror"
+    # Only remove espeakup and brltty if it wasn't enabled in the live environment
+    if ! [ -e "/var/service/espeakup" ]; then
+        TO_REMOVE+=" espeakup"
+    fi
+    if ! [ -e "/var/service/brltty" ]; then
+        TO_REMOVE+=" brltty"
+    fi
+    xbps-remove -r $TARGETDIR -Ry $TO_REMOVE >>$LOG 2>&1
     rmdir $TARGETDIR/mnt/target
 
     INFOBOX "Applying installer settings..." 4 60
 
-    # copy target fstab.
+    # Copy target fstab.
     install -Dm644 $TARGET_FSTAB $TARGETDIR/etc/fstab
     # Mount /tmp as tmpfs.
     echo "tmpfs /tmp tmpfs defaults,nosuid,nodev 0 0" >> $TARGETDIR/etc/fstab
 
-    # set up keymap, locale, timezone, hostname, root passwd and user account.
+
+    # Set up keymap, locale, timezone, hostname, root passwd and user account.
     set_keymap
     set_locale
     set_timezone
@@ -1346,6 +1393,7 @@ ${BOLD}Do you want to continue?${RESET}" 20 80 || return
     # Copy /etc/skel files for root.
     cp $TARGETDIR/etc/skel/.[bix]* $TARGETDIR/root
 
+    NETWORK_DONE="$(get_option NETWORK)"
     # network settings for target
     if [ -n "$NETWORK_DONE" ]; then
         local net="$(get_option NETWORK)"
@@ -1463,7 +1511,6 @@ menu() {
         sed -i "s/^USERPASSWORD.*/USERPASSWORD <-hidden->/" /tmp/conf_hidden.$$
         DIALOG --title "Saved settings for installation" --textbox /tmp/conf_hidden.$$ 19 60
         rm /tmp/conf_hidden.$$
-        sed -i "s/^USERPASSWORD.*/USERPASSWORD <-hidden->/" /tmp/conf_hidden.$$
         return
     fi
 
@@ -1474,7 +1521,7 @@ menu() {
         "Locale") menu_locale && [ -n "$LOCALE_DONE" ] && DEFITEM="Timezone";;
         "Timezone") menu_timezone && [ -n "$TIMEZONE_DONE" ] && DEFITEM="RootPassword";;
         "RootPassword") menu_rootpassword && [ -n "$ROOTPASSWORD_DONE" ] && DEFITEM="UserAccount";;
-        "UserAccount") menu_useraccount && [ -n "$USERNAME_DONE" ] && [ -n "$USERPASSWORD_DONE" ] \
+        "UserAccount") menu_useraccount && [ -n "$USERLOGIN_DONE" ] && [ -n "$USERPASSWORD_DONE" ] \
                && DEFITEM="BootLoader";;
         "BootLoader") menu_bootloader && [ -n "$BOOTLOADER_DONE" ] && DEFITEM="Partition";;
         "Partition") menu_partitions && [ -n "$PARTITIONS_DONE" ] && DEFITEM="Filesystems";;
