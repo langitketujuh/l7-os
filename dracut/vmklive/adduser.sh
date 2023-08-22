@@ -13,8 +13,8 @@ USERSHELL=$(getarg live.shell)
 USERCOMMENT="LangitKetujuh Live"
 
 [ -z "$USERNAME" ] && USERNAME=anon
-[ -x $NEWROOT/bin/fish -a -z "$USERSHELL" ] && USERSHELL=/bin/fish
-[ -z "$USERSHELL" ] && USERSHELL=/bin/bash
+[ -x $NEWROOT/usr/bin/fish -a -z "$USERSHELL" ] && USERSHELL=/usr/bin/fish
+[ -z "$USERSHELL" ] && USERSHELL=/usr/bin/bash
 
 # Create /etc/default/live.conf to store USER.
 echo "USERNAME=$USERNAME" >> ${NEWROOT}/etc/default/live.conf
@@ -25,7 +25,7 @@ if ! grep -q ${USERSHELL} ${NEWROOT}/etc/shells ; then
 fi
 
 # Create new user and remove password. We'll use autologin by default.
-chroot ${NEWROOT} useradd -m -s $USERSHELL -c "$USERCOMMENT" -G _pipewire,audio,bluetooth,video,wheel -s $USERSHELL $USERNAME
+chroot ${NEWROOT} useradd -m -c "$USERCOMMENT" -G _pipewire,audio,bluetooth,video,wheel -s $USERSHELL $USERNAME
 chroot ${NEWROOT} passwd -d $USERNAME >/dev/null 2>&1
 
 # Setup default root/user password (langitketujuh).
@@ -54,5 +54,5 @@ _EOF
 fi
 
 if getargbool 0 live.autologin; then
-    sed -i "s,GETTY_ARGS=\"--noclear\",GETTY_ARGS=\"--noclear -a $USERNAME\",g" ${NEWROOT}/etc/sv/agetty-tty1/conf
+        sed -i "s,GETTY_ARGS=\"--noclear\",GETTY_ARGS=\"--noclear -a $USERNAME\",g" ${NEWROOT}/etc/sv/agetty-tty1/conf
 fi
