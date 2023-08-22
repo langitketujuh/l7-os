@@ -44,7 +44,7 @@ build_variant() {
     A11Y_PKGS="espeakup void-live-audio brltty"
     LTS_PKGS="linux-lts linux-lts-headers"
     FW_PKGS="alsa-firmware linux linux-base linux-headers sof-firmware"
-    TOOLS_PKGS="acpi age bluez chezmoi clinfo cryfs curl dbus-elogind dbus-elogind-libs dbus-elogind-x11 diffutils dracut dracut-network dracut-uefi earlyoom elogind encfs exfat-utils f2fs-tools fastfetch fig2dev fish-shell fontconfig gocryptfs gopass gptfdisk helix htop ifuse inetutils inxi iwd librsvg-utils libwebp-tools nano ntfs-3g ntp opendoas optipng pass pinentry pkg-config polkit rnnoise rsv sof-tools tmate tmux udisks2 ufw vim vpsm wget xtools yank zramen"
+    TOOLS_PKGS="acpi age bluez chezmoi clinfo cryfs curl diffutils dracut dracut-network dracut-uefi earlyoom elogind encfs exfat-utils f2fs-tools fastfetch fig2dev fish-shell fontconfig gocryptfs gopass gptfdisk helix htop ifuse inetutils inxi iwd librsvg-utils libwebp-tools nano ntfs-3g ntp opendoas optipng pass pinentry pkg-config polkit rnnoise rsv sof-tools tmate tmux udisks2 ufw vim vpsm wget xtools yank zramen"
     NONFREE_PKGS="void-repo-nonfree cnijfilter2"
 
     BASE_L7_PKGS="l7-repo l7-fish-shell l7-helix l7-opendoas l7-removed-packages l7-runit-void l7-shadow l7-tools"
