@@ -3,25 +3,25 @@ set pager="1"
 set locale_dir="(${langitketujuhlive})/boot/grub/locale"
 
 if [ -e "${prefix}/${grub_cpu}-${grub_platform}/all_video.mod" ]; then
-    insmod all_video
+	insmod all_video
 else
-    insmod efi_gop
-    insmod efi_uga
-    insmod video_bochs
-    insmod video_cirrus
+	insmod efi_gop
+	insmod efi_uga
+	insmod video_bochs
+	insmod video_cirrus
 fi
 
 insmod font
 
 if loadfont "(${langitketujuhlive})/boot/grub/fonts/unicode.pf2" ; then
-    insmod gfxterm
-    set gfxmode="auto"
+	insmod gfxterm
+	set gfxmode="auto"
 
-    terminal_input console
-    terminal_output gfxterm
+	terminal_input console
+	terminal_output gfxterm
 
-    insmod png
-    background_image "(${langitketujuhlive})/boot/isolinux/@@SPLASHIMAGE@@"
+	insmod png
+	background_image "(${langitketujuhlive})/boot/isolinux/@@SPLASHIMAGE@@"
 fi
 
 # Set default menu entry
@@ -33,46 +33,46 @@ timeout_style=menu
 play 600 988 1 1319 4
 
 if [ cpuid -l ]; then
-    menuentry "@@BOOT_TITLE@@ @@KERNVER@@ (@@ARCH@@)" --id "linux" {
-        set gfxpayload="keep"
-        linux (${langitketujuhlive})/boot/vmlinuz \
-        root=live:CDLABEL=LangitKetujuh ro init=/sbin/init \
-        rd.luks=0 rd.md=0 rd.dm=0 loglevel=4 gpt add_efi_memmap \
-        vconsole.unicode=1 vconsole.keymap=@@KEYMAP@@ \
-        locale.LANG=@@LOCALE@@ @@BOOT_CMDLINE@@
-        initrd (${langitketujuhlive})/boot/initrd
-    }
-    menuentry "@@BOOT_TITLE@@ @@LTSKVER@@ LTS (@@ARCH@@)" --id "linuxlts"{
-        set gfxpayload="keep"
-        linux (${langitketujuhlive})/boot/vmlinuz-lts \
-        root=live:CDLABEL=LangitKetujuh ro init=/sbin/init \
-        rd.luks=0 rd.md=0 rd.dm=0 loglevel=4 gpt add_efi_memmap \
-        vconsole.unicode=1 vconsole.keymap=@@KEYMAP@@ \
-        locale.LANG=@@LOCALE@@ @@BOOT_CMDLINE@@
-        initrd (${langitketujuhlive})/boot/initrd-lts
-    }
-    if [ "${grub_platform}" == "efi" ]; then
-        menuentry "Run Memtest86+ (RAM test)" --id memtest {
-            set gfxpayload="keep"
-            linux (${voidlive})/boot/memtest.efi
-        }
-        menuentry 'UEFI Firmware Settings' --id uefifw {
-            fwsetup
-        }
-    else
-        menuentry "Run Memtest86+ (RAM test)" --id memtest {
-            set gfxpayload="keep"
-            linux (${voidlive})/boot/memtest.bin
-        }
-    fi
+	menuentry "@@BOOT_TITLE@@ @@KERNVER@@ (@@ARCH@@)" --id "linux" {
+		set gfxpayload="keep"
+		linux (${langitketujuhlive})/boot/vmlinuz \
+		root=live:CDLABEL=LANGITKETUJUH_LIVE ro init=/sbin/init \
+		rd.luks=0 rd.md=0 rd.dm=0 loglevel=4 gpt add_efi_memmap \
+		vconsole.unicode=1 vconsole.keymap=@@KEYMAP@@ \
+		locale.LANG=@@LOCALE@@ @@BOOT_CMDLINE@@
+		initrd (${langitketujuhlive})/boot/initrd
+	}
+	menuentry "@@BOOT_TITLE@@ @@LTSKVER@@ LTS (@@ARCH@@)" --id "linuxlts"{
+		set gfxpayload="keep"
+		linux (${langitketujuhlive})/boot/vmlinuz-lts \
+		root=live:CDLABEL=LANGITKETUJUH_LIVE ro init=/sbin/init \
+		rd.luks=0 rd.md=0 rd.dm=0 loglevel=4 gpt add_efi_memmap \
+		vconsole.unicode=1 vconsole.keymap=@@KEYMAP@@ \
+		locale.LANG=@@LOCALE@@ @@BOOT_CMDLINE@@
+		initrd (${langitketujuhlive})/boot/initrd-lts
+	}
+	if [ "${grub_platform}" == "efi" ]; then
+		menuentry "Run Memtest86+ (RAM test)" --id memtest {
+			set gfxpayload="keep"
+			linux (${langitketujuhlive})/boot/memtest.efi
+		}
+		menuentry 'UEFI Firmware Settings' --id uefifw {
+			fwsetup
+		}
+	else
+		menuentry "Run Memtest86+ (RAM test)" --id memtest {
+			set gfxpayload="keep"
+			linux (${langitketujuhlive})/boot/memtest.bin
+		}
+	fi
 
-    menuentry "System Restart" --id restart {
-        echo "System rebooting..."
-        reboot
-    }
+	menuentry "System Restart" --id restart {
+		echo "System rebooting..."
+		reboot
+	}
 
-    menuentry "System Shutdown" --id poweroff {
-        echo "System shutting down..."
-        halt
-    }
+	menuentry "System Shutdown" --id poweroff {
+		echo "System shutting down..."
+		halt
+	}
 fi
