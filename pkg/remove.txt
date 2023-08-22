@@ -1,6 +1,0 @@
-ccc
-gimp
-inkscape
-l7-gimp
-l7-export
-l7-inkscape
