@@ -45,7 +45,7 @@ MIRROR_DONE=
 
 TARGETDIR=/mnt/target
 LOG=/dev/tty8
-CONF_FILE=/tmp/.langitketujuh-install.conf
+CONF_FILE=/tmp/.langitketujuh-installer.conf
 if [ ! -f $CONF_FILE ]; then
     touch -f $CONF_FILE
 fi
@@ -99,7 +99,7 @@ WIDGET_SIZE="10 70"
 DIALOG() {
     rm -f $ANSWER
     dialog --colors --keep-tite --no-shadow --no-mouse \
-        --backtitle "${BOLD}${WHITE}LangitKetujuh installation | https://langitketujuh.id (@@MKLIVE_VERSION@@)${RESET}" \
+        --backtitle "${BOLD}${WHITE}LangitKetujuh installation -- https://langitketujuh.id (@@MKLIVE_VERSION@@)${RESET}" \
         --cancel-label "Back" --aspect 20 "$@" 2>$ANSWER
     return $?
 }
@@ -107,7 +107,7 @@ DIALOG() {
 INFOBOX() {
     # Note: dialog --infobox and --keep-tite don't work together
     dialog --colors --no-shadow --no-mouse \
-        --backtitle "${BOLD}${WHITE}LangitKetujuh installation | https://langitketujuh.id (@@MKLIVE_VERSION@@)${RESET}" \
+        --backtitle "${BOLD}${WHITE}LangitKetujuh installation -- https://langitketujuh.id (@@MKLIVE_VERSION@@)${RESET}" \
         --title "${TITLE}" --aspect 20 --infobox "$@"
 }
 
@@ -445,7 +445,6 @@ menu_filesystems() {
         [ $? -ne 0 ] && return
 
         dev=$(cat $ANSWER)
-
         DIALOG --title "Filesystems for $dev " --msgbox "\n
 There are 3 types of mount points that we recommend. \n\n
 1. Boot directory. Current boot mode using ${BOLD}${RED}$EFI_TEXT${RESET}. \n
@@ -455,7 +454,6 @@ There are 3 types of mount points that we recommend. \n\n
 3. Home directory   : ${BOLD}${RED}/home${RESET} (recommend ${BOLD}${RED}ext4${RESET}, ${BOLD}${RED}xfs${RESET}, ${BOLD}${RED}f2fs${RESET} or other filesystem). \n\n
 If your storage is hardisk (not SSD) don't choose ${BOLD}${RED}f2fs${RESET} and ${BOLD}${RED}btrfs${RESET} filesystem. \n
 ${RESET}\n" 15 80
-
         DIALOG --title " Select the filesystem type for $dev " \
             --menu "$MENULABEL" ${MENUSIZE} \
             "btrfs" "Oracle's Btrfs" \
@@ -518,12 +516,12 @@ menu_partitions() {
         if [ $? -eq 0 ]; then
             local software=$(cat $ANSWER)
 
-            DIALOG --title "Modify Partition Table on $device" --msgbox "\n
+        DIALOG --title "Modify Partition Table on $device" --msgbox "\n
 ${BOLD}${software} will be executed in disk ${RED}$device${RESET} with ${BOLD}${RED}$DISK_LABEL${RESET} disklabel type. \
 There are 3 types of partitions that we recommend. \n\n
 1. ${BOLD}${RED}512M${RESET} for boot directory. Current boot mode using ${BOLD}${RED}$EFI_TEXT${RESET}. \n
-   - If UEFI use ${BOLD}${RED}Efi system${RESET} type. \n
-   - If Bios Legacy use ${BOLD}${RED}Linux filesystem${RESET} type & enable ${BOLD}${RED}boot${RESET} flag. \n
+   - If UEFI use ${BOLD}${RED}Efi system${RESET} type with toogle ${BOLD}${RED}\'bios'${RESET} flag. \n
+   - If Bios Legacy use ${BOLD}${RED}Linux filesystem${RESET} type & enable ${BOLD}${RED}\'bios_grub'${RESET} flag. \n
 2. ${BOLD}${RED}40GB${RESET} for root directory. (recommend 50GB or more) \n
 3. ${BOLD}${RED}~ GB${RESET} for home directory. (recommend 100GB or more) \n\n
 Don't create ${BOLD}${RED}linux swap${RESET}, LangitKetujuh using zram to replace linux swap. \
@@ -723,7 +721,7 @@ ${RESET}" 11 75
     done
 
     while true; do
-        _preset=$
+        _preset=$(get_option USERNAME)
         DIALOG --title "Full name for user" --msgbox "\n
 Full name suggested start with a ${BOLD}${RED}upper case${RESET} or ${BOLD}${RED}lower case letter${RESET}, \
 followed by upper case letters ${BOLD}${RED}[A-Z]${RESET}, lower case letters ${BOLD}${RED}[a-z]${RESET}, \
@@ -846,7 +844,7 @@ set_bootloader() {
 
     # Check if it's an EFI system via efivars module.
     if [ -n "$EFI_SYSTEM" ]; then
-        grub_args="--target=$EFI_TARGET --efi-directory=/boot/efi --bootloader-id=LangitKetujuh --recheck"
+        grub_args="--target=$EFI_TARGET --efi-directory=/boot/efi --bootloader-id=langitketujuh --recheck"
     fi
     echo "Running grub-install $grub_args $dev..." >$LOG
     chroot $TARGETDIR grub-install $grub_args $dev >$LOG 2>&1
@@ -869,7 +867,7 @@ test_network() {
     NETWORK_DONE=
 
     rm -f otime && \
-        xbps-uhelper fetch https://repo-fastly.voidlinux.org/current/otime >$LOG 2>&1
+        xbps-uhelper fetch https://repo-default.voidlinux.org/current/otime >$LOG 2>&1
     local status=$?
     rm -f otime
 
@@ -1262,6 +1260,10 @@ install_packages() {
     mkdir -p $TARGETDIR/var/db/xbps/keys $TARGETDIR/usr/share
     cp -a /usr/share/xbps.d $TARGETDIR/usr/share/
     cp /var/db/xbps/keys/*.plist $TARGETDIR/var/db/xbps/keys
+    if [ -n "$MIRROR_DONE" ]; then
+        mkdir -p $TARGETDIR/etc
+        cp -a /etc/xbps.d $TARGETDIR/etc
+    fi
     mkdir -p $TARGETDIR/boot/grub
 
     _arch=$(xbps-uhelper arch)
@@ -1325,64 +1327,68 @@ ${BOLD}Do you want to continue?${RESET}" 20 80 || return
     # Create and mount filesystems
     create_filesystems
 
-    # Set source to use local.
-    copy_rootfs
-    . /etc/default/live.conf
-    rm -f $TARGETDIR/etc/motd
-    rm -f $TARGETDIR/etc/issue
-    rm -f $TARGETDIR/usr/sbin/langitketujuh-install
-    rm -f $TARGETDIR/usr/share/applications/langitketujuh.installer.desktop
-
-    # Remove live user.
-    echo "Removing $USERNAME live user from targetdir ..." >$LOG
-    chroot $TARGETDIR userdel -r $USERNAME >$LOG 2>&1
-    rm -f $TARGETDIR/etc/sudoers.d/99-langitketujuh-live
-
-    # Remove doas permissions installer.
-    sed -i -e "/permit nopass keepenv :wheel cmd langitketujuh-install/d" $TARGETDIR/etc/doas.conf
-
-    # Remove if KDE Plasma
-    if [ -f "$TARGETDIR"/usr/bin/plasmashell ]; then
-        # Remove modified sddm.conf to let sddm use the defaults.
+    SOURCE_DONE="$(get_option SOURCE)"
+    # If source not set use defaults.
+    if [ "$(get_option SOURCE)" = "local" -o -z "$SOURCE_DONE" ]; then
+        copy_rootfs
+        . /etc/default/live.conf
+        rm -f $TARGETDIR/etc/motd
+        rm -f $TARGETDIR/etc/issue
+        rm -f $TARGETDIR/usr/sbin/langitketujuh-installer
+        rm -f $TARGETDIR/usr/share/applications/langitketujuh.installer.desktop
+        # Remove modified sddm.conf to let sddm use the defaults
         rm -f $TARGETDIR/etc/sddm.conf
-        # Remove installer favorite menu
-        sed -i 's/langitketujuh.installer.desktop,preferred/preferred/' $TARGETDIR/usr/share/plasma/plasmoids/org.kde.plasma.kickoff/contents/config/main.xml
-        sed -i 's/langitketujuh.installer.desktop,preferred/preferred/' $TARGETDIR/usr/share/plasma/plasmoids/org.kde.plasma.kicker/contents/config/main.xml
-        # Activate pinentry-qt
-        chroot $TARGETDIR dracut xbps-alternatives -s pinentry-qt >>$LOG 2>&1
+        # Remove doas permissions installer
+        sed -i -e "/permit nopass keepenv :wheel cmd langitketujuh-install/d" $TARGETDIR/etc/doas.conf
+        # Remove live user.
+        echo "Removing $USERNAME live user from targetdir ..." >$LOG
+        chroot $TARGETDIR userdel -r $USERNAME >$LOG 2>&1
+        rm -f $TARGETDIR/etc/sudoers.d/99-langitketujuh-live
+        # Remove if KDE Plasma
+        if [ -f "$TARGETDIR"/usr/bin/plasmashell ]; then
+            # Remove modified sddm.conf to let sddm use the defaults.
+            rm -f $TARGETDIR/etc/sddm.conf
+            # Remove installer favorite menu
+            sed -i 's/langitketujuh.installer.desktop,preferred/preferred/' $TARGETDIR/usr/share/plasma/plasmoids/org.kde.plasma.kickoff/contents/config/main.xml
+            sed -i 's/langitketujuh.installer.desktop,preferred/preferred/' $TARGETDIR/usr/share/plasma/plasmoids/org.kde.plasma.kicker/contents/config/main.xml
+            # Activate pinentry-qt
+            chroot $TARGETDIR dracut xbps-alternatives -s pinentry-qt >>$LOG 2>&1
+        fi
+        sed -i "s,GETTY_ARGS=\"--noclear -a $USERNAME\",GETTY_ARGS=\"--noclear\",g" $TARGETDIR/etc/sv/agetty-tty1/conf
+        TITLE="Check $LOG for details ..."
+        INFOBOX "Rebuilding initramfs for target ..." 4 60
+        echo "Rebuilding initramfs for target ..." >$LOG
+        # mount required fs
+        mount_filesystems
+        chroot $TARGETDIR dracut --no-hostonly --add-drivers "ahci" --force >>$LOG 2>&1
+        INFOBOX "Removing temporary packages from target ..." 4 60
+        echo "Removing temporary packages from target ..." >$LOG
+        TO_REMOVE="dialog xtools-minimal xmirror"
+        # only remove espeakup and brltty if it wasn't enabled in the live environment
+        if ! [ -e "/var/service/espeakup" ]; then
+            TO_REMOVE+=" espeakup"
+        fi
+        if ! [ -e "/var/service/brltty" ]; then
+            TO_REMOVE+=" brltty"
+        fi
+        xbps-remove -r $TARGETDIR -Ry $TO_REMOVE >>$LOG 2>&1
+        rmdir $TARGETDIR/mnt/target
+    else
+        # mount required fs
+        mount_filesystems
+        # network install, use packages.
+        install_packages
     fi
-
-    sed -i "s,GETTY_ARGS=\"--noclear -a $USERNAME\",GETTY_ARGS=\"--noclear\",g" $TARGETDIR/etc/sv/agetty-tty1/conf
-
-    TITLE="Check $LOG for details ..."
-    INFOBOX "Rebuilding initramfs for target ..." 4 60
-    echo "Rebuilding initramfs for target ..." >$LOG
-
-    # Mount required fs
-    mount_filesystems
-    chroot $TARGETDIR dracut --no-hostonly --add-drivers "ahci" --force >>$LOG 2>&1
-    INFOBOX "Removing temporary packages from target ..." 4 60
-    echo "Removing temporary packages from target ..." >$LOG
-    TO_REMOVE="dialog xtools-minimal xmirror"
-    # Only remove espeakup and brltty if it wasn't enabled in the live environment
-    if ! [ -e "/var/service/espeakup" ]; then
-        TO_REMOVE+=" espeakup"
-    fi
-    if ! [ -e "/var/service/brltty" ]; then
-        TO_REMOVE+=" brltty"
-    fi
-    xbps-remove -r $TARGETDIR -Ry $TO_REMOVE >>$LOG 2>&1
-    rmdir $TARGETDIR/mnt/target
 
     INFOBOX "Applying installer settings..." 4 60
 
-    # Copy target fstab.
+    # copy target fstab.
     install -Dm644 $TARGET_FSTAB $TARGETDIR/etc/fstab
     # Mount /tmp as tmpfs.
     echo "tmpfs /tmp tmpfs defaults,nosuid,nodev 0 0" >> $TARGETDIR/etc/fstab
 
 
-    # Set up keymap, locale, timezone, hostname, root passwd and user account.
+    # set up keymap, locale, timezone, hostname, root passwd and user account.
     set_keymap
     set_locale
     set_timezone
@@ -1411,7 +1417,7 @@ ${BOLD}Do you want to continue?${RESET}" 20 80 || return
         elif [ -n "$_dev" -a "$_type" = "static" ]; then
             # static IP through dhcpcd.
             mv $TARGETDIR/etc/dhcpcd.conf $TARGETDIR/etc/dhcpcd.conf.orig
-            echo "# Static IP configuration set by the langitketujuh-install for $_dev." \
+            echo "# Static IP configuration set by the langitketujuh-installer for $_dev." \
                 >$TARGETDIR/etc/dhcpcd.conf
             echo "interface $_dev" >>$TARGETDIR/etc/dhcpcd.conf
             echo "static ip_address=$_ip" >>$TARGETDIR/etc/dhcpcd.conf
@@ -1472,7 +1478,7 @@ menu() {
         DIALOG --default-item $DEFITEM \
             --extra-button --extra-label "Settings" \
             --title " LangitKetujuh installation menu " \
-            --menu "$MENULABEL" 8 70 0 \
+            --menu "$MENULABEL" 10 70 0 \
             "Keyboard" "Set system keyboard" \
             "Network" "Set up the network" \
             "Hostname" "Set system hostname" \
@@ -1489,7 +1495,7 @@ menu() {
         DIALOG --default-item $DEFITEM \
             --extra-button --extra-label "Settings" \
             --title " LangitKetujuh installation menu " \
-            --menu "$MENULABEL" 8 70 0 \
+            --menu "$MENULABEL" 10 70 0 \
             "Keyboard" "Set system keyboard" \
             "Network" "Set up the network" \
             "Hostname" "Set system hostname" \
@@ -1509,7 +1515,7 @@ menu() {
         cp $CONF_FILE /tmp/conf_hidden.$$;
         sed -i "s/^ROOTPASSWORD.*/ROOTPASSWORD <-hidden->/" /tmp/conf_hidden.$$
         sed -i "s/^USERPASSWORD.*/USERPASSWORD <-hidden->/" /tmp/conf_hidden.$$
-        DIALOG --title "Saved settings for installation" --textbox /tmp/conf_hidden.$$ 19 60
+        DIALOG --title "Saved settings for installation" --textbox /tmp/conf_hidden.$$ 14 60
         rm /tmp/conf_hidden.$$
         return
     fi
@@ -1538,7 +1544,7 @@ if ! command -v dialog >/dev/null; then
 fi
 
 if [ "$(id -u)" != "0" ]; then
-   echo "langitketujuh-install must run as root" 1>&2
+   echo "langitketujuh-installer must run as root" 1>&2
    exit 1
 fi
 
