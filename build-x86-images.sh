@@ -47,7 +47,7 @@ build_variant() {
     NONFREE_PKGS="void-repo-nonfree cnijfilter2"
 
     BASE_L7_PKGS="l7-repo l7-fish-shell l7-helix l7-opendoas l7-removed-packages l7-runit-void l7-shadow l7-tools"
-    BASE_PKGS="dialog cryptsetup lvm2 mdadm xtools-minimal xmirror $GRUB_PKGS $A11Y_PKGS $LTS_PKGS $FW_PKGS $TOOLS_PKGS $NONFREE_PKGS $BASE_L7_PKGS"
+    BASE_PKGS="dialog cryptsetup lvm2 mdadm xtools-minimal xmirror $GRUB_PKGS $LTS_PKGS $FW_PKGS $TOOLS_PKGS $NONFREE_PKGS $BASE_L7_PKGS"
 
     AC_PKGS="bsdtar 7zip 7zip-unrar unrar unzip xz zip zstd zutils"
     CODEC_PKGS="alsa-pipewire alsa-utils bluez-alsa gstreamer1-pipewire libjack-pipewire pipewire"
