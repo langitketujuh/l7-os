@@ -45,7 +45,7 @@ die() {
 }
 print_step() {
     CURRENT_STEP=$((CURRENT_STEP+1))
-    info_msg "[${CURRENT_STEP}/${STEP_COUNT}] ($(date +%T)) $@"
+    info_msg "[${CURRENT_STEP}/${STEP_COUNT}] $@"
 }
 mount_pseudofs() {
     for f in sys dev proc; do
@@ -69,28 +69,26 @@ usage() {
 Usage: $PROGNAME [options]
 
 Options:
- -a <xbps-arch>             Set XBPS_ARCH (do not use it unless you know what it is)
- -b <system-pkg>            Set an alternative base-system package (defaults to base-system).
- -r <repo-url>              Use this XBPS repository (may be specified multiple times).
- -c <cachedir>              Use this XBPS cache directory (a subdirectory of current
+ -a <xbps-arch>     Set XBPS_ARCH (do not use it unless you know what it is)
+ -b <system-pkg>    Set an alternative base-system package (defaults to base-system).
+ -r <repo-url>      Use this XBPS repository (may be specified multiple times).
+ -c <cachedir>      Use this XBPS cache directory (a subdirectory of current 
 directory if unset).
- -e <edition>               Edition home or pro (default home)
- -k <keymap>                Default keymap to use (us if unset)
- -l <locale>                Default locale to use (en_US.UTF-8 if unset).
- -i <lz4|gzip|bzip2|xz>     Compression type for the initramfs image (xz if unset).
- -s <gzip|lzo|xz>           Compression type for the squashfs image (xz if unset)
- -o <file>                  Output file name for the ISO image (auto if unset).
- -P "pkg pkgN ..."          Install additional LangitKetujuh Patch into the ISO image.
- -p "pkg pkgN ..."          Install additional packages into the ISO image.
- -I <includedir>            Include directory structure under given path into rootfs
- -S "service serviceN ..."  Services to enable
+ -k <keymap>        Default keymap to use (us if unset)
+ -l <locale>        Default locale to use (en_US.UTF-8 if unset).
+ -i <lz4|gzip|bzip2|xz> Compression type for the initramfs image (xz if unset).
+ -s <gzip|lzo|xz>     Compression type for the squashfs image (xz if unset)
+ -o <file>          Output file name for the ISO image (auto if unset).
+ -p "pkg pkgN ..."  Install additional packages into the ISO image.
+ -I <includedir>    Include directory structure under given path into rootfs
+ -S "service serviceN ..." Services to enable
 
- -C "cmdline args"          Add additional kernel command line arguments.
- -T "title"                 Modify the bootloader title.
- -v linux<version>          Install a custom Linux version on ISO image (linux meta-package if unset).
- -K                         Do not remove builddir.
+ -C "cmdline args"  Add additional kernel command line arguments.
+ -T "title"         Modify the bootloader title.
+ -v linux<version>  Install a custom Linux version on ISO image (linux meta-package if unset).
+ -K                 Do not remove builddir.
 
-The $PROGNAME script generates a live image of the Void Linux distribution.
+The $PROGNAME script generates a live image of the LangitKetujuh distribution.
 This ISO image can be written to a CD/DVD-ROM or any USB stick.
 _EOF
     exit 1
@@ -128,15 +126,6 @@ install_packages() {
         ${XBPS_REPOSITORY} -c "$XBPS_CACHEDIR" -y $PACKAGE_LIST $INITRAMFS_PKGS
     [ $? -ne 0 ] && die "Failed to install $PACKAGE_LIST"
 
-    if [ -n "$REMOVE_LIST" ]; then
-        # Remove packages
-        LANG=C XBPS_ARCH=$BASE_ARCH "${XBPS_INSTALL_CMD}" -S -r "$ROOTFS" \
-            ${XBPS_REPOSITORY} -c "$XBPS_CACHEDIR"
-        LANG=C XBPS_ARCH=$BASE_ARCH "${XBPS_REMOVE_CMD}" -r "$ROOTFS" \
-            -c "$XBPS_CACHEDIR" -y $REMOVE_LIST
-        [ $? -ne 0 ] && die "Failed to remove $REMOVE_LIST"
-    fi
-
     # Grub distributor and init
     sed -i "$ROOTFS"/etc/default/grub -res'#^(GRUB_DISTRIBUTOR).*#GRUB_DISTRIBUTOR="LangitKetujuh"#'
     sed -i 's/Void/LangitKetujuh/g' "$ROOTFS"/etc/runit/1
@@ -156,19 +145,6 @@ install_packages() {
     # Change default fish-shell for root
     chroot "$ROOTFS" env -i chsh -s /usr/bin/fish root
 
-    xbps-reconfigure -r "$ROOTFS" -f base-files >/dev/null 2>&1
-    chroot "$ROOTFS" env -i xbps-reconfigure -f base-files
-
-    # Enable choosen UTF-8 locale and generate it into the target rootfs.
-    if [ -f "$ROOTFS"/etc/default/libc-locales ]; then
-        sed -e "s/\#\(${LOCALE}.*\)/\1/g" -i "$ROOTFS"/etc/default/libc-locales
-    fi
-
-    # Enable Fastly repository by default
-    mkdir -p "$ROOTFS"/etc/xbps.d
-    cp -a "$ROOTFS"/usr/share/xbps.d/*-repository-*.conf "$ROOTFS"/etc/xbps.d/
-    sed -i 's|repo-default|repo-fastly|g' "$ROOTFS"/etc/xbps.d/*-repository-*.conf
-
     # Add installer applications desktop
     if [ -x installer.sh ]; then
         install -Dm755 installer.sh "$ROOTFS"/usr/sbin/langitketujuh-install
@@ -187,6 +163,13 @@ install_packages() {
         sed -i 's/preferred/langitketujuh.installer.desktop,preferred/' "$ROOTFS"/usr/share/plasma/plasmoids/org.kde.plasma.kicker/contents/config/main.xml
     fi
 
+    xbps-reconfigure -r "$ROOTFS" -f base-files >/dev/null 2>&1
+    chroot "$ROOTFS" env -i xbps-reconfigure -f base-files
+
+    # Enable choosen UTF-8 locale and generate it into the target rootfs.
+    if [ -f "$ROOTFS"/etc/default/libc-locales ]; then
+        sed -e "s/\#\(${LOCALE}.*\)/\1/g" -i "$ROOTFS"/etc/default/libc-locales
+    fi
     chroot "$ROOTFS" env -i xbps-reconfigure -a
 
     # Cleanup and remove useless stuff.
@@ -222,9 +205,9 @@ generate_initramfs() {
     [ $? -ne 0 ] && die "Failed to generate the initramfs"
 
     mv "$ROOTFS"/boot/initrd "$BOOT_DIR"
-    mv "$ROOTFS"/boot/initrd-lts "$BOOT_DIR"
-
     cp "$ROOTFS"/boot/vmlinuz-$KERNELVERSION "$BOOT_DIR"/vmlinuz
+
+    mv "$ROOTFS"/boot/initrd-lts "$BOOT_DIR"
     cp "$ROOTFS"/boot/vmlinuz-$LTSKERNELVERSION "$BOOT_DIR"/vmlinuz-lts
 }
 
@@ -351,7 +334,7 @@ generate_iso_image() {
         -iso-level 3 -rock -joliet \
         -max-iso9660-filenames -omit-period \
         -omit-version-number -relaxed-filenames -allow-lowercase \
-        -volid "LANGITKETUJUH" \
+        -volid "LANGITKETUJUH_LIVE" \
         -eltorito-boot boot/isolinux/isolinux.bin \
         -eltorito-catalog boot/isolinux/boot.cat \
         -no-emul-boot -boot-load-size 4 -boot-info-table \
@@ -363,13 +346,12 @@ generate_iso_image() {
 #
 # main()
 #
-while getopts "a:b:r:c:C:e:T:Kk:l:i:I:R:S:s:o:p:v:Vh" opt; do
+while getopts "a:b:r:c:C:T:Kk:l:i:I:S:s:o:p:v:Vh" opt; do
     case $opt in
         a) BASE_ARCH="$OPTARG";;
         b) BASE_SYSTEM_PKG="$OPTARG";;
         r) XBPS_REPOSITORY="--repository=$OPTARG $XBPS_REPOSITORY";;
         c) XBPS_CACHEDIR="$OPTARG";;
-        e) EDITION="$OPTARG";;
         K) readonly KEEP_BUILDDIR=1;;
         k) KEYMAP="$OPTARG";;
         l) LOCALE="$OPTARG";;
@@ -379,7 +361,6 @@ while getopts "a:b:r:c:C:e:T:Kk:l:i:I:R:S:s:o:p:v:Vh" opt; do
         s) SQUASHFS_COMPRESSION="$OPTARG";;
         o) OUTPUT_FILE="$OPTARG";;
         p) PACKAGE_LIST="$PACKAGE_LIST $OPTARG";;
-        R) REMOVE_LIST="$OPTARG";;
         C) BOOT_CMDLINE="$OPTARG";;
         T) BOOT_TITLE="$OPTARG";;
         v) LINUX_VERSION="$OPTARG";;
@@ -389,7 +370,7 @@ while getopts "a:b:r:c:C:e:T:Kk:l:i:I:R:S:s:o:p:v:Vh" opt; do
 done
 shift $((OPTIND - 1))
 START_TIME=$(date +%s)
-XBPS_REPOSITORY="$XBPS_REPOSITORY --repository=https://repo-fastly.voidlinux.org/current --repository=https://repo-fastly.voidlinux.org/current/nonfree --repository=https://repo-fastly.voidlinux.org/current/musl --repository=https://repo-fastly.voidlinux.org/current/musl/nonfree --repository=https://repo-fatih.langitketujuh.id/current --repository=https://repo-fatih.langitketujuh.id/current/musl"
+XBPS_REPOSITORY="$XBPS_REPOSITORY --repository=https://repo-default.voidlinux.org/current --repository=https://repo-default.voidlinux.org/current/musl --repository=https://repo-default.voidlinux.org/current/aarch64 --repository=https://repo-default.voidlinux.org/current/nonfree --repository=https://repo-fatih.langitketujuh.id/current --repository=https://repo-fatih.langitketujuh.id/current/musl --repository=https://repo-fatih.langitketujuh.id/aarch64 --repository=https://repo-fatih.langitketujuh.id/current/musl"
 
 # Configure dracut to use overlayfs for the writable overlay.
 BOOT_CMDLINE="$BOOT_CMDLINE rd.live.overlay.overlayfs=1 "
@@ -406,7 +387,6 @@ ARCH=$(xbps-uhelper arch)
 : ${SQUASHFS_COMPRESSION:=xz}
 : ${BASE_SYSTEM_PKG:=base-system}
 : ${BOOT_TITLE:="LangitKetujuh"}
-: ${EDITION:="kde-home"}
 
 case $BASE_ARCH in
     x86_64*|i686*) ;;
@@ -479,7 +459,7 @@ if [ "$?" -ne "0" ]; then
     die "Failed to find kernel package version"
 fi
 
-: ${OUTPUT_FILE="langitketujuh-${EDITION}-${BASE_ARCH}-${KERNELVERSION}-$(date -u +%Y%m%d)-$(pwgen -sA 7 1).iso"}
+: ${OUTPUT_FILE="langitketujuh-live-${BASE_ARCH}-${KERNELVERSION}-$(date -u +%Y%m%d).iso"}
 
 print_step "Installing software to generate the image: ${REQUIRED_PKGS} ..."
 install_prereqs
