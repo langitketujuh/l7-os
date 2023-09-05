@@ -147,15 +147,15 @@ install_packages() {
 
     # Add installer applications desktop
     if [ -x installer.sh ]; then
-        install -Dm755 installer.sh "$ROOTFS"/usr/sbin/langitketujuh-install
+        install -Dm755 installer.sh "$ROOTFS"/usr/sbin/langitketujuh-installer
         install -Dm755 data/installer.desktop "$ROOTFS"/usr/share/applications/langitketujuh.installer.desktop
     else
-        install -Dm755 /usr/sbin/langitketujuh-install "$ROOTFS"/usr/sbin/langitketujuh-install
+        install -Dm755 /usr/sbin/langitketujuh-installer "$ROOTFS"/usr/sbin/langitketujuh-installer
         install -Dm755 data/installer.desktop "$ROOTFS"/usr/share/applications/langitketujuh.installer.desktop
     fi
 
     # Add permit installer for doas
-    echo "permit nopass keepenv :wheel cmd langitketujuh-install" >> "$ROOTFS"/etc/doas.conf
+    echo "permit nopass keepenv :wheel cmd langitketujuh-installer" >> "$ROOTFS"/etc/doas.conf
 
     # Add installer to favorite plasma menu
     if [ -f "$ROOTFS"/usr/bin/plasmashell ]; then

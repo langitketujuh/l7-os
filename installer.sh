@@ -1339,7 +1339,7 @@ ${BOLD}Do you want to continue?${RESET}" 20 80 || return
         # Remove modified sddm.conf to let sddm use the defaults
         rm -f $TARGETDIR/etc/sddm.conf
         # Remove doas permissions installer
-        sed -i -e "/permit nopass keepenv :wheel cmd langitketujuh-install/d" $TARGETDIR/etc/doas.conf
+        sed -i -e "/permit nopass keepenv :wheel cmd langitketujuh-installer/d" $TARGETDIR/etc/doas.conf
         # Remove live user.
         echo "Removing $USERNAME live user from targetdir ..." >$LOG
         chroot $TARGETDIR userdel -r $USERNAME >$LOG 2>&1
