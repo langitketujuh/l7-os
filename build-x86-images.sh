@@ -54,7 +54,7 @@ build_variant() {
     BASEG_PKGS="android-tools android-udev-rules flatpak gnome-keyring wayclip wayland-utils xclip"
     XF86_PKGS="xf86-input-evdev xf86-input-joystick xf86-input-libinput xf86-input-mtrack xf86-input-synaptics xf86-input-vmmouse xf86-input-wacom"
     XORG_PKGS="xorg-minimal xorg-input-drivers xorg-video-drivers setxkbmap xauth font-misc-misc terminus-font dejavu-fonts-ttf orca"
-    VULKAN_PKGS="Vulkan-Headers Vulkan-Tools Vulkan-ValidationLayers amdvlk libspa-vulkan mesa-vulkan-overlay-layer vkBasalt"
+    VULKAN_PKGS="Vulkan-Headers Vulkan-Tools Vulkan-ValidationLayers amdvlk libspa-vulkan mesa-vulkan-intel mesa-vulkan-overlay-layer mesa-vulkan-radeon vkBasalt"
     KDE_PKGS="appmenu-gtk3-module colord-kde ffmpegthumbs kde5 kdegraphics-thumbnailers kidentitymanagement kimageformats kio-gdrive ksuperkey libappindicator pinentry-qt plasma-applet-active-window-control plasma-disks plasma-firewall plasma-nm plasma-pa plasma-vault plasma-wayland-protocols qt5-imageformats qt6-wayland sddm konsole dolphin"
     KDEA_PKGS="ark dragon-player elisa gnupg2-scdaemon gwenview kamoso kcalc kcm-wacomtablet kde5-baseapps kdeconnect kfind kgpg kmediaplayer krdc krename krfb ktorrent kwalletmanager okular partitionmanager print-manager skanpage spectacle sweeper"
     FONT_PKGS="amiri-font font-adobe-source-code-pro font-adobe-source-sans-pro-v2 font-adobe-source-serif-pro font-awesome font-awesome5 font-awesome6 font-crosextra-caladea-ttf font-crosextra-carlito-ttf font-liberation-narrow-ttf noto-fonts-emoji ttf-opensans"
