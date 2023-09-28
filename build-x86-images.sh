@@ -69,7 +69,7 @@ build_variant() {
 
     STD_CODEC_PKGS="alsa-plugins-ffmpeg cdparanoia flac fluidsynth gst-plugins-ugly1 gstreamer-vaapi libspa-bluetooth libspa-jack mplayer opus-tools speex timidity twolame vorbis-tools vorbisgain wavpack"
     STD_PLUGIN_PKGS="gimp-lqr-plugin gmic gmic-gimp inkscape-generate-palette inkscape-incadiff inkscape-inx-pathops inkscape-nextgenerator"
-    STD_AUDIO_PKGS="Carla ardour audacity cadence calf freepats jack_capture kid3 lmms python3-rdflib qtractor soundkonverter"
+    STD_AUDIO_PKGS="Carla ardour audacity cadence freepats jack_capture kid3 lmms python3-rdflib qtractor soundkonverter"
     STD_AUDIOP_PKGS="abGate artyfx invada-studio-plugins invada-studio-plugins-lv2 swh-lv2 x42-plugins"
     STD_VIDEOED_PKGS="obs handbrake kdenlive mediainfo mkvtoolnix-gui"
     STD_ANIM_PKGS="goxel blender opentoonz synfigstudio"
@@ -80,13 +80,12 @@ build_variant() {
     STD_PAINT_PKGS="gmic-krita krita"
     STD_KEY_PKGS="screenkey slop"
     STD_FONTM_PKGS="fontforge"
-    STD_CMON_PKGS="dispcalGUI"
     STD_PROMP_PKGS="qprompt"
     STD_PANO_PKGS="hugin"
     STD_GAME_PKGS="godot"
     STD_L7_PKGS="l7-ardour l7-audacity l7-blender l7-carla l7-godot l7-goxel l7-krita l7-openscad l7-opentoonz l7-scribus"
 
-    STUDIO_PKGS="$STD_CODEC_PKGS $STD_PLUGIN_PKGS $STD_AUDIO_PKGS $STD_AUDIOP_PKGS $STD_VIDEOED_PKGS $STD_ANIM_PKGS $STD_PHOTOG_PKGS $STD_FONT_PKGS $STD_PROD_PKGS $STD_LAY_PKGS $STD_PAINT_PKGS $STD_KEY_PKGS $STD_FONTM_PKGS $STD_CMON_PKGS $STD_PROMP_PKGS $STD_PANO_PKGS $STD_GAME_PKGS $STD_L7_PKGS"
+    STUDIO_PKGS="$STD_CODEC_PKGS $STD_PLUGIN_PKGS $STD_AUDIO_PKGS $STD_AUDIOP_PKGS $STD_VIDEOED_PKGS $STD_ANIM_PKGS $STD_PHOTOG_PKGS $STD_FONT_PKGS $STD_PROD_PKGS $STD_LAY_PKGS $STD_PAINT_PKGS $STD_KEY_PKGS $STD_FONTM_PKGS $STD_PROMP_PKGS $STD_PANO_PKGS $STD_GAME_PKGS $STD_L7_PKGS"
 
     SERVICES="sshd"
 
