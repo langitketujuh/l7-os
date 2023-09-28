@@ -68,7 +68,7 @@ build_variant() {
     HOME_PKGS="$AC_PKGS $CODEC_PKGS $BASEG_PKGS $XF86_PKGS $XORG_PKGS $VULKAN_PKGS $KDE_PKGS $KDEA_PKGS $FONT_PKGS $PRINTER_PKGS $DESKTOP_PKGS $XDG_PKGS $COSM_PKGS $KDE_L7_PKGS $HOME_L7_PKGS"
 
     STD_CODEC_PKGS="alsa-plugins-ffmpeg cdparanoia flac fluidsynth gst-plugins-ugly1 gstreamer-vaapi libspa-bluetooth libspa-jack mplayer opus-tools speex timidity twolame vorbis-tools vorbisgain wavpack"
-    STD_PLUGIN_PKGS="gimp-lqr-plugin gmic gmic-gimp inkscape-generate-palette inkscape-incadiff inkscape-inx-pathops inkscape-nextgenerator resynthesizer"
+    STD_PLUGIN_PKGS="gimp-lqr-plugin gmic gmic-gimp inkscape-generate-palette inkscape-incadiff inkscape-inx-pathops inkscape-nextgenerator"
     STD_AUDIO_PKGS="Carla ardour audacity cadence calf freepats jack_capture kid3 lmms python3-rdflib qtractor soundkonverter"
     STD_AUDIOP_PKGS="abGate artyfx invada-studio-plugins invada-studio-plugins-lv2 swh-lv2 x42-plugins"
     STD_VIDEOED_PKGS="obs handbrake kdenlive mediainfo mkvtoolnix-gui"
