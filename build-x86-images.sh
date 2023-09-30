@@ -71,7 +71,7 @@ build_variant() {
     STD_PLUGIN_PKGS="gimp-lqr-plugin gmic gmic-gimp inkscape-generate-palette inkscape-incadiff inkscape-inx-pathops inkscape-nextgenerator"
     STD_AUDIO_PKGS="Carla ardour audacity cadence freepats jack_capture kid3 lmms python3-rdflib qtractor soundkonverter"
     STD_AUDIOP_PKGS="abGate artyfx invada-studio-plugins invada-studio-plugins-lv2 swh-lv2 x42-plugins"
-    STD_VIDEOED_PKGS="obs handbrake kdenlive mediainfo mkvtoolnix-gui"
+    STD_VIDEOED_PKGS="obs handbrake kdenlive mediainfo mkvtoolnix-gui projectM"
     STD_ANIM_PKGS="goxel blender opentoonz synfigstudio"
     STD_PHOTOG_PKGS="Converseen digikam rawtherapee"
     STD_FONT_PKGS="font-inter google-fonts-ttf"
